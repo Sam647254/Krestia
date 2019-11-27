@@ -1,6 +1,6 @@
 ﻿namespace KrestiaVortilo
 
-module Vorttipoj =
+module Vorttipo =
    type Inflekcio =
    | Infinitivo
    | NekonitaNombro
@@ -27,8 +27,14 @@ module Vorttipoj =
 
    type Vortformo = Vorttipo * Inflekcio
    type VorttipoKontrolilo = (string -> bool)
+   type Vorttraktilo = {
+      Formo : Vortformo
+      Kontroli : (string -> bool)
+      Inflekti : (Vortformo -> string -> string)
+      Malinflekti : (string -> (string * Vortformo))
+   }
 
-   let kontrolilaro: (Vortformo * VorttipoKontrolilo) list = [
+   let _kontrolilaro: (Vortformo * VorttipoKontrolilo) list = [
       ((NombrigeblaKlaso, Infinitivo),
          fun s ->
             [ "pu"; "po"; "paa"; "tu"; "to"; "taa"; "ku"; "ko"; "kaa"]
@@ -48,9 +54,3 @@ module Vorttipoj =
             [ "miva"; "meva"; "mava"; "niva"; "neva"; "nava"]
             |> List.exists (fun finaĵo -> s.EndsWith(finaĵo)))
    ]
-
-   let kontroli (vorto: string): Vortformo option =
-      kontrolilaro
-      |> List.tryFind (fun (_, kontrolilo) -> (kontrolilo vorto))
-      |> Option.map (fun (formo, _) -> formo)
-      

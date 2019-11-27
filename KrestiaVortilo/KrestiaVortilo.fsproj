@@ -6,6 +6,8 @@
 
   <ItemGroup>
     <Compile Include="Vorttipo.fs" />
+    <Compile Include="KlasoTrakiloj.fs" />
+    <Compile Include="Trakilaro.fs" />
   </ItemGroup>
 
 </Project>
