@@ -2,7 +2,7 @@
 
 open Vorttipo
 
-module KlasoTrakiloj =
+module NombrigeblaKlasoTrakiloj =
 
    let nekAlInfFinaĵoj =
       [ ('i', "u")
@@ -10,19 +10,20 @@ module KlasoTrakiloj =
         ('a', "aa") ]
       |> Map.ofList
 
-   let infinitivoFinaĵoj =
+   let nombrigeblaInfinitivoFinaĵoj =
       [ "pu"; "po"; "paa"; "tu"; "to"; "taa"; "ku"; "ko"; "kaa"; "etio"; "oniaa" ]
    let nombrigeblaNekonitaNombroFinaĵoj =
       [ "pi"; "pe"; "pa"; "ti"; "te"; "ta"; "ki"; "ke"; "ka"; "etie"; "onia" ]
+
    let transitivaAgantoFinaĵoj = [ "petio"; "tetio"; "ketio" ]
    let nombrigeblaPredikativoEstiFinaĵoj =
-      infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "wa")
+      nombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "wa")
    let nombrigeblaAtributivoEstiFinaĵoj =
-      infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ga")
+      nombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ga")
    let nombrigeblaPredikativoHaviFinaĵoj =
-      infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "tra")
+      nombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "tra")
    let nombrigeblaAtributivoHaviFinaĵoj =
-      infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "tre")
+      nombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "tre")
    let translativoFinaĵoj =
       nombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "las")
    let ĝerundoFinaĵoj =
@@ -47,7 +48,7 @@ module KlasoTrakiloj =
    let trakiloj: Vorttraktilo list = [
       { Formo = (NombrigeblaKlaso, Infinitivo)
         Kontroli = fun vorto ->
-          infinitivoFinaĵoj
+          nombrigeblaInfinitivoFinaĵoj
           |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
         Inflekti = fun formo vorto -> failwith "???"
         Malinflekti = fun vorto -> (vorto, (NombrigeblaKlaso, Infinitivo)) }
@@ -127,5 +128,4 @@ module KlasoTrakiloj =
         Inflekti = fun formo vorto -> failwith "???"
         Malinflekti = fun vorto ->
            let malinflektitaVorto = vorto.Substring(0, vorto.Length - 2) |> infinitivigi
-           (malinflektitaVorto, normaligi malinflektitaVorto) }
-      ]
+           (malinflektitaVorto, normaligi malinflektitaVorto) } ]

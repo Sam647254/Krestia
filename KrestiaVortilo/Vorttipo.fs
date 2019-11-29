@@ -16,12 +16,18 @@ module Vorttipo =
    | Aganto
    | Translativo
    | Ĝerundo
+   | PartaNominativo
+   | PartaAkuzativo
+   | PartaDativo
 
    type Vorttipo =
    | NombrigeblaKlaso
    | NenombrigeblaKlaso
    | TransitivaVerbo
    | NetransitivaVerbo
+   | MalplenaVerbo
+   | PartaTransitivaVerbo
+   | PartaNetransitivaVerbo
    | Priskribanto
    | Lokokupilo
 

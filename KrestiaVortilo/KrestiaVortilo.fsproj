@@ -6,7 +6,8 @@
 
   <ItemGroup>
     <Compile Include="Vorttipo.fs" />
-    <Compile Include="KlasoTrakiloj.fs" />
+    <Compile Include="NombrigeblaKlasoTrakiloj.fs" />
+    <Compile Include="NenombrigeblaKlasoTrakiloj.fs" />
     <Compile Include="Trakilaro.fs" />
   </ItemGroup>
 
