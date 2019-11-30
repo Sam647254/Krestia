@@ -11,6 +11,12 @@ type NenombrigeblaKlasoTestoj () =
    [<TestMethod>]
    member _.KontroliTesto () =
       [ ("gremu", Infinitivo)
-        ("gremi", NekonitaNombro) ]
+        ("gremi", NekonitaNombro)
+        ("gremuwa", PredikativoEsti)
+        ("gremuga", AtributativoEsti)
+        ("gremura", PredikativoHavi)
+        ("gremure", AtributativoHavi)
+        ("gremilas", Translativo)
+        ("gremiva", Ĝerundo) ]
       |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto NenombrigeblaKlaso inflekcio)
       |> ignore

@@ -11,6 +11,8 @@
     <Compile Include="Testiloj.fs" />
     <Compile Include="NombrigeblaKlasoTestoj.fs" />
     <Compile Include="NenombrigeblaKlasoTestoj.fs" />
+    <Compile Include="TransitivaVerboTestoj.fs" />
+    <Compile Include="NetransitivaVerboTestoj.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

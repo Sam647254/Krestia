@@ -12,6 +12,7 @@ module Vorttipo =
    | AtributativoEsti
    | PredikativoHavi
    | AtributativoHavi
+   | Imperativo
    | Patiento
    | Aganto
    | Translativo

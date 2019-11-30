@@ -11,19 +11,19 @@ module NombrigeblaKlasoTrakiloj =
       |> Map.ofList
 
    let nombrigeblaInfinitivoFinaĵoj =
-      [ "pu"; "po"; "paa"; "tu"; "to"; "taa"; "ku"; "ko"; "kaa"; "etio"; "oniaa" ]
+      [ "pu"; "po"; "paa"; "tu"; "to"; "taa"; "ku"; "ko"; "kaa" ]
    let nombrigeblaNekonitaNombroFinaĵoj =
-      [ "pi"; "pe"; "pa"; "ti"; "te"; "ta"; "ki"; "ke"; "ka"; "etie"; "onia" ]
+      [ "pi"; "pe"; "pa"; "ti"; "te"; "ta"; "ki"; "ke"; "ka"; "onia"; "etie"; "orie" ]
 
-   let transitivaAgantoFinaĵoj = [ "petio"; "tetio"; "ketio" ]
+   let agantoFinaĵoj = [ "petio"; "tetio"; "ketio"; "setio" ]
    let nombrigeblaPredikativoEstiFinaĵoj =
       nombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "wa")
    let nombrigeblaAtributivoEstiFinaĵoj =
       nombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ga")
    let nombrigeblaPredikativoHaviFinaĵoj =
-      nombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "tra")
+      nombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ra")
    let nombrigeblaAtributivoHaviFinaĵoj =
-      nombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "tre")
+      nombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "re")
    let translativoFinaĵoj =
       nombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "las")
    let ĝerundoFinaĵoj =
@@ -31,7 +31,7 @@ module NombrigeblaKlasoTrakiloj =
 
    let ĉuNetransitiaVerboAganto (infinitivo: string) = infinitivo.EndsWith("setio")
    let ĉuTransitivaVerboAganto (infinitivo: string) =
-      transitivaAgantoFinaĵoj |> List.exists (fun finaĵo -> infinitivo.EndsWith(finaĵo))
+      agantoFinaĵoj |> List.exists (fun finaĵo -> infinitivo.EndsWith(finaĵo))
    let ĉuTransitivaVerboPatiento (infinitivo: string) = infinitivo.EndsWith("oniaa")
 
    let normaligi infinitivo =
@@ -100,7 +100,7 @@ module NombrigeblaKlasoTrakiloj =
            |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
         Inflekti = fun formo vorto -> failwith "???"
         Malinflekti = fun vorto ->
-           let malinflektitaVorto = vorto.Substring(0, vorto.Length - 3)
+           let malinflektitaVorto = vorto.Substring(0, vorto.Length - 2)
            (malinflektitaVorto, normaligi malinflektitaVorto) }
 
       { Formo = (NombrigeblaKlaso, AtributativoHavi)
@@ -109,7 +109,7 @@ module NombrigeblaKlasoTrakiloj =
            |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
         Inflekti = fun formo vorto -> failwith "???"
         Malinflekti = fun vorto ->
-           let malinflektitaVorto = vorto.Substring(0, vorto.Length - 3)
+           let malinflektitaVorto = vorto.Substring(0, vorto.Length - 2)
            (malinflektitaVorto, normaligi malinflektitaVorto) }
 
       { Formo = (NombrigeblaKlaso, Translativo)

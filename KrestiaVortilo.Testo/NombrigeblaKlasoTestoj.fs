@@ -16,8 +16,8 @@ type NombrigeblaKlasoTestoj () =
         ("kreskive", NombrigeblaKlaso, PluraNombro)
         ("kreskuwa", NombrigeblaKlaso, PredikativoEsti)
         ("kreskuga", NombrigeblaKlaso, AtributativoEsti)
-        ("kreskutra", NombrigeblaKlaso, PredikativoHavi)
-        ("kreskutre", NombrigeblaKlaso, AtributativoHavi)
+        ("kreskura", NombrigeblaKlaso, PredikativoHavi)
+        ("kreskure", NombrigeblaKlaso, AtributativoHavi)
         ("kreskilas", NombrigeblaKlaso, Translativo)
         ("kreskiva", NombrigeblaKlaso, Ĝerundo) ]
       |> List.map (fun (vorto, tipo, inflekcio) -> kontroliFormon vorto tipo inflekcio)
@@ -37,7 +37,7 @@ type NombrigeblaKlasoTestoj () =
    member _.MalinflektiTesto2 () =
       [ ("kreskuwa", [ (NombrigeblaKlaso, Infinitivo); (NombrigeblaKlaso, PredikativoEsti) ], "kresku")
         ("kreskuga", [ (NombrigeblaKlaso, Infinitivo); (NombrigeblaKlaso, AtributativoEsti) ], "kresku")
-        ("kreskutra", [ (NombrigeblaKlaso, Infinitivo); (NombrigeblaKlaso, PredikativoHavi) ], "kresku") ]
+        ("kreskura", [ (NombrigeblaKlaso, Infinitivo); (NombrigeblaKlaso, PredikativoHavi) ], "kresku") ]
       |> List.map
          (fun (inflektitaVorto, pravaListo, pravaMalinflektitaVorto) ->
             kontroliInflekcioj inflektitaVorto pravaListo pravaMalinflektitaVorto)
@@ -45,7 +45,7 @@ type NombrigeblaKlasoTestoj () =
 
    [<TestMethod>]
    member _.MalinflektiTesto3 () =
-      [ ("kreskutre", [ (NombrigeblaKlaso, Infinitivo); (NombrigeblaKlaso, AtributativoHavi) ], "kresku")
+      [ ("kreskure", [ (NombrigeblaKlaso, Infinitivo); (NombrigeblaKlaso, AtributativoHavi) ], "kresku")
         ("kreskilas", [ (NombrigeblaKlaso, Infinitivo); (NombrigeblaKlaso, Translativo) ], "kresku")
         ("kreskiva", [ (NombrigeblaKlaso, Infinitivo); (NombrigeblaKlaso, Ĝerundo) ], "kresku") ]
       |> List.map
