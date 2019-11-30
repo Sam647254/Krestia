@@ -1,9 +1,9 @@
 ﻿namespace KrestiaVortilo
 
 open Vorttipo
-open NombrigeblaKlasoTrakiloj
+open NombrigeblaKlasoTraktiloj
 
-module NenombrigeblaKlasoTrakiloj =
+module NenombrigeblaKlasoTraktiloj =
    let nenombrigeblaInfinitivoFinaĵoj = [ "mu"; "mo"; "maa"; "nu"; "no"; "naa" ]
    let nenombrigeblaNekonitaNombroFinaĵoj = [ "mi"; "me"; "ma"; "nu"; "no"; "na" ]
 

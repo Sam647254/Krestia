@@ -6,10 +6,11 @@
 
   <ItemGroup>
     <Compile Include="Vorttipo.fs" />
-    <Compile Include="NombrigeblaKlasoTrakiloj.fs" />
-    <Compile Include="NenombrigeblaKlasoTrakiloj.fs" />
-    <Compile Include="TranslativaVerboTrakiloj.fs" />
-    <Compile Include="Trakilaro.fs" />
+    <Compile Include="NombrigeblaKlasoTraktiloj.fs" />
+    <Compile Include="NenombrigeblaKlasoTraktiloj.fs" />
+    <Compile Include="TranslativaVerboTraktiloj.fs" />
+    <Compile Include="NetransitivaVerboTraktiloj.fs" />
+    <Compile Include="Traktilaro.fs" />
   </ItemGroup>
 
 </Project>

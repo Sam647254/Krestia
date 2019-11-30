@@ -2,7 +2,7 @@
 
 open Vorttipo
 
-module NombrigeblaKlasoTrakiloj =
+module NombrigeblaKlasoTraktiloj =
 
    let nekAlInfFinaĵoj =
       [ ('i', "u")
@@ -33,6 +33,8 @@ module NombrigeblaKlasoTrakiloj =
    let ĉuTransitivaVerboAganto (infinitivo: string) =
       agantoFinaĵoj |> List.exists (fun finaĵo -> infinitivo.EndsWith(finaĵo))
    let ĉuTransitivaVerboPatiento (infinitivo: string) = infinitivo.EndsWith("oniaa")
+   let ĉuTranslativo (infinitivo: string) =
+      translativoFinaĵoj |> List.exists (fun finaĵo -> infinitivo.EndsWith(finaĵo))
 
    let normaligi infinitivo =
       match infinitivo with

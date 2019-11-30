@@ -14,10 +14,10 @@ type NetransitivaVerboTestoj () =
         ("dulavise", Progresivo)
         ("dulaviso", Perfekto)
         ("dulavisie", AtributativoEsti)
-        ("dulavisi", Imperativo)
+        ("dulavisa", Imperativo)
         ("dulavisetio", Aganto)
         ("dulaviselis", Translativo)
         ("dulavisema", Ĝerundo)
         ("dulavisem", PartaNominativo) ]
-      |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto TransitivaVerbo inflekcio)
+      |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto NetransitivaVerbo inflekcio)
       |> ignore

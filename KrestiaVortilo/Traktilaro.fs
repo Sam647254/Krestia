@@ -4,9 +4,10 @@ open Vorttipo
 
 module Trakilaro =
    let traktilaro =
-      NombrigeblaKlasoTrakiloj.trakiloj @
-      NenombrigeblaKlasoTrakiloj.trakiloj @
-      TranslativaVerboTrakiloj.trakiloj
+      NombrigeblaKlasoTraktiloj.trakiloj @
+      NenombrigeblaKlasoTraktiloj.trakiloj @
+      TranslativaVerboTraktiloj.trakiloj @
+      NetransitivaVerboTraktiloj.trakiloj
 
    let kontroli (vorto: string) =
       traktilaro

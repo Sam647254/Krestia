@@ -2,7 +2,7 @@
 
 open Vorttipo
 
-module TranslativaVerboTrakiloj =
+module TranslativaVerboTraktiloj =
    let infinitivoFinaĵoj = [ "p"; "t"; "k" ]
    let progresivoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "re")
    let perfektoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ro")
@@ -12,6 +12,9 @@ module TranslativaVerboTrakiloj =
    let ĝerundoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ema")
    let partaNominativoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "eg")
    let partaAkuzativoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "es")
+
+   let ĉuPartaAkuzativo (infinitivo: string) =
+      partaAkuzativoFinaĵoj |> List.exists (fun finaĵo -> infinitivo.EndsWith(finaĵo))
 
    let normaligi (infinitivo: string) =
       match infinitivo with
