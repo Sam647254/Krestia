@@ -8,6 +8,10 @@ module Vorttipo =
    | PluraNombro
    | Progresivo
    | Perfekto
+   | Estoneco
+   | NominativoVolo
+   | AkuzativoVolo
+   | DativoVolo
    | PredikativoEsti
    | AtributativoEsti
    | PredikativoHavi
@@ -37,9 +41,11 @@ module Vorttipo =
    type Vorttraktilo = {
       Formo : Vortformo
       Kontroli : (string -> bool)
-      Inflekti : (Vortformo -> string -> string)
+      Inflekti : (Vortformo -> string -> string option)
       Malinflekti : (string -> (string * Vortformo))
    }
+
+   let neinflektebla = fun _formo _vorto -> None
 
    let _kontrolilaro: (Vortformo * VorttipoKontrolilo) list = [
       ((NombrigeblaKlaso, Infinitivo),

@@ -8,13 +8,14 @@ module NetransitivaVerboTraktiloj =
       | v when NombrigeblaKlasoTraktiloj.ĉuTranslativo(v) -> (NombrigeblaKlaso, Translativo)
       | v when v.EndsWith("elis") -> (NetransitivaVerbo, Translativo)
       | v when TranslativaVerboTraktiloj.ĉuPartaAkuzativo(v) -> (TransitivaVerbo, PartaAkuzativo)
+      | v when v.EndsWith("dis") -> (Pridiranto, Translativo)
       | _ -> (NetransitivaVerbo, Infinitivo)
 
    let trakiloj: Vorttraktilo list = [
       { Formo = (NetransitivaVerbo, Infinitivo)
         Kontroli = fun vorto ->
            vorto.EndsWith("s") &&
-           not (["las"; "elis"; "pes"; "kes"; "tes"]
+           not (["las"; "elis"; "pes"; "kes"; "tes"; "dis"]
               |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo)))
         Inflekti = fun formo vorto -> failwith "???"
         Malinflekti = fun vorto -> (vorto, (NetransitivaVerbo, Infinitivo)) }
