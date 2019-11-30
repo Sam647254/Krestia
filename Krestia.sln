@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "KrestiaVortilo.Testo", "KrestiaVortilo.Testo\KrestiaVortilo.Testo.fsproj", "{51A4B98B-C381-4D26-8974-30BCDA505A2F}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "KrestiaInterfaco", "KrestiaInterfaco\KrestiaInterfaco.vbproj", "{958DDF24-7A90-421B-8BBE-6233DCF643F9}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "KrestiaInterfaco.Testo", "KrestiaInterfaco.Testo\KrestiaInterfaco.Testo.vbproj", "{F462D333-2B7A-48E7-A085-BE35F280522F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{51A4B98B-C381-4D26-8974-30BCDA505A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51A4B98B-C381-4D26-8974-30BCDA505A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51A4B98B-C381-4D26-8974-30BCDA505A2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{958DDF24-7A90-421B-8BBE-6233DCF643F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{958DDF24-7A90-421B-8BBE-6233DCF643F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{958DDF24-7A90-421B-8BBE-6233DCF643F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{958DDF24-7A90-421B-8BBE-6233DCF643F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F462D333-2B7A-48E7-A085-BE35F280522F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F462D333-2B7A-48E7-A085-BE35F280522F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F462D333-2B7A-48E7-A085-BE35F280522F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F462D333-2B7A-48E7-A085-BE35F280522F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

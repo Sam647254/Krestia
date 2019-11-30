@@ -13,6 +13,7 @@
     <Compile Include="NenombrigeblaKlasoTestoj.fs" />
     <Compile Include="TransitivaVerboTestoj.fs" />
     <Compile Include="NetransitivaVerboTestoj.fs" />
+    <Compile Include="PridirantoTestoj.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

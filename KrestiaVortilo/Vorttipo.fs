@@ -29,7 +29,7 @@ module Vorttipo =
    | MalplenaVerbo
    | PartaTransitivaVerbo
    | PartaNetransitivaVerbo
-   | Priskribanto
+   | Pridiranto
    | Lokokupilo
 
    type Vortformo = Vorttipo * Inflekcio
