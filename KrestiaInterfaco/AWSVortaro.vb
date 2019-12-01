@@ -2,14 +2,17 @@
 
 Public Class AWSVortaro
    Inherits Vortaro
-   Private client As AmazonDynamoDBClient = New AmazonDynamoDBClient()
+   Private Shared ReadOnly tableName = "Krestia-vortaro"
+   Private ReadOnly client As AmazonDynamoDBClient = New AmazonDynamoDBClient()
 
    Sub New()
 
    End Sub
 
-   Protected Overrides Function EkaldoniKlason(vorto As String, animeco As Boolean) As Task
-      Throw New NotImplementedException()
+   Protected Overrides Async Function EkaldoniKlason(vorto As String, animeco As Boolean) As Task
+      Await client.PutItemAsync(tableName,
+                                New Dictionary(Of String, Model.AttributeValue) From
+                                   {{"vorto", New Model.AttributeValue("animeco") With {.BOOL = animeco}}})
    End Function
 
    Protected Overrides Function EkaldoniVerbo(vorto As String, valenco As Integer) As Task
