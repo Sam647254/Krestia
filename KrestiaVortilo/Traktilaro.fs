@@ -2,7 +2,7 @@
 
 open Vorttipo
 
-module Trakilaro =
+module Traktilaro =
    let traktilaro =
       NombrigeblaKlasoTraktiloj.trakiloj @
       NenombrigeblaKlasoTraktiloj.trakiloj @
