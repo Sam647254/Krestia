@@ -1,7 +1,7 @@
 ﻿namespace KrestiaVortilo.Testo
 
 open Microsoft.VisualStudio.TestTools.UnitTesting
-open KrestiaVortilo.Trakilaro
+open KrestiaVortilo.Traktilaro
 open KrestiaVortilo.Vorttipo
 
 module Testiloj =
