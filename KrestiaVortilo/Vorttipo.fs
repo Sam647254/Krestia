@@ -8,7 +8,7 @@ module Vorttipo =
    | PluraNombro
    | Progresivo
    | Perfekto
-   | Estoneco
+   | Estonteco
    | NominativoVolo
    | AkuzativoVolo
    | DativoVolo

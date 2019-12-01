@@ -34,6 +34,27 @@ module NetransitivaVerboTraktiloj =
            let malinflektitaVorto = vorto.Substring(0, vorto.Length - 1)
            (malinflektitaVorto, normaligi malinflektitaVorto) }
 
+      { Formo = (NetransitivaVerbo, Estonteco)
+        Kontroli = fun vorto -> vorto.EndsWith("sela")
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           let malinflektitaVorto = vorto.Substring(0, vorto.Length - 3)
+           (malinflektitaVorto, normaligi malinflektitaVorto) }
+
+      { Formo = (NetransitivaVerbo, NominativoVolo)
+        Kontroli = fun vorto -> vorto.EndsWith("sera")
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           let malinflektitaVorto = vorto.Substring(0, vorto.Length - 3)
+           (malinflektitaVorto, normaligi malinflektitaVorto) }
+
+      { Formo = (NetransitivaVerbo, DativoVolo)
+        Kontroli = fun vorto -> vorto.EndsWith("seri")
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           let malinflektitaVorto = vorto.Substring(0, vorto.Length - 3)
+           (malinflektitaVorto, normaligi malinflektitaVorto) }
+
       { Formo = (NetransitivaVerbo, AtributativoEsti)
         Kontroli = fun vorto -> vorto.EndsWith("sie")
         Inflekti = fun formo vorto -> failwith "???"
