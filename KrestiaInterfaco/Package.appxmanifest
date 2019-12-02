@@ -1,18 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   IgnorableNamespaces="uap mp">
 
-  <Identity Name="f7c527ed-d6cc-4303-b686-0b4435594365"
-            Publisher="CN=Sam"
-            Version="1.0.0.0" />
+  <Identity
+    Name="fdd1c4a9-cbfb-4349-bb44-03ad7511b76b"
+    Publisher="CN=Sam"
+    Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="f7c527ed-d6cc-4303-b686-0b4435594365" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="fdd1c4a9-cbfb-4349-bb44-03ad7511b76b" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>KrestiaInterfaco.Testo</DisplayName>
+    <DisplayName>KrestiaInterfaco</DisplayName>
     <PublisherDisplayName>Sam</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -22,25 +24,26 @@
   </Dependencies>
 
   <Resources>
-    <Resource Language="x-generate" />
+    <Resource Language="x-generate"/>
   </Resources>
+
   <Applications>
-    <Application Id="vstest.executionengine.universal.App"
-        Executable="$targetnametoken$.exe"
-        EntryPoint="KrestiaInterfaco.Testo.App">
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="KrestiaInterfaco.App">
       <uap:VisualElements
-        DisplayName="KrestiaInterfaco.Testo"
+        DisplayName="KrestiaInterfaco"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="KrestiaInterfaco.Testo"
+        Description="KrestiaInterfaco"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>
   </Applications>
+
   <Capabilities>
-    <Capability Name="internetClientServer" />
-    <Capability Name="privateNetworkClientServer" />
+    <Capability Name="internetClient" />
   </Capabilities>
 </Package>
