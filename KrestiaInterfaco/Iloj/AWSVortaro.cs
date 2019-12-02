@@ -1,4 +1,5 @@
-﻿using Amazon.DynamoDBv2;
+﻿using Amazon;
+using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 using KrestiaVortaro;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace KrestiaInterfaco.Iloj {
    class AWSVortaro : Vortaro {
-      private readonly AmazonDynamoDBClient client = new AmazonDynamoDBClient(Sekretoj.AWSCredentials);
+      private readonly AmazonDynamoDBClient client = new AmazonDynamoDBClient(Sekretoj.AWSCredentials, RegionEndpoint.USWest2);
       private const string tableName = "Krestia-vortaro";
 
       protected override async Task EkaldoniKlason(string vorto, bool animeco) {
