@@ -7,21 +7,21 @@
       End If
    End Function
 
-   Public Async Sub AldoniVerbon(vorto As String, valenco As Integer)
+   Public Async Function AldoniVerbon(vorto As String, valenco As Integer) As Task
       If ĈuVerboInfinitivo(vorto) Then
          Await EkaldoniVerbon(vorto, valenco)
       Else
          Throw New InvalidOperationException($"{vorto} ne estas valida infinitivo de verbo")
       End If
-   End Sub
+   End Function
 
-   Public Async Sub AldoniPridiranto(vorto As String)
+   Public Async Function AldoniPridiranto(vorto As String) As Task
       If ĈuVerboInfinitivo(vorto) Then
          Await EkaldoniPridiranton(vorto)
       Else
          Throw New InvalidOperationException($"{vorto} ne estas valida infinitivo de verbo")
       End If
-   End Sub
+   End Function
 
    Public MustOverride Async Function Kvanto() As Task(Of Long)
 

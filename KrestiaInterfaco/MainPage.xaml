@@ -17,11 +17,18 @@
             <AppBarButton
                x:Name="Aldoni_AppBarButton" 
                Icon="Add"
-               Label="Aldoni"
-               Click="Aldoni_Click">
+               Label="Aldoni">
                <AppBarButton.Flyout>
                   <Flyout>
                      <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                           <RadioButton Content="Klaso" x:Name="Klaso_RadioButton"
+                                        Checked="RadioButton_Checked"/>
+                           <RadioButton Content="Verbo" x:Name="Verbo_RadioButton"
+                                        Checked="RadioButton_Checked"/>
+                           <RadioButton Content="Pridiranto" x:Name="Pridiranto_RadioButton"
+                                        Checked="RadioButton_Checked"/>
+                        </StackPanel>
                         <TextBlock x:Name="NovaVorto_TextBlock"
                                    Text="{x:Bind NovaVorto, Mode=OneWay, Converter={StaticResource VorttipoConverter}}"/>
                         <TextBox x:Name="NovaVorto_TextBox"
@@ -29,9 +36,14 @@
                                  Text="{x:Bind NovaVorto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  AllowFocusOnInteraction="True"/>
                         <CheckBox x:Name="ĈuAnimeco_CheckBox"
+                                  Visibility="{x:Bind KreiKlason, Mode=OneWay}"
                                   Content="Havas animecon"/>
-                        <StackPanel x:Name="Valenco_StackPanel"/>
-                        <Button x:Name="Krei_Button" Content="Krei"/>
+                        <Slider x:Name="Valenco_Slider"
+                                Visibility="{x:Bind KreiVerbon, Mode=OneWay}"
+                                Minimum="0"
+                                Maximum="3"/>
+                        <Button x:Name="Krei_Button" Content="Krei"
+                                Click="Aldoni_Click"/>
                      </StackPanel>
                   </Flyout>
                </AppBarButton.Flyout>
