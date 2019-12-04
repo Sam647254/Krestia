@@ -15,6 +15,11 @@
       <CommandBar DefaultLabelPosition="Right">
          <CommandBar.PrimaryCommands>
             <AppBarButton
+               x:Name="AldoniPlurajn_AppBarButton"
+               Icon="Add"
+               Label="Aldoni plurajn"
+               Click="AldoniPlurajn_AppBarButton_Click"/>
+            <AppBarButton
                x:Name="Aldoni_AppBarButton" 
                Icon="Add"
                Label="Aldoni">

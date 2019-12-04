@@ -2,6 +2,7 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 using KrestiaVortaro;
+using MoreLinq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,43 @@ namespace KrestiaInterfaco.Iloj {
 
       public override async Task<long> Kvanto() {
          return (await client.DescribeTableAsync(tableName)).Table.ItemCount;
+      }
+
+      public async Task AldoniPlurajn(IEnumerable<string> vicoj) {
+         var novaVortoj = vicoj.Select(vico => {
+            var partoj = vico.Split("|");
+            var vorto = partoj[0];
+            var valencoAŭAnimeco = partoj[1];
+            var signifo = partoj[2];
+
+            return vorto switch {
+               string v when Kontrolilaro.ĈuKlasoInfinitivo(v) =>
+                  new WriteRequest(new PutRequest(new Dictionary<string, AttributeValue>() {
+                     { "vorto", new AttributeValue(v) },
+                     { "animeco", new AttributeValue() { BOOL = valencoAŭAnimeco == "T" } },
+                     { "signifo", new AttributeValue(signifo) }
+                  })),
+               string v when Kontrolilaro.ĈuVerboInfinitivo(v) =>
+                  new WriteRequest(new PutRequest(new Dictionary<string, AttributeValue>() {
+                     { "vorto", new AttributeValue(v) },
+                     { "valenco", new AttributeValue() { N = valencoAŭAnimeco } },
+                     { "signifo", new AttributeValue(signifo) }
+                  })),
+               string v when Kontrolilaro.ĈuPridiranto(v) =>
+                  new WriteRequest(new PutRequest(new Dictionary<string, AttributeValue>() {
+                     { "vorto", new AttributeValue(v) },
+                     { "signifo", new AttributeValue(signifo) }
+                  })),
+               _ => throw new InvalidOperationException($"Nekonita vorto {vorto}")
+            };
+         });
+         await Task.Run(() => {
+            novaVortoj.Batch(25).ForEach(async grupo => {
+               await client.BatchWriteItemAsync(new Dictionary<string, List<WriteRequest>>() {
+                  { tableName, grupo.ToList() }
+               });
+            });
+         });
       }
    }
 }

@@ -11,6 +11,14 @@ Public Module Kontrolilaro
       Return ĈuEstas(vorto, Vorttipo.TransitivaVerbo, Vorttipo.NetransitivaVerbo, Inflekcio.Infinitivo)
    End Function
 
+   Function ĈuTransitivaVerboInfinitivo(vorto As String) As Boolean
+      Return ĈuEstas(vorto, Vorttipo.TransitivaVerbo, Vorttipo.TransitivaVerbo, Inflekcio.Infinitivo)
+   End Function
+
+   Function ĈuNeTransitivaVerboInfinitivo(vorto As String) As Boolean
+      Return ĈuEstas(vorto, Vorttipo.NenombrigeblaKlaso, Vorttipo.NetransitivaVerbo, Inflekcio.Infinitivo)
+   End Function
+
    Function ĈuPridiranto(vorto As String) As Boolean
       Return ĈuEstas(vorto, Vorttipo.Pridiranto, Vorttipo.Pridiranto, Inflekcio.Infinitivo)
    End Function

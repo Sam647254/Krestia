@@ -9,6 +9,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -24,7 +26,7 @@ namespace KrestiaInterfaco {
    /// Une page vide peut être utilisée seule ou constituer une page de destination au sein d'un frame.
    /// </summary>
    public sealed partial class MainPage : Page, INotifyPropertyChanged {
-      private readonly Vortaro vortaro = new AWSVortaro();
+      private readonly AWSVortaro vortaro = new AWSVortaro();
       private string novaVorto = "";
       private bool KreiKlason {
          get => Klaso_RadioButton.IsChecked ?? false;
@@ -82,6 +84,23 @@ namespace KrestiaInterfaco {
       private void RadioButton_Checked(object sender, RoutedEventArgs e) {
          EcoŜanĝita("KreiKlason");
          EcoŜanĝita("KreiVerbon");
+      }
+
+      private async void AldoniPlurajn_AppBarButton_Click(object sender, RoutedEventArgs e) {
+         var picker = new FileOpenPicker {
+            SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+         };
+         picker.FileTypeFilter.Add(".txt");
+         var file = await picker.PickSingleFileAsync();
+         if (file == null) {
+            return;
+         }
+         var content = await FileIO.ReadLinesAsync(file);
+         await vortaro.AldoniPlurajn(content);
+         await new ContentDialog {
+            Title = "Ĉiujn vortojn aldonis",
+            CloseButtonText = "Bone"
+         }.ShowAsync();
       }
    }
 }
