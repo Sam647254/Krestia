@@ -15,14 +15,15 @@ type TransitivaVerboTestoj () =
         ("buvitokro", Perfekto)
         ("buvitokrie", AtributativoEsti)
         ("buvitokela", Estonteco)
-        ("buvitokera", NominativoVolo)
-        ("buvitokere", AkuzativoVolo)
+        ("buvitokora", NominativoVolo)
+        ("buvitokore", AkuzativoVolo)
         ("buvitokri", Imperativo)
         ("buvitokoniaa", Patiento)
         ("buvitoketio", Aganto)
         ("buvitokelit", Translativo)
         ("buvitokema", Ĝerundo)
         ("buvitokeg", PartaNominativo)
-        ("buvitokes", PartaAkuzativo) ]
+        ("buvitokes", PartaAkuzativo)
+        ("buvitokos", Pasivigo) ]
       |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto TransitivaVerbo inflekcio)
       |> ignore

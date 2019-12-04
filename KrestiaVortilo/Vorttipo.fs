@@ -5,6 +5,7 @@ module Vorttipo =
    | Infinitivo
    | NekonitaNombro
    | UnuNombro
+   | Havaĵo
    | PluraNombro
    | Progresivo
    | Perfekto
@@ -24,6 +25,8 @@ module Vorttipo =
    | PartaNominativo
    | PartaAkuzativo
    | PartaDativo
+   | Pasivigo
+   | Igo
 
    type Vorttipo =
    | NombrigeblaKlaso

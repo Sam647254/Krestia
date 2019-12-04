@@ -13,11 +13,13 @@ type PridirantoTestoj () =
       [ ("perid", Infinitivo)
         ("peride", NekonitaNombro)
         ("perida", UnuNombro)
+        ("peridu", Havaĵo)
         ("peridie", PluraNombro)
         ("peridia", Progresivo)
         ("perido", Perfekto)
         ("peridea", AtributativoEsti)
         ("peridis", Translativo)
-        ("peridi", Ĝerundo) ]
+        ("peridi", Ĝerundo)
+        ("peridet", Igo) ]
       |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto Pridiranto inflekcio)
       |> ignore

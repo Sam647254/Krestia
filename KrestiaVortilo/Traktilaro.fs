@@ -6,7 +6,7 @@ module Traktilaro =
    let traktilaro =
       NombrigeblaKlasoTraktiloj.trakiloj @
       NenombrigeblaKlasoTraktiloj.trakiloj @
-      TranslativaVerboTraktiloj.trakiloj @
+      TransitivaVerboTraktiloj.trakiloj @
       NetransitivaVerboTraktiloj.trakiloj @
       PridirantoTraktiloj.traktiloj
 

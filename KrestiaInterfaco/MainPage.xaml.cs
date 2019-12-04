@@ -52,7 +52,7 @@ namespace KrestiaInterfaco {
          InitializeComponent();
       }
 
-      protected override async void OnNavigatedTo(NavigationEventArgs e) {
+      protected override void OnNavigatedTo(NavigationEventArgs e) {
          base.OnNavigatedTo(e);
       }
 
@@ -96,11 +96,19 @@ namespace KrestiaInterfaco {
             return;
          }
          var content = await FileIO.ReadLinesAsync(file);
-         await vortaro.AldoniPlurajn(content);
-         await new ContentDialog {
-            Title = "Ĉiujn vortojn aldonis",
-            CloseButtonText = "Bone"
-         }.ShowAsync();
+         try {
+            await vortaro.AldoniPlurajn(content);
+            await new ContentDialog {
+               Title = "Ĉiujn vortojn aldonis",
+               CloseButtonText = "Bone"
+            }.ShowAsync();
+         } catch (Exception exception) {
+            await new ContentDialog {
+               Title = "Eraro okazis",
+               Content = exception.Message,
+               CloseButtonText = "Fermi"
+            }.ShowAsync();
+         }
       }
    }
 }

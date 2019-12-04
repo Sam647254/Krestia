@@ -17,7 +17,7 @@ type NetransitivaVerboTestoj () =
         ("dulavisera", NominativoVolo)
         ("dulaviseri", DativoVolo)
         ("dulavisie", AtributativoEsti)
-        ("dulavisa", Imperativo)
+        ("dulavisea", Imperativo)
         ("dulavisetio", Aganto)
         ("dulaviselis", Translativo)
         ("dulavisema", Ĝerundo)

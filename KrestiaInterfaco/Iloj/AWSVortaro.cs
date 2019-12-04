@@ -44,24 +44,28 @@ namespace KrestiaInterfaco.Iloj {
             var vorto = partoj[0];
             var valencoAŭAnimeco = partoj[1];
             var signifo = partoj[2];
+            var radikoj = partoj[3];
 
             return vorto switch {
                string v when Kontrolilaro.ĈuKlasoInfinitivo(v) =>
                   new WriteRequest(new PutRequest(new Dictionary<string, AttributeValue>() {
                      { "vorto", new AttributeValue(v) },
                      { "animeco", new AttributeValue() { BOOL = valencoAŭAnimeco == "T" } },
-                     { "signifo", new AttributeValue(signifo) }
+                     { "signifo", new AttributeValue(signifo) },
+                     { "radikoj", ListiRadikojn(radikoj) }
                   })),
                string v when Kontrolilaro.ĈuVerboInfinitivo(v) =>
                   new WriteRequest(new PutRequest(new Dictionary<string, AttributeValue>() {
                      { "vorto", new AttributeValue(v) },
                      { "valenco", new AttributeValue() { N = valencoAŭAnimeco } },
-                     { "signifo", new AttributeValue(signifo) }
+                     { "signifo", new AttributeValue(signifo) },
+                     { "radikoj", ListiRadikojn(radikoj) }
                   })),
                string v when Kontrolilaro.ĈuPridiranto(v) =>
                   new WriteRequest(new PutRequest(new Dictionary<string, AttributeValue>() {
                      { "vorto", new AttributeValue(v) },
-                     { "signifo", new AttributeValue(signifo) }
+                     { "signifo", new AttributeValue(signifo) },
+                     { "radikoj", ListiRadikojn(radikoj) }
                   })),
                _ => throw new InvalidOperationException($"Nekonita vorto {vorto}")
             };
@@ -73,6 +77,13 @@ namespace KrestiaInterfaco.Iloj {
                });
             });
          });
+      }
+
+      private AttributeValue ListiRadikojn(string radikoj) {
+         return new AttributeValue() {
+            L = radikoj.Split(",").Where(r => r.Length > 0).Select(r => new AttributeValue(r)).ToList(),
+            IsLSet = true
+         };
       }
    }
 }

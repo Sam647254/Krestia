@@ -7,8 +7,9 @@ module NetransitivaVerboTraktiloj =
       match infinitivo with
       | v when NombrigeblaKlasoTraktiloj.ĉuTranslativo(v) -> (NombrigeblaKlaso, Translativo)
       | v when v.EndsWith("elis") -> (NetransitivaVerbo, Translativo)
-      | v when TranslativaVerboTraktiloj.ĉuPartaAkuzativo(v) -> (TransitivaVerbo, PartaAkuzativo)
+      | v when TransitivaVerboTraktiloj.ĉuPartaAkuzativo(v) -> (TransitivaVerbo, PartaAkuzativo)
       | v when v.EndsWith("dis") -> (Pridiranto, Translativo)
+      | v when TransitivaVerboTraktiloj.ĉuPasivigo(v) -> (TransitivaVerbo, Pasivigo)
       | _ -> (NetransitivaVerbo, Infinitivo)
 
    let trakiloj: Vorttraktilo list = [
@@ -63,7 +64,7 @@ module NetransitivaVerboTraktiloj =
            (malinflektitaVorto, normaligi malinflektitaVorto) }
 
       { Formo = (NetransitivaVerbo, Imperativo)
-        Kontroli = fun vorto -> vorto.EndsWith("sa")
+        Kontroli = fun vorto -> vorto.EndsWith("sea")
         Inflekti = fun formo vorto -> failwith "???"
         Malinflekti = fun vorto ->
            let malinflektitaVorto = vorto.Substring(0, vorto.Length - 1)

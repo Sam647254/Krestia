@@ -27,6 +27,12 @@ module PridirantoTraktiloj =
         Malinflekti = fun vorto ->
            (vorto.Substring(0, vorto.Length - 2), (Pridiranto, Infinitivo)) }
 
+      { Formo = (Pridiranto, Havaĵo)
+        Kontroli = fun vorto -> vorto.EndsWith("du")
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           (vorto.Substring(0, vorto.Length - 1), (Pridiranto, Infinitivo)) }
+
       { Formo = (Pridiranto, Progresivo)
         Kontroli = fun vorto -> vorto.EndsWith("dia")
         Inflekti = neinflektebla
@@ -56,4 +62,10 @@ module PridirantoTraktiloj =
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            (vorto.Substring(0, vorto.Length - 1), (Pridiranto, Infinitivo)) }
+
+      { Formo = (Pridiranto, Igo)
+        Kontroli = fun vorto -> vorto.EndsWith("det")
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           (vorto.Substring(0, vorto.Length - 2), (Pridiranto, Infinitivo)) }
       ]

@@ -2,7 +2,7 @@
 
 open Vorttipo
 
-module TranslativaVerboTraktiloj =
+module TransitivaVerboTraktiloj =
    let infinitivoFinaĵoj = [ "p"; "t"; "k" ]
    let progresivoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "re")
    let perfektoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ro")
@@ -13,9 +13,13 @@ module TranslativaVerboTraktiloj =
    let partaNominativoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "eg")
    let partaAkuzativoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "es")
    let estontecoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ela")
-   let nominativoVoloFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "era")
-   let akuzativoVoloFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ere")
+   let nominativoVoloFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ora")
+   let akuzativoVoloFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ore")
    let dativoVoloFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "eri")
+   let pasivigoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "os")
+
+   let ĉuPasivigo (infinitivo: string) =
+      pasivigoFinaĵoj |> List.exists (fun finaĵo -> infinitivo.EndsWith(finaĵo))
 
    let ĉuPartaAkuzativo (infinitivo: string) =
       partaAkuzativoFinaĵoj |> List.exists (fun finaĵo -> infinitivo.EndsWith(finaĵo))
@@ -29,7 +33,8 @@ module TranslativaVerboTraktiloj =
       { Formo = (TransitivaVerbo, Infinitivo)
         Kontroli = fun vorto ->
            infinitivoFinaĵoj |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo)) &&
-           not (vorto.EndsWith("elit"))
+           not (vorto.EndsWith("elit")) &&
+           not (vorto.EndsWith("det"))
         Inflekti = fun formo vorto -> failwith "???"
         Malinflekti = fun vorto -> (vorto, (TransitivaVerbo, Infinitivo)) }
 
@@ -127,6 +132,13 @@ module TranslativaVerboTraktiloj =
       { Formo = (TransitivaVerbo, PartaAkuzativo)
         Kontroli = fun vorto -> partaAkuzativoFinaĵoj |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
         Inflekti = fun formo vorto -> failwith "???"
+        Malinflekti = fun vorto ->
+           let malinflektitaVorto = vorto.Substring(0, vorto.Length - 2)
+           (malinflektitaVorto, normaligi malinflektitaVorto) }
+
+      { Formo = (TransitivaVerbo, Pasivigo)
+        Kontroli = ĉuPasivigo
+        Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            let malinflektitaVorto = vorto.Substring(0, vorto.Length - 2)
            (malinflektitaVorto, normaligi malinflektitaVorto) }

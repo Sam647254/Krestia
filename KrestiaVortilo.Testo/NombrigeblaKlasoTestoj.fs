@@ -13,11 +13,12 @@ type NombrigeblaKlasoTestoj () =
       [ ("kresku", NombrigeblaKlaso, Infinitivo)
         ("kreski", NombrigeblaKlaso, NekonitaNombro)
         ("kreskisi", NombrigeblaKlaso, UnuNombro)
+        ("kreskisinsa", NombrigeblaKlaso, Havaĵo)
         ("kreskive", NombrigeblaKlaso, PluraNombro)
         ("kreskuwa", NombrigeblaKlaso, PredikativoEsti)
         ("kreskuga", NombrigeblaKlaso, AtributativoEsti)
-        ("kreskura", NombrigeblaKlaso, PredikativoHavi)
-        ("kreskure", NombrigeblaKlaso, AtributativoHavi)
+        ("kreskira", NombrigeblaKlaso, PredikativoHavi)
+        ("kreskire", NombrigeblaKlaso, AtributativoHavi)
         ("kreskilas", NombrigeblaKlaso, Translativo)
         ("kreskiva", NombrigeblaKlaso, Ĝerundo) ]
       |> List.map (fun (vorto, tipo, inflekcio) -> kontroliFormon vorto tipo inflekcio)
@@ -37,7 +38,7 @@ type NombrigeblaKlasoTestoj () =
    member _.MalinflektiTesto2 () =
       [ ("kreskuwa", [ (NombrigeblaKlaso, Infinitivo); (NombrigeblaKlaso, PredikativoEsti) ], "kresku")
         ("kreskuga", [ (NombrigeblaKlaso, Infinitivo); (NombrigeblaKlaso, AtributativoEsti) ], "kresku")
-        ("kreskura", [ (NombrigeblaKlaso, Infinitivo); (NombrigeblaKlaso, PredikativoHavi) ], "kresku") ]
+        ("kreskira", [ (NombrigeblaKlaso, Infinitivo); (NombrigeblaKlaso, PredikativoHavi) ], "kresku") ]
       |> List.map
          (fun (inflektitaVorto, pravaListo, pravaMalinflektitaVorto) ->
             kontroliInflekcioj inflektitaVorto pravaListo pravaMalinflektitaVorto)
@@ -45,7 +46,7 @@ type NombrigeblaKlasoTestoj () =
 
    [<TestMethod>]
    member _.MalinflektiTesto3 () =
-      [ ("kreskure", [ (NombrigeblaKlaso, Infinitivo); (NombrigeblaKlaso, AtributativoHavi) ], "kresku")
+      [ ("kreskire", [ (NombrigeblaKlaso, Infinitivo); (NombrigeblaKlaso, AtributativoHavi) ], "kresku")
         ("kreskilas", [ (NombrigeblaKlaso, Infinitivo); (NombrigeblaKlaso, Translativo) ], "kresku")
         ("kreskiva", [ (NombrigeblaKlaso, Infinitivo); (NombrigeblaKlaso, Ĝerundo) ], "kresku") ]
       |> List.map
