@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Vortlisto.fs" />
     <Compile Include="Vorttipo.fs" />
     <Compile Include="NombrigeblaKlasoTraktiloj.fs" />
     <Compile Include="NenombrigeblaKlasoTraktiloj.fs" />
@@ -12,6 +13,7 @@
     <Compile Include="NetransitivaVerboTraktiloj.fs" />
     <Compile Include="PridirantoTraktiloj.fs" />
     <Compile Include="Traktilaro.fs" />
+    <Compile Include="Strukturo.fs" />
   </ItemGroup>
 
 </Project>
