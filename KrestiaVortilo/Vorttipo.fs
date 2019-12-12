@@ -27,6 +27,7 @@ module Vorttipo =
    | PartaDativo
    | Pasivigo
    | Igo
+   | SolaFormo
 
    type Vorttipo =
    | NombrigeblaKlaso

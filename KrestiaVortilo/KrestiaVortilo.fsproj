@@ -12,6 +12,7 @@
     <Compile Include="TransitivaVerboTraktiloj.fs" />
     <Compile Include="NetransitivaVerboTraktiloj.fs" />
     <Compile Include="PridirantoTraktiloj.fs" />
+    <Compile Include="LokokupiloTraktiloj.fs" />
     <Compile Include="Traktilaro.fs" />
     <Compile Include="Strukturo.fs" />
   </ItemGroup>

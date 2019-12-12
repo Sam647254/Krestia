@@ -4,6 +4,7 @@ open Vorttipo
 
 module Traktilaro =
    let traktilaro =
+      LokokupiloTraktiloj.trakiloj @
       NombrigeblaKlasoTraktiloj.trakiloj @
       NenombrigeblaKlasoTraktiloj.trakiloj @
       TransitivaVerboTraktiloj.trakiloj @
