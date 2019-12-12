@@ -5,6 +5,7 @@ module Vortlisto =
    | Klaso of string * Animeco : bool * Radikoj : string list * Signifo : string
    | Verbo of string * Valenco : int * Radikoj : string list * Signifo : string
    | Pridiranto of string * Radikoj : string list * Signifo : string
+   | Lokokupilo of string * Signifo : string
 
    let listo: Vorto list = [
       Klaso("fosmaa", false, [], "earth (ground)")
@@ -135,4 +136,39 @@ module Vortlisto =
       Verbo("merat", 2, [], "see (look at)")
       Verbo("merisot", 2, [], "watch")
       Verbo("gremerisot", 2, ["gremu,merisot"], "watch over")
-      Verbo("perat", 2, ["merat"], "stare at") ]
+      Verbo("perat", 2, ["merat"], "stare at")
+      Lokokupilo("wel", "something/someone")
+      Lokokupilo("wil", "anything/anyone")
+      Lokokupilo("hem", "I")
+      Lokokupilo("hes", "you (singular)")
+      Lokokupilo("het", "third person indefinite (singular)")
+      Lokokupilo("heti", "third person animate (singular)")
+      Lokokupilo("heta", "third person inanimate (singular)")
+      Lokokupilo("hime", "we")
+      Lokokupilo("hise", "you (plural)")
+      Lokokupilo("hite", "third person indefinite (plural)")
+      Lokokupilo("hiti", "third person animate (plural)")
+      Lokokupilo("hita", "third person inanimate (plural)")
+      Lokokupilo("hori", "everyone")
+      Lokokupilo("hemse", "you and I")
+      Lokokupilo("wen", "last nominative")
+      Lokokupilo("won", "last marked class") ]
+
+   let vortaro =
+      listo
+      |> List.map (fun vorto ->
+         match vorto with
+         | Klaso(klaso, _, _, _) as v -> (klaso, v)
+         | Verbo(verbo, _, _, _) as v -> (verbo, v)
+         | Pridiranto(pridiranto, _, _) as v -> (pridiranto, v)
+         | Lokokupilo(lokokupilo, _) as v -> (lokokupilo, v))
+      |> Map
+
+   let ĉuEkzistas (vorto) = vortaro.ContainsKey(vorto)
+
+   let valenco (verbo) =
+      vortaro.TryFind(verbo)
+      |> Option.bind (fun verbo ->
+         match verbo with
+         | Verbo(_, valenco, _, _) -> Some valenco
+         | _ -> None)

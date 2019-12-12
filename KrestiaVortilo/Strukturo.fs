@@ -4,12 +4,12 @@ open Vorttipo
 
 module Strukturo =
    type Verbo = {
-      Vorto : string
+      Verbo : string
       Inflekcio : Inflekcio
    }
 
    type Objekto = {
-      Vorto : string
+      Objekto : string
       Inflekcio : Inflekcio
    }
 
@@ -18,6 +18,7 @@ module Strukturo =
    | Modifanto1 of Modifanto : string * Vorto : string
 
    type Vorto =
+   | Lokokupilo of string
    | Vorto of Objekto
    | PridiritaVorto of Vorto : Objekto * Modifantoj : Modifanto list
 
@@ -27,4 +28,4 @@ module Strukturo =
    | Predikato2 of Verbo : Verbo * Vorto1 : Vorto * Vorto2 : Vorto
    | Predikato3 of Verbo : Verbo * Vorto1 : Vorto * Vorto2 : Vorto * Vorto3 : Vorto
 
-   let strukturigi (eniro: string): Frazo = failwith "???"
+   let strukturigi (eniro: string): Result<Frazo, string> = Error "???"

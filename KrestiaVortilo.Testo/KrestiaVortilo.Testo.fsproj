@@ -15,6 +15,7 @@
     <Compile Include="NetransitivaVerboTestoj.fs" />
     <Compile Include="PridirantoTestoj.fs" />
     <Compile Include="LokokupiloTestoj.fs" />
+    <Compile Include="StrukturoTestoj.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
