@@ -3,6 +3,7 @@
 open Microsoft.VisualStudio.TestTools.UnitTesting
 open KrestiaVortilo.Traktilaro
 open KrestiaVortilo.Vorttipo
+open KrestiaVortilo.Strukturo
 
 module Testiloj =
    let kontroliFormon (vorto: string) (pravaTipo: Vorttipo) (pravaInflekcio: Inflekcio) =
@@ -20,3 +21,9 @@ module Testiloj =
                Assert.AreEqual(pravaInflekcioj, formoj)
                Assert.AreEqual(pravaMalinflektitaVorto, malinflektitaVorto))
       |> Option.defaultWith (fun () -> Assert.Fail(sprintf "ne povis malinflekti %s" vorto))
+
+   let kontroliStrukturon (prava: Frazo) (frazo: string) (valencoDe: string -> int option) =
+      strukturigi frazo valencoDe
+      |> Result.map (fun rezulto -> Assert.AreEqual(prava, rezulto))
+      |> Result.mapError (fun rezulto -> Assert.Fail(rezulto))
+      |> ignore

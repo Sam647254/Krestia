@@ -42,6 +42,9 @@ module Vorttipo =
    | PartaNetransitivaVerbo
    | Pridiranto
    | Lokokupilo
+   | SintaksaVorto
+   | Makro
+   | FremdaVorto
 
    type Vortformo = Vorttipo * Inflekcio
    type VorttipoKontrolilo = (string -> bool)

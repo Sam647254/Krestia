@@ -10,7 +10,8 @@ module Traktilaro =
       EcoTraktiloj.traktiloj @
       TransitivaVerboTraktiloj.trakiloj @
       NetransitivaVerboTraktiloj.trakiloj @
-      PridirantoTraktiloj.traktiloj
+      PridirantoTraktiloj.traktiloj @
+      FremdaVortoTraktiloj.traktiloj
 
    let kontroli (vorto: string) =
       traktilaro

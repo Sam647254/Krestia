@@ -20,8 +20,9 @@ module Strukturo =
 
    type Vorto =
    | Lokokupilo of string
-   | Vorto of Objekto
+   | Objekto of Objekto
    | PridiritaVorto of Vorto : Objekto * Modifantoj : Modifanto list
+   | FremdaVorto of string
 
    type Frazo =
    | Predikato0 of Verbo : Verbo
@@ -45,6 +46,9 @@ module Strukturo =
                         let lastaFormo = List.last vortformoj
                         match lastaFormo with
                         | (Vorttipo.Lokokupilo, SolaFormo) -> Lokokupilo(malinflektita) |> Ok
+                        | (Vorttipo.FremdaVorto, SolaFormo) -> FremdaVorto(malinflektita) |> Ok
+                        | (NombrigeblaKlaso, inflekcio) ->
+                           Objekto({ Objekto = malinflektita; Inflekcio = inflekcio }) |> Ok
                         | _ -> Error (sprintf "%s ne havas validan inflekcion" unua)
                      | None -> Error (sprintf "%s estas nevalida" unua)
                   (sekvaObjekto, restantaj)
