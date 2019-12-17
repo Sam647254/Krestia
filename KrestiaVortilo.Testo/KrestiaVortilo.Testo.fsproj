@@ -11,6 +11,7 @@
     <Compile Include="Testiloj.fs" />
     <Compile Include="NombrigeblaKlasoTestoj.fs" />
     <Compile Include="NenombrigeblaKlasoTestoj.fs" />
+    <Compile Include="EcoTestoj.fs" />
     <Compile Include="TransitivaVerboTestoj.fs" />
     <Compile Include="NetransitivaVerboTestoj.fs" />
     <Compile Include="PridirantoTestoj.fs" />

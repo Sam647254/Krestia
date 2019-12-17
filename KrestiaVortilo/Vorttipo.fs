@@ -32,6 +32,9 @@ module Vorttipo =
    type Vorttipo =
    | NombrigeblaKlaso
    | NenombrigeblaKlaso
+   | Rekordo
+   | NombrigeblaEco
+   | NenombrigeblaEco
    | TransitivaVerbo
    | NetransitivaVerbo
    | MalplenaVerbo

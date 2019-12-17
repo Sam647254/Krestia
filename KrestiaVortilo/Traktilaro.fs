@@ -7,6 +7,7 @@ module Traktilaro =
       LokokupiloTraktiloj.trakiloj @
       NombrigeblaKlasoTraktiloj.trakiloj @
       NenombrigeblaKlasoTraktiloj.trakiloj @
+      EcoTraktiloj.traktiloj @
       TransitivaVerboTraktiloj.trakiloj @
       NetransitivaVerboTraktiloj.trakiloj @
       PridirantoTraktiloj.traktiloj

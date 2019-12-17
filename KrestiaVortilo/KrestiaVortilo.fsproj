@@ -9,6 +9,7 @@
     <Compile Include="Vorttipo.fs" />
     <Compile Include="NombrigeblaKlasoTraktiloj.fs" />
     <Compile Include="NenombrigeblaKlasoTraktiloj.fs" />
+    <Compile Include="EcoTraktiloj.fs" />
     <Compile Include="TransitivaVerboTraktiloj.fs" />
     <Compile Include="NetransitivaVerboTraktiloj.fs" />
     <Compile Include="PridirantoTraktiloj.fs" />
