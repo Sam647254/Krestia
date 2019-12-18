@@ -15,6 +15,7 @@
     <Compile Include="PridirantoTraktiloj.fs" />
     <Compile Include="LokokupiloTraktiloj.fs" />
     <Compile Include="FremdaVortoTraktiloj.fs" />
+    <Compile Include="SpecialajTraktiloj.fs" />
     <Compile Include="Traktilaro.fs" />
     <Compile Include="Strukturo.fs" />
   </ItemGroup>

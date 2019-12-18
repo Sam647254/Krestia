@@ -23,7 +23,9 @@ module Testiloj =
       |> Option.defaultWith (fun () -> Assert.Fail(sprintf "ne povis malinflekti %s" vorto))
 
    let kontroliStrukturon (prava: Frazo) (frazo: string) (valencoDe: string -> int option) =
-      strukturigi frazo valencoDe
+      [ "ilel" ]
+      |> set
+      |> strukturigi frazo valencoDe
       |> Result.map (fun rezulto -> Assert.AreEqual(prava, rezulto))
       |> Result.mapError (fun rezulto -> Assert.Fail(rezulto))
       |> ignore

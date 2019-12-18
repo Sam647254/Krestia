@@ -11,7 +11,8 @@ module Traktilaro =
       TransitivaVerboTraktiloj.trakiloj @
       NetransitivaVerboTraktiloj.trakiloj @
       PridirantoTraktiloj.traktiloj @
-      FremdaVortoTraktiloj.traktiloj
+      FremdaVortoTraktiloj.traktiloj @
+      SpecialajTraktiloj.traktiloj
 
    let kontroli (vorto: string) =
       traktilaro
