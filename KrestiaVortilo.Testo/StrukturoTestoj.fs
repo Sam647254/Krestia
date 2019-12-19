@@ -16,7 +16,8 @@ type StrukturoTestoj () =
             { Verbo = "merat"; Inflekcio = Progresivo },
             Lokokupilo("hem"),
             Lokokupilo("hes"))
-      kontroliUnuPredikaton pravo "meratre hem hes" (fun _ -> Some(2))
+         |> Predikato
+      kontroliFrazon pravo "meratre hem hes" (fun _ -> Some(2))
 
    [<TestMethod>]
    member _.``menapro Eşxan trupasi wil`` () =
@@ -26,4 +27,26 @@ type StrukturoTestoj () =
             FremdaVorto("Eşxan"),
             Objekto({ Objekto = "trupaa"; Inflekcio = UnuNombro}),
             Lokokupilo("wil"))
-      kontroliUnuPredikaton pravo "menapro Eşxan trupasi wil" (fun _ -> Some(3))
+         |> Predikato
+      kontroliFrazon pravo "menapro Eşxan trupasi wil" (fun _ -> Some(3))
+
+   [<TestMethod>]
+   member _.``peral meratre heti megre kunapasi kredea meratre heti kitigrensa`` () =
+      let pravo =
+         Peral(
+            Predikato2(
+               { Verbo = "merat"; Inflekcio = Progresivo },
+               Lokokupilo("heti"),
+               Eco(
+                  { Objekto = "megro"; Inflekcio = NekonitaNombro },
+                  PridiritaVorto(
+                     Objekto({ Objekto = "kunapaa"; Inflekcio = UnuNombro }),
+                     [ Pridiranto("kred") ]))),
+            Predikato2(
+               { Verbo = "merat"; Inflekcio = Progresivo },
+               Lokokupilo("heti"),
+               Objekto({ Objekto = "kitigro"; Inflekcio = Havaĵo })))
+      kontroliFrazon
+         pravo
+         "peral meratre heti megre kunapasi kredea meratre heti kitigrensa"
+         (fun _ -> Some(2))

@@ -16,7 +16,8 @@ type LearnTheseWordsFirstTestoj () =
             { Verbo = "merat"; Inflekcio = Progresivo },
             FremdaVorto("Tony"),
             FremdaVorto("Lisa"))
-      kontroliUnuPredikaton pravo "meratre Tony Lisa" (fun _ -> Some(2))
+         |> Predikato
+      kontroliFrazon pravo "meratre Tony Lisa" (fun _ -> Some(2))
 
    [<TestMethod>]
    member _.``Tony sees something.`` () =
@@ -25,7 +26,8 @@ type LearnTheseWordsFirstTestoj () =
             { Verbo = "merat"; Inflekcio = Progresivo },
             FremdaVorto("Tony"),
             Lokokupilo("wel"))
-      kontroliUnuPredikaton pravo "meratre Tony wel" (fun _ -> Some(2))
+         |> Predikato
+      kontroliFrazon pravo "meratre Tony wel" (fun _ -> Some(2))
 
    [<TestMethod>]
    member _.``Tony sees the other thing.`` () =
@@ -34,7 +36,8 @@ type LearnTheseWordsFirstTestoj () =
             { Verbo = "merat"; Inflekcio = Progresivo },
             FremdaVorto("Tony"),
             PridiritaVorto(Lokokupilo("wel"), [ Modifanto0("ilel") ]))
-      kontroliUnuPredikaton pravo "meratre Tony wel ilel" (fun _ -> Some(2))
+         |> Predikato
+      kontroliFrazon pravo "meratre Tony wel ilel" (fun _ -> Some(2))
 
    [<TestMethod>]
    member _.``Tony sees this thing.`` () =
@@ -42,5 +45,6 @@ type LearnTheseWordsFirstTestoj () =
          Predikato2(
             { Verbo = "merat"; Inflekcio = Progresivo },
             FremdaVorto("Tony"),
-            PridiritaVorto(Lokokupilo("wel"), [ Modifanto0("tred") ]))
-      kontroliUnuPredikaton pravo "meratre Tony wel tredea" (fun _ -> Some(2))
+            PridiritaVorto(Lokokupilo("wel"), [ Pridiranto("tred") ]))
+         |> Predikato
+      kontroliFrazon pravo "meratre Tony wel tredea" (fun _ -> Some(2))

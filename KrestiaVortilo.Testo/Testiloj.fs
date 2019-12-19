@@ -23,10 +23,10 @@ module Testiloj =
                Assert.AreEqual(pravaMalinflektitaVorto, malinflektitaVorto))
       |> Option.defaultWith (fun () -> Assert.Fail(sprintf "ne povis malinflekti %s" vorto))
 
-   let kontroliUnuPredikaton (prava: Frazo) (frazo: string) (valencoDe: string -> int option) =
+   let kontroliFrazon (prava: Frazo) (frazo: string) (valencoDe: string -> int option) =
       [ "ilel" ]
       |> set
-      |> legiPredikaton (frazo.Split(' ') |> List.ofArray) valencoDe
+      |> legiFrazon (frazo.Split(' ') |> List.ofArray) valencoDe
       |> Result.map
          (fun (rezulto, restantaj) ->
             Assert.AreEqual(0, restantaj.Length)
