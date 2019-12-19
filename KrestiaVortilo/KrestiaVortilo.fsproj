@@ -18,6 +18,7 @@
     <Compile Include="SpecialajTraktiloj.fs" />
     <Compile Include="Traktilaro.fs" />
     <Compile Include="Strukturo.fs" />
+    <Compile Include="Legiloj.fs" />
   </ItemGroup>
 
 </Project>

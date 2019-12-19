@@ -16,7 +16,7 @@ type StrukturoTestoj () =
             { Verbo = "merat"; Inflekcio = Progresivo },
             Lokokupilo("hem"),
             Lokokupilo("hes"))
-      kontroliStrukturon pravo "meratre hem hes" (fun _ -> Some(2))
+      kontroliUnuPredikaton pravo "meratre hem hes" (fun _ -> Some(2))
 
    [<TestMethod>]
    member _.``menapro Eşxan trupasi wil`` () =
@@ -26,4 +26,4 @@ type StrukturoTestoj () =
             FremdaVorto("Eşxan"),
             Objekto({ Objekto = "trupaa"; Inflekcio = UnuNombro}),
             Lokokupilo("wil"))
-      kontroliStrukturon pravo "menapro Eşxan trupasi wil" (fun _ -> Some(3))
+      kontroliUnuPredikaton pravo "menapro Eşxan trupasi wil" (fun _ -> Some(3))
