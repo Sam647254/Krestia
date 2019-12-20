@@ -68,7 +68,7 @@ module Legiloj =
             (Predikato3(verbo, vorto1, vorto2, vorto3), restantaj) |> Ok
          | _ -> Error (sprintf "%s ne havas valencon de 2 aŭ 3" verbo.Verbo))
 
-   let legiPredikaton (listo: string list) valencoDe vortajModifantoj =
+   let legiPredikaton (listo: string list) vortajModifantoj =
       match listo with
       | unua :: restantaj ->
          match malinflekti unua with
@@ -85,15 +85,15 @@ module Legiloj =
          | None -> Error (sprintf "%s estas nevalida vorto" unua)
       | _ -> Error (sprintf "bezonas pli da vortoj por legi predikaton")
 
-   let legiKondicianFrazon (listo: string list) valencoDe vortajModifantoj =
-      legiPredikaton listo valencoDe vortajModifantoj
+   let legiKondicianFrazon (listo: string list) vortajModifantoj =
+      legiPredikaton listo vortajModifantoj
       |> Result.bind
          (fun (kondicio, restantaj) ->
-            legiPredikaton restantaj valencoDe vortajModifantoj
+            legiPredikaton restantaj vortajModifantoj
             |> Result.map (fun (predikato, r) -> (Peral(kondicio, predikato), r)))
    
    let legiFrazon
-      (partoj: string list) (valencoDe: string -> int option) vortajModifantoj =
+      (partoj: string list) vortajModifantoj =
       match partoj with
       | unua :: restantaj ->
          kontroli unua
@@ -101,12 +101,12 @@ module Legiloj =
             (fun vortformo ->
                match vortformo with
                | (TransitivaVerbo, _) | (NetransitivaVerbo, _) ->
-                  legiPredikaton partoj valencoDe vortajModifantoj
+                  legiPredikaton partoj  vortajModifantoj
                   |> Result.map (fun (predikato, restantaj) -> (Predikato(predikato), restantaj))
                | (SintaksaVorto, SolaFormo) ->
                   match unua with
                   | "peral" ->
-                     legiKondicianFrazon restantaj valencoDe vortajModifantoj
+                     legiKondicianFrazon restantaj vortajModifantoj
                   | _ -> Error (sprintf "La sintaksvorto %s ne eblas komenci frazon" unua)
                | _ -> Error (sprintf "%s ne eblas komenci frazon" unua))
          |> Option.defaultValue (Error (sprintf "%s estas nevalida vorto" unua))

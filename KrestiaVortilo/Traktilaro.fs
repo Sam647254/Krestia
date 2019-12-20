@@ -16,13 +16,13 @@ module Traktilaro =
 
    let kontroli (vorto: string) =
       traktilaro
-      |> List.tryFind (fun trakilo -> trakilo.Kontroli vorto)
-      |> Option.map (fun trakilo -> trakilo.Formo)
+      |> List.tryFind (fun trakilo -> trakilo.Kontroli vorto |> Option.isSome)
+      |> Option.bind (fun formo -> formo.Kontroli vorto)
 
    let malinflekti (inflektitaVorto: string) =
       let rec malinflektiAk (inflektitaVorto: string) (listo: Vortformo list) =
          traktilaro
-         |> List.tryFind (fun traktilo -> traktilo.Kontroli inflektitaVorto)
+         |> List.tryFind (fun traktilo -> traktilo.Kontroli inflektitaVorto |> Option.isSome)
          |> Option.bind (fun traktilo ->
             let (malinflektitaVorto, malinflektitaFormo) = inflektitaVorto |> traktilo.Malinflekti
             if malinflektitaVorto = inflektitaVorto

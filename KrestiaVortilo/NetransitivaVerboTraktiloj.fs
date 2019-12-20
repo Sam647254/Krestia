@@ -3,33 +3,48 @@
 open Vorttipo
 
 module NetransitivaVerboTraktiloj =
-   let normaligi (infinitivo: string) =
+   let normaligi (infinitivo: string) (tipo: Vorttipo) =
       match infinitivo with
       | v when NombrigeblaKlasoTraktiloj.ĉuTranslativo(v) -> (NombrigeblaKlaso, Translativo)
-      | v when v.EndsWith("elis") -> (NetransitivaVerbo, Translativo)
-      | v when TransitivaVerboTraktiloj.ĉuPartaAkuzativo(v) -> (TransitivaVerbo, PartaAkuzativo)
+      | v when v.EndsWith("selis") -> (NetransitivaVerbo1, Translativo)
+      | v when v.EndsWith("shelish") -> (NetransitivaVerbo2, Translativo)
+      | v when v.EndsWith("tes") -> (TransitivaVerbo2, PartaAkuzativo)
+      | v when v.EndsWith("pesh") -> (TransitivaVerbo3, PartaAkuzativo)
       | v when v.EndsWith("dis") -> (Pridiranto, Translativo)
-      | v when TransitivaVerboTraktiloj.ĉuPasivigo(v) -> (TransitivaVerbo, Pasivigo)
-      | _ -> (NetransitivaVerbo, Infinitivo)
+      | v when v.EndsWith("tos") -> (TransitivaVerbo2, Pasivigo)
+      | v when v.EndsWith("posh") -> (TransitivaVerbo3, Pasivigo)
+      | _ -> (tipo, Infinitivo)
+
+   let tipoDeInfinitivo (infinitivo: string) =
+      if infinitivo.EndsWith("s")
+      then NetransitivaVerbo1
+      else NetransitivaVerbo2
 
    let trakiloj: Vorttraktilo list = [
-      { Formo = (NetransitivaVerbo, Infinitivo)
-        Kontroli = fun vorto ->
-           vorto.EndsWith("s") &&
-           not (["las"; "elis"; "pes"; "kes"; "tes"; "dis"]
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("s") &&
+              not (["las"; "elis"; "tes"; "dis"; "tos"]
               |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo)))
-        Inflekti = fun formo vorto -> failwith "???"
-        Malinflekti = fun vorto -> (vorto, (NetransitivaVerbo, Infinitivo)) }
+           then Some (NetransitivaVerbo1, Infinitivo)
+           elif vorto.EndsWith("sh") &&
+              not (["shelish"; "pesh"; "posh"]
+              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo)))
+           then Some (NetransitivaVerbo2, Infinitivo)
+           else None
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto -> (vorto, (tipoDeInfinitivo vorto, Infinitivo)) }
 
-      { Formo = (NetransitivaVerbo, Progresivo)
-        Kontroli = fun vorto -> vorto.EndsWith("se")
-        Inflekti = fun formo vorto -> failwith "???"
+      { Kontroli = fun vorto ->
+           match vorto with
+           | v when v.EndsWith("se") -> Some (NetransitivaVerbo1, Progresivo)
+           | v when v.EndsWith("she") -> Some (NetransitivaVerbo2, Progresivo)
+           | _ -> None
+        Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            let malinflektitaVorto = vorto.Substring(0, vorto.Length - 1)
-           (malinflektitaVorto, normaligi malinflektitaVorto) }
+           (malinflektitaVorto, normaligi malinflektitaVorto (tipoDeInfinitivo malinflektitaVorto)) }
 
-      { Formo = (NetransitivaVerbo, Perfekto)
-        Kontroli = fun vorto -> vorto.EndsWith("so")
+      { Kontroli = fun vorto -> vorto.EndsWith("so")
         Inflekti = fun formo vorto -> failwith "???"
         Malinflekti = fun vorto ->
            let malinflektitaVorto = vorto.Substring(0, vorto.Length - 1)
