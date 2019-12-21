@@ -35,9 +35,9 @@ type LearnTheseWordsFirstTestoj () =
          Predikato2(
             { Verbo = "merat"; Inflekcio = Progresivo },
             FremdaVorto("Tony"),
-            PridiritaVorto(Lokokupilo("wel"), [ Modifanto0("ilel") ]))
+            PridiritaVorto(Lokokupilo("wel"), [ Modifanto0("evilel") ]))
          |> Predikato
-      kontroliFrazon pravo "meratre Tony wel ilel"
+      kontroliFrazon pravo "meratre Tony wel evilel"
 
    [<TestMethod>]
    member _.``Tony sees this thing.`` () =

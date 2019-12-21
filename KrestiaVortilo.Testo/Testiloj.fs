@@ -26,9 +26,9 @@ module Testiloj =
    let kontroliFrazon (prava: Frazo) (frazo: string) =
       [ "evilel" ]
       |> set
-      |> legiFrazon (frazo.Split(' ') |> List.ofArray)
+      |> legiFrazon (frazo.Split(' ') |> List.ofArray) None
       |> Result.map
-         (fun (rezulto, restantaj) ->
+         (fun (rezulto, restantaj, _) ->
             Assert.AreEqual(0, restantaj.Length)
             Assert.AreEqual(prava, rezulto))
       |> Result.mapError (fun rezulto -> Assert.Fail(rezulto))
