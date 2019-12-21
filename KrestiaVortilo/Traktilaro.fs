@@ -16,8 +16,7 @@ module Traktilaro =
 
    let kontroli (vorto: string) =
       traktilaro
-      |> List.tryFind (fun trakilo -> trakilo.Kontroli vorto |> Option.isSome)
-      |> Option.bind (fun formo -> formo.Kontroli vorto)
+      |> List.tryPick (fun trakilo -> trakilo.Kontroli vorto)
 
    let malinflekti (inflektitaVorto: string) =
       let rec malinflektiAk (inflektitaVorto: string) (listo: Vortformo list) =

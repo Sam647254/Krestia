@@ -74,13 +74,12 @@ module Legiloj =
          match malinflekti unua with
          | Some(vortformoj, malinflektita) ->
             match List.last vortformoj with
-            | (TransitivaVerbo, inflekcio) ->
-               valencoDe malinflektita
-               |> Option.map (fun valenco ->
-                  { Verbo = malinflektita; Inflekcio = inflekcio }
-                  |> legiTransitivanPredikaton valenco restantaj vortajModifantoj
-                  |> Result.map (fun (tp, restantaj) -> (tp, restantaj)))
-               |> Option.defaultValue (Error (sprintf "ne eblas trovi la valencon de %s" malinflektita))
+            | (TransitivaVerbo2, inflekcio) ->
+               { Verbo = malinflektita; Inflekcio = inflekcio }
+               |> legiTransitivanPredikaton 2 restantaj vortajModifantoj
+            | (TransitivaVerbo3, inflekcio) ->
+               { Verbo = malinflektita; Inflekcio = inflekcio }
+               |> legiTransitivanPredikaton 3 restantaj vortajModifantoj
             | _ -> Error (sprintf "predikato ne eblas komenci per %s" unua)
          | None -> Error (sprintf "%s estas nevalida vorto" unua)
       | _ -> Error (sprintf "bezonas pli da vortoj por legi predikaton")
@@ -100,7 +99,8 @@ module Legiloj =
          |> Option.map
             (fun vortformo ->
                match vortformo with
-               | (TransitivaVerbo, _) | (NetransitivaVerbo, _) ->
+               | (TransitivaVerbo2, _) | (TransitivaVerbo3, _)
+               | (NetransitivaVerbo1, _) | (NetransitivaVerbo2, _) ->
                   legiPredikaton partoj  vortajModifantoj
                   |> Result.map (fun (predikato, restantaj) -> (Predikato(predikato), restantaj))
                | (SintaksaVorto, SolaFormo) ->

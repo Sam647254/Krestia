@@ -3,21 +3,6 @@
 open Vorttipo
 
 module TransitivaVerboTraktiloj =
-   let infinitivoFinaĵoj = [ "p"; "t"; "k" ]
-   let progresivoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "re")
-   let perfektoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ro")
-   let atributavioEstiFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "rie")
-   let imperativoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ri")
-   let agantoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "etio")
-   let ĝerundoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ema")
-   let partaNominativoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "eg")
-   let partaAkuzativoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "es")
-   let estontecoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ela")
-   let nominativoVoloFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ora")
-   let akuzativoVoloFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ore")
-   let dativoVoloFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "eri")
-   let pasivigoFinaĵoj = infinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "os")
-
    let normaligi (infinitivo: string) (tipo: Vorttipo) =
       match infinitivo with
       | v when v.EndsWith("telit") -> (TransitivaVerbo2, Translativo)
@@ -56,8 +41,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tro") -> Some (TransitivaVerbo2, Progresivo)
-           | v when v.EndsWith("pro") -> Some (TransitivaVerbo3, Progresivo)
+           | v when v.EndsWith("tro") -> Some (TransitivaVerbo2, Perfekto)
+           | v when v.EndsWith("pro") -> Some (TransitivaVerbo3, Perfekto)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -66,8 +51,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tela") -> Some (TransitivaVerbo2, Progresivo)
-           | v when v.EndsWith("pela") -> Some (TransitivaVerbo3, Progresivo)
+           | v when v.EndsWith("tela") -> Some (TransitivaVerbo2, Estonteco)
+           | v when v.EndsWith("pela") -> Some (TransitivaVerbo3, Estonteco)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -135,8 +120,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tetio") -> Some (TransitivaVerbo2, Patiento)
-           | v when v.EndsWith("petio") -> Some (TransitivaVerbo3, Patiento)
+           | v when v.EndsWith("tetio") -> Some (TransitivaVerbo2, Aganto)
+           | v when v.EndsWith("petio") -> Some (TransitivaVerbo3, Aganto)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -145,8 +130,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("telit") -> Some (TransitivaVerbo2, Patiento)
-           | v when v.EndsWith("pelip") -> Some (TransitivaVerbo3, Patiento)
+           | v when v.EndsWith("telit") -> Some (TransitivaVerbo2, Translativo)
+           | v when v.EndsWith("pelip") -> Some (TransitivaVerbo3, Translativo)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -187,9 +172,10 @@ module TransitivaVerboTraktiloj =
            (malinflektitaVorto, normaligi malinflektitaVorto (tipoDeInfinitivo malinflektitaVorto)) }
 
       { Kontroli = fun vorto ->
-           if vorto.EndsWith("posh")
-           then Some (TransitivaVerbo3, PartaDativo)
-           else None
+           match vorto with
+           | v when v.EndsWith("tos") -> Some (TransitivaVerbo2, Pasivigo)
+           | v when v.EndsWith("posh") -> Some (TransitivaVerbo3, Pasivigo)
+           | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            let malinflektitaVorto = vorto.Substring(0, vorto.Length - 3)

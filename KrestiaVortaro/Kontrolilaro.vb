@@ -8,15 +8,15 @@ Public Module Kontrolilaro
    End Function
 
    Function ĈuVerboInfinitivo(vorto As String) As Boolean
-      Return ĈuEstas(vorto, Vorttipo.TransitivaVerbo, Vorttipo.NetransitivaVerbo, Inflekcio.Infinitivo)
+      Return ĈuEstas(vorto, Vorttipo.TransitivaVerbo2, Vorttipo.NetransitivaVerbo2, Inflekcio.Infinitivo)
    End Function
 
    Function ĈuTransitivaVerboInfinitivo(vorto As String) As Boolean
-      Return ĈuEstas(vorto, Vorttipo.TransitivaVerbo, Vorttipo.TransitivaVerbo, Inflekcio.Infinitivo)
+      Return ĈuEstas(vorto, Vorttipo.TransitivaVerbo2, Vorttipo.TransitivaVerbo3, Inflekcio.Infinitivo)
    End Function
 
    Function ĈuNeTransitivaVerboInfinitivo(vorto As String) As Boolean
-      Return ĈuEstas(vorto, Vorttipo.NenombrigeblaKlaso, Vorttipo.NetransitivaVerbo, Inflekcio.Infinitivo)
+      Return ĈuEstas(vorto, Vorttipo.NetransitivaVerbo1, Vorttipo.NetransitivaVerbo2, Inflekcio.Infinitivo)
    End Function
 
    Function ĈuPridiranto(vorto As String) As Boolean
@@ -29,13 +29,13 @@ Public Module Kontrolilaro
       ElseIf ĈuPridiranto(vorto) Then
          Return KreitaVorttipo.Pridiranto
       ElseIf ĈuVerboInfinitivo(vorto) Then
-         If ĈuEstas(vorto, Vorttipo.TransitivaVerbo, Vorttipo.TransitivaVerbo, Inflekcio.Infinitivo) Then
+         If ĈuEstas(vorto, Vorttipo.TransitivaVerbo2, Vorttipo.TransitivaVerbo3, Inflekcio.Infinitivo) Then
             Return KreitaVorttipo.TransitivaVerbo
-         ElseIf ĈuEstas(vorto, Vorttipo.NetransitivaVerbo, Vorttipo.NetransitivaVerbo, Inflekcio.Infinitivo) Then
+         ElseIf ĈuEstas(vorto, Vorttipo.NetransitivaVerbo1, Vorttipo.NetransitivaVerbo2, Inflekcio.Infinitivo) Then
             Return KreitaVorttipo.NetransitivaVerbo
          ElseIf ĈuEstas(vorto, Vorttipo.MalplenaVerbo, Vorttipo.MalplenaVerbo, Inflekcio.Infinitivo) Then
             Return KreitaVorttipo.MalplenaVerbo
-         ElseIf ĈuEstas(vorto, Vorttipo.PartaTransitivaVerbo, Vorttipo.PartaTransitivaVerbo, Inflekcio.Infinitivo) Then
+         ElseIf ĈuEstas(vorto, Vorttipo.PartaTransitivaVerbo1, Vorttipo.PartaTransitivaVerbo2, Inflekcio.Infinitivo) Then
             Return KreitaVorttipo.PartaTransitivaVerbo
          ElseIf ĈuEstas(vorto, Vorttipo.PartaNetransitivaVerbo, Vorttipo.PartaNetransitivaVerbo, Inflekcio.Infinitivo) Then
             Return KreitaVorttipo.PartaNetransitivaVerbo

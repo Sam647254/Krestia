@@ -17,7 +17,7 @@ type StrukturoTestoj () =
             Lokokupilo("hem"),
             Lokokupilo("hes"))
          |> Predikato
-      kontroliFrazon pravo "meratre hem hes" (fun _ -> Some(2))
+      kontroliFrazon pravo "meratre hem hes"
 
    [<TestMethod>]
    member _.``menapro Eşxan trupasi wil`` () =
@@ -28,7 +28,7 @@ type StrukturoTestoj () =
             Objekto({ Objekto = "trupaa"; Inflekcio = UnuNombro}),
             Lokokupilo("wil"))
          |> Predikato
-      kontroliFrazon pravo "menapro Eşxan trupasi wil" (fun _ -> Some(3))
+      kontroliFrazon pravo "menapro Eşxan trupasi wil"
 
    [<TestMethod>]
    member _.``peral meratre heti megre kunapasi kredea meratre heti kitigrensa`` () =
@@ -49,4 +49,3 @@ type StrukturoTestoj () =
       kontroliFrazon
          pravo
          "peral meratre heti megre kunapasi kredea meratre heti kitigrensa"
-         (fun _ -> Some(2))

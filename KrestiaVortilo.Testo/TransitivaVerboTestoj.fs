@@ -10,20 +10,20 @@ type TransitivaVerboTestoj () =
 
    [<TestMethod>]
    member _.KontroliTesto () =
-      [ ("buvitok", Infinitivo)
-        ("buvitokre", Progresivo)
-        ("buvitokro", Perfekto)
-        ("buvitokrie", AtributativoEsti)
-        ("buvitokela", Estonteco)
-        ("buvitokora", NominativoVolo)
-        ("buvitokore", AkuzativoVolo)
-        ("buvitokri", Imperativo)
-        ("buvitokoniaa", Patiento)
-        ("buvitoketio", Aganto)
-        ("buvitokelit", Translativo)
-        ("buvitokema", Ĝerundo)
-        ("buvitokeg", PartaNominativo)
-        ("buvitokes", PartaAkuzativo)
-        ("buvitokos", Pasivigo) ]
-      |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto TransitivaVerbo inflekcio)
+      [ ("buvitot", Infinitivo)
+        ("buvitotre", Progresivo)
+        ("buvitotro", Perfekto)
+        ("buvitotrie", AtributativoEsti)
+        ("buvitotela", Estonteco)
+        ("buvitotora", NominativoVolo)
+        ("buvitotore", AkuzativoVolo)
+        ("buvitotri", Imperativo)
+        ("buvitotoniaa", Patiento)
+        ("buvitotetio", Aganto)
+        ("buvitotelit", Translativo)
+        ("buvitotema", Ĝerundo)
+        ("buvitotig", PartaNominativo)
+        ("buvitotes", PartaAkuzativo)
+        ("buvitotos", Pasivigo) ]
+      |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto TransitivaVerbo2 inflekcio)
       |> ignore
