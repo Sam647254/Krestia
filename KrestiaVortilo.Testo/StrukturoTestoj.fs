@@ -49,3 +49,16 @@ type StrukturoTestoj () =
       kontroliFrazon
          pravo
          "peral meratre heti megre kunapasi kredea meratre heti kitigrensa"
+
+   [<TestMethod>]
+   member _.``remudia remudia endre rima`` () =
+      let pravo =
+         Predikato1(
+            { Verbo = "remud"; Inflekcio = PredikativoEsti },
+            Eco(
+               { Objekto = "endro"; Inflekcio = NekonitaNombro },
+               Objekto({ Objekto = "rimaa"; Inflekcio = NekonitaNombro })))
+         |> Predikato
+      kontroliFrazon
+         pravo
+         "remudia remudia endre rima"

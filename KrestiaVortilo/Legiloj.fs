@@ -26,40 +26,50 @@ module Legiloj =
          | None -> Error (sprintf "%s ne estas modifanto" unua)
       | [] -> (listo, vortoj, lastaVorto) |> Ok
 
+   let rec legiObjekto (partoj: string list) vortajModifantoj (lastaVorto: string option) =
+      match partoj with
+      | unua :: restantaj ->
+         match malinflekti unua with
+         | Some(vortformoj, malinflektita) ->
+            let lastaFormo = List.last vortformoj
+            let objekto =
+               match lastaFormo with
+               | (Vorttipo.Lokokupilo, SolaFormo) -> (Lokokupilo(malinflektita), restantaj, Some(unua)) |> Ok
+               | (Vorttipo.FremdaVorto, SolaFormo) -> (FremdaVorto(malinflektita), restantaj, Some(unua)) |> Ok
+               | (NombrigeblaKlaso, inflekcio) | (NenombrigeblaKlaso, inflekcio) ->
+                  (Objekto({ Objekto = malinflektita; Inflekcio = inflekcio }), restantaj, Some(unua)) |> Ok
+               | (NenombrigeblaEco, Havaĵo) ->
+                  (Objekto({ Objekto = malinflektita; Inflekcio = Havaĵo}), restantaj, Some(unua)) |> Ok
+               | (NenombrigeblaEco, inflekcio) | (NombrigeblaEco, inflekcio) ->
+                  legiObjekto restantaj vortajModifantoj (Some(unua))
+                  |> Result.map (fun (posedanto, restantaj, novaLastaVorto) ->
+                     (Eco({ Objekto = malinflektita; Inflekcio = inflekcio }, posedanto), restantaj, novaLastaVorto))
+               | _ ->
+                  match lastaVorto with
+                  | Some(l) when unua = l -> legiObjekto restantaj vortajModifantoj lastaVorto
+                  | _ -> Error (sprintf "%s ne havas validan inflekcion por objekto" unua)
+            objekto
+            |> Result.bind (fun (vorto, restantaj, novaLastaVorto) ->
+               legiModifantojnAk [] restantaj vortajModifantoj novaLastaVorto
+               |> Result.map (fun (modifantoj, restantaj, novaLastaVorto) ->
+                  if modifantoj.IsEmpty
+                  then (vorto, restantaj, novaLastaVorto)
+                  else (PridiritaVorto(vorto, modifantoj), restantaj, novaLastaVorto)))
+         | None -> Error (sprintf "%s estas nevalida" unua)
+      | [] -> Error (sprintf "Ankoraŭ bezonas vortojn por objekto, sed ne plu estas")
+
    let rec legiObjektojn (kvanto: int) (listo: string list) vortajModifantoj (lastaVorto: string option) =
       if kvanto = 0
       then ([], listo, lastaVorto) |> Ok
       else
-         match listo with
-         | unua :: restantaj ->
-            match malinflekti unua with
-            | Some(vortformoj, malinflektita) ->
-               let lastaFormo = List.last vortformoj
-               match lastaFormo with
-               | (Vorttipo.Lokokupilo, SolaFormo) -> (Lokokupilo(malinflektita), restantaj, Some(unua)) |> Ok
-               | (Vorttipo.FremdaVorto, SolaFormo) -> (FremdaVorto(malinflektita), restantaj, Some(unua)) |> Ok
-               | (NombrigeblaKlaso, inflekcio) ->
-                  (Objekto({ Objekto = malinflektita; Inflekcio = inflekcio }), restantaj, Some(unua)) |> Ok
-               | (NenombrigeblaEco, Havaĵo) ->
-                  (Objekto({ Objekto = malinflektita; Inflekcio = Havaĵo}), restantaj, Some(unua)) |> Ok
-               | (NenombrigeblaEco, inflekcio) ->
-                  legiObjektojn 1 restantaj vortajModifantoj (Some(unua))
-                  |> Result.map (fun (posedantoListo, restantaj, novaLastaVorto) ->
-                     let posedanto = posedantoListo.Head
-                     (Eco({ Objekto = malinflektita; Inflekcio = inflekcio }, posedanto), restantaj, novaLastaVorto))
-               | _ -> Error (sprintf "%s ne havas validan inflekcion por objekto" unua)
-               |> Result.bind (fun (vorto, restantaj, novaLastaVorto) ->
-                  legiModifantojnAk [] restantaj vortajModifantoj novaLastaVorto
-                  |> Result.map (fun (modifantoj, restantaj, novaLastaVorto) ->
-                     if modifantoj.IsEmpty
-                     then (vorto, restantaj, novaLastaVorto)
-                     else (PridiritaVorto(vorto, modifantoj), restantaj, novaLastaVorto)))
-            | None -> Error (sprintf "%s estas nevalida" unua)
-         | [] -> Error (sprintf "Ankoraŭ bezonas vortojn (%d), sed ne plu estas" kvanto)
-         |> Result.bind (fun (sekva, restantaj, novaLastaVorto) ->
-            legiObjektojn (kvanto - 1) restantaj vortajModifantoj novaLastaVorto
-            |> Result.map (fun (restantajObjektoj, restantajPartoj, novaLastaVorto) ->
-               (sekva :: restantajObjektoj, restantajPartoj, novaLastaVorto)))
+         legiObjekto listo vortajModifantoj lastaVorto
+         |> Result.bind
+            (fun (objekto, restantaj, novaLastaVorto) ->
+               legiObjektojn (kvanto - 1) restantaj vortajModifantoj novaLastaVorto
+               |> Result.map
+                  (fun (restantajObjektoj, restantaj, novaLastaVorto) ->
+                     (objekto :: restantajObjektoj, restantaj, novaLastaVorto)))
+
 
    let legiTransitivanPredikaton 
       (valenco: int) (partoj: string list) vortajModifantoj (verbo: Verbo) (lastaVorto: string option) =
@@ -71,6 +81,14 @@ module Legiloj =
          | ([ vorto1; vorto2; vorto3 ], restantaj, novaLastaVorto) ->
             (Predikato3(verbo, vorto1, vorto2, vorto3), restantaj, novaLastaVorto) |> Ok
          | _ -> Error (sprintf "%s ne havas valencon de 2 aŭ 3" verbo.Verbo))
+
+   let legiPridirantanPredikaton (pridiranto: Verbo) (partoj: string list)
+      vortajModifantoj (lastaVorto: string option) =
+      legiObjektojn 1 partoj vortajModifantoj lastaVorto
+      |> Result.bind (fun (objektoj, restantaj, novaLastaVorto) ->
+         match objektoj with
+         | [ objekto ] -> (Predikato1(pridiranto, objekto), restantaj, novaLastaVorto) |> Ok
+         | _ -> Error "ne eblas legi objekton por pridiranta predikato")
 
    let rec legiPredikaton (listo: string list) vortajModifantoj (lastaVorto: string option) =
       match listo with
@@ -84,6 +102,10 @@ module Legiloj =
             | (TransitivaVerbo3, inflekcio) ->
                legiTransitivanPredikaton 3 restantaj vortajModifantoj
                   { Verbo = malinflektita; Inflekcio = inflekcio } (Some(unua))
+            | (Vorttipo.Pridiranto, PredikativoEsti) ->
+               legiPridirantanPredikaton
+                  { Verbo = malinflektita; Inflekcio = PredikativoEsti } restantaj
+                  vortajModifantoj (Some(unua))
             | _ ->
                match lastaVorto with
                | Some(l) when unua = l ->
@@ -109,7 +131,8 @@ module Legiloj =
             (fun vortformo ->
                match vortformo with
                | (TransitivaVerbo2, _) | (TransitivaVerbo3, _)
-               | (NetransitivaVerbo1, _) | (NetransitivaVerbo2, _) ->
+               | (NetransitivaVerbo1, _) | (NetransitivaVerbo2, _)
+               | (Vorttipo.Pridiranto, PredikativoEsti) ->
                   legiPredikaton partoj  vortajModifantoj lastaVorto
                   |> Result.map (fun (predikato, restantaj, novaLastaVorto) ->
                       (Predikato(predikato), restantaj, novaLastaVorto))
