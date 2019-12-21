@@ -17,9 +17,9 @@ module Strukturo =
    type Modifanto =
    | Pridiranto of string
    | Modifanto0 of string
-   | Modifanto1 of Modifanto : string * Vorto : string
+   | Modifanto1 of Modifanto : string * Vorto : Vorto
 
-   type Vorto =
+   and Vorto =
    | Lokokupilo of string
    | Objekto of Objekto
    | Eco of Objekto * Vorto

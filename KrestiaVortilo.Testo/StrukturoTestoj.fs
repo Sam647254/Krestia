@@ -62,3 +62,16 @@ type StrukturoTestoj () =
       kontroliFrazon
          pravo
          "remudia remudia endre rima"
+
+   [<TestMethod>]
+   member _.``retodia retodia tunipe vol durana`` () =
+      let pravo =
+         Predikato1(
+            { Verbo = "retod"; Inflekcio = PredikativoEsti },
+            PridiritaVorto(
+               Objekto({ Objekto = "tunipo"; Inflekcio = NekonitaNombro }),
+               [ Modifanto1("vol", Objekto({ Objekto = "duranaa"; Inflekcio = NekonitaNombro })) ]))
+         |> Predikato
+      kontroliFrazon
+         pravo
+         "retodia retodia tunipe vol durana"
