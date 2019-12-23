@@ -13,7 +13,7 @@ type StrukturoTestoj () =
    member _.``meratre hem hes`` () =
       let pravo =
          Predikato2(
-            { Verbo = "merat"; Inflekcio = Progresivo },
+            { Vorto = "merat"; Inflekcio = [ Progresivo ] },
             Lokokupilo("hem"),
             Lokokupilo("hes"))
          |> Predikato
@@ -23,9 +23,9 @@ type StrukturoTestoj () =
    member _.``menapro Eşxan trupasi wil`` () =
       let pravo =
          Predikato3(
-            { Verbo = "menap"; Inflekcio = Perfekto },
+            { Vorto = "menap"; Inflekcio = [ Perfekto ] },
             FremdaVorto("Eşxan"),
-            Objekto({ Objekto = "trupaa"; Inflekcio = UnuNombro}),
+            BazaVorto({ Vorto = "trupaa"; Inflekcio = [ UnuNombro ] }),
             Lokokupilo("wil"))
          |> Predikato
       kontroliFrazon pravo "menapro Eşxan trupasi wil"
@@ -35,29 +35,44 @@ type StrukturoTestoj () =
       let pravo =
          Peral(
             Predikato2(
-               { Verbo = "merat"; Inflekcio = Progresivo },
+               { Vorto = "merat"; Inflekcio = [ Progresivo ]},
                Lokokupilo("heti"),
                Eco(
-                  { Objekto = "megro"; Inflekcio = NekonitaNombro },
+                  { Vorto = "megro"; Inflekcio = [ NekonitaNombro ]},
                   PridiritaVorto(
-                     Objekto({ Objekto = "kunapaa"; Inflekcio = UnuNombro }),
+                     BazaVorto({ Vorto = "kunapaa"; Inflekcio = [ UnuNombro ]}),
                      [ Pridiranto("kred") ]))),
             Predikato2(
-               { Verbo = "merat"; Inflekcio = Progresivo },
+               { Vorto = "merat"; Inflekcio = [ Progresivo ] },
                Lokokupilo("heti"),
-               Objekto({ Objekto = "kitigro"; Inflekcio = Havaĵo })))
+               BazaVorto({ Vorto = "kitigro"; Inflekcio = [ Havaĵo ]})))
       kontroliFrazon
          pravo
          "peral meratre heti megre kunapasi kredea meratre heti kitigrensa"
 
    [<TestMethod>]
+   member _.``petro Naapi bivitulasemema heti`` () =
+      let pravo =
+         Predikato2(
+            { Vorto = "pet"; Inflekcio = [ Perfekto ]},
+            FremdaVorto("Naapi"),
+            BazaVorto({ Vorto = "bivitu"
+                        Inflekcio = [ Translativo
+                                      PartaNominativo(Lokokupilo("heti"))
+                                      InflekcioŜtupo.Ĝerundo ] }))
+         |> Predikato
+      kontroliFrazon
+         pravo
+         "petro Naapi bivitilasemema heti"
+
+   [<TestMethod>]
    member _.``remudia remudia endre rima`` () =
       let pravo =
          Predikato1(
-            { Verbo = "remud"; Inflekcio = PredikativoEsti },
+            { Vorto = "remud"; Inflekcio = [ PredikativoEsti ]},
             Eco(
-               { Objekto = "endro"; Inflekcio = NekonitaNombro },
-               Objekto({ Objekto = "rimaa"; Inflekcio = NekonitaNombro })))
+               { Vorto = "endro"; Inflekcio = [ NekonitaNombro ]},
+               BazaVorto({ Vorto = "rimaa"; Inflekcio = [ NekonitaNombro ]})))
          |> Predikato
       kontroliFrazon
          pravo
@@ -67,10 +82,10 @@ type StrukturoTestoj () =
    member _.``retodia retodia tunipe vol durana`` () =
       let pravo =
          Predikato1(
-            { Verbo = "retod"; Inflekcio = PredikativoEsti },
+            { Vorto = "retod"; Inflekcio = [ PredikativoEsti ]},
             PridiritaVorto(
-               Objekto({ Objekto = "tunipo"; Inflekcio = NekonitaNombro }),
-               [ Modifanto1("vol", Objekto({ Objekto = "duranaa"; Inflekcio = NekonitaNombro })) ]))
+               BazaVorto({ Vorto = "tunipo"; Inflekcio = [ NekonitaNombro ]}),
+               [ Modifanto1("vol", BazaVorto({ Vorto = "duranaa"; Inflekcio = [ NekonitaNombro ]})) ]))
          |> Predikato
       kontroliFrazon
          pravo

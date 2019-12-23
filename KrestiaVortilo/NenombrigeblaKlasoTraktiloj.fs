@@ -20,7 +20,7 @@ module NenombrigeblaKlasoTraktiloj =
    let ĝerundoFinaĵoj =
       nenombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "va")
 
-   let verbaĜerundoFinaĵoj = [ "pema"; "tema"; "sema"; "mena"; "igema"; "egema"; "nema" ]
+   let verbaĜerundoFinaĵoj = [ "pema"; "tema"; "sema"; "mema"; "igema"; "egema"; "nema" ]
 
    let trakiloj: Vorttraktilo list = [
       { Kontroli = fun vorto ->

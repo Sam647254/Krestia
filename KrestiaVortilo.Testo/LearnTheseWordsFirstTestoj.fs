@@ -13,7 +13,7 @@ type LearnTheseWordsFirstTestoj () =
    member _.``Tony sees Lisa.`` () =
       let pravo =
          Predikato2(
-            { Verbo = "merat"; Inflekcio = Progresivo },
+            { Vorto = "merat"; Inflekcio = [ Progresivo ]},
             FremdaVorto("Tony"),
             FremdaVorto("Lisa"))
          |> Predikato
@@ -23,7 +23,7 @@ type LearnTheseWordsFirstTestoj () =
    member _.``Tony sees something.`` () =
       let pravo =
          Predikato2(
-            { Verbo = "merat"; Inflekcio = Progresivo },
+            { Vorto = "merat"; Inflekcio = [ Progresivo ]},
             FremdaVorto("Tony"),
             Lokokupilo("wel"))
          |> Predikato
@@ -33,7 +33,7 @@ type LearnTheseWordsFirstTestoj () =
    member _.``Tony sees the other thing.`` () =
       let pravo =
          Predikato2(
-            { Verbo = "merat"; Inflekcio = Progresivo },
+            { Vorto = "merat"; Inflekcio = [ Progresivo ]},
             FremdaVorto("Tony"),
             PridiritaVorto(Lokokupilo("wel"), [ Modifanto0("evilel") ]))
          |> Predikato
@@ -43,7 +43,7 @@ type LearnTheseWordsFirstTestoj () =
    member _.``Tony sees this thing.`` () =
       let pravo =
          Predikato2(
-            { Verbo = "merat"; Inflekcio = Progresivo },
+            { Vorto = "merat"; Inflekcio = [ Progresivo ]},
             FremdaVorto("Tony"),
             PridiritaVorto(Lokokupilo("wel"), [ Pridiranto("tred") ]))
          |> Predikato

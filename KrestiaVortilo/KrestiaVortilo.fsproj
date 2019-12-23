@@ -12,6 +12,8 @@
     <Compile Include="EcoTraktiloj.fs" />
     <Compile Include="TransitivaVerboTraktiloj.fs" />
     <Compile Include="NetransitivaVerboTraktiloj.fs" />
+    <Compile Include="PartaNetransitivaVerboTraktiloj.fs" />
+    <Compile Include="MalplenaVerboTraktiloj.fs" />
     <Compile Include="PridirantoTraktiloj.fs" />
     <Compile Include="LokokupiloTraktiloj.fs" />
     <Compile Include="FremdaVortoTraktiloj.fs" />

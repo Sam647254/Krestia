@@ -24,7 +24,7 @@ module NetransitivaVerboTraktiloj =
       { Kontroli = fun vorto ->
            if vorto.EndsWith("s") &&
               not (["las"; "elis"; "tes"; "dis"; "tos"]
-              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo)))
+                   |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo)))
            then Some (NetransitivaVerbo1, Infinitivo)
            elif vorto.EndsWith("sh") &&
               not (["shelish"; "pesh"; "posh"]
