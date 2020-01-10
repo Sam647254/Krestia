@@ -35,7 +35,7 @@ namespace KrestiaVortaro {
 
       public IDictionary<string, string>? InflektitajFormoj { get; set; }
       
-      public int? Blissimbolo { get; set; }
+      public IEnumerable<int>? Blissimbolo { get; set; }
 
       internal VortoRespondo(string vorto) {
          Vorto = vorto;

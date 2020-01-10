@@ -131,10 +131,12 @@ namespace KrestiaVortaro {
          foreach (var vico in eniro) {
             var partoj = vico.Split('|');
             var vorto = partoj[0];
-            var blissId = partoj[2];
-            var ĉuEkzistas = int.TryParse(blissId, out var id);
-            if (ĉuEkzistas) {
-               vortoj[vorto].Blissimbolo = id;
+            var blissIds = partoj[2].Split(',').Select(id => {
+               var ĉuEkzistas = int.TryParse(id, out var blissId);
+               return ĉuEkzistas ? blissId : (int?) null;
+            }).ToImmutableList();
+            if (blissIds.All(id => id != null)) {
+               vortoj[vorto].Blissimbolo = blissIds.Select(id => id!.Value).ToList();
             }
          }
       }
@@ -167,7 +169,7 @@ namespace KrestiaVortaro {
             throw new InvalidOperationException($"{novaVorto} ne havas validajn malplenigitajn formojn");
          }
 
-         return Malinflektado.valencoDe(novaVorto);
+         return Malinflektado.valencoDe(novaVorto).Value;
       }
    }
 }

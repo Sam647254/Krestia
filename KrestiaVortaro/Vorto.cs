@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 
 namespace KrestiaVortaro {
    public class Vorto : IComparable<Vorto> {
@@ -22,11 +23,11 @@ namespace KrestiaVortaro {
 
       public string? Noto { get; }
       
-      public int? Blissimbolo { get; set; }
+      public List<int>? Blissimbolo { get; set; }
 
       public Vorto(string plenaVorto, string bazaVorto, IEnumerable<string> radikoj, string signifo,
          string glosaSignifo, string? ujo1 = null, string? ujo2 = null, string? ujo3 = null, string? noto = null,
-         int? blissimbolo = null) {
+         IEnumerable<int>? blissimbolo = null) {
          PlenaVorto = plenaVorto;
          BazaVorto = bazaVorto;
          Radikoj = radikoj.ToImmutableList();
@@ -36,7 +37,7 @@ namespace KrestiaVortaro {
          Ujo2 = ujo2;
          Ujo3 = ujo3;
          Noto = noto;
-         Blissimbolo = blissimbolo;
+         Blissimbolo = blissimbolo?.ToList();
       }
 
       public int CompareTo(Vorto other) {
