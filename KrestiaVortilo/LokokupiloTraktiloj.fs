@@ -4,8 +4,10 @@ open Vorttipo
 
 module LokokupiloTraktiloj =
    let trakiloj : Vorttraktilo list = [
-      { Formo = (Lokokupilo, SolaFormo)
-        Kontroli = (fun vorto -> vorto.StartsWith("h") || vorto.StartsWith("w"))
+      { Kontroli = fun vorto ->
+           if vorto.StartsWith("h") || vorto.StartsWith("w")
+           then Some (Lokokupilo, SolaFormo)
+           else None
         Inflekti = neinflektebla
-        Malinflekti = (fun vorto -> (vorto, (Lokokupilo, SolaFormo))) }
+        Malinflekti = fun vorto -> (vorto, (Lokokupilo, SolaFormo)) }
       ]

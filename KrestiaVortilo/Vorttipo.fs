@@ -32,42 +32,29 @@ module Vorttipo =
    type Vorttipo =
    | NombrigeblaKlaso
    | NenombrigeblaKlaso
-   | TransitivaVerbo
-   | NetransitivaVerbo
+   | Rekordo
+   | NombrigeblaEco
+   | NenombrigeblaEco
+   | TransitivaVerbo2
+   | TransitivaVerbo3
+   | NetransitivaVerbo1
+   | NetransitivaVerbo2
    | MalplenaVerbo
-   | PartaTransitivaVerbo
+   | PartaTransitivaVerbo1
+   | PartaTransitivaVerbo2
    | PartaNetransitivaVerbo
    | Pridiranto
    | Lokokupilo
+   | SintaksaVorto
+   | Makro
+   | FremdaVorto
 
    type Vortformo = Vorttipo * Inflekcio
    type VorttipoKontrolilo = (string -> bool)
    type Vorttraktilo = {
-      Formo : Vortformo
-      Kontroli : (string -> bool)
+      Kontroli : (string -> Vortformo option)
       Inflekti : (Vortformo -> string -> string option)
       Malinflekti : (string -> (string * Vortformo))
    }
 
    let neinflektebla = fun _formo _vorto -> None
-
-   let _kontrolilaro: (Vortformo * VorttipoKontrolilo) list = [
-      ((NombrigeblaKlaso, Infinitivo),
-         fun s ->
-            [ "pu"; "po"; "paa"; "tu"; "to"; "taa"; "ku"; "ko"; "kaa"]
-            |> List.exists (fun finaĵo -> s.EndsWith(finaĵo)))
-      ((NombrigeblaKlaso, NekonitaNombro),
-         fun s ->
-            [ "pi"; "pe"; "pa"; "ti"; "te"; "ta"; "ki"; "ke"; "ka"]
-            |> List.exists (fun finaĵo -> s.EndsWith(finaĵo)))
-
-      ((NenombrigeblaKlaso, Infinitivo),
-         fun s ->
-            [ "mu"; "mo"; "maa"; "nu"; "no"; "naa"]
-            |> List.exists (fun finaĵo -> s.EndsWith(finaĵo)))
-
-      ((NenombrigeblaKlaso, Ĝerundo),
-         fun s ->
-            [ "miva"; "meva"; "mava"; "niva"; "neva"; "nava"]
-            |> List.exists (fun finaĵo -> s.EndsWith(finaĵo)))
-   ]

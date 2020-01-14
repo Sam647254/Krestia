@@ -152,7 +152,12 @@ module Vortlisto =
       Lokokupilo("hori", "everyone")
       Lokokupilo("hemse", "you and I")
       Lokokupilo("wen", "last nominative")
-      Lokokupilo("won", "last marked class") ]
+      Lokokupilo("won", "last marked class")
+
+      Klaso("kunapaa", false, [ "kunaa" ], "well (water)")
+
+      Pridiranto("kred", [], "that")
+      Pridiranto("tred", [], "this") ]
 
    let vortaro =
       listo

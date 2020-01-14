@@ -11,11 +11,13 @@
     <Compile Include="Testiloj.fs" />
     <Compile Include="NombrigeblaKlasoTestoj.fs" />
     <Compile Include="NenombrigeblaKlasoTestoj.fs" />
+    <Compile Include="EcoTestoj.fs" />
     <Compile Include="TransitivaVerboTestoj.fs" />
     <Compile Include="NetransitivaVerboTestoj.fs" />
     <Compile Include="PridirantoTestoj.fs" />
     <Compile Include="LokokupiloTestoj.fs" />
     <Compile Include="StrukturoTestoj.fs" />
+    <Compile Include="LearnTheseWordsFirstTestoj.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

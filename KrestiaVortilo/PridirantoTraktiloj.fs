@@ -4,67 +4,89 @@ open Vorttipo
 
 module PridirantoTraktiloj =
    let traktiloj: Vorttraktilo list = [
-      { Formo = (Pridiranto, Infinitivo)
-        Kontroli = fun vorto -> vorto.EndsWith("d")
-        Inflekti = fun formo vorto -> failwith "???"
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("d")
+           then Some (Pridiranto, Infinitivo)
+           else None
+        Inflekti = neinflektebla
         Malinflekti = fun vorto -> (vorto, (Pridiranto, Infinitivo)) }
 
-      { Formo = (Pridiranto, NekonitaNombro)
-        Kontroli = fun vorto -> vorto.EndsWith("de")
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("de")
+           then Some (Pridiranto, NekonitaNombro)
+           else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            (vorto.Substring(0, vorto.Length - 1), (Pridiranto, Infinitivo)) }
 
-      { Formo = (Pridiranto, UnuNombro)
-        Kontroli = fun vorto -> vorto.EndsWith("da")
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("da")
+           then Some (Pridiranto, UnuNombro)
+           else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            (vorto.Substring(0, vorto.Length - 1), (Pridiranto, Infinitivo)) }
 
-      { Formo = (Pridiranto, PluraNombro)
-        Kontroli = fun vorto -> vorto.EndsWith("die")
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("die")
+           then Some (Pridiranto, PluraNombro)
+           else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            (vorto.Substring(0, vorto.Length - 2), (Pridiranto, Infinitivo)) }
 
-      { Formo = (Pridiranto, Havaĵo)
-        Kontroli = fun vorto -> vorto.EndsWith("du")
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("du")
+           then Some (Pridiranto, Havaĵo)
+           else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            (vorto.Substring(0, vorto.Length - 1), (Pridiranto, Infinitivo)) }
 
-      { Formo = (Pridiranto, Progresivo)
-        Kontroli = fun vorto -> vorto.EndsWith("dia")
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("dia")
+           then Some (Pridiranto, PredikativoEsti)
+           else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            (vorto.Substring(0, vorto.Length - 2), (Pridiranto, Infinitivo)) }
 
-      { Formo = (Pridiranto, Perfekto)
-        Kontroli = fun vorto -> vorto.EndsWith("do")
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("do")
+           then Some (Pridiranto, Perfekto)
+           else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            (vorto.Substring(0, vorto.Length - 1), (Pridiranto, Infinitivo)) }
 
-      { Formo = (Pridiranto, AtributativoEsti)
-        Kontroli = fun vorto -> vorto.EndsWith("dea")
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("dea")
+           then Some (Pridiranto, AtributativoEsti)
+           else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            (vorto.Substring(0, vorto.Length - 2), (Pridiranto, Infinitivo)) }
 
-      { Formo = (Pridiranto, Translativo)
-        Kontroli = fun vorto -> vorto.EndsWith("dis")
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("dis")
+           then Some (Pridiranto, Translativo)
+           else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            (vorto.Substring(0, vorto.Length - 2), (Pridiranto, Infinitivo)) }
 
-      { Formo = (Pridiranto, Ĝerundo)
-        Kontroli = fun vorto -> vorto.EndsWith("di")
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("di")
+           then Some (Pridiranto, Ĝerundo)
+           else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            (vorto.Substring(0, vorto.Length - 1), (Pridiranto, Infinitivo)) }
 
-      { Formo = (Pridiranto, Igo)
-        Kontroli = fun vorto -> vorto.EndsWith("det")
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("det")
+           then Some (Pridiranto, Igo)
+           else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            (vorto.Substring(0, vorto.Length - 2), (Pridiranto, Infinitivo)) }

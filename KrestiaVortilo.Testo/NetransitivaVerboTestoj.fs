@@ -15,12 +15,11 @@ type NetransitivaVerboTestoj () =
         ("dulaviso", Perfekto)
         ("dulavisela", Estonteco)
         ("dulavisera", NominativoVolo)
-        ("dulaviseri", DativoVolo)
         ("dulavisie", AtributativoEsti)
         ("dulavisea", Imperativo)
         ("dulavisetio", Aganto)
         ("dulaviselis", Translativo)
         ("dulavisema", Ĝerundo)
         ("dulavisem", PartaNominativo) ]
-      |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto NetransitivaVerbo inflekcio)
+      |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto NetransitivaVerbo1 inflekcio)
       |> ignore

@@ -20,63 +20,72 @@ module NenombrigeblaKlasoTraktiloj =
    let ĝerundoFinaĵoj =
       nenombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "va")
 
-   let verbaĜerundoFinaĵoj = [ "pema"; "tema"; "kema"; "sema"; "mena"; "gema"; "nema" ]
+   let verbaĜerundoFinaĵoj = [ "pema"; "tema"; "sema"; "mema"; "igema"; "egema"; "nema" ]
 
    let trakiloj: Vorttraktilo list = [
-      { Formo = (NenombrigeblaKlaso, Infinitivo)
-        Kontroli = fun vorto ->
-           nenombrigeblaInfinitivoFinaĵoj
-           |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
-        Inflekti = fun formo vorto -> failwith "???"
+      { Kontroli = fun vorto ->
+           if nenombrigeblaInfinitivoFinaĵoj
+              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+           then Some (NenombrigeblaKlaso, Infinitivo)
+           else None
+        Inflekti = neinflektebla
         Malinflekti = fun vorto -> (vorto, (NenombrigeblaKlaso, Infinitivo)) }
 
-      { Formo = (NenombrigeblaKlaso, NekonitaNombro)
-        Kontroli = fun vorto ->
-           nenombrigeblaNekonitaNombroFinaĵoj |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo)) &&
-           not (verbaĜerundoFinaĵoj |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo)))
-        Inflekti = fun formo vorto -> failwith "???"
+      { Kontroli = fun vorto ->
+           if nenombrigeblaNekonitaNombroFinaĵoj
+              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo)) &&
+                 not (verbaĜerundoFinaĵoj |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo)))
+           then Some (NenombrigeblaKlaso, NekonitaNombro)
+           else None
+        Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            let malinflektitaVorto = infinitivigi vorto
            (malinflektitaVorto, (NenombrigeblaKlaso, Infinitivo)) }
 
-      { Formo = (NenombrigeblaKlaso, PredikativoEsti)
-        Kontroli = fun vorto ->
-           predikativoEstiFinaĵoj
-           |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
-        Inflekti = fun formo vorto -> failwith "???"
+      { Kontroli = fun vorto ->
+           if predikativoEstiFinaĵoj
+              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+           then Some (NenombrigeblaKlaso, PredikativoEsti)
+           else None
+        Inflekti = neinflektebla
         Malinflekti = fun vorto -> (vorto.Substring(0, vorto.Length - 2), (NenombrigeblaKlaso, Infinitivo)) }
 
-      { Formo = (NenombrigeblaKlaso, AtributativoEsti)
-        Kontroli = fun vorto ->
-           atributativoEstiFinaĵoj
-           |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
-        Inflekti = fun formo vorto -> failwith "???"
+      { Kontroli = fun vorto ->
+           if atributativoEstiFinaĵoj
+              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+           then Some (NenombrigeblaKlaso, AtributativoEsti)
+           else None
+        Inflekti = neinflektebla
         Malinflekti = fun vorto -> (vorto.Substring(0, vorto.Length - 2), (NenombrigeblaKlaso, Infinitivo)) }
 
-      { Formo = (NenombrigeblaKlaso, PredikativoHavi)
-        Kontroli = fun vorto ->
-           predikativoHaviFinaĵoj
-           |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
-        Inflekti = fun formo vorto -> failwith "???"
+      { Kontroli = fun vorto ->
+           if predikativoHaviFinaĵoj
+              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+           then Some (NenombrigeblaKlaso, PredikativoHavi)
+           else None
+        Inflekti = neinflektebla
         Malinflekti = fun vorto -> (vorto.Substring(0, vorto.Length - 2), (NenombrigeblaKlaso, Infinitivo)) }
 
-      { Formo = (NenombrigeblaKlaso, AtributativoHavi)
-        Kontroli = fun vorto ->
-           atributativoHaviFinaĵoj
-           |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
-        Inflekti = fun formo vorto -> failwith "???"
+      { Kontroli = fun vorto ->
+           if atributativoHaviFinaĵoj
+              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+           then Some (NenombrigeblaKlaso, AtributativoHavi)
+           else None
+        Inflekti = neinflektebla
         Malinflekti = fun vorto -> (vorto.Substring(0, vorto.Length - 2), (NenombrigeblaKlaso, Infinitivo)) }
 
-      { Formo = (NenombrigeblaKlaso, Translativo)
-        Kontroli = fun vorto ->
-           translativoFinaĵoj
-           |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
-        Inflekti = fun formo vorto -> failwith "???"
+      { Kontroli = fun vorto ->
+           if translativoFinaĵoj
+              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+           then Some (NenombrigeblaKlaso, Translativo)
+           else None
+        Inflekti = neinflektebla
         Malinflekti = fun vorto -> (vorto.Substring(0, vorto.Length - 3), (NenombrigeblaKlaso, Infinitivo)) }
 
-      { Formo = (NenombrigeblaKlaso, Ĝerundo)
-        Kontroli = fun vorto ->
-           ĝerundoFinaĵoj
-           |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
-        Inflekti = fun formo vorto -> failwith "???"
+      { Kontroli = fun vorto ->
+           if ĝerundoFinaĵoj
+              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+           then Some (NenombrigeblaKlaso, Ĝerundo)
+           else None
+        Inflekti = neinflektebla
         Malinflekti = fun vorto -> (vorto.Substring(0, vorto.Length - 3), (NenombrigeblaKlaso, Infinitivo)) } ]

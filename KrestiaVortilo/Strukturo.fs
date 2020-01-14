@@ -1,34 +1,58 @@
 ﻿namespace KrestiaVortilo
 
 open Vorttipo
+open Traktilaro
 
 module Strukturo =
-   type Verbo = {
-      Verbo : string
-      Inflekcio : Inflekcio
+   type BazaVorto = {
+      Vorto : string
+      Inflekcio : InflekcioŜtupo list
    }
 
-   type Objekto = {
-      Objekto : string
-      Inflekcio : Inflekcio
-   }
-
-   type Modifanto =
+   and Modifanto =
+   | Pridiranto of string
    | Modifanto0 of string
-   | Modifanto1 of Modifanto : string * Vorto : string
+   | Modifanto1 of Modifanto : string * Vorto : Vorto
 
-   type Vorto =
+   and InflekcioŜtupo =
+   | NekonitaNombro
+   | UnuNombro
+   | Havaĵo
+   | PluraNombro
+   | Progresivo
+   | Perfekto
+   | Estonteco
+   | NominativoVolo
+   | AkuzativoVolo
+   | DativoVolo
+   | PredikativoEsti
+   | AtributativoEsti
+   | PredikativoHavi
+   | AtributativoHavi
+   | Imperativo
+   | Patiento
+   | Aganto
+   | Translativo
+   | Ĝerundo
+   | PartaNominativo of Vorto
+   | PartaAkuzativo of Vorto
+   | PartaDativo of Vorto
+   | Pasivigo of Vorto
+   | Igo
+
+   and Vorto =
    | Lokokupilo of string
-   | Vorto of Objekto
-   | PridiritaVorto of Vorto : Objekto * Modifantoj : Modifanto list
+   | BazaVorto of BazaVorto
+   | Eco of BazaVorto * Vorto
+   | PridiritaVorto of Vorto * Modifantoj : Modifanto list
+   | FremdaVorto of string
+
+   and Predikato =
+   | Predikato0 of Verbo : BazaVorto
+   | Predikato1 of Verbo : BazaVorto * Vorto1 : Vorto
+   | Predikato2 of Verbo : BazaVorto * Vorto1 : Vorto * Vorto2 : Vorto
+   | Predikato3 of Verbo : BazaVorto * Vorto1 : Vorto * Vorto2 : Vorto * Vorto3 : Vorto
 
    type Frazo =
-   | Predikato0 of Verbo : Verbo
-   | Predikato1 of Verbo : Verbo * Vorto1 : Vorto
-   | Predikato2 of Verbo : Verbo * Vorto1 : Vorto * Vorto2 : Vorto
-   | Predikato3 of Verbo : Verbo * Vorto1 : Vorto * Vorto2 : Vorto * Vorto3 : Vorto
-
-   let strukturigi (eniro: string) (ĉuEkzistas: string -> bool) (valenco: string -> int option):
-      Result<Frazo, string> =
-      let vortoj = eniro.Split(' ') |> List.ofArray
-      Error "???"
+   | Predikato of Predikato
+   | Peral of Predikato * Predikato
