@@ -20,6 +20,8 @@ module Vorttipo =
    | Imperativo
    | Patiento
    | Aganto
+   | Ekzistado
+   | Invito
    | Translativo
    | Ĝerundo
    | PartaNominativo
@@ -28,6 +30,8 @@ module Vorttipo =
    | Pasivigo
    | Igo
    | SolaFormo
+   | Egigo
+   | Etigo
 
    type Vorttipo =
    | NombrigeblaKlaso
