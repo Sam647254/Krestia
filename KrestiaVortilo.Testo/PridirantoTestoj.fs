@@ -20,6 +20,8 @@ type PridirantoTestoj () =
         ("peridea", AtributativoEsti)
         ("peridis", Translativo)
         ("peridi", Ĝerundo)
-        ("peridet", Igo) ]
+        ("peridet", Igo)
+        ("peridrid", Egigo)
+        ("peridrod", Etigo) ]
       |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto Pridiranto inflekcio)
       |> ignore
