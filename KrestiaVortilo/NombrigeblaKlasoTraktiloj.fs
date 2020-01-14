@@ -41,6 +41,11 @@ module NombrigeblaKlasoTraktiloj =
       nombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "las")
    let ĝerundoFinaĵoj =
       nombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "va")
+   let ekzistadoFinaĵoj =
+      nombrigeblaNekonitaNombroFinaĵoj @
+      nombrigeblaUnuNombroFinaĵoj @
+      nombrigeblaPluraNombroFinaĵoj
+      |> List.map (fun finaĵo -> finaĵo + "rim")
 
    let ĉuNetransitivaVerbo1Aganto (infinitivo: string) = infinitivo.EndsWith("setio")
    let ĉuNetransitivaVerbo2Aganto (infinitivo: string) = infinitivo.EndsWith("shetio")

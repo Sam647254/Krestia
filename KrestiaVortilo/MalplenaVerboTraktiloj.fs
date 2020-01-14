@@ -4,11 +4,16 @@ open Vorttipo
 
 module MalplenaVerboTraktiloj =
    let normaligi (infinitivo: string) =
+      let ĉuNombrigeblaKlasoEkzistado (infinitivo: string) =
+         NombrigeblaKlasoTraktiloj.ekzistadoFinaĵoj
+         |> List.exists (fun finaĵo -> infinitivo.EndsWith(finaĵo))
+
       match infinitivo with
       | _ when infinitivo.EndsWith("sem") -> (NetransitivaVerbo1, PartaNominativo)
       | _ when infinitivo.EndsWith("melim") -> (MalplenaVerbo, Translativo)
       | _ when infinitivo.EndsWith("igam") -> (PartaTransitivaVerbo1, PartaAkuzativo)
       | _ when infinitivo.EndsWith("nom") -> (PartaNetransitivaVerbo, PartaDativo)
+      | _ when ĉuNombrigeblaKlasoEkzistado infinitivo -> (NombrigeblaKlaso, Ekzistado)
       | _ -> (MalplenaVerbo, Infinitivo)
 
    let traktiloj: Vorttraktilo list = [
