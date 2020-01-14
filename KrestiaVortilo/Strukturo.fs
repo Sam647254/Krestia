@@ -28,4 +28,7 @@ module Strukturo =
    | Predikato2 of Verbo : Verbo * Vorto1 : Vorto * Vorto2 : Vorto
    | Predikato3 of Verbo : Verbo * Vorto1 : Vorto * Vorto2 : Vorto * Vorto3 : Vorto
 
-   let strukturigi (eniro: string): Result<Frazo, string> = Error "???"
+   let strukturigi (eniro: string) (ĉuEkzistas: string -> bool) (valenco: string -> int option):
+      Result<Frazo, string> =
+      let vortoj = eniro.Split(' ') |> List.ofArray
+      Error "???"

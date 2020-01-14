@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace KrestiaInterfaco.Iloj {
    class AWSVortaro : Vortaro {
       private readonly AmazonDynamoDBClient client = new AmazonDynamoDBClient(Sekretoj.AWSCredentials, RegionEndpoint.USWest2);
-      private const string tableName = "Krestia-vortaro";
+      private const string tableName = "Krestia-vortaro-2";
 
       protected override async Task EkaldoniKlason(string vorto, bool animeco) {
          await client.PutItemAsync(tableName, new Dictionary<string, AttributeValue>() {
@@ -42,48 +42,37 @@ namespace KrestiaInterfaco.Iloj {
          var novaVortoj = vicoj.Select(vico => {
             var partoj = vico.Split("|");
             var vorto = partoj[0];
-            var valencoAŭAnimeco = partoj[1];
+            var radikoj = partoj[1].Split(',');
             var signifo = partoj[2];
-            var radikoj = partoj[3];
+            var noto = partoj.Length >= 4 ? partoj[3] : null;
+            var rilataj = partoj.Length == 5 ? partoj[4].Split(',') : null;
 
-            return vorto switch {
-               string v when Kontrolilaro.ĈuKlasoInfinitivo(v) =>
-                  new WriteRequest(new PutRequest(new Dictionary<string, AttributeValue>() {
-                     { "vorto", new AttributeValue(v) },
-                     { "animeco", new AttributeValue() { BOOL = valencoAŭAnimeco == "T" } },
-                     { "signifo", new AttributeValue(signifo) },
-                     { "radikoj", ListiRadikojn(radikoj) }
-                  })),
-               string v when Kontrolilaro.ĈuVerboInfinitivo(v) =>
-                  new WriteRequest(new PutRequest(new Dictionary<string, AttributeValue>() {
-                     { "vorto", new AttributeValue(v) },
-                     { "valenco", new AttributeValue() { N = valencoAŭAnimeco } },
-                     { "signifo", new AttributeValue(signifo) },
-                     { "radikoj", ListiRadikojn(radikoj) }
-                  })),
-               string v when Kontrolilaro.ĈuPridiranto(v) =>
-                  new WriteRequest(new PutRequest(new Dictionary<string, AttributeValue>() {
-                     { "vorto", new AttributeValue(v) },
-                     { "signifo", new AttributeValue(signifo) },
-                     { "radikoj", ListiRadikojn(radikoj) }
-                  })),
-               _ => throw new InvalidOperationException($"Nekonita vorto {vorto}")
+            var peto = new Dictionary<string, AttributeValue>() {
+               { "vorto", new AttributeValue(vorto) },
+               { "signifo", new AttributeValue(signifo) },
+               { "radikoj",
+                  new AttributeValue() {
+                     L = radikoj.Where(r => r.Length > 0).Select(r => new AttributeValue(r)).ToList(),
+                     IsLSet = true
+                  }
+               }
             };
+            if (!string.IsNullOrEmpty(noto)) {
+               peto["noto"] = new AttributeValue(noto);
+            }
+            if (rilataj != null) {
+               peto["rilataj"] = new AttributeValue() {
+                  L = rilataj.Where(r => r.Length > 0).Select(r => new AttributeValue(r)).ToList()
+               };
+            }
+
+            return new PutItemRequest(tableName, peto);
          });
          await Task.Run(() => {
-            novaVortoj.Batch(25).ForEach(async grupo => {
-               await client.BatchWriteItemAsync(new Dictionary<string, List<WriteRequest>>() {
-                  { tableName, grupo.ToList() }
-               });
+            novaVortoj.ForEach(async vorto => {
+               await client.PutItemAsync(vorto);
             });
          });
-      }
-
-      private AttributeValue ListiRadikojn(string radikoj) {
-         return new AttributeValue() {
-            L = radikoj.Split(",").Where(r => r.Length > 0).Select(r => new AttributeValue(r)).ToList(),
-            IsLSet = true
-         };
       }
    }
 }
