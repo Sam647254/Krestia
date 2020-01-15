@@ -11,7 +11,7 @@ module PridirantoTraktiloj =
 
    let traktiloj: Vorttraktilo list = [
       { Kontroli = fun vorto ->
-           if vorto.EndsWith("d")
+           if vorto.EndsWith("d") && (not(vorto.EndsWith("drid") || vorto.EndsWith("drod")))
            then Some (Pridiranto, Infinitivo)
            else None
         Inflekti = neinflektebla

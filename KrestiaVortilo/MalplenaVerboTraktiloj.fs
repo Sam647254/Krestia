@@ -25,10 +25,44 @@ module MalplenaVerboTraktiloj =
         Inflekti = neinflektebla
         Malinflekti = fun vorto -> (vorto, (MalplenaVerbo, Infinitivo)) }
         
-      (* ... *)
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("mia")
+           then Some (MalplenaVerbo, Progresivo)
+           else None
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           let malinflektita = vorto.Substring(0, vorto.Length - 2)
+           (malinflektita, normaligi malinflektita) }
+
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("mio")
+           then Some (MalplenaVerbo, Perfekto)
+           else None
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           let malinflektita = vorto.Substring(0, vorto.Length - 2)
+           (malinflektita, normaligi malinflektita) }
       
       { Kontroli = fun vorto ->
-           if vorto.EndsWith("mema")
+           if vorto.EndsWith("mela")
+           then Some (MalplenaVerbo, Estonteco)
+           else None
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           let malinflektita = vorto.Substring(0, vorto.Length - 3)
+           (malinflektita, normaligi malinflektita) }
+
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("melim")
+           then Some (MalplenaVerbo, Translativo)
+           else None
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           let malinflektita = vorto.Substring(0, vorto.Length - 4)
+           (malinflektita, normaligi malinflektita) }
+
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("mena")
            then Some (MalplenaVerbo, Ĝerundo)
            else None
         Inflekti = neinflektebla
