@@ -20,6 +20,7 @@ type NombrigeblaKlasoTestoj () =
         ("kreskira", NombrigeblaKlaso, PredikativoHavi)
         ("kreskire", NombrigeblaKlaso, AtributativoHavi)
         ("kreskilas", NombrigeblaKlaso, Translativo)
+        ("kreskirim", NombrigeblaKlaso, Ekzistado)
         ("kreskiva", NombrigeblaKlaso, Ĝerundo) ]
       |> List.map (fun (vorto, tipo, inflekcio) -> kontroliFormon vorto tipo inflekcio)
       |> ignore

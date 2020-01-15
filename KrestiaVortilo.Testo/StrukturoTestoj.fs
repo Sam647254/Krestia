@@ -63,7 +63,7 @@ type StrukturoTestoj () =
          |> Predikato
       kontroliFrazon
          pravo
-         "petro Naapi bivitilasemema heti"
+         "petro Naapi bivitilasemena heti"
 
    [<TestMethod>]
    member _.``remudia remudia endre rima`` () =

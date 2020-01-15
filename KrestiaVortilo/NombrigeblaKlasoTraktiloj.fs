@@ -165,6 +165,16 @@ module NombrigeblaKlasoTraktiloj =
            (malinflektitaVorto, normaligi malinflektitaVorto) }
 
       { Kontroli = fun vorto ->
+           if ekzistadoFinaĵoj
+              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+           then Some (NombrigeblaKlaso, Ekzistado)
+           else None
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           let malinflektitaVorto = vorto.Substring(0, vorto.Length - 3) |> infinitivigi
+           (malinflektitaVorto, normaligi malinflektitaVorto) }
+
+      { Kontroli = fun vorto ->
            if ĝerundoFinaĵoj
               |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
            then Some (NombrigeblaKlaso, Ĝerundo)
