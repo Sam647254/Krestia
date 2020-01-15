@@ -136,7 +136,7 @@ namespace KrestiaVortaro {
                return ĉuEkzistas ? blissId : (int?) null;
             }).ToImmutableList();
             if (blissIds.All(id => id != null)) {
-               vortoj[vorto].Blissimbolo = blissIds.Select(id => id!.Value).ToList();
+               vortoj[vorto].Blissimbolo = blissIds.Select(id => (long) id!.Value).ToList();
             }
          }
       }

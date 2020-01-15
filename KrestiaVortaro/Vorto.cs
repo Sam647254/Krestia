@@ -23,11 +23,11 @@ namespace KrestiaVortaro {
 
       public string? Noto { get; }
       
-      public List<int>? Blissimbolo { get; set; }
+      public List<long>? Blissimbolo { get; set; }
 
       public Vorto(string plenaVorto, string bazaVorto, IEnumerable<string> radikoj, string signifo,
          string glosaSignifo, string? ujo1 = null, string? ujo2 = null, string? ujo3 = null, string? noto = null,
-         IEnumerable<int>? blissimbolo = null) {
+         IEnumerable<long>? blissimbolo = null) {
          PlenaVorto = plenaVorto;
          BazaVorto = bazaVorto;
          Radikoj = radikoj.ToImmutableList();
