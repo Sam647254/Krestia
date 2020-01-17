@@ -19,6 +19,8 @@ module NenombrigeblaKlasoTraktiloj =
       nenombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "las")
    let ĝerundoFinaĵoj =
       nenombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "va")
+   let ekzistadoFinaĵoj =
+      nenombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "rim")
 
    let verbaĜerundoFinaĵoj = [ "pema"; "tema"; "sema"; "mena"; "igema"; "egema"; "nema" ]
 
@@ -81,6 +83,16 @@ module NenombrigeblaKlasoTraktiloj =
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto -> (vorto.Substring(0, vorto.Length - 3), (NenombrigeblaKlaso, Infinitivo)) }
+
+      { Kontroli = fun vorto ->
+           if ekzistadoFinaĵoj
+              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+           then Some (NenombrigeblaKlaso, Ekzistado)
+           else None
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           let malinflektitaVorto = vorto.Substring(0, vorto.Length - 3) |> infinitivigi
+           (malinflektitaVorto, normaligi malinflektitaVorto) }
 
       { Kontroli = fun vorto ->
            if ĝerundoFinaĵoj

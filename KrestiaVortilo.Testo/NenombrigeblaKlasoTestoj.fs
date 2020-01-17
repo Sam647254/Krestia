@@ -17,6 +17,7 @@ type NenombrigeblaKlasoTestoj () =
         ("gremura", PredikativoHavi)
         ("gremure", AtributativoHavi)
         ("gremilas", Translativo)
+        ("gremirim", Ekzistado)
         ("gremiva", Ĝerundo) ]
       |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto NenombrigeblaKlaso inflekcio)
       |> ignore

@@ -111,7 +111,11 @@ module NombrigeblaKlasoTraktiloj =
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
-           let malinflektitaVorto = vorto.Substring(0, vorto.Length - 3) |> infinitivigi
+           let malinflektitaVorto =
+              (if vorto.EndsWith("vensa") || vorto.EndsWith("sinsa")
+              then vorto.Substring(0, vorto.Length - 5)
+              else vorto.Substring(0, vorto.Length - 3))
+              |> normaligi
            (malinflektitaVorto, normaligi malinflektitaVorto) }
 
       { Kontroli = fun vorto ->
@@ -141,7 +145,11 @@ module NombrigeblaKlasoTraktiloj =
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
-           let malinflektitaVorto = vorto.Substring(0, vorto.Length - 2) |> infinitivigi
+           let malinflektitaVorto =
+              (if vorto.EndsWith("vera") || vorto.EndsWith("sira")
+              then vorto.Substring(0, vorto.Length - 4)
+              else vorto.Substring(0, vorto.Length - 2))
+              |> infinitivigi
            (malinflektitaVorto, normaligi malinflektitaVorto) }
 
       { Kontroli = fun vorto ->
@@ -151,7 +159,11 @@ module NombrigeblaKlasoTraktiloj =
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
-           let malinflektitaVorto = vorto.Substring(0, vorto.Length - 2) |> infinitivigi
+           let malinflektitaVorto =
+              (if vorto.EndsWith("vere") || vorto.EndsWith("sire")
+              then vorto.Substring(0, vorto.Length - 4)
+              else vorto.Substring(0, vorto.Length - 2))
+              |> infinitivigi
            (malinflektitaVorto, normaligi malinflektitaVorto) }
 
       { Kontroli = fun vorto ->
@@ -171,7 +183,11 @@ module NombrigeblaKlasoTraktiloj =
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
-           let malinflektitaVorto = vorto.Substring(0, vorto.Length - 3) |> infinitivigi
+           let malinflektitaVorto =
+              (if vorto.EndsWith("verim") || vorto.EndsWith("sirim")
+              then vorto.Substring(0, vorto.Length - 5)
+              else vorto.Substring(0, vorto.Length - 3))
+              |> infinitivigi
            (malinflektitaVorto, normaligi malinflektitaVorto) }
 
       { Kontroli = fun vorto ->
