@@ -112,10 +112,9 @@ module NombrigeblaKlasoTraktiloj =
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            let malinflektitaVorto =
-              (if vorto.EndsWith("vensa") || vorto.EndsWith("sinsa")
+              if vorto.EndsWith("vensa") || vorto.EndsWith("sinsa")
               then vorto.Substring(0, vorto.Length - 5)
-              else vorto.Substring(0, vorto.Length - 3))
-              |> normaligi
+              else vorto.Substring(0, vorto.Length - 3)
            (malinflektitaVorto, normaligi malinflektitaVorto) }
 
       { Kontroli = fun vorto ->
