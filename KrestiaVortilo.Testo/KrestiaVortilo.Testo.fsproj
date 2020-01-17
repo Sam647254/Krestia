@@ -15,6 +15,7 @@
     <Compile Include="TransitivaVerboTestoj.fs" />
     <Compile Include="NetransitivaVerboTestoj.fs" />
     <Compile Include="MalplenaVerboTestoj.fs" />
+    <Compile Include="PartaNetransitivaVerboTestoj.fs" />
     <Compile Include="PridirantoTestoj.fs" />
     <Compile Include="LokokupiloTestoj.fs" />
     <Compile Include="StrukturoTestoj.fs" />

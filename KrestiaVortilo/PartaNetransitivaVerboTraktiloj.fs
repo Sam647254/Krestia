@@ -24,4 +24,31 @@ module PartaNetransitivaVerboTraktiloj =
         Malinflekti = fun vorto ->
            let malinflektita = vorto.Substring(0, vorto.Length - 2)
            (malinflektita, normaligi malinflektita) }
+
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("nio")
+           then Some (PartaNetransitivaVerbo, Perfekto)
+           else None
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           let malinflektita = vorto.Substring(0, vorto.Length - 2)
+           (malinflektita, normaligi malinflektita) }
+
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("nela")
+           then Some (PartaNetransitivaVerbo, Estonteco)
+           else None
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           let malinflektita = vorto.Substring(0, vorto.Length - 3)
+           (malinflektita, normaligi malinflektita) }
+
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("neri")
+           then Some (PartaNetransitivaVerbo, DativoVolo)
+           else None
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           let malinflektita = vorto.Substring(0, vorto.Length - 3)
+           (malinflektita, normaligi malinflektita) }
    ]

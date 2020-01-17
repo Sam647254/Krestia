@@ -7,7 +7,7 @@ module FremdaVortoTraktiloj =
    
    let traktiloj: Vorttraktilo list = [
       { Kontroli = fun vorto ->
-           if not(Char.IsLower(vorto.[0]))
+           if vorto.Length > 0 && not(Char.IsLower(vorto.[0]))
            then Some (FremdaVorto, SolaFormo)
            else None
         Inflekti = neinflektebla

@@ -87,7 +87,8 @@ module NombrigeblaKlasoTraktiloj =
            (malinflektitaVorto, normaligi malinflektitaVorto) }
 
       { Kontroli = fun vorto ->
-           if vorto.EndsWith("si")
+           if nombrigeblaUnuNombroFinaĵoj
+              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
            then Some (NombrigeblaKlaso, UnuNombro)
            else None
         Inflekti = neinflektebla
@@ -96,7 +97,8 @@ module NombrigeblaKlasoTraktiloj =
            (malinflektitaVorto, normaligi malinflektitaVorto) }
 
       { Kontroli = fun vorto ->
-           if vorto.EndsWith("ve")
+           if nombrigeblaPluraNombroFinaĵoj
+              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
            then Some (NombrigeblaKlaso, PluraNombro)
            else None
         Inflekti = neinflektebla

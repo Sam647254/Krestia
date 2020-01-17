@@ -26,6 +26,8 @@ type EcoTestoj () =
         ("endre", NekonitaNombro)
         ("endresi", UnuNombro)
         ("endreve", PluraNombro)
+        ("endresinsa", Havaĵo)
+        ("endrevensa", Havaĵo)
         ("endrensa", Havaĵo)
         ("endrowa", PredikativoEsti)
         ("endroga", AtributativoEsti)
@@ -34,5 +36,5 @@ type EcoTestoj () =
         ("endresirim", Ekzistado)
         ("endreverim", Ekzistado)
         ("endreva", Ĝerundo) ]
-      |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto NenombrigeblaEco inflekcio)
+      |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto NombrigeblaEco inflekcio)
       |> ignore
