@@ -22,6 +22,7 @@ module Sintaksanalizilo =
    let nombrigeblaPluraNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ve")
 
    let nenombrigeblaInfinitivoFinaĵoj = [ "mu"; "mo"; "maa"; "nu"; "no"; "naa" ]
+   let nenombrigeblaDifinitoFinaĵoj = [ "mi"; "mo"; "ma"; "ni"; "ne"; "na" ]
 
    let finajLiteroj finaĵoj tipo inflekcio =
       finaĵoj
@@ -30,6 +31,7 @@ module Sintaksanalizilo =
 
    let DUPFinaĵoj difinitoInflekcio unuInflekcio pluraInflekcio =
       finajLiteroj nombrigeblaDifinitoFinaĵoj NombrigeblaKlaso difinitoInflekcio
+      |> Map.union (finajLiteroj nenombrigeblaDifinitoFinaĵoj NenombrigeblaKlaso difinitoInflekcio)
       |> Map.union (finajLiteroj nombrigeblaUnuNombroFinaĵoj NombrigeblaKlaso unuInflekcio)
       |> Map.union (finajLiteroj nombrigeblaPluraNombroFinaĵoj NombrigeblaKlaso pluraInflekcio)
 
@@ -48,7 +50,10 @@ module Sintaksanalizilo =
                   "v",
                   SufiksoTabelo
                      (finajLiteroj nombrigeblaInfinitivoFinaĵoj NombrigeblaKlaso AtributativoEstiAntaŭ, Map.empty)
-                  "s", SufiksoTabelo(Map.empty, [ "n", SufiksoTabelo(Map.empty, [] |> Map.ofList) ] |> Map.ofList) ]
+                  "s",
+                  SufiksoTabelo
+                     (Map.empty,
+                      [ "n", SufiksoTabelo(DUPFinaĵoj Havaĵo UnuHavaĵo PluraHavaĵo, Map.empty) ] |> Map.ofList) ]
                 |> Map.ofList)
             "s",
             SufiksoTabelo
