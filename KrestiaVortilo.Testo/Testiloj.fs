@@ -1,6 +1,5 @@
 ﻿namespace KrestiaVortilo.Testo
 
-open KrestiaVortilo
 open Microsoft.VisualStudio.TestTools.UnitTesting
 open KrestiaVortilo.Traktilaro
 open KrestiaVortilo.Vorttipo

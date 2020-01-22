@@ -2,11 +2,10 @@
 
 open Vorttipo
 open System
+open FSharpx.Collections
 
 module Sintaksanalizilo =
-   type SufiksoTabelo =
-      | Fina of Map<string, Vorttipo * Inflekcio>
-      | Nefina of Map<string, Vorttipo * Inflekcio> * Map<string, SufiksoTabelo>
+   type SufiksoTabelo = SufiksoTabelo of FinajLiteroj: Map<string, Vorttipo * Inflekcio> * NefinajLiteroj: Map<string, SufiksoTabelo>
 
    /// Reprezentas la rezulton de unu malinflekto
    type MalinflektaŜtupo =
@@ -18,6 +17,9 @@ module Sintaksanalizilo =
 
    let nombrigeblaInfinitivoFinaĵoj =
       [ "pu"; "po"; "paa"; "tu"; "to"; "taa"; "ku"; "ko"; "kaa" ]
+   let nombrigeblaDifinitoFinaĵoj = [ "pi"; "pe"; "pa"; "ti"; "te"; "ta"; "ki"; "ke"; "ka" ]
+   let nombrigeblaUnuNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "si")
+   let nombrigeblaPluraNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ve")
 
    let nenombrigeblaInfinitivoFinaĵoj = [ "mu"; "mo"; "maa"; "nu"; "no"; "naa" ]
 
@@ -26,13 +28,36 @@ module Sintaksanalizilo =
       |> List.map (fun finaĵo -> finaĵo, (tipo, inflekcio))
       |> Map.ofList
 
+   let DUPFinaĵoj difinitoInflekcio unuInflekcio pluraInflekcio =
+      finajLiteroj nombrigeblaDifinitoFinaĵoj NombrigeblaKlaso difinitoInflekcio
+      |> Map.union (finajLiteroj nombrigeblaUnuNombroFinaĵoj NombrigeblaKlaso unuInflekcio)
+      |> Map.union (finajLiteroj nombrigeblaPluraNombroFinaĵoj NombrigeblaKlaso pluraInflekcio)
+
    let inflekcioPostfiksarbo =
-      Nefina
+      SufiksoTabelo
          (Map.empty,
           [ "a",
-            Nefina
+            SufiksoTabelo
                ([ "d", (Pridiranto, UnuNombro) ] |> Map.ofList,
-                [ "w", Fina(finajLiteroj nombrigeblaInfinitivoFinaĵoj NombrigeblaKlaso PredikativoEsti) ] |> Map.ofList) ]
+                [ "w",
+                  SufiksoTabelo
+                     (finajLiteroj nombrigeblaInfinitivoFinaĵoj NombrigeblaKlaso PredikativoEsti, Map.empty)
+                  "g",
+                  SufiksoTabelo
+                     (finajLiteroj nombrigeblaInfinitivoFinaĵoj NombrigeblaKlaso AtributativoEstiMalantaŭ, Map.empty)
+                  "v",
+                  SufiksoTabelo
+                     (finajLiteroj nombrigeblaInfinitivoFinaĵoj NombrigeblaKlaso AtributativoEstiAntaŭ, Map.empty)
+                  "s", SufiksoTabelo(Map.empty, [ "n", SufiksoTabelo(Map.empty, [] |> Map.ofList) ] |> Map.ofList) ]
+                |> Map.ofList)
+            "s",
+            SufiksoTabelo
+               (Map.empty,
+                [ "i",
+                  SufiksoTabelo
+                     (Map.empty,
+                      [ "r", SufiksoTabelo((DUPFinaĵoj Havado UnuHavado PluraHavado, Map.empty)) ] |> Map.ofList) ]
+                |> Map.ofList) ]
           |> Map.ofList)
 
    let infinitivoFinaĵoj =
@@ -81,21 +106,20 @@ module Sintaksanalizilo =
                else None)
          |> Option.map (fun (tipo, inflekcio) -> Nebazo(tipo, inflekcio, restantajLiteroj))
 
-      match arbo with
-      | Fina(kontrolajLiteroj) -> proviTroviFinon kontrolajLiteroj
-      | Nefina(kontrolajLiteroj, subtabeloj) ->
-         proviTroviFinon kontrolajLiteroj
-         |> Option.orElseWith (fun () ->
-               let sufiksoLongeco = subtabeloj |> Map.pick (fun sufikso _ -> sufikso.Length |> Some)
+      let (SufiksoTabelo(finajLiteroj, nefinajLiteroj)) = arbo
+      proviTroviFinon finajLiteroj
+      |> Option.orElseWith (fun () ->
+            nefinajLiteroj
+            |> Map.tryPick (fun sufikso _ -> sufikso.Length |> Some)
+            |> Option.bind (fun sufiksoLongeco ->
+                  let sekvaSufikso =
+                     literoj
+                     |> List.take sufiksoLongeco
+                     |> System.String.Concat
 
-               let sekvaSufikso =
-                  literoj
-                  |> List.take sufiksoLongeco
-                  |> System.String.Concat
-
-               let restantajLiteroj = literoj |> List.skip sufiksoLongeco
-               subtabeloj.TryFind sekvaSufikso
-               |> Option.bind (fun sekvaArbo -> troviFinaĵon restantajLiteroj sekvaArbo))
+                  let restantajLiteroj = literoj |> List.skip sufiksoLongeco
+                  nefinajLiteroj.TryFind sekvaSufikso
+                  |> Option.bind (fun sekvaArbo -> troviFinaĵon restantajLiteroj sekvaArbo)))
 
 
    let malinflekti (ĉeno: string): Result<MalinflektaŜtupo, string> =
@@ -103,12 +127,11 @@ module Sintaksanalizilo =
       | _ when ĉuFremdaVorto ĉeno -> Bazo(FremdaVorto, SolaFormo) |> Ok
       | _ when ĉuLokokupilo ĉeno -> Bazo(Lokokupilo, SolaFormo) |> Ok
       | _ ->
-         ĉuInfinitivo ĉeno
-         |> Option.map (fun vorttipo -> Bazo(vorttipo, Infinitivo) |> Ok)
-         |> Option.orElseWith (fun () ->
-               let literoj =
-                  ĉeno.ToCharArray()
-                  |> List.ofArray
-                  |> List.rev
-               troviFinaĵon literoj inflekcioPostfiksarbo |> Option.map Ok)
+         let literoj =
+            ĉeno.ToCharArray()
+            |> List.ofArray
+            |> List.rev
+         troviFinaĵon literoj inflekcioPostfiksarbo
+         |> Option.orElseWith (fun () -> ĉuInfinitivo ĉeno |> Option.map (fun vorttipo -> Bazo(vorttipo, Infinitivo)))
+         |> Option.map Ok
          |> Option.defaultValue (Error(sprintf "%s estas nevalida" ĉeno))
