@@ -1,10 +1,12 @@
 ﻿namespace KrestiaVortilo.Testo
 
+open KrestiaVortilo
 open Microsoft.VisualStudio.TestTools.UnitTesting
 open KrestiaVortilo.Traktilaro
 open KrestiaVortilo.Vorttipo
 open KrestiaVortilo.Legiloj
 open KrestiaVortilo.Strukturo
+open KrestiaVortilo.Sintaksanalizilo
 
 module Testiloj =
    let kontroliFormon (vorto: string) (pravaTipo: Vorttipo) (pravaInflekcio: Inflekcio) =
@@ -24,4 +26,18 @@ module Testiloj =
             Assert.AreEqual(prava, rezulto)
             Assert.AreEqual(0, restantaj.Length))
       |> Result.mapError (fun rezulto -> Assert.Fail(rezulto))
+      |> ignore
+   
+   let kontroliInflekcion (vorto: string) (pravaTipo: Vorttipo) (pravaInflekcio: Inflekcio) =
+      malinflekti vorto
+      |> Result.map
+         (fun malinflektaŜtupo ->
+            match malinflektaŜtupo with
+            | Bazo(vorttipo, inflekcio) ->
+               Assert.AreEqual(pravaTipo, vorttipo)
+               Assert.AreEqual(pravaInflekcio, inflekcio)
+            | Nebazo(vorttipo, inflekcio, _) ->
+               Assert.AreEqual(pravaTipo, vorttipo)
+               Assert.AreEqual(pravaInflekcio, inflekcio))
+      |> Result.mapError (fun eraro -> Assert.Fail(eraro))
       |> ignore
