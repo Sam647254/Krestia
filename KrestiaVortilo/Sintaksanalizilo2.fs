@@ -19,13 +19,16 @@ module Sintaksanalizilo2 =
         DUPFinaĵo("nsa", Havaĵo, UnuHavaĵo, PluraHavaĵo)
         InfinitivoFinaĵo("wa", PredikativoEsti)
         InfinitivoFinaĵo("ga", AtributativoEstiMalantaŭ)
-        InfinitivoFinaĵo("va", AtributativoEstiAntaŭ) ]
+        InfinitivoFinaĵo("va", AtributativoEstiAntaŭ)
+        DUPFinaĵo("ra", Sola, UnuSola, PluraSola)
+        DUPFinaĵo("ris", Havado, UnuHavado, PluraHavado)
+        DUPFinaĵo("rim", Ekzistado, UnuEkzistado, PluraEkzistado)
+        DifinitoFinaĵo("las", Translativo)
+        DifinitoFinaĵo("vra", Ĝerundo)
+        DifinitoFinaĵo("va", SpecifaĜerundo) ]
       |> kreiListon NombrigeblaKlaso
 
    let ĉiujInflekcioj = klasoInflekcioj
-   let infinitivoFinaĵoj =
-      Sintaksanalizilo.infinitivoFinaĵoj
-      |> Map.fold (fun (finaĵoj: Map<Vorttipo, string>) finaĵo vorttipo -> finaĵoj.Add(vorttipo, finaĵo)) Map.empty
    let difinitoFinaĵoj =
       (nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> (finaĵo, NombrigeblaKlaso)))
       @ (nenombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> (finaĵo, NenombrigeblaKlaso)))
@@ -60,9 +63,11 @@ module Sintaksanalizilo2 =
          |> List.tryPick (fun (vorttipo, finaĵo) ->
                match finaĵo with
                | InfinitivoFinaĵo(finaĵo, inflekcio) ->
-                  infinitivoFinaĵoj.TryFind vorttipo
-                  |> Option.map (fun infinitivoFinaĵo -> infinitivoFinaĵo + finaĵo)
-                  |> Option.filter (fun finaĵo -> ĉeno.EndsWith(finaĵo))
+                  infinitivoFinaĵoj
+                  |> Map.tryPick (fun infinitivoFinaĵo _ ->
+                     if ĉeno.EndsWith(infinitivoFinaĵo + finaĵo) then
+                        Some ()
+                     else None)
                   |> Option.map (fun _ -> Nebazo(vorttipo, inflekcio, ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)))
                | DifinitoFinaĵo(finaĵo, inflekcio) ->
                   if ĉeno.EndsWith(finaĵo) then
