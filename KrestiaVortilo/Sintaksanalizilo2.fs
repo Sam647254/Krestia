@@ -9,13 +9,15 @@ module Sintaksanalizilo2 =
       | DifinitoFinaĵo of string * Inflekcio
       | DUPFinaĵo of string * Definito: Inflekcio * UnuNombro: Inflekcio * PluraNombro: Inflekcio
 
+   type ĈuAkceptiNenombrigeblan =
+      | AkceptiNenombrigeblan
+      | NeAkceptiNenombrigeblan
+
    let kreiListon vorttipo listo =
       listo |> List.map (fun finaĵo -> (vorttipo, finaĵo))
 
-   let klasoInflekcioj =
-      [ DifinitoFinaĵo("", Difinito)
-        DifinitoFinaĵo("si", UnuNombro)
-        DifinitoFinaĵo("ve", PluraNombro)
+   let nombrigeblaKlasoInflekcioj =
+      [ DUPFinaĵo("", Difinito, UnuNombro, PluraNombro)
         DUPFinaĵo("nsa", Havaĵo, UnuHavaĵo, PluraHavaĵo)
         InfinitivoFinaĵo("wa", PredikativoEsti)
         InfinitivoFinaĵo("ga", AtributativoEstiMalantaŭ)
@@ -28,9 +30,11 @@ module Sintaksanalizilo2 =
         DifinitoFinaĵo("va", SpecifaĜerundo) ]
       |> kreiListon NombrigeblaKlaso
 
-   let ĉiujInflekcioj = klasoInflekcioj
+   let ĉiujInflekcioj = nombrigeblaKlasoInflekcioj
+   let nombrigeblaDifinitoFinaĵoj =
+      nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> (finaĵo, NombrigeblaKlaso))
    let difinitoFinaĵoj =
-      (nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> (finaĵo, NombrigeblaKlaso)))
+      nombrigeblaDifinitoFinaĵoj
       @ (nenombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> (finaĵo, NenombrigeblaKlaso)))
 
    let difinitivoAlInfinitivoTabelo =
@@ -42,14 +46,17 @@ module Sintaksanalizilo2 =
    let difinitoAlInfinitivo (vorto: string) =
       vorto.Substring(0, vorto.Length - 1) + difinitivoAlInfinitivoTabelo.[vorto.Chars(vorto.Length - 1)]
 
-   let ĉuDifinito (vorto: string) =
-      difinitoFinaĵoj
+   let ĉuDifinito (vorto: string) akceptiNenombrigeblan =
+      match akceptiNenombrigeblan with
+      | AkceptiNenombrigeblan -> difinitoFinaĵoj
+      | NeAkceptiNenombrigeblan -> nombrigeblaDifinitoFinaĵoj
       |> List.tryPick (fun (finaĵo, vorttipo) ->
             if vorto.EndsWith(finaĵo) then Some vorttipo
             else None)
 
-   let malinflektiSiDifinito (vorto: string) inflekcio =
-      ĉuDifinito vorto |> Option.map (fun vorttipo -> Nebazo(vorttipo, inflekcio, difinitoAlInfinitivo vorto))
+   let malinflektiSiDifinito (vorto: string) inflekcio akceptiNenombrigeblan =
+      ĉuDifinito vorto akceptiNenombrigeblan
+      |> Option.map (fun vorttipo -> Nebazo(vorttipo, inflekcio, difinitoAlInfinitivo vorto))
 
    let unuNombroFinaĵo = "si"
    let pluraNombroFinaĵo = "ve"
@@ -65,14 +72,13 @@ module Sintaksanalizilo2 =
                | InfinitivoFinaĵo(finaĵo, inflekcio) ->
                   infinitivoFinaĵoj
                   |> Map.tryPick (fun infinitivoFinaĵo _ ->
-                     if ĉeno.EndsWith(infinitivoFinaĵo + finaĵo) then
-                        Some ()
-                     else None)
+                        if ĉeno.EndsWith(infinitivoFinaĵo + finaĵo) then Some()
+                        else None)
                   |> Option.map (fun _ -> Nebazo(vorttipo, inflekcio, ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)))
                | DifinitoFinaĵo(finaĵo, inflekcio) ->
                   if ĉeno.EndsWith(finaĵo) then
                      let difinito = ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)
-                     malinflektiSiDifinito difinito inflekcio
+                     malinflektiSiDifinito difinito inflekcio AkceptiNenombrigeblan
                   else
                      None
                | DUPFinaĵo(finaĵo, difinito, unuNombro, pluraNombro) ->
@@ -80,12 +86,12 @@ module Sintaksanalizilo2 =
                      let restantaj = ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)
                      if restantaj.EndsWith(unuNombroFinaĵo) then
                         let difinito = ĉeno.Substring(0, restantaj.Length - unuNombroFinaĵo.Length)
-                        malinflektiSiDifinito difinito unuNombro
+                        malinflektiSiDifinito difinito unuNombro NeAkceptiNenombrigeblan
                      elif restantaj.EndsWith(pluraNombroFinaĵo) then
                         let difinito = ĉeno.Substring(0, restantaj.Length - pluraNombroFinaĵo.Length)
-                        malinflektiSiDifinito difinito pluraNombro
+                        malinflektiSiDifinito difinito pluraNombro NeAkceptiNenombrigeblan
                      else
-                        malinflektiSiDifinito restantaj difinito
+                        malinflektiSiDifinito restantaj difinito AkceptiNenombrigeblan
                   else
                      None)
          |> Option.orElseWith (fun () -> ĉuInfinitivo ĉeno |> Option.map (fun vorttipo -> Bazo(vorttipo, Infinitivo)))
