@@ -26,7 +26,7 @@ module Testiloj =
       |> Result.mapError (fun rezulto -> Assert.Fail(rezulto))
       |> ignore
 
-   let kontroliInflekcion (vorto: string) (pravaTipo: Vorttipo) (pravaInflekcio: Inflekcio) =
+   let kontroliInflekcion (pravaTipo: Vorttipo) (pravaInflekcio: Inflekcio) (vorto: string) =
       malinflekti vorto
       |> Result.map (fun malinflektaŜtupo ->
             match malinflektaŜtupo with

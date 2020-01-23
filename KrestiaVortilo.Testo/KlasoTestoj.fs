@@ -11,11 +11,11 @@ type KlasoTestoj() =
    [<TestMethod>]
    member _.Infinitivoj() =
       [ "tatreto"; "ilitu"; "lustaa"; "geluko"; "kresku"; "trupaa" ]
-      |> List.map (fun vorto -> kontroliInflekcion vorto NombrigeblaKlaso Infinitivo)
+      |> List.map (kontroliInflekcion NombrigeblaKlaso Infinitivo)
       |> ignore
 
       [ "gremu"; "kunaa"; "verimaa"; "salumu"; "molomo"; "posmu" ]
-      |> List.map (fun vorto -> kontroliInflekcion vorto NenombrigeblaKlaso Infinitivo)
+      |> List.map (kontroliInflekcion NenombrigeblaKlaso Infinitivo)
       |> ignore
 
    [<TestMethod>]
@@ -25,13 +25,13 @@ type KlasoTestoj() =
         ("duta", NombrigeblaKlaso)
         ("luna", NenombrigeblaKlaso)
         ("risme", NenombrigeblaKlaso) ]
-      |> List.map (fun (vorto, pravaTipo) -> kontroliInflekcion vorto pravaTipo Difinito)
+      |> List.map (fun (vorto, pravaTipo) -> kontroliInflekcion pravaTipo Difinito vorto)
       |> ignore
 
       [ ("trupa", Difinito)
         ("trupasi", UnuNombro)
         ("trupave", PluraNombro) ]
-      |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion vorto NombrigeblaKlaso pravaInflekcio)
+      |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion NombrigeblaKlaso pravaInflekcio vorto)
       |> ignore
 
    [<TestMethod>]
@@ -40,7 +40,7 @@ type KlasoTestoj() =
         ("trupasinsa", NombrigeblaKlaso, UnuHavaĵo)
         ("trupavensa", NombrigeblaKlaso, PluraHavaĵo)
         ("kunansa", NenombrigeblaKlaso, Havaĵo) ]
-      |> List.map (fun (vorto, pravaTipo, pravaInflekcio) -> kontroliInflekcion vorto pravaTipo pravaInflekcio)
+      |> List.map (fun (vorto, pravaTipo, pravaInflekcio) -> kontroliInflekcion pravaTipo pravaInflekcio vorto)
       |> ignore
 
    [<TestMethod>]
@@ -48,14 +48,14 @@ type KlasoTestoj() =
       [ ("verikowa", PredikativoEsti)
         ("voritoga", AtributativoEstiMalantaŭ)
         ("voritova", AtributativoEstiAntaŭ) ]
-      |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion vorto NombrigeblaKlaso pravaInflekcio)
+      |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion NombrigeblaKlaso pravaInflekcio vorto)
       |> ignore
 
    [<TestMethod>]
    member _.Sola() =
       [ ("ilitivera", PluraSola)
         ("pospira", Sola) ]
-      |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion vorto NombrigeblaKlaso pravaInflekcio)
+      |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion NombrigeblaKlaso pravaInflekcio vorto)
       |> ignore
 
    [<TestMethod>]
@@ -65,7 +65,7 @@ type KlasoTestoj() =
         ("tetalas", NombrigeblaKlaso)
         ("kentalas", NombrigeblaKlaso)
         ("kunalas", NenombrigeblaKlaso) ]
-      |> List.map (fun (vorto, pravaTipo) -> kontroliInflekcion vorto pravaTipo Translativo)
+      |> List.map (fun (vorto, pravaTipo) -> kontroliInflekcion pravaTipo Translativo vorto)
       |> ignore
 
    [<TestMethod>]
@@ -73,14 +73,14 @@ type KlasoTestoj() =
       [ ("lekeris", Havado)
         ("lepasiris", UnuHavado)
         ("trupaveris", PluraHavado) ]
-      |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion vorto NombrigeblaKlaso pravaInflekcio)
+      |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion NombrigeblaKlaso pravaInflekcio vorto)
       |> ignore
 
    [<TestMethod>]
    member _.Ĝerundo() =
       [ ("verikevra", Ĝerundo)
         ("verikeva", SpecifaĜerundo) ]
-      |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion vorto NombrigeblaKlaso pravaInflekcio)
+      |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion NombrigeblaKlaso pravaInflekcio vorto)
       |> ignore
 
    [<TestMethod>]
@@ -88,6 +88,5 @@ type KlasoTestoj() =
       [ "kunasi"; "kunasira" ]
       |> List.map kontroliNevalidanVorton
       |> ignore
-      
-      kontroliInflekcion "kunaveris" NetransitivaVerbo Infinitivo
-      |> ignore
+
+      kontroliInflekcion NetransitivaVerbo Infinitivo "kunaveris" |> ignore

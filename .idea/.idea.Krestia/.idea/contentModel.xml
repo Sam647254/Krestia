@@ -102,6 +102,7 @@
         <e p="StrukturoTestoj.fs" t="Include" />
         <e p="Testiloj.fs" t="Include" />
         <e p="TransitivaVerboTestoj.fs" t="Include" />
+        <e p="VerboTestoj.fs" t="Include" />
       </e>
       <e p="packages" t="ExcludeRecursive" />
       <e p="Solution Items" t="Include" />

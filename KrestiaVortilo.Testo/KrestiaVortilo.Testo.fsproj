@@ -21,6 +21,7 @@
     <Compile Include="StrukturoTestoj.fs" />
     <Compile Include="LearnTheseWordsFirstTestoj.fs" />
     <Compile Include="KlasoTestoj.fs" />
+    <Compile Include="VerboTestoj.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
