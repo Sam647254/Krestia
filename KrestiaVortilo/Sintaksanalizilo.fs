@@ -53,7 +53,8 @@ module Sintaksanalizilo =
                   "s",
                   SufiksoTabelo
                      (Map.empty,
-                      [ "n", SufiksoTabelo(DUPFinaĵoj Havaĵo UnuHavaĵo PluraHavaĵo, Map.empty) ] |> Map.ofList) ]
+                      [ "n", SufiksoTabelo(DUPFinaĵoj Havaĵo UnuHavaĵo PluraHavaĵo, Map.empty) ] |> Map.ofList)
+                  "r", SufiksoTabelo(DUPFinaĵoj Sola UnuSola PluraSola, Map.empty) ]
                 |> Map.ofList)
             "s",
             SufiksoTabelo
