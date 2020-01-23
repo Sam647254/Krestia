@@ -22,7 +22,7 @@ module Sintaksanalizilo =
    let nombrigeblaPluraNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ve")
 
    let nenombrigeblaInfinitivoFinaĵoj = [ "mu"; "mo"; "maa"; "nu"; "no"; "naa" ]
-   let nenombrigeblaDifinitoFinaĵoj = [ "mi"; "mo"; "ma"; "ni"; "ne"; "na" ]
+   let nenombrigeblaDifinitoFinaĵoj = [ "mi"; "me"; "ma"; "ni"; "ne"; "na" ]
 
    let finajLiteroj finaĵoj tipo inflekcio =
       finaĵoj
@@ -37,7 +37,7 @@ module Sintaksanalizilo =
 
    let inflekcioPostfiksarbo =
       SufiksoTabelo
-         (Map.empty,
+         (DUPFinaĵoj Difinito UnuNombro PluraNombro,
           [ "a",
             SufiksoTabelo
                ([ "d", (Pridiranto, UnuNombro) ] |> Map.ofList,

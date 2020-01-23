@@ -76,6 +76,7 @@
         <e p="PartaNetransitivaVerboTraktiloj.fs" t="Include" />
         <e p="PridirantoTraktiloj.fs" t="Include" />
         <e p="Sintaksanalizilo.fs" t="Include" />
+        <e p="Sintaksanalizilo2.fs" t="Include" />
         <e p="SpecialajTraktiloj.fs" t="Include" />
         <e p="Strukturo.fs" t="Include" />
         <e p="Traktilaro.fs" t="Include" />

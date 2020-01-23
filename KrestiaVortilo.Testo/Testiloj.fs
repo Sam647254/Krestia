@@ -6,6 +6,7 @@ open KrestiaVortilo.Vorttipo
 open KrestiaVortilo.Legiloj
 open KrestiaVortilo.Strukturo
 open KrestiaVortilo.Sintaksanalizilo
+open KrestiaVortilo.Sintaksanalizilo2
 
 module Testiloj =
    let kontroliFormon (vorto: string) (pravaTipo: Vorttipo) (pravaInflekcio: Inflekcio) =
