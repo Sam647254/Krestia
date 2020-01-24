@@ -95,7 +95,7 @@ module Sintaksanalizilo =
    let ĉuInfinitivo (ĉeno: string): Vorttipo option =
       infinitivoFinaĵoj
       |> Map.tryPick (fun finaĵo tipo ->
-            if ĉeno.EndsWith(finaĵo) then Some tipo
+            if ĉeno.EndsWith(finaĵo) && ĉeno.Length > finaĵo.Length then Some tipo
             else None)
 
    /// Provas trovi inflekcion por la finaĵo de la vorto (literoj).

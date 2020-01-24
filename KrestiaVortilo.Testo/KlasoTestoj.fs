@@ -85,7 +85,7 @@ type KlasoTestoj() =
 
    [<TestMethod>]
    member _.NevalidajVortoj() =
-      [ "kunasi"; "kunasira" ]
+      [ "kunasi"; "kunasira"; "mo"; "ko"; "tu"; "ti"; "tira" ]
       |> List.map kontroliNevalidanVorton
       |> ignore
 

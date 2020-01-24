@@ -51,7 +51,7 @@ module Sintaksanalizilo2 =
       | AkceptiNenombrigeblan -> difinitoFinaĵoj
       | NeAkceptiNenombrigeblan -> nombrigeblaDifinitoFinaĵoj
       |> List.tryPick (fun (finaĵo, vorttipo) ->
-            if vorto.EndsWith(finaĵo) then Some vorttipo
+            if vorto.EndsWith(finaĵo) && vorto.Length > finaĵo.Length then Some vorttipo
             else None)
 
    let malinflektiSiDifinito (vorto: string) inflekcio akceptiNenombrigeblan =
