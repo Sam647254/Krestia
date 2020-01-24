@@ -19,6 +19,7 @@
       <e p=".gitignore" t="Include" />
       <e p="Krestia.sln" t="IncludeFlat" />
       <e p="KrestiaAWSAlirilo" t="IncludeRecursive">
+        <e p="AWSAlirilo.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="KrestiaAWSAlirilo.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">

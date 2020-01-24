@@ -16,9 +16,17 @@ type VerboTestoj () =
       [ "liveras"; "bemos"; "emeras"; "kemis" ]
       |> List.map (kontroliInflekcion NetransitivaVerbo Infinitivo)
       |> ignore
+      
+      [ "nitrit"; "buvitot"; "dliret"; "klitret" ]
+      |> List.map (kontroliInflekcion TransitivaVerbo Infinitivo)
+      |> ignore
+      
+      [ "eramatosh"; "tesh"; "volesh"; "vilish" ]
+      |> List.map (kontroliInflekcion NedirektaTransitivaVerbo Infinitivo)
+      |> ignore
     
    [<TestMethod>]
    member _.NevalidajVortoj() =
-      [ "m"; "s"; "t" ]
+      [ "m"; "s"; "t"; "sh"; "p"; "n"; "eg"; "ig" ]
       |> List.map kontroliNevalidanVorton
       |> ignore
