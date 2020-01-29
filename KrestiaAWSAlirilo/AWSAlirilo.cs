@@ -34,5 +34,21 @@ namespace KrestiaAWSAlirilo {
             new Dictionary<string, AttributeValueUpdate>
                {{eco, new AttributeValueUpdate(new AttributeValue(valuoj), AttributeAction.PUT)}});
       }
+
+      public async Task<VortoRespondo?> AlportiVorton(string vorto) {
+         var respondo = await _amazonDynamoDbClient.GetItemAsync(TableName,
+            new Dictionary<string, AttributeValue> {{"vorto", new AttributeValue(vorto)}});
+         if (!respondo.IsItemSet) {
+            return null;
+         }
+         var vortoObjecto = respondo.Item;
+         return !respondo.IsItemSet ? null : new VortoRespondo {
+            Vorto = vortoObjecto["vorto"].S,
+            Kategorioj = vortoObjecto.GetValueOrDefault("kategorio")?.SS,
+            Noto = vortoObjecto.GetValueOrDefault("noto")?.S,
+            Radikoj = vortoObjecto.GetValueOrDefault("radikoj")?.SS,
+            Signifo = vortoObjecto.GetValueOrDefault("signifo")?.S
+         };
+      }
    }
 }
