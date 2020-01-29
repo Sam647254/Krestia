@@ -48,6 +48,28 @@
         <e p="SVGDesegnilo.vb" t="Include" />
         <e p="TimeranDesegnilo.vbproj" t="IncludeRecursive" />
       </e>
+      <e p="KrestiaServilo" t="IncludeRecursive">
+        <e p="appsettings.Development.json" t="Include" />
+        <e p="appsettings.json" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Controllers" t="Include">
+          <e p="WeatherForecastController.cs" t="Include" />
+        </e>
+        <e p="KrestiaServilo.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="KrestiaServilo.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="launchSettings.json" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+        <e p="WeatherForecast.cs" t="Include" />
+      </e>
       <e p="KrestiaVortaro" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="Kontrolilaro.vb" t="Include" />
