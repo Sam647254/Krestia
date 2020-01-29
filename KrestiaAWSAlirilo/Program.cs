@@ -21,6 +21,9 @@ namespace KrestiaAWSAlirilo {
             case "ĉiuj":
                await UnuFojajProgrametoj.AlportiĈiujnVortojn(awsAlirilo, args[1]);
                break;
+            case "aldoni":
+               await awsAlirilo.AldoniVortojn(args[1]);
+               break;
          }
       }
    }
