@@ -12,8 +12,26 @@ namespace KrestiaAWSAlirilo {
       private readonly AmazonDynamoDBClient _amazonDynamoDbClient =
          new AmazonDynamoDBClient();
 
-      public async Task<List<ValueTuple<string, string>>> AlportiĈiujnVortojn() {
-         var rezulto = await _amazonDynamoDbClient.ScanAsync(TableName, new List<string>() {"vorto", "signifo"});
+      public async Task<IEnumerable<VortoRespondo>> AlportiĈiujnVortojn() {
+         var rezulto = await _amazonDynamoDbClient.ScanAsync(new ScanRequest {
+            TableName = TableName,
+            ProjectionExpression = "vorto, signifo, radikoj, kategorioj, noto"
+         });
+         if (rezulto.LastEvaluatedKey.Count > 0) {
+            throw new NotSupportedException("Pli da rezultoj restantaj");
+         }
+
+         return rezulto.Items.Select(vorto => new VortoRespondo {
+            Vorto = vorto["vorto"].S,
+            Signifo = vorto["signifo"].S,
+            Kategorioj = vorto.GetValueOrDefault("kategorio")?.SS,
+            Noto = vorto.GetValueOrDefault("noto")?.S,
+            Radikoj = vorto.GetValueOrDefault("radikoj").SS
+         });
+      }
+
+      public async Task<List<ValueTuple<string, string>>> AlportiĈiujnVortojnKunSignifoj() {
+         var rezulto = await _amazonDynamoDbClient.ScanAsync(TableName, new List<string> {"vorto", "signifo"});
          if (rezulto.LastEvaluatedKey.Count > 0) {
             throw new NotSupportedException("Pli da rezultoj restantaj");
          }

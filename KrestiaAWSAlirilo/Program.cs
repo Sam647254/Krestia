@@ -8,7 +8,7 @@ namespace KrestiaAWSAlirilo {
          var awsAlirilo = new AwsAlirilo();
          switch (args[0]) {
             case "aldoni1":
-               var vortoj = await awsAlirilo.AlportiĈiujnVortojn();
+               var vortoj = await awsAlirilo.AlportiĈiujnVortojnKunSignifoj();
                await File.WriteAllLinesAsync(args[1], vortoj.Select(r => $"{r.Item1}|{r.Item2}|"));
                break;
             case "aldoni2":
@@ -17,6 +17,9 @@ namespace KrestiaAWSAlirilo {
                   var partoj = v.Split('|');
                   return (partoj[0], partoj[2]);
                }));
+               break;
+            case "ĉiuj":
+               await UnuFojajProgrametoj.AlportiĈiujnVortojn(awsAlirilo, args[1]);
                break;
          }
       }
