@@ -35,6 +35,16 @@ module Sintaksanalizilo =
       |> Map.union (finajLiteroj nombrigeblaUnuNombroFinaĵoj NombrigeblaKlaso unuInflekcio)
       |> Map.union (finajLiteroj nombrigeblaPluraNombroFinaĵoj NombrigeblaKlaso pluraInflekcio)
 
+   let verboTipoj =
+      [ MalplenaVerbo
+        NetransitivaVerbo
+        OblikaNetransitivaVerbo
+        NedirektaNetransitivaVerbo
+        TransitivaVerbo
+        NedirektaTransitivaVerbo
+        OblikaTransitivaVerbo
+        DutransitivaVerbo ]
+
    let inflekcioPostfiksarbo =
       SufiksoTabelo
          (DUPFinaĵoj Difinito UnuNombro PluraNombro,
@@ -77,11 +87,11 @@ module Sintaksanalizilo =
             "gro", AntaŭNenombrigeblaEco
             "m", MalplenaVerbo
             "s", NetransitivaVerbo
-            "ig", OblikaNetransitivaVerbo
+            "g", OblikaNetransitivaVerbo
             "n", NedirektaNetransitivaVerbo
             "t", TransitivaVerbo
             "sh", NedirektaTransitivaVerbo
-            "eg", OblikaTransitivaVerbo
+            "v", OblikaTransitivaVerbo
             "p", DutransitivaVerbo
             "d", Pridiranto
             "l", MalantaŭModifanto
@@ -141,3 +151,25 @@ module Sintaksanalizilo =
          |> Option.orElseWith (fun () -> ĉuInfinitivo ĉeno |> Option.map (fun vorttipo -> Bazo(vorttipo, Infinitivo)))
          |> Option.map Ok
          |> Option.defaultValue (Error(sprintf "%s estas nevalida" ĉeno))
+
+   let rec tuteMalinflekti (ĉeno: string) =
+      malinflekti ĉeno
+      |> Result.bind (fun malinflektita ->
+            match malinflektita with
+            | Bazo(_, _) ->
+               malinflektita
+               |> List.singleton
+               |> Ok
+            | Nebazo(_, _, restanta) ->
+               tuteMalinflekti restanta |> Result.map (fun sekvaj -> malinflektita :: sekvaj))
+
+   let ĉuVerbo (ĉeno: string) =
+      tuteMalinflekti ĉeno
+      |> Result.map (fun ŝtupoj ->
+            match ŝtupoj with
+            | unua :: _ ->
+               match unua with
+               | Bazo(vorttipo, _) ->
+                  verboTipoj |> List.contains vorttipo
+               | Nebazo(_, _, _) -> failwith "ne valida unua ŝtupo"
+            | [] -> failwith "ne valida ŝtupoj")
