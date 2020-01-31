@@ -173,3 +173,25 @@ module Sintaksanalizilo =
                   verboTipoj |> List.contains vorttipo
                | Nebazo(_, _, _) -> failwith "ne valida unua ŝtupo"
             | [] -> failwith "ne valida ŝtupoj")
+
+   let ĉuVerboInfinitivo (ĉeno: string) =
+      tuteMalinflekti ĉeno
+      |> Result.map (fun ŝtupoj ->
+            match ŝtupoj with
+            | [ solaŜtupo ] ->
+               match solaŜtupo with
+               | Bazo(vorttipo, inflekcio) ->
+                  (inflekcio = Infinitivo) && verboTipoj |> List.contains vorttipo
+               | _ -> false
+            | _ -> false)
+      
+   let ĉuInfinitivoB (ĉeno: string) =
+      ĉuInfinitivo ĉeno |> Option.isSome
+      
+   let ĉuVortaraFormo (ĉeno: string) =
+      ĉuInfinitivoB ĉeno || ĉuLokokupilo ĉeno || ĉuFremdaVorto ĉeno
+
+   let ĉuVerboInfinitivoB (ĉeno: string) =
+      match ĉuVerboInfinitivo ĉeno with
+      | Ok(rezulto) -> rezulto
+      | Error(_) -> false

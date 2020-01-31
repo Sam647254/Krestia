@@ -2,6 +2,7 @@
 
 open Microsoft.VisualStudio.TestTools.UnitTesting
 
+open KrestiaVortilo
 open KrestiaVortilo.Vorttipo
 open Testiloj
 
@@ -10,6 +11,13 @@ type KlasoTestoj() =
 
    [<TestMethod>]
    member _.Infinitivoj() =
+      [ "tatreto"; "ilitu"; "lustaa"; "geluko"; "kresku"; "trupaa"
+        "gremu"; "kunaa"; "verimaa"; "salumu"; "molomo"; "posmu" ]
+      |> List.map (fun klaso ->
+         Sintaksanalizilo.ĉuVerboInfinitivo klaso
+         |> Result.map (fun rezulto -> if rezulto then Assert.Fail(sprintf "%s ne estas verbo" klaso) else ()))
+      |> ignore
+      
       [ "tatreto"; "ilitu"; "lustaa"; "geluko"; "kresku"; "trupaa" ]
       |> List.map (kontroliInflekcion NombrigeblaKlaso Infinitivo)
       |> ignore
