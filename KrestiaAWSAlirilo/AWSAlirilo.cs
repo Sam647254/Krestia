@@ -78,7 +78,7 @@ namespace KrestiaAWSAlirilo {
       public async Task AldoniVortojn(string eniro) {
          var vortoj = (await File.ReadAllLinesAsync(eniro)).Select(vico => {
             var partoj = vico.Split('|');
-            if (!Sintaksanalizilo.ĉuInfinitivoB(partoj[0])) {
+            if (!Sintaksanalizilo.ĉuVortaraFormo(partoj[0])) {
                throw new ArgumentException($"{partoj[0]} ne estas valida infinitivo");
             }
 
@@ -95,13 +95,19 @@ namespace KrestiaAWSAlirilo {
                {"vorto", new AttributeValue(vorto.Vorto)}, {
                   "bazo",
                   new AttributeValue(Sintaksanalizilo.ĉuVerboInfinitivoB(vorto.Vorto)
-                     ? vorto.Vorto.Substring(0, vorto.Vorto.Length - 1)
+                     ? vorto.Vorto.Substring(0, vorto.Vorto.Length - (vorto.Vorto.EndsWith("sh") ? 2 : 1))
                      : vorto.Vorto)
                },
-               {"signifo", new AttributeValue(vorto.Signifo)},
-               {"kategorioj", new AttributeValue(vorto.Kategorioj)},
-               {"radikoj", new AttributeValue(vorto.Radikoj)}
+               {"signifo", new AttributeValue(vorto.Signifo)}
             };
+            if (vorto.Kategorioj.Count > 0) {
+               peto["kategorioj"] = new AttributeValue(vorto.Kategorioj);
+            }
+
+            if (vorto.Radikoj.Count > 0) {
+               peto["radikoj"] = new AttributeValue(vorto.Radikoj);
+            }
+
             if (vorto.Noto.Length > 0) {
                peto["noto"] = new AttributeValue(vorto.Noto);
             }
@@ -113,9 +119,8 @@ namespace KrestiaAWSAlirilo {
                   });
                }
                catch (Exception e) {
-                  Console.WriteLine($"Ne povis aldoni {vorto.Vorto}");
-                  Console.WriteLine(e);
-                  throw;
+                  Console.WriteLine($"Ne povis aldoni {vorto.Vorto}: {e.Message}");
+                  return null;
                }
             });
          }));
