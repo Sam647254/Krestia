@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Amazon.S3;
 using KrestiaServilo.Services;
 using Microsoft.AspNetCore.Mvc;
 

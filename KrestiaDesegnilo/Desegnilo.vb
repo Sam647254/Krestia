@@ -15,9 +15,10 @@ Public MustInherit Class Desegnilo
    Protected ReadOnly Dx As Integer
    Protected ReadOnly Dy As Integer
    Protected ReadOnly Spaco As Integer
-   Protected ReadOnly XmlSkribilo As XmlWriter
+   Protected ReadOnly Vojoj As List(Of String) = New List(Of String)
    
-   Private ReadOnly _vojoj As List(Of String) = New List(Of String)
+   Private ReadOnly _elirejo As String
+   Private ReadOnly _spacoInterSilaboj As Boolean
    
    Protected ReadOnly Property Spaceto As Integer
       Get
@@ -26,8 +27,8 @@ Public MustInherit Class Desegnilo
    End Property
    
    Public Sub New(elirejo As String, alteco As Integer, larĝeco As Integer, dx As Integer, dy As Integer,
-                  Optional spaco As Integer = 8)
-      XmlSkribilo = XmlWriter.Create(elirejo)
+                  Optional spaco As Integer = 8, Optional spacoInterSilaboj As Boolean = False)
+      _elirejo = elirejo
       Me.Alteco = alteco\2
       Me.Larĝeco = larĝeco + Spaceto
       Me.Dx = dx
@@ -38,24 +39,26 @@ Public MustInherit Class Desegnilo
       DokumentoLarĝeco = 0
       X = 10
       Y = 10
+      _spacoInterSilaboj = spacoInterSilaboj
    End Sub
    
-      Public Sub DesegniSilabon(silabo As String)
+   Public Sub DesegniSilabon(silabo As String)
+      Dim spacoInterSilaboj = If(_spacoInterSilaboj, Spaco, Me.Spaceto)
       If silabo.Length = 1 Then
          AldoniVojon(LiteroDesegniloj(silabo)(Larĝeco, DufojaAlteco), X, Y)
-         X += Larĝeco + Spaceto
+         X += Larĝeco + spacoInterSilaboj
       ElseIf silabo.Length = 2 Then
          If ĈuVokalo(silabo.Chars(0)) Then 'VC
             AldoniVojon(LiteroDesegniloj(silabo.Substring(0, 1))(DuonaLarĝeco, DufojaAlteco), X, Y)
             X += Larĝeco\2 + Spaceto
             AldoniVojon(LiteroDesegniloj(silabo.Substring(1, 1))(DuonaLarĝeco, DufojaAlteco), X, Y)
-            X += Larĝeco\2 + Spaceto
+            X += Larĝeco\2 + spacoInterSilaboj
          Else 'CV
             AldoniVojon(LiteroDesegniloj(silabo.Substring(0, 1))(Larĝeco, Alteco), X, Y)
             Dim antaŭY = Y
             Y += Alteco + Spaceto
             AldoniVojon(LiteroDesegniloj(silabo.Substring(1, 1))(Larĝeco, Alteco), X, Y)
-            X += Larĝeco + Spaceto
+            X += Larĝeco + spacoInterSilaboj
             Y = antaŭY
          End If
       ElseIf silabo.Length = 3 Then
@@ -64,7 +67,7 @@ Public MustInherit Class Desegnilo
             Dim antaŭY = Y
             Y += Alteco + Spaceto
             AldoniVojon(LiteroDesegniloj(silabo.Substring(2, 1))(Larĝeco, Alteco), X, Y)
-            X += Larĝeco + Spaceto
+            X += Larĝeco + spacoInterSilaboj
             Y = antaŭY
          Else 'CVC
             AldoniVojon(LiteroDesegniloj(silabo.Substring(0, 1))(Larĝeco, Alteco), X, Y)
@@ -73,7 +76,7 @@ Public MustInherit Class Desegnilo
             AldoniVojon(LiteroDesegniloj(silabo.Substring(1, 1))(DuonaLarĝeco, Alteco), X, Y)
             X += Larĝeco\2 + Spaceto
             AldoniVojon(LiteroDesegniloj(silabo.Substring(2, 1))(DuonaLarĝeco, Alteco), X, Y)
-            X += Larĝeco\2 + Spaceto
+            X += Larĝeco\2 + spacoInterSilaboj
             Y = antaŭY
          End If
       ElseIf silabo.Length = 4 Then 'CCVC
@@ -83,7 +86,7 @@ Public MustInherit Class Desegnilo
          AldoniVojon(LiteroDesegniloj(silabo.Substring(2, 1))(DuonaLarĝeco, Alteco), X, Y)
          X += Larĝeco\2 + Spaceto
          AldoniVojon(LiteroDesegniloj(silabo.Substring(3, 1))(DuonaLarĝeco, Alteco), X, Y)
-         X += Larĝeco\2 + Spaceto
+         X += Larĝeco\2 + spacoInterSilaboj
          Y = antaŭY
       Else
          Throw New Exception($"Nevalida silabo: {silabo}")
@@ -91,7 +94,7 @@ Public MustInherit Class Desegnilo
    End Sub
    
    Private Sub AldoniVojon(vojo As String, x As Integer, y As Integer)
-      _vojoj.Add(String.Format("M {0} {1} {2}", x, y, vojo))
+      Vojoj.Add(String.Format("M {0} {1} {2}", x, y, vojo))
    End Sub
    
    Public Sub DesegniFinaĵon(finaĵo As String)
@@ -101,20 +104,21 @@ Public MustInherit Class Desegnilo
    End Sub
    
    Public Overridable Sub Fini()
-      XmlSkribilo.WriteStartDocument()
-      XmlSkribilo.WriteStartElement("svg", "http://www.w3.org/2000/svg")
-      XmlSkribilo.WriteAttributeString("width", Math.Max(X + Spaco, DokumentoLarĝeco))
-      XmlSkribilo.WriteAttributeString("height", DufojaAlteco + Y + 2*Spaco)
+      Dim xmlSkribilo = XmlWriter.Create(_elirejo)
+      xmlSkribilo.WriteStartDocument()
+      xmlSkribilo.WriteStartElement("svg", "http://www.w3.org/2000/svg")
+      xmlSkribilo.WriteAttributeString("width", Math.Max(X + Spaco, DokumentoLarĝeco))
+      xmlSkribilo.WriteAttributeString("height", DufojaAlteco + Y + 2*Spaco)
 
-      For Each vojo In _vojoj
-         XmlSkribilo.WriteStartElement("path")
-         XmlSkribilo.WriteAttributeString("d", vojo)
-         XmlSkribilo.WriteEndElement()
+      For Each vojo In Vojoj
+         xmlSkribilo.WriteStartElement("path")
+         xmlSkribilo.WriteAttributeString("d", vojo)
+         xmlSkribilo.WriteEndElement()
       Next
 
-      XmlSkribilo.WriteEndElement()
-      XmlSkribilo.WriteEndDocument()
-      XmlSkribilo.Close()
+      xmlSkribilo.WriteEndElement()
+      xmlSkribilo.WriteEndDocument()
+      xmlSkribilo.Close()
    End Sub
    
    Private Shared Function ĈuVokalo(litero As Char) As Boolean

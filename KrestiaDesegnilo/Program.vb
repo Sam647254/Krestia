@@ -17,16 +17,31 @@ Module Program
       If args(0) = "testo" Then
          Literoj(args(1))
       ElseIf args(0) = "bliss" Then
-         Console.WriteLine("!!!")
-         Bliss()
+         Bliss(args(1), args(2), args(3))
       Else
          Dosiero(args(1), args(0), Integer.Parse(args(2)), Integer.Parse(args(3)))
       End If
    End Sub
 
-   Private Sub Bliss()
-      Dim bliss = New BlissSvgDesegnilo("test.svg", 7)
-      bliss.Desegni(25306)
+   Private Sub Bliss(eniro As String, eliro As String, radio As Integer)
+      Dim bliss = New BlissSvgDesegnilo(eliro, radio)
+      For Each vico In File.ReadLines(eniro)
+         For Each silabo In vico.Split(" "c)
+            Dim blissId As Integer
+            Dim ĉuNumero = Integer.TryParse(silabo, blissId)
+            If ĉuNumero
+               Console.WriteLine($"Desegnas {blissId}")
+               bliss.Desegni(blissId)
+            Else
+               Try
+                  bliss.DesegniFinaĵon(silabo)
+               Catch ex As Exception
+                  bliss.DesegniSilabon(silabo)
+               End Try
+            End If
+         Next
+      Next
+      bliss.Fini()
    End Sub
 
    Private Sub Dosiero(eliro As String, eniro As String, dx As Integer, dy As Integer)
