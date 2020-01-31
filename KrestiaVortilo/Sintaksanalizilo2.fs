@@ -63,8 +63,8 @@ module Sintaksanalizilo2 =
 
    let malinflekti (ĉeno: string): Result<MalinflektaŜtupo, string> =
       match ĉeno with
-      | _ when ĉuFremdaVorto ĉeno -> Bazo(FremdaVorto, SolaFormo) |> Ok
-      | _ when ĉuLokokupilo ĉeno -> Bazo(Lokokupilo, SolaFormo) |> Ok
+      | _ when ĉuFremdaVorto ĉeno -> Bazo(FremdaVorto, SolaFormo, ĉeno) |> Ok
+      | _ when ĉuLokokupilo ĉeno -> Bazo(Lokokupilo, SolaFormo, ĉeno) |> Ok
       | _ ->
          ĉiujInflekcioj
          |> List.tryPick (fun (vorttipo, finaĵo) ->
@@ -94,6 +94,67 @@ module Sintaksanalizilo2 =
                         malinflektiSiDifinito restantaj difinito AkceptiNenombrigeblan
                   else
                      None)
-         |> Option.orElseWith (fun () -> ĉuInfinitivo ĉeno |> Option.map (fun vorttipo -> Bazo(vorttipo, Infinitivo)))
+         |> Option.orElseWith (fun () ->
+               ĉuInfinitivo ĉeno |> Option.map (fun vorttipo -> Bazo(vorttipo, Infinitivo, ĉeno)))
          |> Option.map Ok
          |> Option.defaultValue (Error(sprintf "%s estas nevalida" ĉeno))
+
+   let rec tuteMalinflekti (ĉeno: string) =
+      malinflekti ĉeno
+      |> Result.bind (fun malinflektita ->
+            match malinflektita with
+            | Bazo(_, _, _) ->
+               malinflektita
+               |> List.singleton
+               |> Ok
+            | Nebazo(_, _, restanta) ->
+               tuteMalinflekti restanta |> Result.map (fun sekvaj -> malinflektita :: sekvaj))
+
+   let ĉuVerbo (ĉeno: string) =
+      tuteMalinflekti ĉeno
+      |> Result.map (fun ŝtupoj ->
+            match ŝtupoj with
+            | unua :: _ ->
+               match unua with
+               | Bazo(vorttipo, _, _) ->
+                  verboTipoj |> Set.contains vorttipo
+               | Nebazo(_, _, _) -> failwith "ne valida unua ŝtupo"
+            | [] -> failwith "ne valida ŝtupoj")
+
+   let ĉuVerboInfinitivo (ĉeno: string) =
+      tuteMalinflekti ĉeno
+      |> Result.map (fun ŝtupoj ->
+            match ŝtupoj with
+            | [ solaŜtupo ] ->
+               match solaŜtupo with
+               | Bazo(vorttipo, inflekcio, _) ->
+                  (inflekcio = Infinitivo) && verboTipoj |> Set.contains vorttipo
+               | _ -> false
+            | _ -> false)
+
+   let ĉuInfinitivoB (ĉeno: string) =
+      ĉuInfinitivo ĉeno |> Option.isSome
+
+   let ĉuVortaraFormo (ĉeno: string) =
+      ĉuInfinitivoB ĉeno || ĉuLokokupilo ĉeno || ĉuFremdaVorto ĉeno
+
+   let ĉuVerboInfinitivoB (ĉeno: string) =
+      match ĉuVerboInfinitivo ĉeno with
+      | Ok(rezulto) -> rezulto
+      | Error(_) -> false
+
+   let bazoDe (vorto: string) =
+      if ĉuVerboInfinitivoB vorto then
+         vorto.Substring
+            (0,
+             (if vorto.EndsWith("sh") then vorto.Length - 2
+              else vorto.Length - 1))
+      else
+         vorto
+
+   let ĉuMalplenigita (malplenigita: Vorttipo) (originala: string) =
+      ĉuInfinitivo originala
+      |> Option.filter (fun originalaTipo -> Set.contains originalaTipo verboTipoj)
+      |> Option.bind (fun originalaTipo -> Map.tryFind originalaTipo malplenigeblaVerboTipoj)
+      |> Option.filter (fun malplenigeblaTipoj -> Set.contains malplenigita malplenigeblaTipoj)
+      |> Option.isSome

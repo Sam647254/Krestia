@@ -26,7 +26,7 @@ type VerboTestoj() =
         "tesh"
         "volesh"
         "vilish" ]
-      |> List.map Sintaksanalizilo.ĉuVerbo
+      |> List.map Sintaksanalizilo2.ĉuVerbo
       |> List.map (fun rezulto ->
             match rezulto with
             | Ok(_) -> ()

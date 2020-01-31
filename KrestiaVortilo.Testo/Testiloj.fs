@@ -30,7 +30,7 @@ module Testiloj =
       malinflekti vorto
       |> Result.map (fun malinflektaŜtupo ->
             match malinflektaŜtupo with
-            | Bazo(vorttipo, inflekcio) ->
+            | Bazo(vorttipo, inflekcio, _) ->
                Assert.AreEqual(pravaTipo, vorttipo)
                Assert.AreEqual(pravaInflekcio, inflekcio)
             | Nebazo(vorttipo, inflekcio, _) ->

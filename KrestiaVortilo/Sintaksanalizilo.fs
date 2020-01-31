@@ -11,7 +11,7 @@ module Sintaksanalizilo =
    type MalinflektaŜtupo =
       // La vorto ne povis malinflektiĝi, ĉar ĝi jam estas en baza formo,
       // ekzemple la infinitivo, aŭ la vorttipo ne povas inflektiĝi.
-      | Bazo of Vorttipo * Inflekcio
+      | Bazo of Vorttipo * Inflekcio * BazaVorto: string
       // La vorto malinflektiĝis.
       | Nebazo of Vorttipo * Inflekcio * RestantaVorto: string
 
@@ -43,7 +43,20 @@ module Sintaksanalizilo =
         TransitivaVerbo
         NedirektaTransitivaVerbo
         OblikaTransitivaVerbo
-        DutransitivaVerbo ]
+        DutransitivaVerbo ] |> Set.ofList
+
+   let malplenigeblaVerboTipoj =
+      [ MalplenaVerbo, [ MalplenaVerbo ]
+        NetransitivaVerbo, [ NetransitivaVerbo; MalplenaVerbo ]
+        OblikaNetransitivaVerbo, [ OblikaNetransitivaVerbo; MalplenaVerbo ]
+        NedirektaNetransitivaVerbo, [ NedirektaNetransitivaVerbo; MalplenaVerbo ]
+        TransitivaVerbo, [ TransitivaVerbo; NetransitivaVerbo; OblikaNetransitivaVerbo; MalplenaVerbo ]
+        NedirektaTransitivaVerbo,
+        [ NedirektaTransitivaVerbo; NetransitivaVerbo; NedirektaNetransitivaVerbo; MalplenaVerbo ]
+        OblikaTransitivaVerbo, [ OblikaTransitivaVerbo; OblikaNetransitivaVerbo; NedirektaNetransitivaVerbo ]
+        DutransitivaVerbo, verboTipoj |> List.ofSeq ]
+      |> List.map (fun (originala, malplenigitaj) -> originala, malplenigitaj |> Set.ofList)
+      |> Map.ofList
 
    let inflekcioPostfiksarbo =
       SufiksoTabelo
@@ -140,58 +153,15 @@ module Sintaksanalizilo =
 
    let malinflekti (ĉeno: string): Result<MalinflektaŜtupo, string> =
       match ĉeno with
-      | _ when ĉuFremdaVorto ĉeno -> Bazo(FremdaVorto, SolaFormo) |> Ok
-      | _ when ĉuLokokupilo ĉeno -> Bazo(Lokokupilo, SolaFormo) |> Ok
+      | _ when ĉuFremdaVorto ĉeno -> Bazo(FremdaVorto, SolaFormo, ĉeno) |> Ok
+      | _ when ĉuLokokupilo ĉeno -> Bazo(Lokokupilo, SolaFormo, ĉeno) |> Ok
       | _ ->
          let literoj =
             ĉeno.ToCharArray()
             |> List.ofArray
             |> List.rev
          troviFinaĵon literoj inflekcioPostfiksarbo
-         |> Option.orElseWith (fun () -> ĉuInfinitivo ĉeno |> Option.map (fun vorttipo -> Bazo(vorttipo, Infinitivo)))
+         |> Option.orElseWith (fun () ->
+               ĉuInfinitivo ĉeno |> Option.map (fun vorttipo -> Bazo(vorttipo, Infinitivo, ĉeno)))
          |> Option.map Ok
          |> Option.defaultValue (Error(sprintf "%s estas nevalida" ĉeno))
-
-   let rec tuteMalinflekti (ĉeno: string) =
-      malinflekti ĉeno
-      |> Result.bind (fun malinflektita ->
-            match malinflektita with
-            | Bazo(_, _) ->
-               malinflektita
-               |> List.singleton
-               |> Ok
-            | Nebazo(_, _, restanta) ->
-               tuteMalinflekti restanta |> Result.map (fun sekvaj -> malinflektita :: sekvaj))
-
-   let ĉuVerbo (ĉeno: string) =
-      tuteMalinflekti ĉeno
-      |> Result.map (fun ŝtupoj ->
-            match ŝtupoj with
-            | unua :: _ ->
-               match unua with
-               | Bazo(vorttipo, _) ->
-                  verboTipoj |> List.contains vorttipo
-               | Nebazo(_, _, _) -> failwith "ne valida unua ŝtupo"
-            | [] -> failwith "ne valida ŝtupoj")
-
-   let ĉuVerboInfinitivo (ĉeno: string) =
-      tuteMalinflekti ĉeno
-      |> Result.map (fun ŝtupoj ->
-            match ŝtupoj with
-            | [ solaŜtupo ] ->
-               match solaŜtupo with
-               | Bazo(vorttipo, inflekcio) ->
-                  (inflekcio = Infinitivo) && verboTipoj |> List.contains vorttipo
-               | _ -> false
-            | _ -> false)
-      
-   let ĉuInfinitivoB (ĉeno: string) =
-      ĉuInfinitivo ĉeno |> Option.isSome
-      
-   let ĉuVortaraFormo (ĉeno: string) =
-      ĉuInfinitivoB ĉeno || ĉuLokokupilo ĉeno || ĉuFremdaVorto ĉeno
-
-   let ĉuVerboInfinitivoB (ĉeno: string) =
-      match ĉuVerboInfinitivo ĉeno with
-      | Ok(rezulto) -> rezulto
-      | Error(_) -> false
