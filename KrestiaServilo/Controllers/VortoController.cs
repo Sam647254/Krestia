@@ -21,5 +21,11 @@ namespace KrestiaServilo.Controllers {
 
          return Ok(vortoRespondo);
       }
+
+      [HttpGet("trovi/{peto}")]
+      public async Task<ActionResult> Trovi(string peto) {
+         var rezulto = await _awsAlirilo.TroviVortojn(peto);
+         return Ok(rezulto);
+      }
    }
 }

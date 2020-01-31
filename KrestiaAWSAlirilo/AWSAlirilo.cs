@@ -78,7 +78,7 @@ namespace KrestiaAWSAlirilo {
       public async Task AldoniVortojn(string eniro) {
          var vortoj = (await File.ReadAllLinesAsync(eniro)).Select(vico => {
             var partoj = vico.Split('|');
-            if (!Sintaksanalizilo.ĉuVortaraFormo(partoj[0])) {
+            if (!Sintaksanalizilo2.ĉuVortaraFormo(partoj[0])) {
                throw new ArgumentException($"{partoj[0]} ne estas valida infinitivo");
             }
 
@@ -94,9 +94,7 @@ namespace KrestiaAWSAlirilo {
             var peto = new Dictionary<string, AttributeValue> {
                {"vorto", new AttributeValue(vorto.Vorto)}, {
                   "bazo",
-                  new AttributeValue(Sintaksanalizilo.ĉuVerboInfinitivoB(vorto.Vorto)
-                     ? vorto.Vorto.Substring(0, vorto.Vorto.Length - (vorto.Vorto.EndsWith("sh") ? 2 : 1))
-                     : vorto.Vorto)
+                  new AttributeValue(Sintaksanalizilo2.bazoDe(vorto.Vorto))
                },
                {"signifo", new AttributeValue(vorto.Signifo)}
             };
@@ -124,6 +122,59 @@ namespace KrestiaAWSAlirilo {
                }
             });
          }));
+      }
+
+      public async Task<VortoRezulto> TroviVortojn(string peto) {
+         var malinflekajŜtupoj = Sintaksanalizilo2.tuteMalinflekti(peto);
+         string? malinflektitaVorto = null;
+         Vorttipo.Vorttipo? malinflektitaTipo = null;
+         string? bazo = null;
+         if (malinflekajŜtupoj.IsOk) {
+            var lastaŜtupo = malinflekajŜtupoj.ResultValue.Last() as Sintaksanalizilo.MalinflektaŜtupo.Bazo; 
+            malinflektitaVorto = lastaŜtupo?.BazaVorto;
+            malinflektitaTipo = lastaŜtupo?.Item1;
+            bazo = Sintaksanalizilo2.bazoDe(malinflektitaVorto);
+         }
+
+         if (bazo != null) {
+            var bazaRezulto = await _amazonDynamoDbClient.QueryAsync(new QueryRequest(TableName) {
+               IndexName = "bazo-indekso",
+               ProjectionExpression = "vorto",
+               KeyConditionExpression = "bazo = :b",
+               ExpressionAttributeValues = new Dictionary<string, AttributeValue>() {
+                  {":b", new AttributeValue(bazo)}
+               }
+            });
+
+            if (bazaRezulto.Count == 1) {
+               var bazaVorto = bazaRezulto.Items.First()["vorto"].S;
+               bazo = Sintaksanalizilo2.ĉuMalplenigita(malinflektitaTipo, bazaVorto) ? bazaVorto : null;
+            }
+            else {
+               bazo = null;
+            }
+         }
+
+         var rezultoj = await _amazonDynamoDbClient.ScanAsync(new ScanRequest(TableName) {
+            ProjectionExpression = "vorto, signifo",
+            FilterExpression = "contains(vorto, :p) OR contains(signifo, :p)",
+            ExpressionAttributeValues = new Dictionary<string, AttributeValue> {
+               {":p", new AttributeValue(peto)}
+            }
+         });
+
+         if (rezultoj.LastEvaluatedKey.Count > 0) {
+            throw new NotSupportedException("Pli da vortoj restantaj");
+         }
+
+         return new VortoRezulto {
+            MalinflektitaVorto = malinflektitaVorto,
+            PlenigitaVorto = bazo,
+            Rezultoj = rezultoj.Items.Select(r => new VortoRespondo {
+               Vorto = r["vorto"].S,
+               Signifo = r["signifo"].S
+            })
+         };
       }
    }
 }
