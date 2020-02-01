@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 using KrestiaVortilo;
@@ -12,8 +13,7 @@ namespace KrestiaAWSAlirilo {
    public class AwsAlirilo {
       private const string TableName = "Krestia-vortaro-2";
 
-      private readonly AmazonDynamoDBClient _amazonDynamoDbClient =
-         new AmazonDynamoDBClient();
+      private readonly AmazonDynamoDBClient _amazonDynamoDbClient = new AmazonDynamoDBClient(RegionEndpoint.USWest2);
 
       public async Task<IEnumerable<VortoRespondo>> AlportiĈiujnVortojn() {
          var rezulto = await _amazonDynamoDbClient.ScanAsync(new ScanRequest {
