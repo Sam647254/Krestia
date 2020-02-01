@@ -29,6 +29,9 @@ Public Class BlissSvgDesegnilo
          {"u", AddressOf K},
          {"o", Function(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
             Return String.Format("m 0 {1} h {2} m 0 -{1} v {0}", aktualaAlteco, aktualaAlteco\2, aktualaLarĝeco)
+         End Function},
+         {"ɒ", Function(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
+            Return String.Format("m 0 {0} h {1} v {0}", aktualaAlteco, aktualaLarĝeco)
          End Function}
          }
 
@@ -52,6 +55,56 @@ Public Class BlissSvgDesegnilo
             Return _
                String.Format("m {0} 0 a {0} {1} 0 0 0 0 {2} m -{0} -{3} h {0}", DuonaLarĝeco, DufojaAlteco\2,
                              DufojaAlteco, DufojaAlteco\2)
+         End Function},
+         {"eco<", Function() As String
+            X += DuonaLarĝeco + Spaco
+            Return _
+               String.Format("a {0} {1} 0 0 1 0 {2} m 0 -{3} h {0}", DuonaLarĝeco, DufojaAlteco\2,
+                             DufojaAlteco, DufojaAlteco\2)
+         End Function},
+         {"rekordo<", Function() As String
+            X += DuonaLarĝeco + Spaceto + Spaco
+            Return _
+               String.Format("a {0} {1} 0 0 1 0 {2} m {3} -{2} v {4} m 0 {5} v {4}", DuonaLarĝeco, DufojaAlteco\2,
+                             DufojaAlteco,
+                             DuonaLarĝeco + Spaceto, Alteco, Spaceto)
+         End Function},
+         {"rekordo>", Function() As String
+            X += DuonaLarĝeco + Spaceto + Spaco
+            Return _
+               String.Format("m {0} 0 a {0} {1} 0 0 0 0 {2} m {4} -{2} v {3} m 0 {4} v {3}", DuonaLarĝeco,
+                             DufojaAlteco\2,
+                             DufojaAlteco, Alteco, Spaceto)
+         End Function},
+         {"pridiranto", Function() As String
+            X += DuonaLarĝeco + Spaco
+            Return String.Format("m {0} 0 l -{0} {1} h {2} z", DuonaLarĝeco\2, DufojaAlteco, DuonaLarĝeco)
+         End Function},
+         {"atributivoEsti<", Function() As String
+            X += DuonaLarĝeco + Spaco
+            Return String.Format("m 0 {0} h {1} m -{1} {0} h {1} m 0 -{2} v {3}", DufojaAlteco\3,
+                                 DuonaLarĝeco, DufojaAlteco*2\3, DufojaAlteco)
+         End Function},
+         {"atributivoEsti>", Function() As String
+            X += DuonaLarĝeco + Spaco
+            Return String.Format("v {3} m 0 -{2} h {1} m -{1} {0} h {1}", DufojaAlteco\3,
+                                 DuonaLarĝeco, DufojaAlteco*2\3, DufojaAlteco)
+         End Function},
+         {"predikativoEsti", Function() As String
+            X += DuonaLarĝeco + Spaco
+            Return _
+               String.Format("m 0 {0} h {1} m -{2} -{0} v {3} m {2} -{3} v {3}", DufojaAlteco\2, DuonaLarĝeco,
+                             DuonaLarĝeco\2, DufojaAlteco)
+         End Function},
+         {"netransitiva", Function() As String
+            X += DuonaLarĝeco + Spaco
+            Return _
+               String.Format("m 0 {0} h {1} m -{2} -{0} v {3}", DufojaAlteco\2, DuonaLarĝeco, DuonaLarĝeco\2,
+                             DufojaAlteco)
+         End Function},
+         {"nedirektaTransitiva", Function() As String
+            X += DuonaLarĝeco + Spaco
+            Return String.Format("h {0} m -{1} 0 v {2} m -{1} 0 h {0}", DuonaLarĝeco, DuonaLarĝeco\2, DufojaAlteco)
          End Function}
          }
 
@@ -130,6 +183,12 @@ Public Class BlissSvgDesegnilo
 
    Private Shadows Const DufojaAlteco = 258 - 130
    Private Shadows Const Larĝeco = DufojaAlteco\2
-   Private Shadows Const Alteco = DufojaAlteco\2
+
+   Private ReadOnly Property Alteco As Integer
+      Get
+         Return DufojaAlteco\2 - Spaceto\2
+      End Get
+   End Property
+
    Private Const Bucket = "blissimboloj"
 End Class
