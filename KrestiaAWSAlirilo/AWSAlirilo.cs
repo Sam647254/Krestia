@@ -63,15 +63,18 @@ namespace KrestiaAWSAlirilo {
             return null;
          }
 
+         var vorttipo = Sintaksanalizilo.infinitivoNomoDe(vorto).Value;
+
          var vortoObjecto = respondo.Item;
          return !respondo.IsItemSet
             ? null
             : new VortoRespondo {
                Vorto = vortoObjecto["vorto"].S,
-               Kategorioj = vortoObjecto.GetValueOrDefault("kategorio")?.SS,
+               Kategorioj = vortoObjecto.GetValueOrDefault("kategorioj")?.SS,
                Noto = vortoObjecto.GetValueOrDefault("noto")?.S,
                Radikoj = vortoObjecto.GetValueOrDefault("radikoj")?.SS,
-               Signifo = vortoObjecto.GetValueOrDefault("signifo")?.S
+               Signifo = vortoObjecto.GetValueOrDefault("signifo")?.S,
+               Vorttipo = vorttipo
             };
       }
 
@@ -134,6 +137,14 @@ namespace KrestiaAWSAlirilo {
             malinflektitaVorto = lastaŜtupo?.BazaVorto;
             malinflektitaTipo = lastaŜtupo?.Item1;
             bazo = Sintaksanalizilo2.bazoDe(malinflektitaVorto);
+            var malinflektitaRezulto = await _amazonDynamoDbClient.QueryAsync(new QueryRequest(TableName) {
+               ProjectionExpression = "vorto",
+               KeyConditionExpression = "vorto = :v",
+               ExpressionAttributeValues = new Dictionary<string, AttributeValue> {
+                  {":v", new AttributeValue(malinflektitaVorto)}
+               }
+            });
+            malinflektitaVorto = malinflektitaRezulto.Count == 1 ? malinflektitaRezulto.Items.First()["vorto"].S : null;
          }
 
          if (bazo != null) {
@@ -168,8 +179,8 @@ namespace KrestiaAWSAlirilo {
          }
 
          return new VortoRezulto {
-            MalinflektitaVorto = malinflektitaVorto,
-            PlenigitaVorto = bazo,
+            MalinflektitaVorto = malinflektitaVorto == peto ? null : malinflektitaVorto,
+            PlenigitaVorto = bazo == peto ? null : bazo,
             Rezultoj = rezultoj.Items.Select(r => new VortoRespondo {
                Vorto = r["vorto"].S,
                Signifo = r["signifo"].S

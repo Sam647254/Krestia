@@ -24,5 +24,7 @@ namespace KrestiaAWSAlirilo {
          get => _kategorioj ?? new List<string>();
          set => _kategorioj = value;
       }
+      
+      public string? Vorttipo { get; set; }
    }
 }

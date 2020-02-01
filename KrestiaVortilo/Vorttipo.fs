@@ -51,7 +51,6 @@ module Vorttipo =
    | AntaŭRekordo
    | MalantaŭNombrigeblaEco
    | AntaŭNombrigeblaEco
-   | NenombrigeblaEcoEco
    | MalantaŭNenombrieblaEco
    | AntaŭNenombrigeblaEco
    | TransitivaVerbo

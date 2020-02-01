@@ -121,6 +121,33 @@ module Sintaksanalizilo =
             if ĉeno.EndsWith(finaĵo) && ĉeno.Length > finaĵo.Length then Some tipo
             else None)
 
+   let infinitivoNomoDe (ĉeno: string): string option =
+      ĉuInfinitivo ĉeno
+      |> Option.map (fun tipo ->
+            match tipo with
+            | NombrigeblaKlaso -> "Countable class"
+            | NenombrigeblaKlaso -> "Uncountable class"
+            | MalantaŭRekordo -> "Record (postfix)"
+            | AntaŭRekordo -> "Record (prefix)"
+            | MalantaŭNombrigeblaEco -> "Countable associative class (postfix)"
+            | AntaŭNombrigeblaEco -> "Countable associative class (prefix)"
+            | MalantaŭNenombrieblaEco -> "Uncountable associative class (postfix)"
+            | AntaŭNenombrigeblaEco -> "Uncountable associative class (prefix)"
+            | TransitivaVerbo -> "Transitive verb"
+            | DutransitivaVerbo -> "Ditransitive verb"
+            | NetransitivaVerbo -> "Intransitive verb"
+            | NedirektaTransitivaVerbo -> "Indirect transitive verb"
+            | MalplenaVerbo -> "Impersonal verb"
+            | OblikaTransitivaVerbo -> "Oblique transitive verb"
+            | OblikaNetransitivaVerbo -> "Oblique intransitive verb"
+            | NedirektaNetransitivaVerbo -> "Indirect intransitive verb"
+            | Pridiranto -> "Descriptor"
+            | Lokokupilo -> "Placeholder"
+            | MalantaŭModifanto -> "Modifier (postfix)"
+            | AntaŭModifanto -> "Modifier (prefix)"
+            | Makro -> "Macro"
+            | FremdaVorto -> "Foreign word")
+
    /// Provas trovi inflekcion por la finaĵo de la vorto (literoj).
    /// Se ĝi sukcesas, ĝi returnas Nebazon.
    let rec troviFinaĵon (literoj: char list) (arbo: SufiksoTabelo) =
