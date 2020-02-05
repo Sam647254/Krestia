@@ -21,6 +21,11 @@
     <Compile Include="Traktilaro.fs" />
     <Compile Include="Strukturo.fs" />
     <Compile Include="Legiloj.fs" />
+    <Compile Include="LiberordajLegiloj.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FSharpx.Collections" Version="2.1.2" />
   </ItemGroup>
 
 </Project>
