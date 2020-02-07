@@ -160,3 +160,71 @@ module Sintaksanalizilo2 =
       |> Option.bind (fun originalaTipo -> Map.tryFind originalaTipo malplenigeblaVerboTipoj)
       |> Option.filter (fun malplenigeblaTipoj -> Set.contains malplenigita malplenigeblaTipoj)
       |> Option.isSome
+
+   let vokaloj = [ 'i'; 'e'; 'a'; 'u'; 'o'; 'ɒ' ] |> Set.ofList
+   let ĉuVokalo litero = Set.contains litero vokaloj
+   
+   type Litero =
+      | Konsonanto of char
+      | Vokalo of char
+      
+   let kategorigiLiterojn = List.map (fun litero -> if ĉuVokalo litero then Vokalo litero else Konsonanto litero)
+
+   let dividi (ĉeno: string) =
+      let normaligita = ĉeno.Replace("aa", "ɒ").Replace("sh", "ʃ")
+
+      let rec dividiAk ĉuKomenca (literoj: Litero list): Result<string list, string> =
+         match literoj with
+         // CCVC
+         | Konsonanto(k1) :: Konsonanto(k2) :: Vokalo(v) :: Konsonanto(kf) :: Konsonanto(kk2) :: restantaj ->
+            if ĉuKomenca then
+               dividiAk false (Konsonanto(kk2) :: restantaj)
+               |> Result.map (fun restantajSilaboj -> System.String.Concat([ k1; k2; v; kf ]) :: restantajSilaboj)
+            else Error "Vorto ne rajtas komenci per du konsonantoj"
+         | [ Konsonanto(k1); Konsonanto(k2); Vokalo(v); Konsonanto(kf) ] ->
+            if ĉuKomenca then [ System.String.Concat([k1; k2; v; kf]) ] |> Ok
+            else Error "Vorto ne rajtas komenci per du konsonantoj"
+         // CCV
+         | Konsonanto(k1) :: Konsonanto(k2) :: Vokalo(v) :: Konsonanto(kf) :: Vokalo(v2) :: restantaj ->
+            if ĉuKomenca then
+               dividiAk false (Konsonanto(kf) :: Vokalo(v2) :: restantaj)
+               |> Result.map (fun restantajSilaboj -> System.String.Concat([ k1; k2; v ]) :: restantajSilaboj)
+            else Error "Vorto ne rajtas komenci per du konsonantoj"
+         | Konsonanto(k1) :: Konsonanto(k2) :: Vokalo(v) :: Vokalo(v2) :: restantaj ->
+            if ĉuKomenca then
+               dividiAk false (Vokalo(v2) :: restantaj)
+               |> Result.map (fun restantajSilaboj -> System.String.Concat([ k1; k2; v ]) :: restantajSilaboj)
+            else Error "Vorto ne rajtas komenci per du konsonantoj"
+         | [ Konsonanto(k1); Konsonanto(k2); Vokalo(v) ] ->
+            if ĉuKomenca then [ System.String.Concat([k1; k2; v]) ] |> Ok
+            else Error "Vorto ne rajtas komenci per du konsonantoj"
+         // CVC
+         | Konsonanto(k1) :: Vokalo(v) :: Konsonanto(kf) :: Konsonanto(kk2) :: restantaj ->
+            dividiAk false (Konsonanto(kk2) :: restantaj)
+            |> Result.map (fun restantajSilaboj -> System.String.Concat([ k1; v; kf ]) :: restantajSilaboj)
+         | [ Konsonanto(k1); Vokalo(v); Konsonanto(kf) ] -> [ System.String.Concat([k1; v; kf]) ] |> Ok
+         // CV
+         | Konsonanto(k1) :: Vokalo(v) :: Konsonanto(kk2) :: Vokalo(v2) :: restantaj ->
+            dividiAk false (Konsonanto(kk2) :: Vokalo(v2) :: restantaj)
+            |> Result.map (fun restantajSilaboj -> System.String.Concat([ k1; v ]) :: restantajSilaboj)
+         | Konsonanto(k1) :: Vokalo(v) :: Vokalo(v2) :: restantaj ->
+            dividiAk false (Vokalo(v2) :: restantaj)
+            |> Result.map (fun restantajSilaboj -> System.String.Concat([ k1; v ]) :: restantajSilaboj)
+         | [ Konsonanto(k1); Vokalo(v) ] -> [ System.String.Concat([ k1; v ]) ] |> Ok
+         // VC
+         | Vokalo(v) :: Konsonanto(kf) :: Konsonanto(kk2) :: restantaj->
+            dividiAk false (Konsonanto(kk2) :: restantaj)
+            |> Result.map (fun restantajSilaboj -> System.String.Concat([ v; kf ]) :: restantajSilaboj)
+         | [ Vokalo(v); Konsonanto(kf) ] -> [ System.String.Concat([v; kf]) ] |> Ok
+         // V
+         | Vokalo(v) :: Konsonanto(kf) :: Vokalo(v2) :: restantaj ->
+            dividiAk false (Konsonanto(kf) :: Vokalo(v2) :: restantaj)
+            |> Result.map (fun restantajSilaboj -> v.ToString() :: restantajSilaboj)
+         | Vokalo(v) :: Vokalo(v2) :: restantaj ->
+            dividiAk false (Vokalo(v2) :: restantaj)
+            |> Result.map (fun restantajSilaboj -> v.ToString() :: restantajSilaboj)
+         | [ Vokalo(v) ] -> [ v.ToString() ] |> Ok
+         // Eraro
+         | [] -> Error "La vorto estas vida"
+         | _ -> Error(sprintf "Ne povas dividi %A" literoj)
+      dividiAk true (normaligita.ToCharArray() |> List.ofArray |> kategorigiLiterojn)
