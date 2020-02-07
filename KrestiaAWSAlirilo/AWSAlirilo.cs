@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
@@ -64,6 +65,11 @@ namespace KrestiaAWSAlirilo {
          }
 
          var vorttipo = Sintaksanalizilo.infinitivoNomoDe(vorto).Value;
+         var silaboj = Sintaksanalizilo2.dividiKunFinaĵo(vorto);
+
+         if (silaboj.IsError) {
+            throw new Exception(silaboj.ErrorValue);
+         }
 
          var vortoObjecto = respondo.Item;
          return !respondo.IsItemSet
@@ -74,7 +80,8 @@ namespace KrestiaAWSAlirilo {
                Noto = vortoObjecto.GetValueOrDefault("noto")?.S,
                Radikoj = vortoObjecto.GetValueOrDefault("radikoj")?.SS,
                Signifo = vortoObjecto.GetValueOrDefault("signifo")?.S,
-               Vorttipo = vorttipo
+               Vorttipo = vorttipo,
+               Silaboj = silaboj.ResultValue
             };
       }
 

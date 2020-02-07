@@ -242,3 +242,11 @@ module Sintaksanalizilo2 =
          (normaligita.ToCharArray()
           |> List.ofArray
           |> kategorigiLiterojn)
+
+   let dividiKunFinaĵo (vorto: string) =
+      dividi vorto
+      |> Result.bind (fun silaboj ->
+            ĉuInfinitivo vorto
+            |> Option.map (fun vorttipo -> silaboj @ [ vorttipo.ToString() ])
+            |> Option.map Ok
+            |> Option.defaultValue (Error(sprintf "%s ne estas infinitivo" vorto)))

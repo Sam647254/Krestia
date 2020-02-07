@@ -26,5 +26,7 @@ namespace KrestiaAWSAlirilo {
       }
       
       public string? Vorttipo { get; set; }
+      
+      public IEnumerable<string>? Silaboj { get; set; }
    }
 }
