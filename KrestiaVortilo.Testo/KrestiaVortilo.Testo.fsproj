@@ -22,6 +22,7 @@
     <Compile Include="LearnTheseWordsFirstTestoj.fs" />
     <Compile Include="KlasoTestoj.fs" />
     <Compile Include="VerboTestoj.fs" />
+    <Compile Include="SilaboTestoj.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

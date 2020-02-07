@@ -45,3 +45,9 @@ module Testiloj =
             (fun malinflektaŜtupo ->
             Assert.Fail(sprintf "%s estas nevalida vorto, sed malinflektiĝis: %A" vorto malinflektaŜtupo))
       |> ignore
+
+   let kontroliSilabojn (vorto: string) (prava: string list) =
+      dividi vorto
+      |> Result.map (fun rezulto -> Assert.AreEqual(rezulto, prava))
+      |> Result.mapError (fun eraro -> Assert.Fail(eraro))
+      |> ignore
