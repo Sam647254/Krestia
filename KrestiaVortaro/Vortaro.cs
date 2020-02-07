@@ -151,7 +151,7 @@ namespace KrestiaVortaro {
             BazoIndekso = jsonVortaro.Vortoj.ToImmutableDictionary(v => v.BazaVorto, v => v),
             IdIndekso = jsonVortaro.Vortoj.Select((v, i) => (v, i)).ToImmutableDictionary(p => p.i, p => p.v),
             Kategorioj = jsonVortaro.Kategorioj.ToImmutableDictionary(k => k.Nomo,
-               k => k.Vortoj.Select(id => jsonVortaro.Vortoj[id]).ToImmutableList())
+               k => k.Vortoj.Select(id => jsonVortaro!.Vortoj[id]).ToImmutableList())
          };
       }
 

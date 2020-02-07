@@ -24,7 +24,7 @@ namespace KrestiaAWSAlirilo {
       public async Task<IEnumerable<VortoRespondo>> AlportiĈiujnVortojn(bool baza = false) {
          var rezulto = await _amazonDynamoDbClient.ScanAsync(new ScanRequest {
             TableName = TableName,
-            ProjectionExpression = baza ? "vorto, signifo" : "vorto, bazo, signifo, radikoj, kategorio, noto"
+            ProjectionExpression = baza ? "vorto, signifo" : "vorto, bazo, signifo, gloso, radikoj, kategorio, noto"
          });
          if (rezulto.LastEvaluatedKey.Count > 0) {
             throw new NotSupportedException("Pli da rezultoj restantaj");
@@ -34,6 +34,7 @@ namespace KrestiaAWSAlirilo {
             Vorto = vorto["vorto"].S,
             Bazo = vorto["bazo"].S,
             Signifo = vorto["signifo"].S,
+            Gloso = vorto["gloso"].S,
             Kategorioj = vorto.GetValueOrDefault("kategorio")?.SS,
             Noto = vorto.GetValueOrDefault("noto")?.S,
             Radikoj = vorto.GetValueOrDefault("radikoj")?.SS

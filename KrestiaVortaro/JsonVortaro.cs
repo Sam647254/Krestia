@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace KrestiaVortaro {
    public class JsonVortaro {
-      public IList<Vorto>? Vortoj { get; set; }
+      public List<Vorto>? Vortoj { get; set; }
       public IEnumerable<VortaraKategorio>? Kategorioj { get; set; }
 
       public async Task Konservi(string eliro) {
@@ -25,7 +25,7 @@ namespace KrestiaVortaro {
 
    public class VortaraKategorio {
       public int Id { get; set; }
-      public string Nomo { get; set; }
-      public IEnumerable<int> Vortoj { get; set; }
+      public string? Nomo { get; set; }
+      public IEnumerable<int>? Vortoj { get; set; }
    }
 }
