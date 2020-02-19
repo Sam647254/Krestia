@@ -116,10 +116,15 @@ module Sintaksanalizilo =
    let ĉuLokokupilo (ĉeno: string) = ĉeno.StartsWith("w") || ĉeno.StartsWith("h")
 
    let ĉuInfinitivo (ĉeno: string): Vorttipo option =
-      infinitivoFinaĵoj
-      |> Map.tryPick (fun finaĵo tipo ->
-            if ĉeno.EndsWith(finaĵo) && ĉeno.Length > finaĵo.Length then Some tipo
-            else None)
+      if ĉuFremdaVorto ĉeno then
+         Some FremdaVorto
+      elif ĉuLokokupilo ĉeno then
+         Some Lokokupilo
+      else
+         infinitivoFinaĵoj
+         |> Map.tryPick (fun finaĵo tipo ->
+               if ĉeno.EndsWith(finaĵo) && ĉeno.Length > finaĵo.Length then Some tipo
+               else None)
 
    let infinitivoNomoDe (ĉeno: string): string option =
       if ĉuFremdaVorto ĉeno then

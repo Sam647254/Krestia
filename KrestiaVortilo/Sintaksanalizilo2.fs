@@ -135,9 +135,6 @@ module Sintaksanalizilo2 =
    let ĉuInfinitivoB (ĉeno: string) =
       ĉuInfinitivo ĉeno |> Option.isSome
 
-   let ĉuVortaraFormo (ĉeno: string) =
-      ĉuInfinitivoB ĉeno || ĉuLokokupilo ĉeno || ĉuFremdaVorto ĉeno
-
    let ĉuVerboInfinitivoB (ĉeno: string) =
       match ĉuVerboInfinitivo ĉeno with
       | Ok(rezulto) -> rezulto
@@ -155,7 +152,7 @@ module Sintaksanalizilo2 =
          vorto
 
    let bazoPorDividi (infinitivo: string) =
-      [ "gru"; "gro"; "dru"; "dro"; "li"; "lu" ]
+      [ "gru"; "gro"; "dru"; "dro"; "li"; "lu"; "d" ]
       |> List.tryPick (fun finaĵo ->
             if infinitivo.EndsWith(finaĵo) then Some(infinitivo.Substring(0, infinitivo.Length - finaĵo.Length))
             else None)

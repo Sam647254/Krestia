@@ -88,7 +88,7 @@ namespace KrestiaAWSAlirilo {
       public async Task AldoniVortojn(string eniro) {
          var vortoj = (await File.ReadAllLinesAsync(eniro)).Select(vico => {
             var partoj = vico.Split('|');
-            if (!Sintaksanalizilo2.ĉuVortaraFormo(partoj[0])) {
+            if (!Sintaksanalizilo2.ĉuInfinitivoB(partoj[0])) {
                throw new ArgumentException($"{partoj[0]} ne estas valida infinitivo");
             }
 
