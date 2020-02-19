@@ -2,7 +2,6 @@
 
 open Microsoft.VisualStudio.TestTools.UnitTesting
 
-open KrestiaVortilo.Vorttipo
 open KrestiaVortilo.Strukturo
 open Testiloj
 

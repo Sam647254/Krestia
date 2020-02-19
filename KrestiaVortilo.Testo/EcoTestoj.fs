@@ -20,21 +20,21 @@ type EcoTestoj () =
       |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto NenombrigeblaEco inflekcio)
       |> ignore
 
-   // [<TestMethod>]
+   [<TestMethod>]
    member _.NombrigeblaKonstroliTesto () =
-      [ ("endro", Infinitivo)
-        ("endre", NekonitaNombro)
-        ("endresi", UnuNombro)
-        ("endreve", PluraNombro)
-        ("endresinsa", Havaĵo)
-        ("endrevensa", Havaĵo)
-        ("endrensa", Havaĵo)
-        ("endrowa", PredikativoEsti)
-        ("endroga", AtributativoEsti)
-        ("endrelas", Translativo)
-        ("endrerim", Ekzistado)
-        ("endresirim", Ekzistado)
-        ("endreverim", Ekzistado)
-        ("endreva", Ĝerundo) ]
+      [ ("edro", Infinitivo)
+        ("edre", NekonitaNombro)
+        ("edresi", UnuNombro)
+        ("edreve", PluraNombro)
+        ("edresinsa", Havaĵo)
+        ("edrevensa", Havaĵo)
+        ("edrensa", Havaĵo)
+        ("edrowa", PredikativoEsti)
+        ("edroga", AtributativoEsti)
+        ("edrelas", Translativo)
+        ("edrerim", Ekzistado)
+        ("edresirim", Ekzistado)
+        ("edreverim", Ekzistado)
+        ("edreva", Ĝerundo) ]
       |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto NombrigeblaEco inflekcio)
       |> ignore

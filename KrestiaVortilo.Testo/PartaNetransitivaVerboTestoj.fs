@@ -8,7 +8,7 @@ open Testiloj
 [<TestClass>]
 type PartaNetransitivaVerboTestoj () =
 
-   // [<TestMethod>]
+   [<TestMethod>]
    member _.KontroliTesto () =
       [ ("omon", Infinitivo)
         ("omonia", Progresivo)

@@ -13,7 +13,7 @@ module NombrigeblaKlasoTraktiloj =
    let nombrigeblaInfinitivoFinaĵoj =
       [ "pu"; "po"; "paa"; "tu"; "to"; "taa"; "ku"; "ko"; "kaa" ]
    let nombrigeblaNekonitaNombroFinaĵoj =
-      [ "pi"; "pe"; "pa"; "ti"; "te"; "ta"; "ki"; "ke"; "ka"; "onia"; "etie"; "orie" ]
+      [ "pi"; "pe"; "pa"; "ti"; "te"; "ta"; "ki"; "ke"; "ka"; "ponia"; "tonia"; "etie"; "orie" ]
    let nombrigeblaUnuNombroFinaĵoj =
       nombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "si")
    let nombrigeblaPluraNombroFinaĵoj =
