@@ -6,7 +6,7 @@ open KrestiaVortilo.Vorttipo
 open KrestiaVortilo.Strukturo
 open Testiloj
 
-[<TestClass>]
+// [<TestClass>]
 type LearnTheseWordsFirstTestoj () =
 
    [<TestMethod>]
