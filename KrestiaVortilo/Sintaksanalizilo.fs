@@ -95,7 +95,7 @@ module Sintaksanalizilo =
         @ [ "lu", MalantaŭRekordo
             "li", AntaŭRekordo
             "dru", MalantaŭNombrigeblaEco
-            "dro", AntaŭNenombrigeblaEco
+            "dro", AntaŭNombrigeblaEco
             "gru", MalantaŭNenombrieblaEco
             "gro", AntaŭNenombrigeblaEco
             "m", MalplenaVerbo
