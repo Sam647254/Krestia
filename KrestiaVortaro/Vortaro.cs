@@ -78,7 +78,7 @@ namespace KrestiaVortaro {
 
             if (bazaRezulto != null) {
                var ĉuMalplenigita = Malinflektado.ĉuMalplenigita(malinflektitaTipo, bazaRezulto.PlenaVorto);
-               bazo = ĉuMalplenigita.IsOk && ĉuMalplenigita.ResultValue ? bazaRezulto.PlenaVorto : bazo;
+               bazo = ĉuMalplenigita.IsOk && ĉuMalplenigita.ResultValue ? bazaRezulto.PlenaVorto : null;
                bazoGloso = bazaRezulto.GlosaSignifo;
             }
             else {
@@ -92,10 +92,10 @@ namespace KrestiaVortaro {
          return new VortoRezulto {
             MalinflektitaVorto = malinflektitaVorto == peto || bazo == null ? null : malinflektitaVorto,
             PlenigitaVorto = bazo == malinflektitaVorto ? null : bazo,
-            Gloso = malinflekajŜtupoj.IsOk && malinflekajŜtupoj.ResultValue.InflekcioŜtupoj.Length > 0
+            Gloso = bazo != null && malinflekajŜtupoj.IsOk && malinflekajŜtupoj.ResultValue.InflekcioŜtupoj.Length > 0
                ? bazoGloso
                : null,
-            MalinflektajŜtupoj = malinflekajŜtupoj.IsOk
+            MalinflektajŜtupoj = bazo != null && malinflekajŜtupoj.IsOk
                ? malinflekajŜtupoj.ResultValue.InflekcioŜtupoj.Where(ŝ => ŝ.IsNebazo)
                   .Select(ŝ => ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝ).Item2.ToString())
                : null,
