@@ -11,7 +11,7 @@ type EcoTestoj () =
    [<TestMethod>]
    member _.NenombrigeblaKontroliTesto() =
       [ ("kitigro", Infinitivo)
-        ("kitigre", NekonitaNombro)
+        ("kitigre", Difinito)
         ("kitigrensa", Havaĵo)
         ("kitigrowa", PredikativoEsti)
         ("kitigroga", AtributativoEsti)
@@ -23,7 +23,7 @@ type EcoTestoj () =
    [<TestMethod>]
    member _.NombrigeblaKonstroliTesto () =
       [ ("edro", Infinitivo)
-        ("edre", NekonitaNombro)
+        ("edre", Difinito)
         ("edresi", UnuNombro)
         ("edreve", PluraNombro)
         ("edresinsa", Havaĵo)

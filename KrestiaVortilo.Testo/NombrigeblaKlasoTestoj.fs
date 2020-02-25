@@ -11,7 +11,7 @@ type NombrigeblaKlasoTestoj () =
    [<TestMethod>]
    member _.KontroliTesto () =
       [ ("kresku", NombrigeblaKlaso, Infinitivo)
-        ("kreski", NombrigeblaKlaso, NekonitaNombro)
+        ("kreski", NombrigeblaKlaso, Difinito)
         ("kreskisi", NombrigeblaKlaso, UnuNombro)
         ("kreskinsa", NombrigeblaKlaso, Havaĵo)
         ("kreskisinsa", NombrigeblaKlaso, Havaĵo)

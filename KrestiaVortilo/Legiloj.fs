@@ -41,7 +41,7 @@ module Legiloj =
                match originalaInflekcio with
                | Infinitivo -> (inflekcioj, restantaj, lastaVorto) |> Ok
                | SolaFormo -> (inflekcioj, restantaj, lastaVorto) |> Ok
-               | Inflekcio.NekonitaNombro -> (NekonitaNombro :: inflekcioj, restantaj, lastaVorto) |> Ok
+               | Inflekcio.Difinito -> (NekonitaNombro :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.UnuNombro -> (UnuNombro :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.Havaĵo -> (Havaĵo :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.PluraNombro -> (PluraNombro :: inflekcioj, restantaj, lastaVorto) |> Ok

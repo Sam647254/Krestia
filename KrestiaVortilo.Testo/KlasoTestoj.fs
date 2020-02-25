@@ -35,10 +35,10 @@ type KlasoTestoj () =
         ("duta", NombrigeblaKlaso)
         ("luna", NenombrigeblaEco)
         ("risme", NenombrigeblaEco) ]
-      |> List.map (fun (vorto, pravaTipo) -> kontroliFormon vorto pravaTipo NekonitaNombro)
+      |> List.map (fun (vorto, pravaTipo) -> kontroliFormon vorto pravaTipo Difinito)
       |> ignore
 
-      [ ("trupa", NekonitaNombro)
+      [ ("trupa", Difinito)
         ("trupasi", UnuNombro) 
         ("trupave", PluraNombro) ]
       |> List.map (fun (vorto, pravaInflekcio) -> kontroliFormon vorto NombrigeblaKlaso pravaInflekcio)

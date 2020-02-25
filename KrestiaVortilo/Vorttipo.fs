@@ -3,7 +3,7 @@
 module Vorttipo =
    type Inflekcio =
    | Infinitivo
-   | NekonitaNombro
+   | Difinito
    | UnuNombro
    | Havaĵo
    | PluraNombro

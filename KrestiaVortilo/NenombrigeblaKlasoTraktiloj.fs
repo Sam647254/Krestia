@@ -37,7 +37,7 @@ module NenombrigeblaKlasoTraktiloj =
            if nenombrigeblaNekonitaNombroFinaĵoj
               |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo)) &&
                  not (verbaĜerundoFinaĵoj |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo)))
-           then Some (NenombrigeblaKlaso, NekonitaNombro)
+           then Some (NenombrigeblaKlaso, Difinito)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->

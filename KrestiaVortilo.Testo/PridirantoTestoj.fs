@@ -11,7 +11,7 @@ type PridirantoTestoj () =
    [<TestMethod>]
    member _.KontroliTesto () =
       [ ("perid", Infinitivo)
-        ("peride", NekonitaNombro)
+        ("peride", Difinito)
         ("perida", UnuNombro)
         ("peridu", Havaĵo)
         ("peridie", PluraNombro)

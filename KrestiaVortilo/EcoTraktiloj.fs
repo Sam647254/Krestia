@@ -14,7 +14,7 @@ module EcoTraktiloj =
         Malinflekti = fun vorto -> (vorto, (NombrigeblaEco, Infinitivo)) }
 
       { Kontroli = fun vorto ->
-         if vorto.EndsWith("dre") then Some (NombrigeblaEco, NekonitaNombro) else None
+         if vorto.EndsWith("dre") then Some (NombrigeblaEco, Difinito) else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            (infinitivigi vorto, (NombrigeblaEco, Infinitivo)) }
@@ -25,7 +25,7 @@ module EcoTraktiloj =
         Malinflekti = fun vorto -> (vorto, (NenombrigeblaEco, Infinitivo)) }
 
       { Kontroli = fun vorto ->
-           if vorto.EndsWith("gre") then Some (NenombrigeblaEco, NekonitaNombro) else None
+           if vorto.EndsWith("gre") then Some (NenombrigeblaEco, Difinito) else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
           (infinitivigi vorto, (NenombrigeblaEco, Infinitivo)) }

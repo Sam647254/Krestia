@@ -11,7 +11,7 @@ type NenombrigeblaKlasoTestoj () =
    [<TestMethod>]
    member _.KontroliTesto () =
       [ ("gremu", Infinitivo)
-        ("gremi", NekonitaNombro)
+        ("gremi", Difinito)
         ("gremuwa", PredikativoEsti)
         ("gremuga", AtributativoEsti)
         ("gremura", PredikativoHavi)
