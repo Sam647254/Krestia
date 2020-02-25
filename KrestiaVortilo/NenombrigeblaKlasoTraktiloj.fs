@@ -7,6 +7,8 @@ module NenombrigeblaKlasoTraktiloj =
    let nenombrigeblaInfinitivoFinaĵoj = [ "mu"; "mo"; "maa"; "nu"; "no"; "naa" ]
    let nenombrigeblaNekonitaNombroFinaĵoj = [ "mi"; "me"; "ma"; "nu"; "no"; "na" ]
 
+   let havaĵoFinaĵoj =
+      nenombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "nsa")
    let predikativoEstiFinaĵoj =
       nenombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "wa")
    let atributativoEstiFinaĵoj =
@@ -39,6 +41,15 @@ module NenombrigeblaKlasoTraktiloj =
                  not (verbaĜerundoFinaĵoj |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo)))
            then Some (NenombrigeblaKlaso, Difinito)
            else None
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           let malinflektitaVorto = infinitivigi vorto
+           (malinflektitaVorto, (NenombrigeblaKlaso, Infinitivo)) }
+
+      { Kontroli = fun vorto ->
+         if havaĵoFinaĵoj |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+         then Some (NenombrigeblaKlaso, Havaĵo)
+         else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            let malinflektitaVorto = infinitivigi vorto

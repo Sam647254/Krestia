@@ -6,6 +6,8 @@ module Vorttipo =
    | Difinito
    | UnuNombro
    | Havaĵo
+   | UnuHavaĵo
+   | PluraHavaĵo
    | PluraNombro
    | Progresivo
    | Perfekto

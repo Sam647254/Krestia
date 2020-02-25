@@ -18,11 +18,13 @@ module NombrigeblaKlasoTraktiloj =
       nombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "si")
    let nombrigeblaPluraNombroFinaĵoj =
       nombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ve")
-   let havaĵoFinaĵoj =
-      nombrigeblaNekonitaNombroFinaĵoj @
-      nombrigeblaUnuNombroFinaĵoj @
-      nombrigeblaPluraNombroFinaĵoj
-      |> List.map (fun finaĵo -> finaĵo + "nsa")
+   let difinitoNombrigeblaKlasoHavaĵoFinaĵoj =
+      nombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "nsa")
+   let unuNombrigeblaKlasoHavaĵoFinaĵoj =
+      nombrigeblaUnuNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "nsa")
+   let pluraNombrigeblaKlasoHavaĵoFinaĵoj =
+      nombrigeblaPluraNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "nsa")
+
 
    let nombrigeblaPredikativoEstiFinaĵoj =
       nombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "wa")
@@ -107,9 +109,12 @@ module NombrigeblaKlasoTraktiloj =
            (malinflektitaVorto, normaligi malinflektitaVorto) }
 
       { Kontroli = fun vorto ->
-           if havaĵoFinaĵoj |>
-              List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+           if difinitoNombrigeblaKlasoHavaĵoFinaĵoj |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
            then Some (NombrigeblaKlaso, Havaĵo)
+           elif unuNombrigeblaKlasoHavaĵoFinaĵoj |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+           then Some (NombrigeblaKlaso, UnuHavaĵo)
+           elif pluraNombrigeblaKlasoHavaĵoFinaĵoj |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+           then Some (NombrigeblaKlaso, PluraHavaĵo)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->

@@ -21,13 +21,13 @@ type EcoTestoj () =
       |> ignore
 
    [<TestMethod>]
-   member _.NombrigeblaKonstroliTesto () =
+   member _.NombrigeblaKostroliTesto () =
       [ ("edro", Infinitivo)
         ("edre", Difinito)
         ("edresi", UnuNombro)
         ("edreve", PluraNombro)
-        ("edresinsa", Havaĵo)
-        ("edrevensa", Havaĵo)
+        ("edresinsa", UnuHavaĵo)
+        ("edrevensa", PluraHavaĵo)
         ("edrensa", Havaĵo)
         ("edrowa", PredikativoEsti)
         ("edroga", AtributativoEsti)

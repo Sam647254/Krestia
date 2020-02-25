@@ -30,11 +30,11 @@ type KlasoTestoj () =
 
    [<TestMethod>]
    member _.Substantivoj () =
-      [ ("kreski", NombrigeblaEco)
+      [ ("kreski", NombrigeblaKlaso)
         ("tatrete", NombrigeblaKlaso)
         ("duta", NombrigeblaKlaso)
-        ("luna", NenombrigeblaEco)
-        ("risme", NenombrigeblaEco) ]
+        ("luna", NenombrigeblaKlaso)
+        ("risme", NenombrigeblaKlaso) ]
       |> List.map (fun (vorto, pravaTipo) -> kontroliFormon vorto pravaTipo Difinito)
       |> ignore
 
@@ -42,3 +42,14 @@ type KlasoTestoj () =
         ("trupasi", UnuNombro) 
         ("trupave", PluraNombro) ]
       |> List.map (fun (vorto, pravaInflekcio) -> kontroliFormon vorto NombrigeblaKlaso pravaInflekcio)
+      |> ignore
+
+   [<TestMethod>]
+   member _.Havaĵo () =
+      [ ("trupansa", NombrigeblaKlaso, Havaĵo)
+        ("trupasinsa", NombrigeblaKlaso, UnuHavaĵo)
+        ("trupavensa", NombrigeblaKlaso, PluraHavaĵo)
+        ("kunansa", NenombrigeblaKlaso, Havaĵo) ]
+      |> List.map (fun (vorto, pravaTipo, pravaInflekcio) ->
+            kontroliFormon vorto pravaTipo pravaInflekcio)
+      |> ignore
