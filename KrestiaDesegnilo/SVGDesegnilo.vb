@@ -10,17 +10,25 @@ Public Class SVGDesegnilo
       New Dictionary(Of String, LiteroDesegnilo) From {
       {"m", AddressOf M},
       {"p", AddressOf P},
+      {"pl", AddressOf Pl},
+      {"pr", AddressOf Pr},
       {"b", AddressOf B},
+      {"bl", AddressOf Bl},
+      {"br", AddressOf Br},
       {"v", AddressOf V},
       {"n", AddressOf N},
       {"t", AddressOf T},
+      {"tl", AddressOf Tl},
+      {"tr", AddressOf Tr},
       {"d", AddressOf D},
+      {"dl", AddressOf Dl},
       {"dr", AddressOf Dr},
       {"s", AddressOf S},
       {"l", AddressOf L},
       {"r", AddressOf R},
       {"j", AddressOf J},
       {"k", AddressOf K},
+      {"kl", AddressOf Kl},
       {"kr", AddressOf Kr},
       {"g", AddressOf G},
       {"gr", AddressOf Gr},
@@ -274,7 +282,7 @@ Public Class SVGDesegnilo
    End Function
 
    Private Function Estonteco() As String
-      x += spaceto + duonaLarĝeco \ 2 + dx * 2
+      x += spaceto * 2 + duonaLarĝeco \ 2 + dx * 2
       Return String.Format("h {0} v {1} h -{0} z m {2} 0 h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z",
                            dx, dufojaAlteco, dx * 2, duonaLarĝeco \ 2, alteco + spaceto \ 2)
    End Function
@@ -499,9 +507,39 @@ h {0} l {3} {1} l -{3} {1} h -{0} l {3} -{1} z",
                            aktualaLarĝeco, dy, aktualaLarĝeco - dx, aktualaAlteco - dy, dx, aktualaAlteco)
    End Function
 
+   Private Function Pl(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
+      Return String.Format("h {0} v {4} h -{6} v -{2} h -{5} v {2} h -{3} z m {9} {7} v {8} h {1} v -{8} z",
+                           aktualaLarĝeco, aktualaLarĝeco \ 5, aktualaAlteco - dy, dx, aktualaAlteco,
+                           aktualaLarĝeco - (aktualaLarĝeco \ 5 + dx * 3),
+                           (aktualaLarĝeco \ 5 + dx * 2), dy, aktualaAlteco - 2 * dy, aktualaAlteco - aktualaAlteco \ 5 - dx * 2)
+   End Function
+
+   Private Function Pr(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
+      Dim rSpaco = aktualaLarĝeco \ 5
+      Return String.Format("v {4} h {3} v -{2} h {1} v -{5} z m {0} 0 m 0 {5} l -{6} {2} h -{3} l {6} -{2} z m -{7} 0 l {6} {2} h -{3} l -{6} -{2} z",
+                           aktualaLarĝeco, aktualaLarĝeco - dx, aktualaAlteco - dy, dx, aktualaAlteco,
+                           dy, rSpaco \ 2 + dx \ 2, rSpaco + dx)
+   End Function
+
    Private Function B(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {4} h -{5} v {2} h -{3} v -{2} h -{1} v {2} h -{3} z",
                            aktualaLarĝeco, dx * 2, aktualaAlteco - dy, dx, dy, aktualaLarĝeco - dx * 4)
+   End Function
+
+   Private Function Bl(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
+      Return String.Format("h {0} v {4} h -{6} v -{2} h -{5} v {2} h -{3} v -{2} h -{1} v {2} h -{3} z m {9} {7} v {8} h {1} v -{8} z",
+                           aktualaLarĝeco, aktualaLarĝeco \ 5, aktualaAlteco - dy, dx, aktualaAlteco,
+                           aktualaLarĝeco - 2 * (aktualaLarĝeco \ 5 + dx * 2),
+                           (aktualaLarĝeco \ 5 + dx * 2), dy, aktualaAlteco - 2 * dy, aktualaAlteco - aktualaAlteco \ 5 - dx * 2)
+   End Function
+
+   Private Function Br(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
+      Dim rSpaco = aktualaLarĝeco \ 5
+      Return String.Format("v {4} h {3} v -{2} h {8} v {2} h {3} v -{2} h {1} v -{5} z m {0} 0 m 0 {5}
+l -{6} {2} h -{3} l {6} -{2} z m -{7} 0 l {6} {2} h -{3} l -{6} -{2} z",
+                           aktualaLarĝeco, aktualaLarĝeco - (aktualaLarĝeco \ 5 + 2 * dx),
+                           aktualaAlteco - dy, dx, aktualaAlteco,
+                           dy, rSpaco \ 2 + dx \ 2, rSpaco + dx, aktualaLarĝeco \ 5)
    End Function
 
    Private Function V(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
@@ -513,6 +551,14 @@ h {0} l {3} {1} l -{3} {1} h -{0} l {3} -{1} z",
    Private Function K(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {4} h -{3} v -{2} h -{1} z",
                            aktualaLarĝeco, aktualaLarĝeco - dx, aktualaAlteco - dy, dx, aktualaAlteco)
+   End Function
+
+   Private Function Kl(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
+      Dim l = aktualaLarĝeco \ 5
+      Dim lLarĝeco = l + 2 * dx
+      Return String.Format("h {0} v {1} h -{2} v -{3} h -{4} v {3} h -{5} z m {2} {6} v {7} h {8} v -{7} z",
+                           aktualaLarĝeco, aktualaAlteco, dx, aktualaAlteco - dy, aktualaLarĝeco - lLarĝeco - dx, lLarĝeco, dy,
+                           aktualaAlteco - dy * 2, l)
    End Function
 
    Private Function Kr(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
@@ -587,10 +633,40 @@ l -{6} {2} h {3} l {6} -{2} z",
                            dx)
    End Function
 
+   Private Function Tl(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
+      Return String.Format("h {0} v {1} h -{2} v {3} h -{4} v -{3} h -{2} z m {5} {1} v {6} h {7} v -{6} z",
+                           aktualaLarĝeco,
+                           dy,
+                           aktualaLarĝeco \ 2 - (aktualaLarĝeco \ 5 + 2 * dx) \ 2,
+                           aktualaAlteco - dy,
+                           aktualaLarĝeco \ 5 + 2 * dx,
+                           aktualaLarĝeco \ 2 - (aktualaLarĝeco \ 5 + 2 * dx) \ 2 + dx, aktualaAlteco - 2 * dy,
+                           aktualaLarĝeco \ 5)
+   End Function
+
+   Private Function Tr(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
+      Return String.Format("h {0} v {1} h -{0} z m {2} 0 h {3} l {5} {4} h -{3} z m {6} 0 h {3} l -{5} {4} h -{3} z",
+                           aktualaLarĝeco,
+                           dy,
+                           aktualaLarĝeco \ 2 - (aktualaLarĝeco \ 5 + 2 * dx) \ 2,
+                           dx,
+                           aktualaAlteco,
+                           aktualaLarĝeco \ 10 + dx \ 2,
+                           aktualaLarĝeco \ 5 + dx)
+   End Function
+
    Private Function D(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {1} h -{2} v {5} h -{3} v -{5} h -{4} v {5} h -{3} v -{5} h -{2} z",
                            aktualaLarĝeco,
                            dy, aktualaLarĝeco \ 2 - 2 * dx, dx, 2 * dx, aktualaAlteco - dy)
+   End Function
+
+   Private Function Dl(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
+      Dim l = aktualaLarĝeco \ 5
+      Dim lLarĝeco = aktualaLarĝeco \ 5 + 2 * dx
+      Return String.Format("h {0} v {1} h -{2} v -{3} h -{4} v {3} h -{2} z m {5} {6} v {7} h {8} v -{7} z m {9} 0 v {7} h {8} v -{7} z",
+                           aktualaLarĝeco, aktualaAlteco, lLarĝeco, aktualaAlteco - dy, aktualaLarĝeco - 2 * lLarĝeco, dx, dy,
+                           aktualaAlteco - 2 * dy, l, l + dx * 2 + aktualaLarĝeco - 2 * lLarĝeco)
    End Function
 
    Private Function Dr(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String

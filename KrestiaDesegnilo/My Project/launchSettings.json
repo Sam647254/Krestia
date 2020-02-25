@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TimeranDesegnilo": {
+      "commandName": "Project",
+      "commandLineArgs": "frazo.txt frazo.svg"
+    }
+  }
+}

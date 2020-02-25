@@ -1,4 +1,5 @@
 ﻿Imports System
+Imports System.IO
 
 Module Program
    Sub Desegni(svg As SVGDesegnilo, partoj As String())
@@ -13,53 +14,70 @@ Module Program
    End Sub
 
    Sub Main(args As String())
+      Dim svg = New SVGDesegnilo(args(1), 100, 40)
+      For Each line In File.ReadLines(args(0))
+         Dim silaboj = line.Split(" "c)
+         For Each silabo In silaboj
+            Try
+               svg.DesegniFinaĵon(silabo)
+            Catch ex As Exception
+               svg.DesegniSilabon(silabo)
+            End Try
+         Next
+         svg.DesegniFinaĵon("vico")
+      Next
+      svg.Fini()
+   End Sub
+
+   Sub Literoj()
       Dim svg = New SVGDesegnilo("literoj.svg", 100, 40)
       Dim silaboj = New String() {
-         "pa", "ba", "ma", "vico",
-         "va", "vico",
-         "ta", "da", "na", "sa", "la", "ra", "vico",
-         "ja", "vico",
-         "ka", "ga", "wa", "vico",
-         "ha", "vico",
-         "mi", "me", "ma", "mu", "mo", "mɒ", "vico",
-         "a", "ma", "am", "mam", "vico",
-         "[", "kres", "ti", "a", "]", "[", "ti", "me", "ran", "]", "vico",
-         "klaso", "rekordo<", "rekordo>", "eco<", "eco>", "nombrigeblaEco<", "nombrigeblaEco>",
-         "malplenaVerbo", "netransitiva1", "partaTransitiva1", "partaNetransitiva",
-         "transitiva2", "netransitiva2", "partaTransitiva2", "transitiva3",
-         "pridiranto", "lokokupilo", "modifanto<", "modifanto>", "vico",
-         "nekonitaNombro", "unuNombro", "pluraNombro", "havaĵo",
-         "progresivo", "perfekto", "estonteco", "imperativo", "volo1", "volo2", "volo3",
-         "atributivoEsti<", "atributivoEsti>", "predikativoEsti", "sola", "ekzistado", "havado",
-         "invito", "aganto", "patiento", "translativo", "ĝerundo", "partaNominativo", "partaAkuzativo",
-         "partaDativo", "igo", "etigo"
-         }
+           "pa", "ba", "ma", "vico",
+           "va", "vico",
+           "ta", "da", "na", "sa", "la", "ra", "vico",
+           "ja", "vico",
+           "ka", "ga", "wa", "vico",
+           "ha", "vico",
+           "mi", "me", "ma", "mu", "mo", "mɒ", "vico",
+           "a", "ma", "am", "mam", "vico",
+           "[", "kres", "ti", "a", "]", "[", "ti", "me", "ran", "]", "vico",
+           "klaso", "rekordo<", "rekordo>", "eco<", "eco>", "nombrigeblaEco<", "nombrigeblaEco>",
+           "malplenaVerbo", "netransitiva1", "partaTransitiva1", "partaNetransitiva",
+           "transitiva2", "netransitiva2", "partaTransitiva2", "transitiva3",
+           "pridiranto", "lokokupilo", "modifanto<", "modifanto>", "vico",
+           "nekonitaNombro", "unuNombro", "pluraNombro", "havaĵo",
+           "progresivo", "perfekto", "estonteco", "imperativo", "volo1", "volo2", "volo3",
+           "atributivoEsti<", "atributivoEsti>", "predikativoEsti", "sola", "ekzistado", "havado",
+           "invito", "aganto", "patiento", "translativo", "ĝerundo", "partaNominativo", "partaAkuzativo",
+           "partaDativo", "igo", "etigo", "vico",
+           "pla", "pra", "bla", "bra", "tla", "tra", "dra", "dla", "kla", "kra", "gla", "gra"
+           }
       Desegni(svg, silaboj)
    End Sub
 
    Sub Valentin()
       Dim svg = New SVGDesegnilo("valentin2.svg", 100, 40)
       Dim silaboj = New String() {
-         "mi", "ri", "mi", "transitiva2", "imperativo",
-         "te", "mi", "eco>", "nekonitaNombro",
-         "[", "va", "len", "tin", "]", "vico",
-         "se", "transitiva2", "progresivo",
-         "hem", "lokokupilo",
-         "me", "ra", "transitiva2", "mankaNominativo", "ĝerundo",
-         "hes", "lokokupilo",
-         "glo", "re", "eco<", "nekonitaNombro",
-         "o", "ve", "modifanto<",
-         "wil", "lokokupilo",
-         "te", "modifanto<", "vico",
-         "kres", "ku", "nekonitaNombro",
-         "e", "modifanto<",
-         "hes", "lokokupilo",
-         "li", "re", "eco<", "pluraNombro",
-         "lu", "ta", "netransitiva1", "progresivo",
-         "po", "ti", "modifanto<",
-         "gre", "li", "pridiranto",
-         "wel", "lokokupilo",
-         "lus", "tɒ", "atributivoEsti"}
+           "mi", "ri", "mi", "transitiva2", "imperativo",
+           "te", "mi", "eco>", "nekonitaNombro",
+           "[", "va", "len", "tin", "]", "vico",
+           "se", "transitiva2", "progresivo",
+           "hem", "lokokupilo",
+           "me", "ra", "transitiva2", "mankaNominativo", "ĝerundo",
+           "hes", "lokokupilo",
+           "glo", "re", "eco<", "nekonitaNombro",
+           "o", "ve", "modifanto<",
+           "wil", "lokokupilo",
+           "te", "modifanto<", "vico",
+           "kres", "ku", "nekonitaNombro",
+           "e", "modifanto<",
+           "hes", "lokokupilo",
+           "li", "re", "eco<", "pluraNombro",
+           "lu", "ta", "netransitiva1", "progresivo",
+           "po", "ti", "modifanto<",
+           "gre", "li", "pridiranto",
+           "wel", "lokokupilo",
+           "lus", "tɒ", "atributivoEsti"}
       Desegni(svg, silaboj)
    End Sub
 
