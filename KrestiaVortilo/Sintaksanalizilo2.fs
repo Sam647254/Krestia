@@ -43,10 +43,53 @@ module Sintaksanalizilo2 =
         DifinitoFinaĵo("vra", Ĝerundo)
         DifinitoFinaĵo("va", SpecifaĜerundo) ]
       |> kreiListon NenombrigeblaKlaso
+      
+   let malplenaVerboInflekcioj =
+      [ InfinitivoFinaĵo("ia", Progresivo)
+        InfinitivoFinaĵo("io", Perfekto)
+        InfinitivoFinaĵo("ela", Estonteco)
+        InfinitivoFinaĵo("elim", Translativo)
+        InfinitivoFinaĵo("ema", Ĝerundo) ]
+      |> kreiListon MalplenaVerbo
+   
+   let netransitivaVerboInflekcioj =
+      [ InfinitivoFinaĵo("e", Progresivo)
+        InfinitivoFinaĵo("o", Perfekto)
+        InfinitivoFinaĵo("ela", Estonteco)
+        InfinitivoFinaĵo("ora", NominativoVolo)
+        InfinitivoFinaĵo("ie", AtributativoEstiMalantaŭ)
+        InfinitivoFinaĵo("ia", AtributativoEstiAntaŭ)
+        InfinitivoFinaĵo("ea", Imperativo)
+        InfinitivoFinaĵo("a", Invito)
+        InfinitivoFinaĵo("etio", Aganto)
+        InfinitivoFinaĵo("elis", Translativo)
+        InfinitivoFinaĵo("ema", Ĝerundo) ]
+      |> kreiListon NetransitivaVerbo
+      
+   let transitivaVerboInflekcioj =
+      [ InfinitivoFinaĵo("re", Progresivo)
+        InfinitivoFinaĵo("ro", Perfekto)
+        InfinitivoFinaĵo("ela", Estonteco)
+        InfinitivoFinaĵo("ora", NominativoVolo)
+        InfinitivoFinaĵo("ore", AkuzativoVolo)
+        InfinitivoFinaĵo("rie", AtributativoEstiMalantaŭ)
+        InfinitivoFinaĵo("lia", AtributativoEstiAntaŭ)
+        InfinitivoFinaĵo("ri", Imperativo)
+        InfinitivoFinaĵo("ia", Invito)
+        InfinitivoFinaĵo("etio", Aganto)
+        InfinitivoFinaĵo("oniaa", Patiento)
+        InfinitivoFinaĵo("elit", Translativo)
+        InfinitivoFinaĵo("ema", Ĝerundo)
+        InfinitivoFinaĵo("ig", PartaNominativo)
+        InfinitivoFinaĵo("es", PartaAkuzativo) ]
+      |> kreiListon TransitivaVerbo
 
    let ĉiujInflekcioj =
       nombrigeblaKlasoInflekcioj @
-      nenombrigeblaKlasoInflekcioj
+      nenombrigeblaKlasoInflekcioj @
+      malplenaVerboInflekcioj @
+      netransitivaVerboInflekcioj @
+      transitivaVerboInflekcioj
    let nombrigeblaDifinitoFinaĵoj =
       nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> (finaĵo, NombrigeblaKlaso))
    let difinitoFinaĵoj =
@@ -87,8 +130,8 @@ module Sintaksanalizilo2 =
                match finaĵo with
                | InfinitivoFinaĵo(finaĵo, inflekcio) ->
                   infinitivoFinaĵoj
-                  |> Map.tryPick (fun infinitivoFinaĵo _ ->
-                        if ĉeno.EndsWith(infinitivoFinaĵo + finaĵo) then Some()
+                  |> Map.tryPick (fun infinitivoFinaĵo infinitivoTipo ->
+                        if ĉeno.EndsWith(infinitivoFinaĵo + finaĵo) && infinitivoTipo = vorttipo then Some()
                         else None)
                   |> Option.map (fun _ -> Nebazo(vorttipo, inflekcio, ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)))
                | DifinitoFinaĵo(finaĵo, inflekcio) ->

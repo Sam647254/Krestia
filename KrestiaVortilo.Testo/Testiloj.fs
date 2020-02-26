@@ -29,6 +29,7 @@ module Testiloj =
    let kontroliInflekcion (pravaTipo: Vorttipo) (pravaInflekcio: Inflekcio) (vorto: string) =
       malinflekti vorto
       |> Result.map (fun malinflektaŜtupo ->
+            vorto
             match malinflektaŜtupo with
             | Bazo(vorttipo, inflekcio, _) ->
                Assert.AreEqual(pravaTipo, vorttipo)
