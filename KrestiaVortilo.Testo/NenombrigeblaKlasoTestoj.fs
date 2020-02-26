@@ -13,7 +13,7 @@ type NenombrigeblaKlasoTestoj () =
       [ ("gremu", Infinitivo)
         ("gremi", Difinito)
         ("gremuwa", PredikativoEsti)
-        ("gremuga", AtributativoEsti)
+        ("gremuga", AtributativoEstiMalantaŭ)
         ("gremura", PredikativoHavi)
         ("gremure", AtributativoHavi)
         ("gremilas", Translativo)

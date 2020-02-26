@@ -14,9 +14,7 @@ module NenombrigeblaKlasoTraktiloj =
    let atributativoEstiFinaĵoj =
       nenombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ga")
    let predikativoHaviFinaĵoj =
-      nenombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ra")
-   let atributativoHaviFinaĵoj =
-      nenombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "re")
+      nenombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ris")
    let translativoFinaĵoj =
       nenombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "las")
    let ĝerundoFinaĵoj =
@@ -66,7 +64,7 @@ module NenombrigeblaKlasoTraktiloj =
       { Kontroli = fun vorto ->
            if atributativoEstiFinaĵoj
               |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
-           then Some (NenombrigeblaKlaso, AtributativoEsti)
+           then Some (NenombrigeblaKlaso, AtributativoEstiMalantaŭ)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto -> (vorto.Substring(0, vorto.Length - 2), (NenombrigeblaKlaso, Infinitivo)) }
@@ -75,14 +73,6 @@ module NenombrigeblaKlasoTraktiloj =
            if predikativoHaviFinaĵoj
               |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
            then Some (NenombrigeblaKlaso, PredikativoHavi)
-           else None
-        Inflekti = neinflektebla
-        Malinflekti = fun vorto -> (vorto.Substring(0, vorto.Length - 2), (NenombrigeblaKlaso, Infinitivo)) }
-
-      { Kontroli = fun vorto ->
-           if atributativoHaviFinaĵoj
-              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
-           then Some (NenombrigeblaKlaso, AtributativoHavi)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto -> (vorto.Substring(0, vorto.Length - 2), (NenombrigeblaKlaso, Infinitivo)) }

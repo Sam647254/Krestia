@@ -15,7 +15,7 @@ type NetransitivaVerboTestoj () =
         ("dulaviso", Perfekto)
         ("dulavisela", Estonteco)
         ("dulavisera", NominativoVolo)
-        ("dulavisie", AtributativoEsti)
+        ("dulavisie", AtributativoEstiMalantaŭ)
         ("dulavisea", Imperativo)
         ("dulavisetio", Aganto)
         ("dulaviselis", Translativo)

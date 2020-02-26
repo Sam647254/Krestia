@@ -73,7 +73,7 @@ module PridirantoTraktiloj =
 
       { Kontroli = fun vorto ->
            if vorto.EndsWith("dea")
-           then Some (Pridiranto, AtributativoEsti)
+           then Some (Pridiranto, AtributativoEstiMalantaŭ)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->

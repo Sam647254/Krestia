@@ -85,8 +85,8 @@ module NetransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | _ when vorto.EndsWith("sie") -> Some (NetransitivaVerbo1, AtributativoEsti)
-           | _ when vorto.EndsWith("shie") -> Some (NetransitivaVerbo2, AtributativoEsti)
+           | _ when vorto.EndsWith("sie") -> Some (NetransitivaVerbo1, AtributativoEstiMalantaŭ)
+           | _ when vorto.EndsWith("shie") -> Some (NetransitivaVerbo2, AtributativoEstiMalantaŭ)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->

@@ -53,3 +53,20 @@ type KlasoTestoj () =
       |> List.map (fun (vorto, pravaTipo, pravaInflekcio) ->
             kontroliFormon vorto pravaTipo pravaInflekcio)
       |> ignore
+
+   [<TestMethod>]
+   member _.Estado () =
+      [ ("verikowa", PredikativoEsti)
+        ("voritoga", AtributativoEstiMalantaŭ)
+        ("voritova", AtributativoEstiAntaŭ) ]
+      |> List.map (fun (vorto, pravaInflekcio) ->
+            kontroliFormon vorto NombrigeblaKlaso pravaInflekcio)
+      |> ignore
+
+   [<TestMethod>]
+   member _.Sola () =
+      [ ("ilitivera", PluraSola)
+        ("pospira", Sola) ]
+      |> List.map (fun (vorto, pravaInflekcio) ->
+            kontroliFormon vorto NombrigeblaKlaso pravaInflekcio)
+      |> ignore

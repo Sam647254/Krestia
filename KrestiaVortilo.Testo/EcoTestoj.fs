@@ -14,14 +14,14 @@ type EcoTestoj () =
         ("kitigre", Difinito)
         ("kitigrensa", Havaĵo)
         ("kitigrowa", PredikativoEsti)
-        ("kitigroga", AtributativoEsti)
+        ("kitigroga", AtributativoEstiMalantaŭ)
         ("kitigrelas", Translativo)
         ("kitigreva", Ĝerundo) ]
       |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto NenombrigeblaEco inflekcio)
       |> ignore
 
    [<TestMethod>]
-   member _.NombrigeblaKostroliTesto () =
+   member _.NombrigeblaKontroliTesto () =
       [ ("edro", Infinitivo)
         ("edre", Difinito)
         ("edresi", UnuNombro)
@@ -30,7 +30,7 @@ type EcoTestoj () =
         ("edrevensa", PluraHavaĵo)
         ("edrensa", Havaĵo)
         ("edrowa", PredikativoEsti)
-        ("edroga", AtributativoEsti)
+        ("edroga", AtributativoEstiMalantaŭ)
         ("edrelas", Translativo)
         ("edrerim", Ekzistado)
         ("edresirim", Ekzistado)

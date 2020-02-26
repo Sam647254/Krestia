@@ -13,7 +13,7 @@ type TransitivaVerboTestoj () =
       [ ("buvitot", Infinitivo)
         ("buvitotre", Progresivo)
         ("buvitotro", Perfekto)
-        ("buvitotrie", AtributativoEsti)
+        ("buvitotrie", AtributativoEstiMalantaŭ)
         ("buvitotela", Estonteco)
         ("buvitotora", NominativoVolo)
         ("buvitotore", AkuzativoVolo)

@@ -16,7 +16,8 @@ module Vorttipo =
    | AkuzativoVolo
    | DativoVolo
    | PredikativoEsti
-   | AtributativoEsti
+   | AtributativoEstiAntaŭ
+   | AtributativoEstiMalantaŭ
    | PredikativoHavi
    | AtributativoHavi
    | Imperativo
@@ -34,6 +35,9 @@ module Vorttipo =
    | SolaFormo
    | Egigo
    | Etigo
+   | Sola
+   | UnuSola
+   | PluraSola
 
    type Vorttipo =
    | NombrigeblaKlaso
@@ -64,3 +68,4 @@ module Vorttipo =
    }
 
    let neinflektebla = fun _formo _vorto -> None
+   let ĉuHavasFinaĵon finaĵoj (vorto: string) = finaĵoj |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))

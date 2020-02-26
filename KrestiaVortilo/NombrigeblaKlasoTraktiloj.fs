@@ -28,17 +28,16 @@ module NombrigeblaKlasoTraktiloj =
 
    let nombrigeblaPredikativoEstiFinaĵoj =
       nombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "wa")
-   let nombrigeblaAtributivoEstiFinaĵoj =
+   let nombrigeblaAtributivoEstiMalantaŭFinaĵoj =
       nombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ga")
+   let nombrigeblaAtributivoEstiAntaŭFinaĵoj =
+      nombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "va")
    let nombrigeblaPredikativoHaviFinaĵoj =
-      nombrigeblaNekonitaNombroFinaĵoj @
-      nombrigeblaUnuNombroFinaĵoj @
-      nombrigeblaPluraNombroFinaĵoj
-      |> List.map (fun finaĵo -> finaĵo + "ra")
-   let nombrigeblaAtributivoHaviFinaĵoj =
-      nombrigeblaNekonitaNombroFinaĵoj @
-      nombrigeblaUnuNombroFinaĵoj @
-      nombrigeblaPluraNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "re")
+      nombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ris")
+   let nombrigeblaPredikativoHaviUnuFinaĵoj =
+      nombrigeblaUnuNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ris")
+   let nombrigeblaPredikativoHaviPluraFinaĵoj =
+      nombrigeblaPluraNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ris")
    let translativoFinaĵoj =
       nombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "las")
    let ĝerundoFinaĵoj =
@@ -48,6 +47,9 @@ module NombrigeblaKlasoTraktiloj =
       nombrigeblaUnuNombroFinaĵoj @
       nombrigeblaPluraNombroFinaĵoj
       |> List.map (fun finaĵo -> finaĵo + "rim")
+   let solaFinaĵoj = nombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ra")
+   let solaUnuFinaĵoj = nombrigeblaUnuNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ra")
+   let solaPluraFinaĵoj = nombrigeblaPluraNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ra")
 
    let ĉuNetransitivaVerbo1Aganto (infinitivo: string) = infinitivo.EndsWith("setio")
    let ĉuNetransitivaVerbo2Aganto (infinitivo: string) = infinitivo.EndsWith("shetio")
@@ -135,9 +137,12 @@ module NombrigeblaKlasoTraktiloj =
            (malinflektitaVorto, normaligi malinflektitaVorto) }
 
       { Kontroli = fun vorto ->
-           if nombrigeblaAtributivoEstiFinaĵoj
+           if nombrigeblaAtributivoEstiMalantaŭFinaĵoj
               |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
-           then Some (NombrigeblaKlaso, AtributativoEsti)
+           then Some (NombrigeblaKlaso, AtributativoEstiMalantaŭ)
+           elif nombrigeblaAtributivoEstiAntaŭFinaĵoj
+              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+           then Some (NombrigeblaKlaso, AtributativoEstiAntaŭ)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -159,18 +164,20 @@ module NombrigeblaKlasoTraktiloj =
            (malinflektitaVorto, normaligi malinflektitaVorto) }
 
       { Kontroli = fun vorto ->
-           if nombrigeblaAtributivoHaviFinaĵoj
-              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
-           then Some (NombrigeblaKlaso, AtributativoHavi)
+           if vorto |> ĉuHavasFinaĵon solaFinaĵoj
+           then Some (NombrigeblaKlaso, Sola)
+           elif vorto |> ĉuHavasFinaĵon solaUnuFinaĵoj
+           then Some (NombrigeblaKlaso, UnuSola)
+           elif vorto |> ĉuHavasFinaĵon solaPluraFinaĵoj
+           then Some (NombrigeblaKlaso, PluraSola)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            let malinflektitaVorto =
-              (if vorto.EndsWith("vere") || vorto.EndsWith("sire")
-              then vorto.Substring(0, vorto.Length - 4)
-              else vorto.Substring(0, vorto.Length - 2))
-              |> infinitivigi
-           (malinflektitaVorto, normaligi malinflektitaVorto) }
+              if vorto |> ĉuHavasFinaĵon solaFinaĵoj
+              then vorto.Substring(0, vorto.Length - 2)
+              else vorto.Substring(0, vorto.Length - 4)
+           (malinflektitaVorto, normaligi malinflektitaVorto)}
 
       { Kontroli = fun vorto ->
            if translativoFinaĵoj

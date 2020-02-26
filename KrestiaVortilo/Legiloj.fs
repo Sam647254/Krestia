@@ -23,7 +23,7 @@ module Legiloj =
                | _ when vortajModifantoj.Contains(malinflektita) ->
                   legiModifantojnAk (Modifanto0(malinflektita) :: listo) restantaj vortajModifantoj (Some(unua))
                | _ -> Error (sprintf "La sintaksa vorto %s ne estas modifanto" malinflektita)
-            | (Vorttipo.Pridiranto, Inflekcio.AtributativoEsti) ->
+            | (Vorttipo.Pridiranto, Inflekcio.AtributativoEstiMalantaŭ) ->
                legiModifantojnAk (Pridiranto(malinflektita) :: listo) restantaj vortajModifantoj (Some(unua))
             | _ ->
                match lastaVorto with
@@ -52,7 +52,7 @@ module Legiloj =
                | Inflekcio.AkuzativoVolo -> (AkuzativoVolo :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.DativoVolo -> (DativoVolo :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.PredikativoEsti -> (PredikativoEsti :: inflekcioj, restantaj, lastaVorto) |> Ok
-               | Inflekcio.AtributativoEsti -> (AtributativoEsti :: inflekcioj, restantaj, lastaVorto) |> Ok
+               | Inflekcio.AtributativoEstiMalantaŭ -> (AtributativoEsti :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.PredikativoHavi -> (PredikativoHavi :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.AtributativoHavi -> (AtributativoHavi :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.Imperativo -> (Imperativo :: inflekcioj, restantaj, lastaVorto) |> Ok
