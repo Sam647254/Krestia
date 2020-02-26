@@ -29,8 +29,24 @@ module Sintaksanalizilo2 =
         DifinitoFinaĵo("vra", Ĝerundo)
         DifinitoFinaĵo("va", SpecifaĜerundo) ]
       |> kreiListon NombrigeblaKlaso
+   
+   let nenombrigeblaKlasoInflekcioj =
+      [ DifinitoFinaĵo("", Difinito)
+        DifinitoFinaĵo("nsa", Havaĵo)
+        InfinitivoFinaĵo("wa", PredikativoEsti)
+        InfinitivoFinaĵo("ga", AtributativoEstiMalantaŭ)
+        InfinitivoFinaĵo("va", AtributativoEstiAntaŭ)
+        DifinitoFinaĵo("ra", Sola)
+        DifinitoFinaĵo("ris", Havado)
+        DifinitoFinaĵo("rim", Ekzistado)
+        DifinitoFinaĵo("las", Translativo)
+        DifinitoFinaĵo("vra", Ĝerundo)
+        DifinitoFinaĵo("va", SpecifaĜerundo) ]
+      |> kreiListon NenombrigeblaKlaso
 
-   let ĉiujInflekcioj = nombrigeblaKlasoInflekcioj
+   let ĉiujInflekcioj =
+      nombrigeblaKlasoInflekcioj @
+      nenombrigeblaKlasoInflekcioj
    let nombrigeblaDifinitoFinaĵoj =
       nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> (finaĵo, NombrigeblaKlaso))
    let difinitoFinaĵoj =
