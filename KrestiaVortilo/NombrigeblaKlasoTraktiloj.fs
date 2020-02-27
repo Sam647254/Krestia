@@ -152,7 +152,7 @@ module NombrigeblaKlasoTraktiloj =
       { Kontroli = fun vorto ->
            if nombrigeblaPredikativoHaviFinaĵoj
               |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
-           then Some (NombrigeblaKlaso, PredikativoHavi)
+           then Some (NombrigeblaKlaso, Havado)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->

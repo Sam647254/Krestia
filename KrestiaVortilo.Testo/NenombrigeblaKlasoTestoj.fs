@@ -14,7 +14,7 @@ type NenombrigeblaKlasoTestoj () =
         ("gremi", Difinito)
         ("gremuwa", PredikativoEsti)
         ("gremuga", AtributativoEstiMalantaŭ)
-        ("gremura", PredikativoHavi)
+        ("gremura", Havado)
         ("gremure", AtributativoHavi)
         ("gremilas", Translativo)
         ("gremirim", Ekzistado)

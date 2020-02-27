@@ -53,7 +53,7 @@ module Legiloj =
                | Inflekcio.DativoVolo -> (DativoVolo :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.PredikativoEsti -> (PredikativoEsti :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.AtributativoEstiMalantaŭ -> (AtributativoEsti :: inflekcioj, restantaj, lastaVorto) |> Ok
-               | Inflekcio.PredikativoHavi -> (PredikativoHavi :: inflekcioj, restantaj, lastaVorto) |> Ok
+               | Inflekcio.Havado -> (PredikativoHavi :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.AtributativoHavi -> (AtributativoHavi :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.Imperativo -> (Imperativo :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.Patiento -> (Patiento :: inflekcioj, restantaj, lastaVorto) |> Ok

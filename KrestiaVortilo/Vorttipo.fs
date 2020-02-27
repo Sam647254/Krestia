@@ -18,12 +18,16 @@ module Vorttipo =
    | PredikativoEsti
    | AtributativoEstiAntaŭ
    | AtributativoEstiMalantaŭ
-   | PredikativoHavi
+   | Havado
+   | UnuHavado
+   | PluraHavado
    | AtributativoHavi
    | Imperativo
    | Patiento
    | Aganto
    | Ekzistado
+   | UnuEkzistado
+   | PluraEkzistado
    | Invito
    | Translativo
    | Ĝerundo

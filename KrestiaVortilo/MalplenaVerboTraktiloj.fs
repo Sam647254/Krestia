@@ -13,13 +13,16 @@ module MalplenaVerboTraktiloj =
       | _ when infinitivo.EndsWith("melim") -> (MalplenaVerbo, Translativo)
       | _ when infinitivo.EndsWith("igam") -> (PartaTransitivaVerbo1, PartaAkuzativo)
       | _ when infinitivo.EndsWith("nom") -> (PartaNetransitivaVerbo, PartaDativo)
+      | _ when infinitivo.EndsWith("drerim") -> (NombrigeblaEco, Ekzistado)
+      | _ when infinitivo.EndsWith("grerim") -> (NenombrigeblaEco, Ekzistado)
       | _ when ĉuNombrigeblaKlasoEkzistado infinitivo -> (NombrigeblaKlaso, Ekzistado)
       | _ -> (MalplenaVerbo, Infinitivo)
 
    let traktiloj: Vorttraktilo list = [
       { Kontroli = fun vorto ->
          if vorto.EndsWith("m") && (not(vorto.EndsWith("sem") || vorto.EndsWith("nom")
-            || vorto.EndsWith("melim") || vorto.EndsWith("nom")))
+            || vorto.EndsWith("melim") || vorto.EndsWith("nom") || vorto.EndsWith("drerim")
+            || vorto.EndsWith("grerim")))
          then Some (MalplenaVerbo, Infinitivo)
          else None
         Inflekti = neinflektebla

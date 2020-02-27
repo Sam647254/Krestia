@@ -78,11 +78,32 @@ module EcoTraktiloj =
            (vorto.Substring(0, vorto.Length - 2), (NenombrigeblaEco, Infinitivo)) }
 
       { Kontroli = fun vorto ->
+           if vorto.EndsWith("droga") then Some (NombrigeblaEco, AtributativoEstiMalantaŭ) else None
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           (vorto.Substring(0, vorto.Length - 2), (NombrigeblaEco, Infinitivo)) }
+
+      { Kontroli = fun vorto ->
            if vorto.EndsWith("grelas") then Some (NenombrigeblaEco, Translativo) else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            (vorto.Substring(0, vorto.Length - 3) |> infinitivigi,
               (NenombrigeblaEco, Infinitivo)) }
+
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("drelas") then Some (NombrigeblaEco, Translativo) else None
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           (vorto.Substring(0, vorto.Length - 3) |> infinitivigi,
+              (NombrigeblaEco, Infinitivo)) }
+
+
+      { Kontroli = fun vorto ->
+           if vorto.EndsWith("drerim") then Some (NombrigeblaEco, Ekzistado) else None
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           (vorto.Substring(0, vorto.Length - 3) |> infinitivigi,
+              (NombrigeblaEco, Ekzistado)) }
 
       { Kontroli = fun vorto ->
            if vorto.EndsWith("greva") then Some (NenombrigeblaEco, Ĝerundo) else None

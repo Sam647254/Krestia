@@ -72,7 +72,7 @@ module NenombrigeblaKlasoTraktiloj =
       { Kontroli = fun vorto ->
            if predikativoHaviFinaĵoj
               |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
-           then Some (NenombrigeblaKlaso, PredikativoHavi)
+           then Some (NenombrigeblaKlaso, Havado)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto -> (vorto.Substring(0, vorto.Length - 2), (NenombrigeblaKlaso, Infinitivo)) }
