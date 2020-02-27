@@ -43,6 +43,7 @@ module Vorttipo =
    | Sola
    | UnuSola
    | PluraSola
+   | Reflekcio
 
    type Vorttipo =
    | NombrigeblaKlaso

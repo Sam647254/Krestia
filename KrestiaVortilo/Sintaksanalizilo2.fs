@@ -63,7 +63,8 @@ module Sintaksanalizilo2 =
         InfinitivoFinaĵo("a", Invito)
         InfinitivoFinaĵo("etio", Aganto)
         InfinitivoFinaĵo("elis", Translativo)
-        InfinitivoFinaĵo("ema", Ĝerundo) ]
+        InfinitivoFinaĵo("ema", Ĝerundo)
+        InfinitivoFinaĵo("em", PartaNominativo) ]
       |> kreiListon NetransitivaVerbo
       
    let transitivaVerboInflekcioj =
@@ -81,15 +82,92 @@ module Sintaksanalizilo2 =
         InfinitivoFinaĵo("elit", Translativo)
         InfinitivoFinaĵo("ema", Ĝerundo)
         InfinitivoFinaĵo("ig", PartaNominativo)
-        InfinitivoFinaĵo("es", PartaAkuzativo) ]
+        InfinitivoFinaĵo("es", PartaAkuzativo)
+        InfinitivoFinaĵo("is", Reflekcio) ]
       |> kreiListon TransitivaVerbo
+      
+   let dutransitivaVerboInflekcioj =
+      [ InfinitivoFinaĵo("re", Progresivo)
+        InfinitivoFinaĵo("ro", Perfekto)
+        InfinitivoFinaĵo("ela", Estonteco)
+        InfinitivoFinaĵo("ora", NominativoVolo)
+        InfinitivoFinaĵo("ore", AkuzativoVolo)
+        InfinitivoFinaĵo("eri", DativoVolo)
+        InfinitivoFinaĵo("rie", AtributativoEstiMalantaŭ)
+        InfinitivoFinaĵo("lia", AtributativoEstiAntaŭ)
+        InfinitivoFinaĵo("ri", Imperativo)
+        InfinitivoFinaĵo("ia", Invito)
+        InfinitivoFinaĵo("etio", Aganto)
+        InfinitivoFinaĵo("oniaa", Patiento)
+        InfinitivoFinaĵo("elip", Translativo)
+        InfinitivoFinaĵo("ema", Ĝerundo)
+        InfinitivoFinaĵo("ev", PartaNominativo)
+        InfinitivoFinaĵo("esh", PartaAkuzativo)
+        InfinitivoFinaĵo("et", PartaDativo)
+        InfinitivoFinaĵo("ish", Reflekcio) ]
+      |> kreiListon DutransitivaVerbo
+   
+   let nedirektaTransitivaVerboInflekcioj =
+      [ InfinitivoFinaĵo("e", Progresivo)
+        InfinitivoFinaĵo("o", Perfekto)
+        InfinitivoFinaĵo("ela", Estonteco)
+        InfinitivoFinaĵo("ora", NominativoVolo)
+        InfinitivoFinaĵo("eri", DativoVolo)
+        InfinitivoFinaĵo("ie", AtributativoEstiMalantaŭ)
+        InfinitivoFinaĵo("ia", AtributativoEstiAntaŭ)
+        InfinitivoFinaĵo("ea", Imperativo)
+        InfinitivoFinaĵo("a", Invito)
+        InfinitivoFinaĵo("etio", Aganto)
+        InfinitivoFinaĵo("elish", Translativo)
+        InfinitivoFinaĵo("ema", Ĝerundo) ]
+      |> kreiListon NedirektaTransitivaVerbo
+   
+   let oblikaNetransitivaVerboInflekcioj =
+      [ InfinitivoFinaĵo("ia", Progresivo)
+        InfinitivoFinaĵo("e", Perfekto)
+        InfinitivoFinaĵo("ela", Estonteco)
+        InfinitivoFinaĵo("ore", AkuzativoVolo)
+        InfinitivoFinaĵo("ra", AtributativoEstiMalantaŭ)
+        InfinitivoFinaĵo("re", AtributativoEstiAntaŭ)
+        InfinitivoFinaĵo("ema", Ĝerundo)
+        InfinitivoFinaĵo("orio", Aganto)
+        InfinitivoFinaĵo("am", PartaAkuzativo) ]
+      |> kreiListon OblikaNetransitivaVerbo
+   
+   let oblikaTransitivaVerboInflekcioj =
+      [ InfinitivoFinaĵo("ia", Progresivo)
+        InfinitivoFinaĵo("i", Perfekto)
+        InfinitivoFinaĵo("ela", Estonteco)
+        InfinitivoFinaĵo("ore", AkuzativoVolo)
+        InfinitivoFinaĵo("eri", DativoVolo)
+        InfinitivoFinaĵo("ri", AtributativoEstiMalantaŭ)
+        InfinitivoFinaĵo("re", AtributativoEstiAntaŭ)
+        InfinitivoFinaĵo("ema", Ĝerundo)
+        InfinitivoFinaĵo("orio", Aganto)
+        InfinitivoFinaĵo("etio", Patiento)
+        InfinitivoFinaĵo("on", PartaAkuzativo)
+        InfinitivoFinaĵo("ig", PartaDativo) ]
+      |> kreiListon OblikaTransitivaVerbo
+   
+   let nedirektaNetransitivaVerboInflekcioj =
+      [ InfinitivoFinaĵo("ia", Progresivo)
+        InfinitivoFinaĵo("io", Perfekto)
+        InfinitivoFinaĵo("ela", Estonteco)
+        InfinitivoFinaĵo("eri", DativoVolo)
+        InfinitivoFinaĵo("ema", Ĝerundo)
+        InfinitivoFinaĵo("etio", Patiento)
+        InfinitivoFinaĵo("om", PartaDativo) ]
+      |> kreiListon NedirektaNetransitivaVerbo
 
    let ĉiujInflekcioj =
       nombrigeblaKlasoInflekcioj @
       nenombrigeblaKlasoInflekcioj @
       malplenaVerboInflekcioj @
       netransitivaVerboInflekcioj @
-      transitivaVerboInflekcioj
+      transitivaVerboInflekcioj @
+      oblikaNetransitivaVerboInflekcioj @
+      oblikaTransitivaVerboInflekcioj @
+      nedirektaNetransitivaVerboInflekcioj
    let nombrigeblaDifinitoFinaĵoj =
       nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> (finaĵo, NombrigeblaKlaso))
    let difinitoFinaĵoj =
