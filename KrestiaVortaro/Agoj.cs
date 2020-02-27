@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,7 +34,7 @@ namespace KrestiaVortaro {
             var vorto = partoj[0];
             var signifo = partoj[1];
             var gloso = partoj[2];
-            var radikoj = partoj[3].Split(separator: ',');
+            var radikoj = partoj[3].Split(separator: ',').Where(r => r.Length > 0).ToImmutableList();
             var kategorioj = partoj[4].Split(separator: ',');
             var noto = partoj[5];
             var eraro = ĈuValidaVortaraVorto(ekzistantajVortoj, vorto, radikoj);
@@ -49,7 +50,7 @@ namespace KrestiaVortaro {
                   vortarajKategorioj[kategorio].Add(novaVorto.Id);
                }
                else {
-                  vortarajKategorioj.Add(kategorio, new List<int> { novaVorto.Id });
+                  vortarajKategorioj.Add(kategorio, new List<int> {novaVorto.Id});
                }
             }
 
