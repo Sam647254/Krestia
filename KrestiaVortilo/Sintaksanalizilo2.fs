@@ -161,12 +161,12 @@ module Sintaksanalizilo2 =
 
    let ĉiujInflekcioj =
       nombrigeblaKlasoInflekcioj
-      @ // Devas sekvi la verbojn
-      nenombrigeblaKlasoInflekcioj
-      @ malplenaVerboInflekcioj
-        @ netransitivaVerboInflekcioj
-          @ transitivaVerboInflekcioj
-            @ oblikaNetransitivaVerboInflekcioj @ oblikaTransitivaVerboInflekcioj @ nedirektaNetransitivaVerboInflekcioj
+      @ nenombrigeblaKlasoInflekcioj
+        @ malplenaVerboInflekcioj
+          @ netransitivaVerboInflekcioj
+            @ transitivaVerboInflekcioj
+              @ oblikaNetransitivaVerboInflekcioj
+                @ oblikaTransitivaVerboInflekcioj @ nedirektaNetransitivaVerboInflekcioj
    let nombrigeblaDifinitoFinaĵoj =
       nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> (finaĵo, NombrigeblaKlaso))
    let difinitoFinaĵoj =

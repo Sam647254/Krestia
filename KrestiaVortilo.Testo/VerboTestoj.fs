@@ -3,6 +3,7 @@
 open KrestiaVortilo
 open Microsoft.VisualStudio.TestTools.UnitTesting
 open KrestiaVortilo.Vorttipo
+open KrestiaVortilo.Sintaksanalizilo
 open Testiloj
 
 [<TestClass>]
@@ -51,6 +52,15 @@ type VerboTestoj() =
 
    [<TestMethod>]
    member _.NevalidajVortoj() =
-      [ "m"; "s"; "t"; "sh"; "p"; "n"; "g"; "v" ]
+      [ "m"; "s"; "t"; "sh"; "p"; "n"; "g"; "v"; "tetio" ]
       |> List.map kontroliNevalidanVorton
       |> ignore
+
+   [<TestMethod>]
+   member _.PlurajInflekcioj() =
+      "meratonialasela"
+      |> kontroliĈiujnInfleckiojn
+            [ Nebazo(NetransitivaVerbo, Estonteco, "meratonialas")
+              Nebazo(NombrigeblaKlaso, Translativo, "meratoniaa")
+              Nebazo(TransitivaVerbo, Patiento, "merat")
+              Bazo(TransitivaVerbo, Infinitivo, "merat") ]
