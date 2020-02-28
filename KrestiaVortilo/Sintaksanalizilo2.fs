@@ -26,6 +26,7 @@ module Sintaksanalizilo2 =
         DUPFinaĵo("ris", Havado, UnuHavado, PluraHavado)
         DUPFinaĵo("rim", Ekzistado, UnuEkzistado, PluraEkzistado)
         DifinitoFinaĵo("las", Translativo)
+        DifinitoFinaĵo("lam", Translativo)
         DifinitoFinaĵo("vra", Ĝerundo)
         DifinitoFinaĵo("va", SpecifaĜerundo) ]
       |> kreiListon NombrigeblaKlaso
@@ -40,6 +41,7 @@ module Sintaksanalizilo2 =
         DifinitoFinaĵo("ris", Havado)
         DifinitoFinaĵo("rim", Ekzistado)
         DifinitoFinaĵo("las", Translativo)
+        DifinitoFinaĵo("lam", Translativo)
         DifinitoFinaĵo("vra", Ĝerundo)
         DifinitoFinaĵo("va", SpecifaĜerundo) ]
       |> kreiListon NenombrigeblaKlaso
@@ -82,8 +84,11 @@ module Sintaksanalizilo2 =
         InfinitivoFinaĵo("elit", Translativo)
         InfinitivoFinaĵo("ea", Ĝerundo)
         InfinitivoFinaĵo("ig", PartaNominativo)
+        InfinitivoFinaĵo("im", PartaNominativo)
         InfinitivoFinaĵo("es", PartaAkuzativo)
-        InfinitivoFinaĵo("is", Reflekcio) ]
+        InfinitivoFinaĵo("em", PartaAkuzativo)
+        InfinitivoFinaĵo("ris", Reflekcio)
+        InfinitivoFinaĵo("rim", Reflekcio) ]
       |> kreiListon TransitivaVerbo
 
    let dutransitivaVerboInflekcioj =
@@ -102,8 +107,17 @@ module Sintaksanalizilo2 =
         InfinitivoFinaĵo("elip", Translativo)
         InfinitivoFinaĵo("ea", Ĝerundo)
         InfinitivoFinaĵo("ev", PartaNominativo)
-        InfinitivoFinaĵo("esh", PartaAkuzativo)
-        InfinitivoFinaĵo("et", PartaDativo)
+        InfinitivoFinaĵo("eg", PartaNominativo)
+        InfinitivoFinaĵo("en", PartaNominativo)
+        InfinitivoFinaĵo("em", PartaNominativo)
+        InfinitivoFinaĵo("osh", PartaAkuzativo)
+        InfinitivoFinaĵo("os", PartaAkuzativo)
+        InfinitivoFinaĵo("on", PartaAkuzativo)
+        InfinitivoFinaĵo("om", PartaAkuzativo)
+        InfinitivoFinaĵo("ut", PartaDativo)
+        InfinitivoFinaĵo("us", PartaDativo)
+        InfinitivoFinaĵo("ug", PartaDativo)
+        InfinitivoFinaĵo("um", PartaDativo)
         InfinitivoFinaĵo("ish", Reflekcio) ]
       |> kreiListon DutransitivaVerbo
 
@@ -119,7 +133,11 @@ module Sintaksanalizilo2 =
         InfinitivoFinaĵo("a", Invito)
         InfinitivoFinaĵo("etio", Aganto)
         InfinitivoFinaĵo("elish", Translativo)
-        InfinitivoFinaĵo("mea", Ĝerundo) ]
+        InfinitivoFinaĵo("mea", Ĝerundo)
+        InfinitivoFinaĵo("an", PartaNominativo)
+        InfinitivoFinaĵo("am", PartaNominativo)
+        InfinitivoFinaĵo("os", PartaDativo)
+        InfinitivoFinaĵo("om", PartaDativo) ]
       |> kreiListon NedirektaTransitivaVerbo
 
    let oblikaNetransitivaVerboInflekcioj =
@@ -146,7 +164,9 @@ module Sintaksanalizilo2 =
         InfinitivoFinaĵo("orio", Aganto)
         InfinitivoFinaĵo("etio", Patiento)
         InfinitivoFinaĵo("on", PartaAkuzativo)
-        InfinitivoFinaĵo("ig", PartaDativo) ]
+        InfinitivoFinaĵo("om", PartaAkuzativo)
+        InfinitivoFinaĵo("ig", PartaDativo)
+        InfinitivoFinaĵo("im", PartaDativo) ]
       |> kreiListon OblikaTransitivaVerbo
 
    let nedirektaNetransitivaVerboInflekcioj =
