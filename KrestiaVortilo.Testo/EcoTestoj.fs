@@ -33,8 +33,8 @@ type EcoTestoj () =
         ("edroga", AtributativoEstiMalantaŭ)
         ("edrelas", Translativo)
         ("edrerim", Ekzistado)
-        ("edresirim", Ekzistado)
-        ("edreverim", Ekzistado)
+        ("edresirim", UnuEkzistado)
+        ("edreverim", PluraEkzistado)
         ("edreva", Ĝerundo) ]
       |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto NombrigeblaEco inflekcio)
       |> ignore

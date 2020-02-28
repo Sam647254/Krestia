@@ -72,7 +72,7 @@ type KlasoTestoj () =
       |> ignore
 
    [<TestMethod>]
-   member _.Tranlativo () =
+   member _.Translativo () =
       [ ("ritmalas", NenombrigeblaKlaso)
         ("tretalas", NombrigeblaKlaso)
         ("tetalas", NombrigeblaKlaso)
@@ -87,6 +87,14 @@ type KlasoTestoj () =
       [ ("lekeris", Havado)
         ("lepasiris", UnuHavado)
         ("trupaveris", PluraHavado) ]
+      |> List.map (fun (vorto, pravaInflekcio) ->
+            kontroliFormon vorto NombrigeblaKlaso pravaInflekcio)
+      |> ignore
+
+   [<TestMethod>]
+   member _.Ĝerundo () =
+      [ ("verikevra", Ĝerundo)
+        ("verikeva", SpecifaĜerundo) ]
       |> List.map (fun (vorto, pravaInflekcio) ->
             kontroliFormon vorto NombrigeblaKlaso pravaInflekcio)
       |> ignore

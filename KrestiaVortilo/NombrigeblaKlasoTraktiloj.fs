@@ -41,6 +41,8 @@ module NombrigeblaKlasoTraktiloj =
    let translativoFinaĵoj =
       nombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "las")
    let ĝerundoFinaĵoj =
+      nombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "vra")
+   let specifaĜerundoFinaĵoj =
       nombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "va")
    let ekzistadoFinaĵoj =
       nombrigeblaNekonitaNombroFinaĵoj @
@@ -156,11 +158,27 @@ module NombrigeblaKlasoTraktiloj =
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
-           let malinflektitaVorto =
-              (if vorto.EndsWith("vera") || vorto.EndsWith("sira")
-              then vorto.Substring(0, vorto.Length - 4)
-              else vorto.Substring(0, vorto.Length - 2))
-              |> infinitivigi
+           let malinflektitaVorto = vorto.Substring(0, vorto.Length - 3) |> infinitivigi
+           (malinflektitaVorto, normaligi malinflektitaVorto) }
+
+      { Kontroli = fun vorto ->
+           if nombrigeblaPredikativoHaviUnuFinaĵoj
+              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+           then Some (NombrigeblaKlaso, UnuHavado)
+           else None
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           let malinflektitaVorto = vorto.Substring(0, vorto.Length - 5) |> infinitivigi
+           (malinflektitaVorto, normaligi malinflektitaVorto) }
+
+      { Kontroli = fun vorto ->
+           if nombrigeblaPredikativoHaviPluraFinaĵoj
+              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+           then Some (NombrigeblaKlaso, PluraHavado)
+           else None
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           let malinflektitaVorto = vorto.Substring(0, vorto.Length - 5) |> infinitivigi
            (malinflektitaVorto, normaligi malinflektitaVorto) }
 
       { Kontroli = fun vorto ->
@@ -211,4 +229,14 @@ module NombrigeblaKlasoTraktiloj =
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            let malinflektitaVorto = vorto.Substring(0, vorto.Length - 2) |> infinitivigi
+           (malinflektitaVorto, normaligi malinflektitaVorto) }
+
+      { Kontroli = fun vorto ->
+           if specifaĜerundoFinaĵoj
+              |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+           then Some (NombrigeblaKlaso, SpecifaĜerundo)
+           else None
+        Inflekti = neinflektebla
+        Malinflekti = fun vorto ->
+           let malinflektitaVorto = vorto.Substring(0, vorto.Length - 3) |> infinitivigi
            (malinflektitaVorto, normaligi malinflektitaVorto) } ]

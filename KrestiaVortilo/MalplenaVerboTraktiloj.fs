@@ -3,6 +3,17 @@
 open Vorttipo
 
 module MalplenaVerboTraktiloj =
+   let aliajFinaĵoj = [
+      "sem"
+      "nom"
+      "melim"
+      "nom"
+      "drerim"
+      "grerim"
+      "dresirim"
+      "dreverim"
+   ]
+
    let normaligi (infinitivo: string) =
       let ĉuNombrigeblaKlasoEkzistado (infinitivo: string) =
          NombrigeblaKlasoTraktiloj.ekzistadoFinaĵoj
@@ -20,9 +31,7 @@ module MalplenaVerboTraktiloj =
 
    let traktiloj: Vorttraktilo list = [
       { Kontroli = fun vorto ->
-         if vorto.EndsWith("m") && (not(vorto.EndsWith("sem") || vorto.EndsWith("nom")
-            || vorto.EndsWith("melim") || vorto.EndsWith("nom") || vorto.EndsWith("drerim")
-            || vorto.EndsWith("grerim")))
+         if vorto.EndsWith("m") && not (aliajFinaĵoj |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo)))
          then Some (MalplenaVerbo, Infinitivo)
          else None
         Inflekti = neinflektebla

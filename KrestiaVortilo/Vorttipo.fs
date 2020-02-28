@@ -31,6 +31,7 @@ module Vorttipo =
    | Invito
    | Translativo
    | Ĝerundo
+   | SpecifaĜerundo
    | PartaNominativo
    | PartaAkuzativo
    | PartaDativo
