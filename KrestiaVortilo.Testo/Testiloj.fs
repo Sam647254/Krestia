@@ -23,13 +23,12 @@ module Testiloj =
       |> Result.map (fun (rezulto, restantaj, _) ->
             Assert.AreEqual(prava, rezulto)
             Assert.AreEqual(0, restantaj.Length))
-      |> Result.mapError (fun rezulto -> Assert.Fail(rezulto))
+      |> Result.mapError Assert.Fail
       |> ignore
 
    let kontroliInflekcion (pravaTipo: Vorttipo) (pravaInflekcio: Inflekcio) (vorto: string) =
       malinflekti vorto
       |> Result.map (fun malinflektaŜtupo ->
-            vorto
             match malinflektaŜtupo with
             | Bazo(vorttipo, inflekcio, _) ->
                Assert.AreEqual(pravaTipo, vorttipo)
@@ -37,7 +36,14 @@ module Testiloj =
             | Nebazo(vorttipo, inflekcio, _) ->
                Assert.AreEqual(pravaTipo, vorttipo)
                Assert.AreEqual(pravaInflekcio, inflekcio))
-      |> Result.mapError (fun eraro -> Assert.Fail(eraro))
+      |> Result.mapError Assert.Fail
+      |> ignore
+   
+   let kontroliĈiujnInfleckiojn (ŝtupoj: MalinflektaŜtupo list) (vorto: string) =
+      tuteMalinflekti vorto
+      |> Result.map (fun malinflektajŜtupoj ->
+         Assert.AreEqual(ŝtupoj, malinflektajŜtupoj))
+      |> Result.mapError Assert.Fail
       |> ignore
 
    let kontroliNevalidanVorton (vorto: string) =
@@ -48,7 +54,7 @@ module Testiloj =
       |> ignore
 
    let kontroliSilabojn (vorto: string, prava: string list) =
-      dividi vorto
+      dividi vorto false
       |> Result.map (fun rezulto -> Assert.AreEqual(rezulto, prava))
-      |> Result.mapError (fun eraro -> Assert.Fail(eraro))
+      |> Result.mapError Assert.Fail
       |> ignore

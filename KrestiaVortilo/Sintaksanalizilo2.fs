@@ -29,7 +29,7 @@ module Sintaksanalizilo2 =
         DifinitoFinaĵo("vra", Ĝerundo)
         DifinitoFinaĵo("va", SpecifaĜerundo) ]
       |> kreiListon NombrigeblaKlaso
-   
+
    let nenombrigeblaKlasoInflekcioj =
       [ DifinitoFinaĵo("", Difinito)
         DifinitoFinaĵo("nsa", Havaĵo)
@@ -43,15 +43,15 @@ module Sintaksanalizilo2 =
         DifinitoFinaĵo("vra", Ĝerundo)
         DifinitoFinaĵo("va", SpecifaĜerundo) ]
       |> kreiListon NenombrigeblaKlaso
-      
+
    let malplenaVerboInflekcioj =
       [ InfinitivoFinaĵo("ia", Progresivo)
         InfinitivoFinaĵo("io", Perfekto)
         InfinitivoFinaĵo("ela", Estonteco)
         InfinitivoFinaĵo("elim", Translativo)
-        InfinitivoFinaĵo("ema", Ĝerundo) ]
+        InfinitivoFinaĵo("ea", Ĝerundo) ]
       |> kreiListon MalplenaVerbo
-   
+
    let netransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("e", Progresivo)
         InfinitivoFinaĵo("o", Perfekto)
@@ -63,10 +63,10 @@ module Sintaksanalizilo2 =
         InfinitivoFinaĵo("a", Invito)
         InfinitivoFinaĵo("etio", Aganto)
         InfinitivoFinaĵo("elis", Translativo)
-        InfinitivoFinaĵo("ema", Ĝerundo)
+        InfinitivoFinaĵo("mea", Ĝerundo)
         InfinitivoFinaĵo("em", PartaNominativo) ]
       |> kreiListon NetransitivaVerbo
-      
+
    let transitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("re", Progresivo)
         InfinitivoFinaĵo("ro", Perfekto)
@@ -80,12 +80,12 @@ module Sintaksanalizilo2 =
         InfinitivoFinaĵo("etio", Aganto)
         InfinitivoFinaĵo("oniaa", Patiento)
         InfinitivoFinaĵo("elit", Translativo)
-        InfinitivoFinaĵo("ema", Ĝerundo)
+        InfinitivoFinaĵo("ea", Ĝerundo)
         InfinitivoFinaĵo("ig", PartaNominativo)
         InfinitivoFinaĵo("es", PartaAkuzativo)
         InfinitivoFinaĵo("is", Reflekcio) ]
       |> kreiListon TransitivaVerbo
-      
+
    let dutransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("re", Progresivo)
         InfinitivoFinaĵo("ro", Perfekto)
@@ -100,13 +100,13 @@ module Sintaksanalizilo2 =
         InfinitivoFinaĵo("etio", Aganto)
         InfinitivoFinaĵo("oniaa", Patiento)
         InfinitivoFinaĵo("elip", Translativo)
-        InfinitivoFinaĵo("ema", Ĝerundo)
+        InfinitivoFinaĵo("ea", Ĝerundo)
         InfinitivoFinaĵo("ev", PartaNominativo)
         InfinitivoFinaĵo("esh", PartaAkuzativo)
         InfinitivoFinaĵo("et", PartaDativo)
         InfinitivoFinaĵo("ish", Reflekcio) ]
       |> kreiListon DutransitivaVerbo
-   
+
    let nedirektaTransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("e", Progresivo)
         InfinitivoFinaĵo("o", Perfekto)
@@ -119,9 +119,9 @@ module Sintaksanalizilo2 =
         InfinitivoFinaĵo("a", Invito)
         InfinitivoFinaĵo("etio", Aganto)
         InfinitivoFinaĵo("elish", Translativo)
-        InfinitivoFinaĵo("ema", Ĝerundo) ]
+        InfinitivoFinaĵo("mea", Ĝerundo) ]
       |> kreiListon NedirektaTransitivaVerbo
-   
+
    let oblikaNetransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("ia", Progresivo)
         InfinitivoFinaĵo("e", Perfekto)
@@ -129,11 +129,11 @@ module Sintaksanalizilo2 =
         InfinitivoFinaĵo("ore", AkuzativoVolo)
         InfinitivoFinaĵo("ra", AtributativoEstiMalantaŭ)
         InfinitivoFinaĵo("re", AtributativoEstiAntaŭ)
-        InfinitivoFinaĵo("ema", Ĝerundo)
+        InfinitivoFinaĵo("ea", Ĝerundo)
         InfinitivoFinaĵo("orio", Aganto)
         InfinitivoFinaĵo("am", PartaAkuzativo) ]
       |> kreiListon OblikaNetransitivaVerbo
-   
+
    let oblikaTransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("ia", Progresivo)
         InfinitivoFinaĵo("i", Perfekto)
@@ -142,32 +142,31 @@ module Sintaksanalizilo2 =
         InfinitivoFinaĵo("eri", DativoVolo)
         InfinitivoFinaĵo("ri", AtributativoEstiMalantaŭ)
         InfinitivoFinaĵo("re", AtributativoEstiAntaŭ)
-        InfinitivoFinaĵo("ema", Ĝerundo)
+        InfinitivoFinaĵo("ea", Ĝerundo)
         InfinitivoFinaĵo("orio", Aganto)
         InfinitivoFinaĵo("etio", Patiento)
         InfinitivoFinaĵo("on", PartaAkuzativo)
         InfinitivoFinaĵo("ig", PartaDativo) ]
       |> kreiListon OblikaTransitivaVerbo
-   
+
    let nedirektaNetransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("ia", Progresivo)
         InfinitivoFinaĵo("io", Perfekto)
         InfinitivoFinaĵo("ela", Estonteco)
         InfinitivoFinaĵo("eri", DativoVolo)
-        InfinitivoFinaĵo("ema", Ĝerundo)
+        InfinitivoFinaĵo("ea", Ĝerundo)
         InfinitivoFinaĵo("etio", Patiento)
         InfinitivoFinaĵo("om", PartaDativo) ]
       |> kreiListon NedirektaNetransitivaVerbo
 
    let ĉiujInflekcioj =
-      nombrigeblaKlasoInflekcioj @
-      nenombrigeblaKlasoInflekcioj @
-      malplenaVerboInflekcioj @
-      netransitivaVerboInflekcioj @
-      transitivaVerboInflekcioj @
-      oblikaNetransitivaVerboInflekcioj @
-      oblikaTransitivaVerboInflekcioj @
-      nedirektaNetransitivaVerboInflekcioj
+      nombrigeblaKlasoInflekcioj
+      @ // Devas sekvi la verbojn
+      nenombrigeblaKlasoInflekcioj
+      @ malplenaVerboInflekcioj
+        @ netransitivaVerboInflekcioj
+          @ transitivaVerboInflekcioj
+            @ oblikaNetransitivaVerboInflekcioj @ oblikaTransitivaVerboInflekcioj @ nedirektaNetransitivaVerboInflekcioj
    let nombrigeblaDifinitoFinaĵoj =
       nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> (finaĵo, NombrigeblaKlaso))
    let difinitoFinaĵoj =
@@ -179,6 +178,13 @@ module Sintaksanalizilo2 =
         ('e', "o")
         ('i', "u") ]
       |> Map.ofList
+
+   let vokaloj = [ 'i'; 'e'; 'a'; 'u'; 'o'; 'ɒ' ] |> Set.ofList
+   let ĉuVokalo litero = Set.contains litero vokaloj
+
+   type Litero =
+      | Konsonanto of char
+      | Vokalo of char
 
    let difinitoAlInfinitivo (vorto: string) =
       vorto.Substring(0, vorto.Length - 1) + difinitivoAlInfinitivoTabelo.[vorto.Chars(vorto.Length - 1)]
@@ -198,7 +204,7 @@ module Sintaksanalizilo2 =
    let unuNombroFinaĵo = "si"
    let pluraNombroFinaĵo = "ve"
 
-   let malinflekti (ĉeno: string): Result<MalinflektaŜtupo, string> =
+   let rec malinflekti (ĉeno: string): Result<MalinflektaŜtupo, string> =
       match ĉeno with
       | _ when ĉuFremdaVorto ĉeno -> Bazo(FremdaVorto, SolaFormo, ĉeno) |> Ok
       | _ when ĉuLokokupilo ĉeno -> Bazo(Lokokupilo, SolaFormo, ĉeno) |> Ok
@@ -211,7 +217,13 @@ module Sintaksanalizilo2 =
                   |> Map.tryPick (fun infinitivoFinaĵo infinitivoTipo ->
                         if ĉeno.EndsWith(infinitivoFinaĵo + finaĵo) && infinitivoTipo = vorttipo then Some()
                         else None)
-                  |> Option.map (fun _ -> Nebazo(vorttipo, inflekcio, ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)))
+                  |> Option.bind (fun _ ->
+                        Some(ĉeno.Substring(0, ĉeno.Length - finaĵo.Length))
+                        |> Option.filter (fun subĉeno ->
+                              match dividi subĉeno true with
+                              | Ok(_) -> true
+                              | Error(_) -> false)
+                        |> Option.map (fun malinflektita -> Nebazo(vorttipo, inflekcio, malinflektita)))
                | DifinitoFinaĵo(finaĵo, inflekcio) ->
                   if ĉeno.EndsWith(finaĵo) then
                      let difinito = ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)
@@ -236,7 +248,7 @@ module Sintaksanalizilo2 =
          |> Option.map Ok
          |> Option.defaultValue (Error(sprintf "%s estas nevalida" ĉeno))
 
-   let rec tuteMalinflekti (ĉeno: string) =
+   and tuteMalinflekti (ĉeno: string) =
       malinflekti ĉeno
       |> Result.bind (fun malinflektita ->
             match malinflektita with
@@ -247,7 +259,7 @@ module Sintaksanalizilo2 =
             | Nebazo(_, _, restanta) ->
                tuteMalinflekti restanta |> Result.map (fun sekvaj -> malinflektita :: sekvaj))
 
-   let ĉuVerbo (ĉeno: string) =
+   and ĉuVerbo (ĉeno: string) =
       tuteMalinflekti ĉeno
       |> Result.map (fun ŝtupoj ->
             match ŝtupoj with
@@ -258,7 +270,7 @@ module Sintaksanalizilo2 =
                | Nebazo(_, _, _) -> failwith "ne valida unua ŝtupo"
             | [] -> failwith "ne valida ŝtupoj")
 
-   let ĉuVerboInfinitivo (ĉeno: string) =
+   and ĉuVerboInfinitivo (ĉeno: string) =
       tuteMalinflekti ĉeno
       |> Result.map (fun ŝtupoj ->
             match ŝtupoj with
@@ -269,15 +281,15 @@ module Sintaksanalizilo2 =
                | _ -> false
             | _ -> false)
 
-   let ĉuInfinitivoB (ĉeno: string) =
+   and ĉuInfinitivoB (ĉeno: string) =
       ĉuInfinitivo ĉeno |> Option.isSome
 
-   let ĉuVerboInfinitivoB (ĉeno: string) =
+   and ĉuVerboInfinitivoB (ĉeno: string) =
       match ĉuVerboInfinitivo ĉeno with
       | Ok(rezulto) -> rezulto
       | Error(_) -> false
 
-   let bazoDe (vorto: string) =
+   and bazoDe (vorto: string) =
       if ĉuVerboInfinitivoB vorto then
          vorto.Substring
             (0,
@@ -288,7 +300,7 @@ module Sintaksanalizilo2 =
       else
          vorto
 
-   let bazoPorDividi (infinitivo: string) =
+   and bazoPorDividi (infinitivo: string) =
       [ "gru"; "gro"; "dru"; "dro"; "li"; "lu"; "d" ]
       |> List.tryPick (fun finaĵo ->
             if infinitivo.EndsWith(finaĵo) then Some(infinitivo.Substring(0, infinitivo.Length - finaĵo.Length))
@@ -296,27 +308,23 @@ module Sintaksanalizilo2 =
       |> Option.defaultValue infinitivo
       |> bazoDe
 
-   let ĉuMalplenigita (malplenigita: Vorttipo) (originala: string) =
+   and ĉuMalplenigita (malplenigita: Vorttipo) (originala: string) =
       ĉuInfinitivo originala
       |> Option.filter (fun originalaTipo -> Set.contains originalaTipo verboTipoj)
       |> Option.bind (fun originalaTipo -> Map.tryFind originalaTipo malplenigeblaVerboTipoj)
       |> Option.filter (fun malplenigeblaTipoj -> Set.contains malplenigita malplenigeblaTipoj)
       |> Option.isSome
 
-   let vokaloj = [ 'i'; 'e'; 'a'; 'u'; 'o'; 'ɒ' ] |> Set.ofList
-   let ĉuVokalo litero = Set.contains litero vokaloj
-
-   type Litero =
-      | Konsonanto of char
-      | Vokalo of char
-
-   let kategorigiLiterojn =
+   and kategorigiLiterojn =
       List.map (fun litero ->
          if ĉuVokalo litero then Vokalo litero
          else Konsonanto litero)
 
-   let dividi (ĉeno: string) =
-      let normaligita = ĉeno.Replace("aa", "ɒ").Replace("sh", "ʃ") |> bazoPorDividi
+   and dividi (ĉeno: string) (inkluziFinaĵon: bool) =
+      let normaligita =
+         ĉeno.Replace("aa", "ɒ").Replace("sh", "ʃ")
+         |> if inkluziFinaĵon then (fun s -> s)
+            else bazoPorDividi
 
       let rec dividiAk ĉuKomenca (literoj: Litero list): Result<string list, string> =
          match literoj with
@@ -372,13 +380,14 @@ module Sintaksanalizilo2 =
          // Eraro
          | [] -> Error "La vorto estas vida"
          | _ -> Error(sprintf "Ne povas dividi %A" literoj)
+
       dividiAk true
          (normaligita.ToCharArray()
           |> List.ofArray
           |> kategorigiLiterojn)
 
-   let dividiKunFinaĵo (vorto: string) =
-      dividi vorto
+   and dividiKunFinaĵo (vorto: string) =
+      dividi vorto false
       |> Result.bind (fun silaboj ->
             ĉuInfinitivo vorto
             |> Option.map (fun vorttipo -> silaboj @ [ vorttipo.ToString() ])

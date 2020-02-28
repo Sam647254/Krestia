@@ -4,6 +4,7 @@ open Microsoft.VisualStudio.TestTools.UnitTesting
 
 open KrestiaVortilo
 open KrestiaVortilo.Vorttipo
+open KrestiaVortilo.Sintaksanalizilo
 open Testiloj
 
 [<TestClass>]
@@ -11,13 +12,14 @@ type KlasoTestoj() =
 
    [<TestMethod>]
    member _.Infinitivoj() =
-      [ "tatreto"; "ilitu"; "lustaa"; "geluko"; "kresku"; "trupaa"
-        "gremu"; "kunaa"; "verimaa"; "salumu"; "molomo"; "posmu" ]
+      [ "tatreto"; "ilitu"; "lustaa"; "geluko"; "kresku"; "trupaa"; "gremu"; "kunaa"; "verimaa"; "salumu"; "molomo"; "posmu" ]
       |> List.map (fun klaso ->
-         Sintaksanalizilo2.ĉuVerboInfinitivo klaso
-         |> Result.map (fun rezulto -> if rezulto then Assert.Fail(sprintf "%s ne estas verbo" klaso) else ()))
+            Sintaksanalizilo2.ĉuVerboInfinitivo klaso
+            |> Result.map (fun rezulto ->
+                  if rezulto then Assert.Fail(sprintf "%s ne estas verbo" klaso)
+                  else ()))
       |> ignore
-      
+
       [ "tatreto"; "ilitu"; "lustaa"; "geluko"; "kresku"; "trupaa" ]
       |> List.map (kontroliInflekcion NombrigeblaKlaso Infinitivo)
       |> ignore
@@ -98,3 +100,23 @@ type KlasoTestoj() =
       |> ignore
 
       kontroliInflekcion NetransitivaVerbo Infinitivo "kunaveris" |> ignore
+
+   [<TestMethod>]
+   member _.PlurajInflekcioj() =
+      "kinarimela"
+      |> kontroliĈiujnInfleckiojn
+            [ Nebazo(MalplenaVerbo, Estonteco, "kinarim")
+              Nebazo(NenombrigeblaKlaso, Ekzistado, "kinaa")
+              Bazo(NenombrigeblaKlaso, Infinitivo, "kinaa") ]
+
+      "kunalasmea"
+      |> kontroliĈiujnInfleckiojn
+            [ Nebazo(NetransitivaVerbo, Ĝerundo, "kunalas")
+              Nebazo(NenombrigeblaKlaso, Translativo, "kunaa")
+              Bazo(NenombrigeblaKlaso, Infinitivo, "kunaa") ]
+      
+      "nekeverisora"
+      |> kontroliĈiujnInfleckiojn
+            [ Nebazo(NetransitivaVerbo, NominativoVolo, "nekeveris")
+              Nebazo(NombrigeblaKlaso, PluraHavado, "neko")
+              Bazo(NombrigeblaKlaso, Infinitivo, "neko") ]
