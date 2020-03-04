@@ -47,20 +47,24 @@ module Vorttipo =
    type Vorttipo =
    | NombrigeblaKlaso
    | NenombrigeblaKlaso
-   | Rekordo
-   | NombrigeblaEco
-   | NenombrigeblaEco
-   | TransitivaVerbo2
-   | TransitivaVerbo3
-   | NetransitivaVerbo1
-   | NetransitivaVerbo2
+   | MalantaŭRekordo
+   | AntaŭRekordo
+   | MalantaŭNombrigeblaEco
+   | NenombrigeblaEcoEco
+   | MalantaŭNenombrieblaEco
+   | AntaŭNenombrigeblaEco
+   | TransitivaVerbo
+   | DutransitivaVerbo
+   | NetransitivaVerbo
+   | NedirektaTransitivaVerbo
    | MalplenaVerbo
-   | PartaTransitivaVerbo1
-   | PartaTransitivaVerbo2
-   | PartaNetransitivaVerbo
+   | OblikaNetransitivaVerbo
+   | OblikaTransitivaVerbo
+   | NedirektaNetransitivaVerbo
    | Pridiranto
    | Lokokupilo
-   | SintaksaVorto
+   | MalantaŭModifanto
+   | AntaŭModifanto
    | Makro
    | FremdaVorto
 

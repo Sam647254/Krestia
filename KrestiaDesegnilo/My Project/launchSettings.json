@@ -2,7 +2,7 @@
   "profiles": {
     "TimeranDesegnilo": {
       "commandName": "Project",
-      "commandLineArgs": "frazo.txt frazo.svg"
+      "commandLineArgs": "\"druregre Livra\" livra.svg"
     }
   }
 }

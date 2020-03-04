@@ -5,20 +5,20 @@ open Vorttipo
 module TransitivaVerboTraktiloj =
    let normaligi (infinitivo: string) (tipo: Vorttipo) =
       match infinitivo with
-      | v when v.EndsWith("telit") -> (TransitivaVerbo2, Translativo)
-      | v when v.EndsWith("pelit") -> (TransitivaVerbo3, Translativo)
+      | v when v.EndsWith("telit") -> (TransitivaVerbo, Translativo)
+      | v when v.EndsWith("pelit") -> (DutransitivaVerbo, Translativo)
       | _ -> (tipo, Infinitivo)
 
    let tipoDe (infinitivo: string) =
       match infinitivo with
-      | v when v.EndsWith("t") -> Some TransitivaVerbo2
-      | v when v.EndsWith("p") -> Some TransitivaVerbo3
+      | v when v.EndsWith("t") -> Some TransitivaVerbo
+      | v when v.EndsWith("p") -> Some DutransitivaVerbo
       | _ -> None
 
    let tipoDeInfinitivo (infinitivo: string) =
       if infinitivo.EndsWith("t")
-      then TransitivaVerbo2
-      else TransitivaVerbo3
+      then TransitivaVerbo
+      else DutransitivaVerbo
 
    let trakiloj: Vorttraktilo list = [
       { Kontroli = fun vorto ->
@@ -27,12 +27,12 @@ module TransitivaVerboTraktiloj =
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
-           (vorto, ((if vorto.EndsWith("t") then TransitivaVerbo2 else TransitivaVerbo3), Infinitivo)) }
+           (vorto, ((if vorto.EndsWith("t") then TransitivaVerbo else DutransitivaVerbo), Infinitivo)) }
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tre") -> Some (TransitivaVerbo2, Progresivo)
-           | v when v.EndsWith("pre") -> Some (TransitivaVerbo3, Progresivo)
+           | v when v.EndsWith("tre") -> Some (TransitivaVerbo, Progresivo)
+           | v when v.EndsWith("pre") -> Some (DutransitivaVerbo, Progresivo)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -41,8 +41,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tro") -> Some (TransitivaVerbo2, Perfekto)
-           | v when v.EndsWith("pro") -> Some (TransitivaVerbo3, Perfekto)
+           | v when v.EndsWith("tro") -> Some (TransitivaVerbo, Perfekto)
+           | v when v.EndsWith("pro") -> Some (DutransitivaVerbo, Perfekto)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -51,8 +51,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tela") -> Some (TransitivaVerbo2, Estonteco)
-           | v when v.EndsWith("pela") -> Some (TransitivaVerbo3, Estonteco)
+           | v when v.EndsWith("tela") -> Some (TransitivaVerbo, Estonteco)
+           | v when v.EndsWith("pela") -> Some (DutransitivaVerbo, Estonteco)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -61,8 +61,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tora") -> Some (TransitivaVerbo2, NominativoVolo)
-           | v when v.EndsWith("pora") -> Some (TransitivaVerbo3, NominativoVolo)
+           | v when v.EndsWith("tora") -> Some (TransitivaVerbo, NominativoVolo)
+           | v when v.EndsWith("pora") -> Some (DutransitivaVerbo, NominativoVolo)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -71,8 +71,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tore") -> Some (TransitivaVerbo2, AkuzativoVolo)
-           | v when v.EndsWith("pore") -> Some (TransitivaVerbo3, AkuzativoVolo)
+           | v when v.EndsWith("tore") -> Some (TransitivaVerbo, AkuzativoVolo)
+           | v when v.EndsWith("pore") -> Some (DutransitivaVerbo, AkuzativoVolo)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -81,17 +81,17 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            if vorto.EndsWith("peri")
-           then Some (TransitivaVerbo3, DativoVolo)
+           then Some (DutransitivaVerbo, DativoVolo)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            let malinflektitaVorto = vorto.Substring(0, vorto.Length - 3)
-           (malinflektitaVorto, normaligi malinflektitaVorto TransitivaVerbo3) }
+           (malinflektitaVorto, normaligi malinflektitaVorto DutransitivaVerbo) }
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("trie") -> Some (TransitivaVerbo2, AtributativoEstiMalantaŭ)
-           | v when v.EndsWith("prie") -> Some (TransitivaVerbo3, AtributativoEstiMalantaŭ)
+           | v when v.EndsWith("trie") -> Some (TransitivaVerbo, AtributativoEstiMalantaŭ)
+           | v when v.EndsWith("prie") -> Some (DutransitivaVerbo, AtributativoEstiMalantaŭ)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -100,8 +100,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tri") -> Some (TransitivaVerbo2, Imperativo)
-           | v when v.EndsWith("pri") -> Some (TransitivaVerbo3, Imperativo)
+           | v when v.EndsWith("tri") -> Some (TransitivaVerbo, Imperativo)
+           | v when v.EndsWith("pri") -> Some (DutransitivaVerbo, Imperativo)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -110,8 +110,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("toniaa") -> Some (TransitivaVerbo2, Patiento)
-           | v when v.EndsWith("poniaa") -> Some (TransitivaVerbo3, Patiento)
+           | v when v.EndsWith("toniaa") -> Some (TransitivaVerbo, Patiento)
+           | v when v.EndsWith("poniaa") -> Some (DutransitivaVerbo, Patiento)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -120,8 +120,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tetio") -> Some (TransitivaVerbo2, Aganto)
-           | v when v.EndsWith("petio") -> Some (TransitivaVerbo3, Aganto)
+           | v when v.EndsWith("tetio") -> Some (TransitivaVerbo, Aganto)
+           | v when v.EndsWith("petio") -> Some (DutransitivaVerbo, Aganto)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -130,8 +130,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("telit") -> Some (TransitivaVerbo2, Translativo)
-           | v when v.EndsWith("pelip") -> Some (TransitivaVerbo3, Translativo)
+           | v when v.EndsWith("telit") -> Some (TransitivaVerbo, Translativo)
+           | v when v.EndsWith("pelip") -> Some (DutransitivaVerbo, Translativo)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -140,8 +140,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tema") -> Some (TransitivaVerbo2, Ĝerundo)
-           | v when v.EndsWith("pema") -> Some (TransitivaVerbo3, Ĝerundo)
+           | v when v.EndsWith("tema") -> Some (TransitivaVerbo, Ĝerundo)
+           | v when v.EndsWith("pema") -> Some (DutransitivaVerbo, Ĝerundo)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -150,8 +150,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tig") -> Some (TransitivaVerbo2, PartaNominativo)
-           | v when v.EndsWith("peg") -> Some (TransitivaVerbo3, PartaNominativo)
+           | v when v.EndsWith("tig") -> Some (TransitivaVerbo, PartaNominativo)
+           | v when v.EndsWith("peg") -> Some (DutransitivaVerbo, PartaNominativo)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -160,8 +160,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tes") -> Some (TransitivaVerbo2, PartaAkuzativo)
-           | v when v.EndsWith("pesh") -> Some (TransitivaVerbo3, PartaAkuzativo)
+           | v when v.EndsWith("tes") -> Some (TransitivaVerbo, PartaAkuzativo)
+           | v when v.EndsWith("pesh") -> Some (DutransitivaVerbo, PartaAkuzativo)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -173,11 +173,11 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tos") -> Some (TransitivaVerbo2, Pasivigo)
-           | v when v.EndsWith("posh") -> Some (TransitivaVerbo3, Pasivigo)
+           | v when v.EndsWith("tos") -> Some (TransitivaVerbo, Pasivigo)
+           | v when v.EndsWith("posh") -> Some (DutransitivaVerbo, Pasivigo)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
            let malinflektitaVorto = vorto.Substring(0, vorto.Length - 3)
-           (malinflektitaVorto, normaligi malinflektitaVorto TransitivaVerbo3) }
+           (malinflektitaVorto, normaligi malinflektitaVorto DutransitivaVerbo) }
       ]

@@ -21,6 +21,7 @@
     <Compile Include="Traktilaro.fs" />
     <Compile Include="Strukturo.fs" />
     <Compile Include="Legiloj.fs" />
+    <Compile Include="Sintaksanalizilo.fs" />
     <Compile Include="LiberordajLegiloj.fs" />
   </ItemGroup>
 

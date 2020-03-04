@@ -14,8 +14,12 @@ Module Program
    End Sub
 
    Sub Main(args As String())
-      Dim svg = New SVGDesegnilo(args(1), 100, 40)
-      For Each line In File.ReadLines(args(0))
+      Literoj()
+   End Sub
+
+   Sub Dosiero(eliro As String, eniro As String)
+      Dim svg = New SVGDesegnilo(eliro, 100, 40)
+      For Each line In File.ReadLines(eniro)
          Dim silaboj = line.Split(" "c)
          For Each silabo In silaboj
             Try
@@ -30,7 +34,7 @@ Module Program
    End Sub
 
    Sub Literoj()
-      Dim svg = New SVGDesegnilo("literoj.svg", 100, 40)
+      Dim svg = New SVGDesegnilo("literoj2.svg", 100, 40)
       Dim silaboj = New String() {
            "pa", "ba", "ma", "vico",
            "va", "vico",

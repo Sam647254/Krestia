@@ -96,8 +96,8 @@ Public Class SVGDesegnilo
       {"etigo", AddressOf Etigo}
    }
    Private ReadOnly vojoj As List(Of String) = New List(Of String)
-   Private ReadOnly dx = 4
-   Private ReadOnly dy = 10
+   Private ReadOnly dx = 5
+   Private ReadOnly dy = 5
    Private ReadOnly spaco = 8
    Private ReadOnly spaceto = spaco \ 2
 
@@ -670,8 +670,9 @@ l -{6} {2} h {3} l {6} -{2} z",
    End Function
 
    Private Function Dr(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
-      Return String.Format("h {0} v {1} h -{0} z l {2} {3} v -{3} h {4} v {5} h -{4} l -{2} -{3} z m {0} 0 v {1} l -{2} {3} h -{4} v -{5} h {4} v {3} z",
-                           aktualaLarĝeco, dy, aktualaLarĝeco \ 2 - dx * 2, aktualaAlteco - dy, dx, aktualaAlteco, aktualaLarĝeco \ 2 + dx)
+      Return String.Format("h {0} v {1} h -{0} z m 0 {1} l {2} {3} h {4} l -{2} -{3} z m {2} 0 v {3} h {4} v -{3} z m {5} 0
+h {4} v {3} h -{4} z m 0 {3} l {2} -{3} h {4} l -{2} {3} z",
+                           aktualaLarĝeco, dy, aktualaLarĝeco \ 2 - dx * 2, aktualaAlteco - dy, dx, dx * 3)
    End Function
 
    Private Function S(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String

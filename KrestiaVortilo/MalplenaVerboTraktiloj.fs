@@ -20,12 +20,12 @@ module MalplenaVerboTraktiloj =
          |> List.exists (fun finaĵo -> infinitivo.EndsWith(finaĵo))
 
       match infinitivo with
-      | _ when infinitivo.EndsWith("sem") -> (NetransitivaVerbo1, PartaNominativo)
+      | _ when infinitivo.EndsWith("sem") -> (NetransitivaVerbo, PartaNominativo)
       | _ when infinitivo.EndsWith("melim") -> (MalplenaVerbo, Translativo)
-      | _ when infinitivo.EndsWith("igam") -> (PartaTransitivaVerbo1, PartaAkuzativo)
-      | _ when infinitivo.EndsWith("nom") -> (PartaNetransitivaVerbo, PartaDativo)
-      | _ when infinitivo.EndsWith("drerim") -> (NombrigeblaEco, Ekzistado)
-      | _ when infinitivo.EndsWith("grerim") -> (NenombrigeblaEco, Ekzistado)
+      | _ when infinitivo.EndsWith("igam") -> (OblikaNetransitivaVerbo, PartaAkuzativo)
+      | _ when infinitivo.EndsWith("nom") -> (NedirektaNetransitivaVerbo, PartaDativo)
+      | _ when infinitivo.EndsWith("drerim") -> (AntaŭNombrigeblaEco, Ekzistado)
+      | _ when infinitivo.EndsWith("grerim") -> (AntaŭNenombrigeblaEco, Ekzistado)
       | _ when ĉuNombrigeblaKlasoEkzistado infinitivo -> (NombrigeblaKlaso, Ekzistado)
       | _ -> (MalplenaVerbo, Infinitivo)
 

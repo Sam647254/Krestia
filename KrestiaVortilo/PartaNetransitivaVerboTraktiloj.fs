@@ -5,20 +5,20 @@ open Vorttipo
 module PartaNetransitivaVerboTraktiloj =
    let normaligi (infinitivo: string) =
       match infinitivo with
-      | _ when infinitivo.EndsWith("en") -> (NetransitivaVerbo1, PartaNominativo)
-      | _ -> (PartaNetransitivaVerbo, Infinitivo)
+      | _ when infinitivo.EndsWith("en") -> (NetransitivaVerbo, PartaNominativo)
+      | _ -> (NedirektaNetransitivaVerbo, Infinitivo)
 
    let traktiloj: Vorttraktilo list = [
       { Kontroli = fun vorto ->
            if vorto.EndsWith("n")
-           then Some (PartaNetransitivaVerbo, Infinitivo)
+           then Some (NedirektaNetransitivaVerbo, Infinitivo)
            else None
         Inflekti = neinflektebla
-        Malinflekti = fun vorto -> (vorto, (PartaNetransitivaVerbo, Infinitivo)) }
+        Malinflekti = fun vorto -> (vorto, (NedirektaNetransitivaVerbo, Infinitivo)) }
 
       { Kontroli = fun vorto ->
            if vorto.EndsWith("nia")
-           then Some (PartaNetransitivaVerbo, Progresivo)
+           then Some (NedirektaNetransitivaVerbo, Progresivo)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -27,7 +27,7 @@ module PartaNetransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            if vorto.EndsWith("nio")
-           then Some (PartaNetransitivaVerbo, Perfekto)
+           then Some (NedirektaNetransitivaVerbo, Perfekto)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -36,7 +36,7 @@ module PartaNetransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            if vorto.EndsWith("nela")
-           then Some (PartaNetransitivaVerbo, Estonteco)
+           then Some (NedirektaNetransitivaVerbo, Estonteco)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -45,7 +45,7 @@ module PartaNetransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            if vorto.EndsWith("neri")
-           then Some (PartaNetransitivaVerbo, DativoVolo)
+           then Some (NedirektaNetransitivaVerbo, DativoVolo)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -54,7 +54,7 @@ module PartaNetransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            if vorto.EndsWith("nema")
-           then Some (PartaNetransitivaVerbo, Ĝerundo)
+           then Some (NedirektaNetransitivaVerbo, Ĝerundo)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -63,7 +63,7 @@ module PartaNetransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            if vorto.EndsWith("nom")
-           then Some (PartaNetransitivaVerbo, PartaDativo)
+           then Some (NedirektaNetransitivaVerbo, PartaDativo)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->

@@ -12,7 +12,7 @@ module Legiloj =
          match malinflektiUnuFoje unua with
          | Some(malinflektita, _, originalaFormo) ->
             match originalaFormo with
-            | (SintaksaVorto, SolaFormo) ->
+            | (MalantaŭModifanto, SolaFormo) ->
                match malinflektita with
                | "vol" ->
                   legiVorton restantaj vortajModifantoj (Some("vol"))
@@ -85,13 +85,13 @@ module Legiloj =
                      | NenombrigeblaKlaso ->
                         (BazaVorto({ Vorto = malinflektita; Inflekcio = novaListo }),
                            restantaj, Some(unua)) |> Ok
-                     | TransitivaVerbo2 | TransitivaVerbo3
-                     | NetransitivaVerbo1 | NetransitivaVerbo2
-                     | PartaTransitivaVerbo1 | PartaTransitivaVerbo2
-                     | PartaNetransitivaVerbo | MalplenaVerbo
+                     | TransitivaVerbo | DutransitivaVerbo
+                     | NetransitivaVerbo | NedirektaTransitivaVerbo
+                     | OblikaNetransitivaVerbo | OblikaTransitivaVerbo
+                     | NedirektaNetransitivaVerbo | MalplenaVerbo
                      | Vorttipo.Pridiranto ->
                         (BazaVorto({ Vorto = malinflektita; Inflekcio = novaListo }), restantaj, Some(unua)) |> Ok
-                     | NombrigeblaEco | NenombrigeblaEco ->
+                     | AntaŭNombrigeblaEco | NenombrigeblaEco ->
                         match originalaInflekcio with
                         | Inflekcio.Havaĵo ->
                            (BazaVorto({ Vorto = malinflektita; Inflekcio = novaListo }), restantaj, novaLastaVorto) |> Ok
@@ -165,8 +165,8 @@ module Legiloj =
             match kontroli verbo.Vorto with
             | Some((vorttipo, _)) ->
                match vorttipo with
-               | TransitivaVerbo2 -> legiTransitivanPredikaton 2 restantaj vortajModifantoj verbo lastaVorto
-               | TransitivaVerbo3 -> legiTransitivanPredikaton 3 restantaj vortajModifantoj verbo lastaVorto
+               | TransitivaVerbo -> legiTransitivanPredikaton 2 restantaj vortajModifantoj verbo lastaVorto
+               | DutransitivaVerbo -> legiTransitivanPredikaton 3 restantaj vortajModifantoj verbo lastaVorto
                | Vorttipo.Pridiranto when verbo.Inflekcio = [ PredikativoEsti ] ->
                   legiPridirantanPredikaton verbo restantaj vortajModifantoj lastaVorto
                | _ -> Error (sprintf "ne eblas trakti kiel verbo: %A" vorto)
@@ -189,13 +189,13 @@ module Legiloj =
          |> Option.map
             (fun vortformo ->
                match vortformo with
-               | (TransitivaVerbo2, _) | (TransitivaVerbo3, _)
-               | (NetransitivaVerbo1, _) | (NetransitivaVerbo2, _)
+               | (TransitivaVerbo, _) | (DutransitivaVerbo, _)
+               | (NetransitivaVerbo, _) | (NedirektaTransitivaVerbo, _)
                | (Vorttipo.Pridiranto, Inflekcio.PredikativoEsti) ->
                   legiPredikaton partoj vortajModifantoj lastaVorto
                   |> Result.map (fun (predikato, restantaj, novaLastaVorto) ->
                       (Predikato(predikato), restantaj, novaLastaVorto))
-               | (SintaksaVorto, SolaFormo) ->
+               | (MalantaŭModifanto, SolaFormo) ->
                   match unua with
                   | "peral" ->
                      legiKondicianFrazon restantaj vortajModifantoj (Some("peral"))
