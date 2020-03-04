@@ -1,11 +1,12 @@
 ﻿namespace KrestiaVortilo.Testo
 
+open FSharpx.Collections
+open KrestiaVortilo
 open Microsoft.VisualStudio.TestTools.UnitTesting
 open KrestiaVortilo.Traktilaro
 open KrestiaVortilo.Vorttipo
-open KrestiaVortilo.Legiloj
 open KrestiaVortilo.Strukturo
-open KrestiaVortilo.Sintaksanalizilo
+open KrestiaVortilo.Sintaksanalizilo2
 open KrestiaVortilo.Malinflektado
 
 module Testiloj =
@@ -19,7 +20,7 @@ module Testiloj =
    let kontroliFrazon (prava: Frazo) (frazo: string) =
       [ "evilel" ]
       |> set
-      |> legiFrazon (frazo.Split(' ') |> List.ofArray) None
+      |> Legiloj.legiFrazon (frazo.Split(' ') |> List.ofArray) None
       |> Result.map (fun (rezulto, restantaj, _) ->
             Assert.AreEqual(prava, rezulto)
             Assert.AreEqual(0, restantaj.Length))
@@ -30,19 +31,18 @@ module Testiloj =
       malinflekti vorto
       |> Result.map (fun malinflektaŜtupo ->
             match malinflektaŜtupo with
-            | Bazo(vorttipo, inflekcio, _) ->
+            | Sintaksanalizilo.Bazo(vorttipo, inflekcio, _) ->
                Assert.AreEqual(pravaTipo, vorttipo)
                Assert.AreEqual(pravaInflekcio, inflekcio)
-            | Nebazo(vorttipo, inflekcio, _) ->
+            | Sintaksanalizilo.Nebazo(vorttipo, inflekcio, _) ->
                Assert.AreEqual(pravaTipo, vorttipo)
                Assert.AreEqual(pravaInflekcio, inflekcio))
       |> Result.mapError Assert.Fail
       |> ignore
-   
-   let kontroliĈiujnInfleckiojn (ŝtupoj: MalinflektaŜtupo list) (vorto: string) =
+
+   let kontroliĈiujnInfleckiojn (ŝtupoj: Sintaksanalizilo.MalinflektaŜtupo list) (vorto: string) =
       tuteMalinflekti vorto
-      |> Result.map (fun malinflektaVorto ->
-         Assert.AreEqual(ŝtupoj, malinflektaVorto.InflekcioŜtupoj))
+      |> Result.map (fun malinflektaVorto -> Assert.AreEqual(ŝtupoj, malinflektaVorto.InflekcioŜtupoj))
       |> Result.mapError Assert.Fail
       |> ignore
 
@@ -58,13 +58,35 @@ module Testiloj =
       |> Result.map (fun rezulto -> Assert.AreEqual(rezulto, prava))
       |> Result.mapError Assert.Fail
       |> ignore
-      
+
    let kontroliĈuPredikata (vorto: string) =
       tuteMalinflekti vorto
       |> Result.map ĉuPredikataVorto
       |> Result.mapError Assert.Fail
-   
+
    let kontroliĈuArgumenta (vorto: string) =
       tuteMalinflekti vorto
       |> Result.map ĉuArgumentaVorto
       |> Result.mapError Assert.Fail
+
+   let kontroliKategorigadon (frazo: string) (verboj: string list) (argumentoj: string list) =
+      frazo.Split(' ')
+      |> List.ofArray
+      |> tuteMalinflektiĈiujn
+      |> Result.bind (fun malinflektitaVortoj ->
+            malinflektitaVortoj
+            |> Sintaksanalizilo2.kategorigi Sintaksanalizilo2.kreiSintaksanalizilon
+            |> Result.bind (fun sintaksanalizilo ->
+                  verboj
+                  |> tuteMalinflektiĈiujn
+                  |> Result.bind (fun malinflektitaVerboj ->
+                        argumentoj
+                        |> tuteMalinflektiĈiujn
+                        |> Result.map (fun malinflektitaArgumentoj ->
+                              let verboj = malinflektitaVerboj |> List.map Sintaksanalizilo2.Verbo
+                              let argumentoj = malinflektitaArgumentoj |> List.map Sintaksanalizilo2.Argumento
+                              Assert.AreEqual
+                                 ({ Verboj = Deque.ofList (verboj)
+                                    Argumentoj = Deque.ofList (argumentoj) }, sintaksanalizilo)))))
+      |> Result.mapError Assert.Fail
+      |> ignore

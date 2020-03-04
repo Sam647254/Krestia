@@ -24,6 +24,7 @@
     <Compile Include="VerboTestoj.fs" />
     <Compile Include="SilaboTestoj.fs" />
     <Compile Include="PredikataAŭArgumentaTestoj.fs" />
+    <Compile Include="SintaksanaliziloTestoj.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

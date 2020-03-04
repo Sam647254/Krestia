@@ -24,6 +24,7 @@
     <Compile Include="Sintaksanalizilo.fs" />
     <Compile Include="Malinflektado.fs" />
     <Compile Include="Valenco.fs" />
+    <Compile Include="Sintaksanalizilo2.fs" />
     <Compile Include="LiberordajLegiloj.fs" />
   </ItemGroup>
 

@@ -284,6 +284,17 @@ module Malinflektado =
             | Nebazo(_, _, restanta) ->
                tuteMalinflekti restanta
                |> Result.map (fun sekva -> { sekva with InflekcioŜtupoj = malinflektita :: sekva.InflekcioŜtupoj }))
+      
+   and tuteMalinflektiĈiujn (ĉenoj: string list) =
+      ĉenoj
+      |> List.fold (fun akListo sekva ->
+         match akListo with
+         | Ok(listo) ->
+            match tuteMalinflekti sekva with
+            | Ok(malinflektitaVorto) -> Ok (malinflektitaVorto :: listo)
+            | Error(eraro) -> Error eraro
+         | Error(_) -> akListo) (Ok [])
+      |> Result.map List.rev
 
    and ĉuVerbo (ĉeno: string) =
       tuteMalinflekti ĉeno

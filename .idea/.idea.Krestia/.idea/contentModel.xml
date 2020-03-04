@@ -116,6 +116,7 @@
         <e p="PartaNetransitivaVerboTraktiloj.fs" t="Include" />
         <e p="PridirantoTraktiloj.fs" t="Include" />
         <e p="Sintaksanalizilo.fs" t="Include" />
+        <e p="Sintaksanalizilo2.fs" t="Include" />
         <e p="SpecialajTraktiloj.fs" t="Include" />
         <e p="Strukturo.fs" t="Include" />
         <e p="Traktilaro.fs" t="Include" />
@@ -141,6 +142,7 @@
         <e p="PridirantoTestoj.fs" t="Include" />
         <e p="Program.fs" t="Include" />
         <e p="SilaboTestoj.fs" t="Include" />
+        <e p="SintaksanaliziloTestoj.fs" t="Include" />
         <e p="StrukturoTestoj.fs" t="Include" />
         <e p="Testiloj.fs" t="Include" />
         <e p="TransitivaVerboTestoj.fs" t="Include" />
