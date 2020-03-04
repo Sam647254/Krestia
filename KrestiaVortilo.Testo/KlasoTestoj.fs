@@ -14,7 +14,7 @@ type KlasoTestoj() =
    member _.Infinitivoj() =
       [ "tatreto"; "ilitu"; "lustaa"; "geluko"; "kresku"; "trupaa"; "gremu"; "kunaa"; "verimaa"; "salumu"; "molomo"; "posmu" ]
       |> List.map (fun klaso ->
-            Sintaksanalizilo2.ĉuVerboInfinitivo klaso
+            Malinflektado.ĉuVerboInfinitivo klaso
             |> Result.map (fun rezulto ->
                   if rezulto then Assert.Fail(sprintf "%s ne estas verbo" klaso)
                   else ()))

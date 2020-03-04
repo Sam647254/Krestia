@@ -3,7 +3,7 @@
 open Vorttipo
 open Sintaksanalizilo
 
-module Sintaksanalizilo2 =
+module Malinflektado =
    type Finaĵo =
       | InfinitivoFinaĵo of string * Inflekcio
       | DifinitoFinaĵo of string * Inflekcio

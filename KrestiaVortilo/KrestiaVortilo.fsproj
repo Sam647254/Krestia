@@ -22,8 +22,9 @@
     <Compile Include="Strukturo.fs" />
     <Compile Include="Legiloj.fs" />
     <Compile Include="Sintaksanalizilo.fs" />
+    <Compile Include="Malinflektado.fs" />
+    <Compile Include="Valenco.fs" />
     <Compile Include="LiberordajLegiloj.fs" />
-    <Compile Include="Sintaksanalizilo2.fs" />
   </ItemGroup>
 
   <ItemGroup>

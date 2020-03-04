@@ -65,7 +65,7 @@ namespace KrestiaAWSAlirilo {
          }
 
          var vorttipo = Sintaksanalizilo.infinitivoNomoDe(vorto).Value;
-         var silaboj = Sintaksanalizilo2.dividiKunFinaĵo(vorto);
+         var silaboj = Malinflektado.dividiKunFinaĵo(vorto);
 
          if (silaboj.IsError) {
             throw new Exception(silaboj.ErrorValue);
@@ -91,7 +91,7 @@ namespace KrestiaAWSAlirilo {
             if (partoj.Length != 5) {
                throw new ArgumentException($"{vico} estas nevalida");
             }
-            if (!Sintaksanalizilo2.ĉuInfinitivoB(partoj[0])) {
+            if (!Malinflektado.ĉuInfinitivoB(partoj[0])) {
                throw new ArgumentException($"{partoj[0]} ne estas valida infinitivo");
             }
 
@@ -107,7 +107,7 @@ namespace KrestiaAWSAlirilo {
             var peto = new Dictionary<string, AttributeValue> {
                {"vorto", new AttributeValue(vorto.Vorto)}, {
                   "bazo",
-                  new AttributeValue(Sintaksanalizilo2.bazoDe(vorto.Vorto))
+                  new AttributeValue(Malinflektado.bazoDe(vorto.Vorto))
                },
                {"signifo", new AttributeValue(vorto.Signifo)}
             };
@@ -138,7 +138,7 @@ namespace KrestiaAWSAlirilo {
       }
 
       public async Task<VortoRezulto> TroviVortojn(string peto) {
-         var malinflekajŜtupoj = Sintaksanalizilo2.tuteMalinflekti(peto);
+         var malinflekajŜtupoj = Malinflektado.tuteMalinflekti(peto);
          string? malinflektitaVorto = null;
          Vorttipo.Vorttipo? malinflektitaTipo = null;
          string? bazo = null;
@@ -146,7 +146,7 @@ namespace KrestiaAWSAlirilo {
             var lastaŜtupo = malinflekajŜtupoj.ResultValue.Last() as Sintaksanalizilo.MalinflektaŜtupo.Bazo; 
             malinflektitaVorto = lastaŜtupo?.BazaVorto;
             malinflektitaTipo = lastaŜtupo?.Item1;
-            bazo = Sintaksanalizilo2.bazoDe(malinflektitaVorto);
+            bazo = Malinflektado.bazoDe(malinflektitaVorto);
             var malinflektitaRezulto = await _amazonDynamoDbClient.QueryAsync(new QueryRequest(TableName) {
                ProjectionExpression = "vorto",
                KeyConditionExpression = "vorto = :v",
@@ -169,7 +169,7 @@ namespace KrestiaAWSAlirilo {
 
             if (bazaRezulto.Count == 1) {
                var bazaVorto = bazaRezulto.Items.First()["vorto"].S;
-               bazo = Sintaksanalizilo2.ĉuMalplenigita(malinflektitaTipo, bazaVorto) ? bazaVorto : null;
+               bazo = Malinflektado.ĉuMalplenigita(malinflektitaTipo, bazaVorto) ? bazaVorto : null;
             }
             else {
                bazo = null;
