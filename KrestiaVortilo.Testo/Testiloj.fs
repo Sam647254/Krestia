@@ -41,8 +41,8 @@ module Testiloj =
    
    let kontroliĈiujnInfleckiojn (ŝtupoj: MalinflektaŜtupo list) (vorto: string) =
       tuteMalinflekti vorto
-      |> Result.map (fun malinflektajŜtupoj ->
-         Assert.AreEqual(ŝtupoj, malinflektajŜtupoj))
+      |> Result.map (fun malinflektaVorto ->
+         Assert.AreEqual(ŝtupoj, malinflektaVorto.InflekcioŜtupoj))
       |> Result.mapError Assert.Fail
       |> ignore
 
@@ -58,3 +58,13 @@ module Testiloj =
       |> Result.map (fun rezulto -> Assert.AreEqual(rezulto, prava))
       |> Result.mapError Assert.Fail
       |> ignore
+      
+   let kontroliĈuPredikata (vorto: string) =
+      tuteMalinflekti vorto
+      |> Result.map ĉuPredikataVorto
+      |> Result.mapError Assert.Fail
+   
+   let kontroliĈuArgumenta (vorto: string) =
+      tuteMalinflekti vorto
+      |> Result.map ĉuArgumentaVorto
+      |> Result.mapError Assert.Fail

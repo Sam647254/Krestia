@@ -136,6 +136,7 @@
         <e p="NombrigeblaKlasoTestoj.fs" t="Include" />
         <e p="obj" t="ExcludeRecursive" />
         <e p="PartaNetransitivaVerboTestoj.fs" t="Include" />
+        <e p="PredikataAŭArgumentaTestoj.fs" t="Include" />
         <e p="PridirantoTestoj.fs" t="Include" />
         <e p="Program.fs" t="Include" />
         <e p="SilaboTestoj.fs" t="Include" />

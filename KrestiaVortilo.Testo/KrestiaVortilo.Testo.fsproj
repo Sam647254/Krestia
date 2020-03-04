@@ -23,6 +23,7 @@
     <Compile Include="KlasoTestoj.fs" />
     <Compile Include="VerboTestoj.fs" />
     <Compile Include="SilaboTestoj.fs" />
+    <Compile Include="PredikataAŭArgumentaTestoj.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

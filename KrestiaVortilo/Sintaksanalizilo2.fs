@@ -13,6 +13,10 @@ module Sintaksanalizilo2 =
       | AkceptiNenombrigeblan
       | NeAkceptiNenombrigeblan
 
+   type MalinflektitaVorto =
+      { BazaVorto: string
+        InflekcioŜtupoj: MalinflektaŜtupo list }
+
    let kreiListon vorttipo listo =
       listo |> List.map (fun finaĵo -> (vorttipo, finaĵo))
 
@@ -185,8 +189,9 @@ module Sintaksanalizilo2 =
         @ malplenaVerboInflekcioj
           @ netransitivaVerboInflekcioj
             @ transitivaVerboInflekcioj
-              @ oblikaNetransitivaVerboInflekcioj
-                @ oblikaTransitivaVerboInflekcioj @ nedirektaNetransitivaVerboInflekcioj
+              @ dutransitivaVerboInflekcioj
+                @ oblikaNetransitivaVerboInflekcioj
+                  @ oblikaTransitivaVerboInflekcioj @ nedirektaNetransitivaVerboInflekcioj
    let nombrigeblaDifinitoFinaĵoj =
       nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> (finaĵo, NombrigeblaKlaso))
    let difinitoFinaĵoj =
@@ -272,17 +277,18 @@ module Sintaksanalizilo2 =
       malinflekti ĉeno
       |> Result.bind (fun malinflektita ->
             match malinflektita with
-            | Bazo(_, _, _) ->
-               malinflektita
-               |> List.singleton
+            | Bazo(_, _, bazaVorto) ->
+               { BazaVorto = bazaVorto
+                 InflekcioŜtupoj = List.singleton malinflektita }
                |> Ok
             | Nebazo(_, _, restanta) ->
-               tuteMalinflekti restanta |> Result.map (fun sekvaj -> malinflektita :: sekvaj))
+               tuteMalinflekti restanta
+               |> Result.map (fun sekva -> { sekva with InflekcioŜtupoj = malinflektita :: sekva.InflekcioŜtupoj }))
 
    and ĉuVerbo (ĉeno: string) =
       tuteMalinflekti ĉeno
-      |> Result.map (fun ŝtupoj ->
-            match ŝtupoj with
+      |> Result.map (fun malinflektitaVorto ->
+            match malinflektitaVorto.InflekcioŜtupoj with
             | unua :: _ ->
                match unua with
                | Bazo(vorttipo, _, _) ->
@@ -292,8 +298,8 @@ module Sintaksanalizilo2 =
 
    and ĉuVerboInfinitivo (ĉeno: string) =
       tuteMalinflekti ĉeno
-      |> Result.map (fun ŝtupoj ->
-            match ŝtupoj with
+      |> Result.map (fun malinflektitaVorto ->
+            match malinflektitaVorto.InflekcioŜtupoj with
             | [ solaŜtupo ] ->
                match solaŜtupo with
                | Bazo(vorttipo, inflekcio, _) ->
@@ -413,3 +419,47 @@ module Sintaksanalizilo2 =
             |> Option.map (fun vorttipo -> silaboj @ [ vorttipo.ToString() ])
             |> Option.map Ok
             |> Option.defaultValue (Error(sprintf "%s ne estas infinitivo" vorto)))
+
+   let predikatajBazajTipoj =
+      [ NombrigeblaKlaso
+        NenombrigeblaKlaso
+        MalantaŭNombrigeblaEco
+        AntaŭNombrigeblaEco
+        MalantaŭNenombrieblaEco
+        AntaŭNenombrigeblaEco ] |> Set.ofList
+
+   let predikatajNebazajInflekcioj =
+      [ Progresivo
+        Perfekto
+        Estonteco
+        NominativoVolo
+        AkuzativoVolo
+        DativoVolo
+        PredikativoEsti
+        Imperativo
+        Invito
+        Havado
+        UnuHavado
+        PluraHavado
+        Ekzistado
+        UnuEkzistado
+        PluraEkzistado
+        Sola
+        UnuSola
+        PluraSola ] |> Set.ofList
+
+   let argumentajBazajTipoj =
+      [ FremdaVorto; Lokokupilo ] |> Set.ofList
+
+   let argumentajNebazajInflekcioj =
+      [ Difinito; UnuNombro; PluraNombro ] |> Set.ofList
+
+   let ĉuPredikataVorto (vorto: MalinflektitaVorto) =
+      match vorto.InflekcioŜtupoj.Head with
+      | Bazo(vorttipo, _, _) -> Set.contains vorttipo predikatajBazajTipoj
+      | Nebazo(_, inflekcio, _) -> Set.contains inflekcio predikatajNebazajInflekcioj
+
+   let ĉuArgumentaVorto (vorto: MalinflektitaVorto) =
+      match vorto.InflekcioŜtupoj.Head with
+      | Bazo(vorttipo, _, _) -> Set.contains vorttipo argumentajBazajTipoj
+      | Nebazo(_, inflekcio, _) -> Set.contains inflekcio argumentajNebazajInflekcioj
