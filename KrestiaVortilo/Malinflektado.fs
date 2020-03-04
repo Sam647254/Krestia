@@ -64,7 +64,7 @@ module Malinflektado =
       [ InfinitivoFinaĵo("e", Progresivo)
         InfinitivoFinaĵo("o", Perfekto)
         InfinitivoFinaĵo("ela", Estonteco)
-        InfinitivoFinaĵo("ora", NominativoVolo)
+        InfinitivoFinaĵo("ora", Ujo1Volo)
         InfinitivoFinaĵo("ie", AtributivoEstiMalantaŭ)
         InfinitivoFinaĵo("ia", AtributivoEstiAntaŭ)
         InfinitivoFinaĵo("ea", Imperativo)
@@ -72,15 +72,15 @@ module Malinflektado =
         InfinitivoFinaĵo("etio", Aganto)
         InfinitivoFinaĵo("elis", Translativo)
         InfinitivoFinaĵo("mea", Ĝerundo)
-        InfinitivoFinaĵo("em", PartaNominativo) ]
+        InfinitivoFinaĵo("em", PartaUjo1) ]
       @ okazoFinaĵoj
 
    let transitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("re", Progresivo)
         InfinitivoFinaĵo("ro", Perfekto)
         InfinitivoFinaĵo("ela", Estonteco)
-        InfinitivoFinaĵo("ora", NominativoVolo)
-        InfinitivoFinaĵo("ore", AkuzativoVolo)
+        InfinitivoFinaĵo("ora", Ujo1Volo)
+        InfinitivoFinaĵo("ore", Ujo2Volo)
         InfinitivoFinaĵo("rie", AtributivoEstiMalantaŭ)
         InfinitivoFinaĵo("ria", AtributivoEstiAntaŭ)
         InfinitivoFinaĵo("ri", Imperativo)
@@ -89,10 +89,10 @@ module Malinflektado =
         InfinitivoFinaĵo("oniaa", Patiento)
         InfinitivoFinaĵo("elit", Translativo)
         InfinitivoFinaĵo("ea", Ĝerundo)
-        InfinitivoFinaĵo("im", PartaNominativo)
-        InfinitivoFinaĵo("ig", PartaNominativo)
-        InfinitivoFinaĵo("em", PartaAkuzativo)
-        InfinitivoFinaĵo("es", PartaAkuzativo)
+        InfinitivoFinaĵo("im", PartaUjo1)
+        InfinitivoFinaĵo("ig", PartaUjo1)
+        InfinitivoFinaĵo("em", PartaUjo2)
+        InfinitivoFinaĵo("es", PartaUjo2)
         InfinitivoFinaĵo("rim", Reflekcio)
         InfinitivoFinaĵo("ris", Reflekcio) ]
       @ okazoFinaĵoj
@@ -101,9 +101,9 @@ module Malinflektado =
       [ InfinitivoFinaĵo("re", Progresivo)
         InfinitivoFinaĵo("ro", Perfekto)
         InfinitivoFinaĵo("ela", Estonteco)
-        InfinitivoFinaĵo("ora", NominativoVolo)
-        InfinitivoFinaĵo("ore", AkuzativoVolo)
-        InfinitivoFinaĵo("eri", DativoVolo)
+        InfinitivoFinaĵo("ora", Ujo1Volo)
+        InfinitivoFinaĵo("ore", Ujo2Volo)
+        InfinitivoFinaĵo("eri", Ujo3Volo)
         InfinitivoFinaĵo("rie", AtributivoEstiMalantaŭ)
         InfinitivoFinaĵo("ria", AtributivoEstiAntaŭ)
         InfinitivoFinaĵo("ri", Imperativo)
@@ -112,18 +112,18 @@ module Malinflektado =
         InfinitivoFinaĵo("oniaa", Patiento)
         InfinitivoFinaĵo("elip", Translativo)
         InfinitivoFinaĵo("ea", Ĝerundo)
-        InfinitivoFinaĵo("eg", PartaNominativo)
-        InfinitivoFinaĵo("en", PartaNominativo)
-        InfinitivoFinaĵo("em", PartaNominativo)
-        InfinitivoFinaĵo("ev", PartaNominativo)
-        InfinitivoFinaĵo("os", PartaAkuzativo)
-        InfinitivoFinaĵo("on", PartaAkuzativo)
-        InfinitivoFinaĵo("om", PartaAkuzativo)
-        InfinitivoFinaĵo("osh", PartaAkuzativo)
-        InfinitivoFinaĵo("us", PartaDativo)
-        InfinitivoFinaĵo("ug", PartaDativo)
-        InfinitivoFinaĵo("um", PartaDativo)
-        InfinitivoFinaĵo("ut", PartaDativo)
+        InfinitivoFinaĵo("eg", PartaUjo1)
+        InfinitivoFinaĵo("en", PartaUjo1)
+        InfinitivoFinaĵo("em", PartaUjo1)
+        InfinitivoFinaĵo("ev", PartaUjo1)
+        InfinitivoFinaĵo("os", PartaUjo2)
+        InfinitivoFinaĵo("on", PartaUjo2)
+        InfinitivoFinaĵo("om", PartaUjo2)
+        InfinitivoFinaĵo("osh", PartaUjo2)
+        InfinitivoFinaĵo("us", PartaUjo3)
+        InfinitivoFinaĵo("ug", PartaUjo3)
+        InfinitivoFinaĵo("um", PartaUjo3)
+        InfinitivoFinaĵo("ut", PartaUjo3)
         InfinitivoFinaĵo("im", Reflekcio)
         InfinitivoFinaĵo("ish", Reflekcio) ]
       @ okazoFinaĵoj
@@ -132,8 +132,8 @@ module Malinflektado =
       [ InfinitivoFinaĵo("e", Progresivo)
         InfinitivoFinaĵo("o", Perfekto)
         InfinitivoFinaĵo("ela", Estonteco)
-        InfinitivoFinaĵo("ora", NominativoVolo)
-        InfinitivoFinaĵo("eri", DativoVolo)
+        InfinitivoFinaĵo("ora", Ujo1Volo)
+        InfinitivoFinaĵo("eri", Ujo3Volo)
         InfinitivoFinaĵo("ie", AtributivoEstiMalantaŭ)
         InfinitivoFinaĵo("ia", AtributivoEstiAntaŭ)
         InfinitivoFinaĵo("ea", Imperativo)
@@ -141,49 +141,49 @@ module Malinflektado =
         InfinitivoFinaĵo("etio", Aganto)
         InfinitivoFinaĵo("elish", Translativo)
         InfinitivoFinaĵo("mea", Ĝerundo)
-        InfinitivoFinaĵo("am", PartaNominativo)
-        InfinitivoFinaĵo("an", PartaNominativo)
-        InfinitivoFinaĵo("om", PartaDativo)
-        InfinitivoFinaĵo("os", PartaDativo) ]
+        InfinitivoFinaĵo("am", PartaUjo1)
+        InfinitivoFinaĵo("an", PartaUjo1)
+        InfinitivoFinaĵo("om", PartaUjo3)
+        InfinitivoFinaĵo("os", PartaUjo3) ]
       @ okazoFinaĵoj
 
    let oblikaNetransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("ia", Progresivo)
         InfinitivoFinaĵo("e", Perfekto)
         InfinitivoFinaĵo("ela", Estonteco)
-        InfinitivoFinaĵo("ore", AkuzativoVolo)
+        InfinitivoFinaĵo("ore", Ujo2Volo)
         InfinitivoFinaĵo("ra", AtributivoEstiMalantaŭ)
         InfinitivoFinaĵo("re", AtributivoEstiAntaŭ)
         InfinitivoFinaĵo("ea", Ĝerundo)
         InfinitivoFinaĵo("orio", Patiento)
-        InfinitivoFinaĵo("am", PartaAkuzativo) ]
+        InfinitivoFinaĵo("am", PartaUjo2) ]
       @ okazoFinaĵoj
 
    let oblikaTransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("ia", Progresivo)
         InfinitivoFinaĵo("i", Perfekto)
         InfinitivoFinaĵo("ela", Estonteco)
-        InfinitivoFinaĵo("ore", AkuzativoVolo)
-        InfinitivoFinaĵo("eri", DativoVolo)
+        InfinitivoFinaĵo("ore", Ujo2Volo)
+        InfinitivoFinaĵo("eri", Ujo3Volo)
         InfinitivoFinaĵo("ri", AtributivoEstiMalantaŭ)
         InfinitivoFinaĵo("re", AtributivoEstiAntaŭ)
         InfinitivoFinaĵo("ea", Ĝerundo)
         InfinitivoFinaĵo("orio", Patiento)
         InfinitivoFinaĵo("etio", NedirektaPatiento)
-        InfinitivoFinaĵo("om", PartaAkuzativo)
-        InfinitivoFinaĵo("on", PartaAkuzativo)
-        InfinitivoFinaĵo("im", PartaDativo)
-        InfinitivoFinaĵo("ig", PartaDativo) ]
+        InfinitivoFinaĵo("om", PartaUjo2)
+        InfinitivoFinaĵo("on", PartaUjo2)
+        InfinitivoFinaĵo("im", PartaUjo3)
+        InfinitivoFinaĵo("ig", PartaUjo3) ]
       @ okazoFinaĵoj
 
    let nedirektaNetransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("ia", Progresivo)
         InfinitivoFinaĵo("io", Perfekto)
         InfinitivoFinaĵo("ela", Estonteco)
-        InfinitivoFinaĵo("eri", DativoVolo)
+        InfinitivoFinaĵo("eri", Ujo3Volo)
         InfinitivoFinaĵo("ea", Ĝerundo)
         InfinitivoFinaĵo("etio", Patiento)
-        InfinitivoFinaĵo("om", PartaDativo) ]
+        InfinitivoFinaĵo("om", PartaUjo3) ]
       @ okazoFinaĵoj
 
    let pridirantoInflekcioj =
@@ -497,9 +497,9 @@ module Malinflektado =
       [ Progresivo
         Perfekto
         Estonteco
-        NominativoVolo
-        AkuzativoVolo
-        DativoVolo
+        Ujo1Volo
+        Ujo2Volo
+        Ujo3Volo
         PredikativoEsti
         Imperativo
         Invito

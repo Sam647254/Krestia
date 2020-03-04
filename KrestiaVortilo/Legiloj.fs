@@ -48,9 +48,9 @@ module Legiloj =
                | Inflekcio.Progresivo -> (Progresivo :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.Perfekto -> (Perfekto :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.Estonteco -> (Estonteco :: inflekcioj, restantaj, lastaVorto) |> Ok
-               | Inflekcio.NominativoVolo -> (NominativoVolo :: inflekcioj, restantaj, lastaVorto) |> Ok
-               | Inflekcio.AkuzativoVolo -> (AkuzativoVolo :: inflekcioj, restantaj, lastaVorto) |> Ok
-               | Inflekcio.DativoVolo -> (DativoVolo :: inflekcioj, restantaj, lastaVorto) |> Ok
+               | Inflekcio.Ujo1Volo -> (NominativoVolo :: inflekcioj, restantaj, lastaVorto) |> Ok
+               | Inflekcio.Ujo2Volo -> (AkuzativoVolo :: inflekcioj, restantaj, lastaVorto) |> Ok
+               | Inflekcio.Ujo3Volo -> (DativoVolo :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.PredikativoEsti -> (PredikativoEsti :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.AtributivoEstiMalantaŭ -> (AtributativoEsti :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.Havado -> (PredikativoHavi :: inflekcioj, restantaj, lastaVorto) |> Ok
@@ -60,17 +60,17 @@ module Legiloj =
                | Inflekcio.Aganto -> (Aganto :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.Translativo -> (Translativo :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.Ĝerundo -> (InflekcioŜtupo.Ĝerundo :: inflekcioj, restantaj, lastaVorto) |> Ok
-               | Inflekcio.PartaNominativo
-               | Inflekcio.PartaAkuzativo
-               | Inflekcio.PartaDativo ->
+               | Inflekcio.PartaUjo1
+               | Inflekcio.PartaUjo2
+               | Inflekcio.PartaUjo3 ->
                   legiVorton restantaj vortajModifantoj (Some(unua))
                   |> Result.map
                      (fun (objekto, restantaj, novaLastaVorto) ->
                         let partaŜtupo =
                            match originalaInflekcio with
-                           | Inflekcio.PartaNominativo -> PartaNominativo(objekto)
-                           | Inflekcio.PartaAkuzativo -> PartaAkuzativo(objekto)
-                           | Inflekcio.PartaDativo -> PartaDativo(objekto)
+                           | Inflekcio.PartaUjo1 -> PartaNominativo(objekto)
+                           | Inflekcio.PartaUjo2 -> PartaAkuzativo(objekto)
+                           | Inflekcio.PartaUjo3 -> PartaDativo(objekto)
                            | _ -> failwith "neebla"
                         (partaŜtupo :: inflekcioj, restantaj, novaLastaVorto))
                | _ -> failwith (sprintf "TODO: ne eblas trakti %A" originalaInflekcio)
@@ -102,9 +102,9 @@ module Legiloj =
                                  posedanto), restantaj, novaLastaVorto))
                      | _ -> Error (sprintf "ne eblas trakti la infinitivon %s" malinflektita)
                   | (_, Inflekcio.Translativo)
-                  | (_, Inflekcio.PartaNominativo)
-                  | (_, Inflekcio.PartaAkuzativo)
-                  | (_, Inflekcio.PartaDativo) ->
+                  | (_, Inflekcio.PartaUjo1)
+                  | (_, Inflekcio.PartaUjo2)
+                  | (_, Inflekcio.PartaUjo3) ->
                      legiInflektitaVortonAk novaListo (malinflektita :: restantaj) vortajModifantoj novaLastaVorto
                   | (Vorttipo.FremdaVorto, SolaFormo) ->
                      (FremdaVorto(malinflektita), restantaj, Some(unua)) |> Ok

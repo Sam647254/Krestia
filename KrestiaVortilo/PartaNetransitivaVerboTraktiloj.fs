@@ -5,7 +5,7 @@ open Vorttipo
 module PartaNetransitivaVerboTraktiloj =
    let normaligi (infinitivo: string) =
       match infinitivo with
-      | _ when infinitivo.EndsWith("en") -> (NetransitivaVerbo, PartaNominativo)
+      | _ when infinitivo.EndsWith("en") -> (NetransitivaVerbo, PartaUjo1)
       | _ -> (NedirektaNetransitivaVerbo, Infinitivo)
 
    let traktiloj: Vorttraktilo list = [
@@ -45,7 +45,7 @@ module PartaNetransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            if vorto.EndsWith("neri")
-           then Some (NedirektaNetransitivaVerbo, DativoVolo)
+           then Some (NedirektaNetransitivaVerbo, Ujo3Volo)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -63,7 +63,7 @@ module PartaNetransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            if vorto.EndsWith("nom")
-           then Some (NedirektaNetransitivaVerbo, PartaDativo)
+           then Some (NedirektaNetransitivaVerbo, PartaUjo3)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->

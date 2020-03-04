@@ -61,8 +61,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tora") -> Some (TransitivaVerbo, NominativoVolo)
-           | v when v.EndsWith("pora") -> Some (DutransitivaVerbo, NominativoVolo)
+           | v when v.EndsWith("tora") -> Some (TransitivaVerbo, Ujo1Volo)
+           | v when v.EndsWith("pora") -> Some (DutransitivaVerbo, Ujo1Volo)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -71,8 +71,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tore") -> Some (TransitivaVerbo, AkuzativoVolo)
-           | v when v.EndsWith("pore") -> Some (DutransitivaVerbo, AkuzativoVolo)
+           | v when v.EndsWith("tore") -> Some (TransitivaVerbo, Ujo2Volo)
+           | v when v.EndsWith("pore") -> Some (DutransitivaVerbo, Ujo2Volo)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -81,7 +81,7 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            if vorto.EndsWith("peri")
-           then Some (DutransitivaVerbo, DativoVolo)
+           then Some (DutransitivaVerbo, Ujo3Volo)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -150,8 +150,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tig") -> Some (TransitivaVerbo, PartaNominativo)
-           | v when v.EndsWith("peg") -> Some (DutransitivaVerbo, PartaNominativo)
+           | v when v.EndsWith("tig") -> Some (TransitivaVerbo, PartaUjo1)
+           | v when v.EndsWith("peg") -> Some (DutransitivaVerbo, PartaUjo1)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -160,8 +160,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tes") -> Some (TransitivaVerbo, PartaAkuzativo)
-           | v when v.EndsWith("pesh") -> Some (DutransitivaVerbo, PartaAkuzativo)
+           | v when v.EndsWith("tes") -> Some (TransitivaVerbo, PartaUjo2)
+           | v when v.EndsWith("pesh") -> Some (DutransitivaVerbo, PartaUjo2)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->

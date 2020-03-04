@@ -117,6 +117,6 @@ type KlasoTestoj() =
       
       "nekeveregore"
       |> kontroliĈiujnInfleckiojn
-            [ Nebazo(OblikaNetransitivaVerbo, AkuzativoVolo, "nekevereg")
+            [ Nebazo(OblikaNetransitivaVerbo, Ujo2Volo, "nekevereg")
               Nebazo(NombrigeblaKlaso, PluraHavado, "neko")
               Bazo(NombrigeblaKlaso, Infinitivo, "neko") ]

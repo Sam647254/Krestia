@@ -8,8 +8,8 @@ module NetransitivaVerboTraktiloj =
       | v when NombrigeblaKlasoTraktiloj.ĉuTranslativo(v) -> (NombrigeblaKlaso, Translativo)
       | v when v.EndsWith("selis") -> (NetransitivaVerbo, Translativo)
       | v when v.EndsWith("shelish") -> (NedirektaTransitivaVerbo, Translativo)
-      | v when v.EndsWith("tes") -> (TransitivaVerbo, PartaAkuzativo)
-      | v when v.EndsWith("pesh") -> (DutransitivaVerbo, PartaAkuzativo)
+      | v when v.EndsWith("tes") -> (TransitivaVerbo, PartaUjo2)
+      | v when v.EndsWith("pesh") -> (DutransitivaVerbo, PartaUjo2)
       | v when v.EndsWith("dis") -> (Pridiranto, Translativo)
       | v when v.EndsWith("tos") -> (TransitivaVerbo, Pasivigo)
       | v when v.EndsWith("posh") -> (DutransitivaVerbo, Pasivigo)
@@ -66,8 +66,8 @@ module NetransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | _ when vorto.EndsWith("sera") -> Some (NetransitivaVerbo, NominativoVolo)
-           | _ when vorto.EndsWith("shera") -> Some (NedirektaTransitivaVerbo, NominativoVolo)
+           | _ when vorto.EndsWith("sera") -> Some (NetransitivaVerbo, Ujo1Volo)
+           | _ when vorto.EndsWith("shera") -> Some (NedirektaTransitivaVerbo, Ujo1Volo)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -76,7 +76,7 @@ module NetransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            if vorto.EndsWith("sheri")
-           then Some (NedirektaTransitivaVerbo, DativoVolo)
+           then Some (NedirektaTransitivaVerbo, Ujo3Volo)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -140,8 +140,8 @@ module NetransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | _ when vorto.EndsWith("sem") -> Some (NetransitivaVerbo, PartaNominativo)
-           | _ when vorto.EndsWith("shen") -> Some (NedirektaTransitivaVerbo, PartaNominativo)
+           | _ when vorto.EndsWith("sem") -> Some (NetransitivaVerbo, PartaUjo1)
+           | _ when vorto.EndsWith("shen") -> Some (NedirektaTransitivaVerbo, PartaUjo1)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->

@@ -14,8 +14,8 @@ type PartaNetransitivaVerboTestoj () =
         ("omonia", Progresivo)
         ("omonio", Perfekto)
         ("omonela", Estonteco)
-        ("omoneri", DativoVolo)
+        ("omoneri", Ujo3Volo)
         ("omonema", Ĝerundo)
-        ("omonom", PartaDativo) ]
+        ("omonom", PartaUjo3) ]
       |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto NedirektaNetransitivaVerbo inflekcio)
       |> ignore

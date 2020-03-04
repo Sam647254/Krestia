@@ -12,9 +12,9 @@ module Vorttipo =
    | Progresivo
    | Perfekto
    | Estonteco
-   | NominativoVolo
-   | AkuzativoVolo
-   | DativoVolo
+   | Ujo1Volo
+   | Ujo2Volo
+   | Ujo3Volo
    | PredikativoEsti
    | AtributivoEstiAntaŭ
    | AtributivoEstiMalantaŭ
@@ -33,9 +33,9 @@ module Vorttipo =
    | Translativo
    | Ĝerundo
    | SpecifaĜerundo
-   | PartaNominativo
-   | PartaAkuzativo
-   | PartaDativo
+   | PartaUjo1
+   | PartaUjo2
+   | PartaUjo3
    | Pasivigo
    | Igo
    | SolaFormo
@@ -48,6 +48,8 @@ module Vorttipo =
    | Okazo
    | AktualaOkazo
    | FinitaOkazo
+   | UnueUjo2
+   | UnueUjo3
 
    type Vorttipo =
    | NombrigeblaKlaso
