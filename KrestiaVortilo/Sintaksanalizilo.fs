@@ -21,7 +21,7 @@ module Sintaksanalizilo =
       Nefino(
          [ "a",
             Nefino(
-               [ "d", Fino(Pridiranto, UnuNombro )]
+               [ "d", Fino(Pridiranto, UnuNombro) ]
                |> Map.ofList)
          ] |> Map.ofList)
 
@@ -58,6 +58,18 @@ module Sintaksanalizilo =
          then Some tipo
          else None)
 
+   let rec troviFinaĵon (literoj: char list) (arbo: Prefiksarbo) (lastajLiteroj: string) =
+      match arbo with
+      | Fino(_, inflekcio) ->
+         Nebazo(inflekcio, literoj |>
+            List.append (lastajLiteroj.ToCharArray() |> List.ofArray)) |> Some
+      | Nefino(subArbo) ->
+         let sufiksoLongeco = subArbo |> Map.pick (fun sufikso _ -> sufikso.Length |> Some)
+         let sekvaSufikso = literoj |> List.take sufiksoLongeco |> System.String.Concat
+         let restantajLiteroj = literoj |> List.skip sufiksoLongeco
+         subArbo.TryFind sekvaSufikso
+         |> Option.bind (fun sekvaArbo -> troviFinaĵon restantajLiteroj sekvaArbo sekvaSufikso)
+
    let malinflekti (ĉeno: string): Result<MalinflektaŜtupo, string> =
       match ĉeno with
       | _ when ĉuFremdaVorto ĉeno -> Bazo(FremdaVorto, SolaFormo, ĉeno) |> Ok
@@ -66,5 +78,8 @@ module Sintaksanalizilo =
          ĉuInfinitivo ĉeno
          |> Option.map (fun vorttipo -> Bazo(vorttipo, Infinitivo, ĉeno) |> Ok)
          |> Option.orElseWith
-            (fun () -> failwith "???")
+            (fun () ->
+               let literoj = ĉeno.ToCharArray() |> List.ofArray |> List.rev
+               troviFinaĵon literoj inflekcioPostfiksarbo
+               |> Option.map Ok)
          |> Option.defaultValue (Error (sprintf "%s estas nevalida" ĉeno))

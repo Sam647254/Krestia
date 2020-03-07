@@ -4,6 +4,7 @@ open Microsoft.VisualStudio.TestTools.UnitTesting
 
 open KrestiaVortilo.Vorttipo
 open Testiloj
+open KrestiaVortilo.Sintaksanalizilo
 
 [<TestClass>]
 type KlasoTestoj () =

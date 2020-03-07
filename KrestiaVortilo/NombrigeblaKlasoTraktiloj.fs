@@ -45,10 +45,9 @@ module NombrigeblaKlasoTraktiloj =
    let specifaĜerundoFinaĵoj =
       nombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "va")
    let ekzistadoFinaĵoj =
-      nombrigeblaNekonitaNombroFinaĵoj @
-      nombrigeblaUnuNombroFinaĵoj @
-      nombrigeblaPluraNombroFinaĵoj
-      |> List.map (fun finaĵo -> finaĵo + "rim")
+      nombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "rim")
+   let unuEkzistadoFinaĵoj = nombrigeblaUnuNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "rim")
+   let pluraEkzistadoFinaĵoj = nombrigeblaPluraNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "rim")
    let solaFinaĵoj = nombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ra")
    let solaUnuFinaĵoj = nombrigeblaUnuNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ra")
    let solaPluraFinaĵoj = nombrigeblaPluraNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ra")
@@ -211,6 +210,10 @@ module NombrigeblaKlasoTraktiloj =
            if ekzistadoFinaĵoj
               |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
            then Some (NombrigeblaKlaso, Ekzistado)
+           elif unuEkzistadoFinaĵoj |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+           then Some (NombrigeblaKlaso, UnuEkzistado)
+           elif pluraEkzistadoFinaĵoj |> List.exists (fun finaĵo -> vorto.EndsWith(finaĵo))
+           then Some (NombrigeblaKlaso, PluraEkzistado)
            else None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->

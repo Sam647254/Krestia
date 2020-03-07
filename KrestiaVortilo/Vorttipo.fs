@@ -50,6 +50,7 @@ module Vorttipo =
    | MalantaŭRekordo
    | AntaŭRekordo
    | MalantaŭNombrigeblaEco
+   | AntaŭNombrigeblaEco
    | NenombrigeblaEcoEco
    | MalantaŭNenombrieblaEco
    | AntaŭNenombrigeblaEco

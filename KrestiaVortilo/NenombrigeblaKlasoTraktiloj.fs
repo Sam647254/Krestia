@@ -14,7 +14,7 @@ module NenombrigeblaKlasoTraktiloj =
    let atributativoEstiFinaĵoj =
       nenombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ga")
    let predikativoHaviFinaĵoj =
-      nenombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ris")
+      nenombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ris")
    let translativoFinaĵoj =
       nenombrigeblaNekonitaNombroFinaĵoj |> List.map (fun finaĵo -> finaĵo + "las")
    let ĝerundoFinaĵoj =

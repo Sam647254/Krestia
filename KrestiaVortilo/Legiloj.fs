@@ -91,7 +91,7 @@ module Legiloj =
                      | NedirektaNetransitivaVerbo | MalplenaVerbo
                      | Vorttipo.Pridiranto ->
                         (BazaVorto({ Vorto = malinflektita; Inflekcio = novaListo }), restantaj, Some(unua)) |> Ok
-                     | AntaŭNombrigeblaEco | NenombrigeblaEco ->
+                     | AntaŭNombrigeblaEco | AntaŭNenombrigeblaEco ->
                         match originalaInflekcio with
                         | Inflekcio.Havaĵo ->
                            (BazaVorto({ Vorto = malinflektita; Inflekcio = novaListo }), restantaj, novaLastaVorto) |> Ok
