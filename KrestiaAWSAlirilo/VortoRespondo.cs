@@ -14,7 +14,7 @@ namespace KrestiaAWSAlirilo {
       }
 
       public string Signifo { get; set; }
-      
+
       public string Gloso { get; set; }
 
       public string Noto {
@@ -26,9 +26,11 @@ namespace KrestiaAWSAlirilo {
          get => _kategorioj ?? new List<string>();
          set => _kategorioj = value;
       }
-      
+
       public string? Vorttipo { get; set; }
-      
+
       public IEnumerable<string>? Silaboj { get; set; }
+
+      public IDictionary<string, string> InflektitajFormoj { get; set; }
    }
 }

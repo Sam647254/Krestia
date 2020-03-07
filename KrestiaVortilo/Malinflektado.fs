@@ -17,9 +17,6 @@ module Malinflektado =
       { BazaVorto: string
         InflekcioŜtupoj: MalinflektaŜtupo list }
 
-   let kreiListon vorttipo listo =
-      listo |> List.map (fun finaĵo -> (vorttipo, finaĵo))
-
    let nombrigeblaKlasoInflekcioj =
       [ DUPFinaĵo("", Difinito, UnuNombro, PluraNombro)
         DUPFinaĵo("nsa", Havaĵo, UnuHavaĵo, PluraHavaĵo)
@@ -33,7 +30,6 @@ module Malinflektado =
         DifinitoFinaĵo("lam", Translativo)
         DifinitoFinaĵo("vra", Ĝerundo)
         DifinitoFinaĵo("va", SpecifaĜerundo) ]
-      |> kreiListon NombrigeblaKlaso
 
    let nenombrigeblaKlasoInflekcioj =
       [ DifinitoFinaĵo("", Difinito)
@@ -48,7 +44,6 @@ module Malinflektado =
         DifinitoFinaĵo("lam", Translativo)
         DifinitoFinaĵo("vra", Ĝerundo)
         DifinitoFinaĵo("va", SpecifaĜerundo) ]
-      |> kreiListon NenombrigeblaKlaso
 
    let malplenaVerboInflekcioj =
       [ InfinitivoFinaĵo("ia", Progresivo)
@@ -56,7 +51,6 @@ module Malinflektado =
         InfinitivoFinaĵo("ela", Estonteco)
         InfinitivoFinaĵo("elim", Translativo)
         InfinitivoFinaĵo("ea", Ĝerundo) ]
-      |> kreiListon MalplenaVerbo
 
    let netransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("e", Progresivo)
@@ -71,7 +65,6 @@ module Malinflektado =
         InfinitivoFinaĵo("elis", Translativo)
         InfinitivoFinaĵo("mea", Ĝerundo)
         InfinitivoFinaĵo("em", PartaNominativo) ]
-      |> kreiListon NetransitivaVerbo
 
    let transitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("re", Progresivo)
@@ -93,7 +86,6 @@ module Malinflektado =
         InfinitivoFinaĵo("em", PartaAkuzativo)
         InfinitivoFinaĵo("ris", Reflekcio)
         InfinitivoFinaĵo("rim", Reflekcio) ]
-      |> kreiListon TransitivaVerbo
 
    let dutransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("re", Progresivo)
@@ -123,7 +115,6 @@ module Malinflektado =
         InfinitivoFinaĵo("ug", PartaDativo)
         InfinitivoFinaĵo("um", PartaDativo)
         InfinitivoFinaĵo("ish", Reflekcio) ]
-      |> kreiListon DutransitivaVerbo
 
    let nedirektaTransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("e", Progresivo)
@@ -142,7 +133,6 @@ module Malinflektado =
         InfinitivoFinaĵo("am", PartaNominativo)
         InfinitivoFinaĵo("os", PartaDativo)
         InfinitivoFinaĵo("om", PartaDativo) ]
-      |> kreiListon NedirektaTransitivaVerbo
 
    let oblikaNetransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("ia", Progresivo)
@@ -154,7 +144,6 @@ module Malinflektado =
         InfinitivoFinaĵo("ea", Ĝerundo)
         InfinitivoFinaĵo("orio", Aganto)
         InfinitivoFinaĵo("am", PartaAkuzativo) ]
-      |> kreiListon OblikaNetransitivaVerbo
 
    let oblikaTransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("ia", Progresivo)
@@ -171,7 +160,6 @@ module Malinflektado =
         InfinitivoFinaĵo("om", PartaAkuzativo)
         InfinitivoFinaĵo("ig", PartaDativo)
         InfinitivoFinaĵo("im", PartaDativo) ]
-      |> kreiListon OblikaTransitivaVerbo
 
    let nedirektaNetransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("ia", Progresivo)
@@ -181,17 +169,25 @@ module Malinflektado =
         InfinitivoFinaĵo("ea", Ĝerundo)
         InfinitivoFinaĵo("etio", Patiento)
         InfinitivoFinaĵo("om", PartaDativo) ]
-      |> kreiListon NedirektaNetransitivaVerbo
+
+   let inflekciojPerVorttipoj =
+      [ NombrigeblaKlaso, nombrigeblaKlasoInflekcioj
+        NenombrigeblaKlaso, nenombrigeblaKlasoInflekcioj
+        MalplenaVerbo, malplenaVerboInflekcioj
+        NetransitivaVerbo, netransitivaVerboInflekcioj
+        TransitivaVerbo, transitivaVerboInflekcioj
+        DutransitivaVerbo, dutransitivaVerboInflekcioj
+        OblikaNetransitivaVerbo, oblikaNetransitivaVerboInflekcioj
+        OblikaTransitivaVerbo, oblikaTransitivaVerboInflekcioj
+        NedirektaNetransitivaVerbo, nedirektaNetransitivaVerboInflekcioj ]
+      |> Map.ofList
 
    let ĉiujInflekcioj =
-      nombrigeblaKlasoInflekcioj
-      @ nenombrigeblaKlasoInflekcioj
-        @ malplenaVerboInflekcioj
-          @ netransitivaVerboInflekcioj
-            @ transitivaVerboInflekcioj
-              @ dutransitivaVerboInflekcioj
-                @ oblikaNetransitivaVerboInflekcioj
-                  @ oblikaTransitivaVerboInflekcioj @ nedirektaNetransitivaVerboInflekcioj
+      inflekciojPerVorttipoj
+      |> Map.toList
+      |> List.map (fun (vorttipo, finaĵoj) -> finaĵoj |> List.map (fun finaĵo -> (vorttipo, finaĵo)))
+      |> List.concat
+
    let nombrigeblaDifinitoFinaĵoj =
       nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> (finaĵo, NombrigeblaKlaso))
    let difinitoFinaĵoj =
@@ -214,6 +210,13 @@ module Malinflektado =
    let difinitoAlInfinitivo (vorto: string) =
       vorto.Substring(0, vorto.Length - 1) + difinitivoAlInfinitivoTabelo.[vorto.Chars(vorto.Length - 1)]
 
+   let infinitivoAlDifinito (vorto: string) =
+      difinitivoAlInfinitivoTabelo
+      |> Map.pick (fun difinitoFinaĵo infinitivoFinaĵo ->
+            if vorto.EndsWith(infinitivoFinaĵo) then
+               (vorto.Substring(0, vorto.Length - infinitivoFinaĵo.Length) + difinitoFinaĵo.ToString()) |> Some
+            else None)
+
    let ĉuDifinito (vorto: string) akceptiNenombrigeblan =
       match akceptiNenombrigeblan with
       | AkceptiNenombrigeblan -> difinitoFinaĵoj
@@ -222,7 +225,7 @@ module Malinflektado =
             if vorto.EndsWith(finaĵo) && vorto.Length > finaĵo.Length then Some vorttipo
             else None)
 
-   let malinflektiSiDifinito (vorto: string) inflekcio akceptiNenombrigeblan =
+   let malinflektiSeDifinito (vorto: string) inflekcio akceptiNenombrigeblan =
       ĉuDifinito vorto akceptiNenombrigeblan
       |> Option.map (fun vorttipo -> Nebazo(vorttipo, inflekcio, difinitoAlInfinitivo vorto))
 
@@ -252,7 +255,7 @@ module Malinflektado =
                | DifinitoFinaĵo(finaĵo, inflekcio) ->
                   if ĉeno.EndsWith(finaĵo) then
                      let difinito = ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)
-                     malinflektiSiDifinito difinito inflekcio AkceptiNenombrigeblan
+                     malinflektiSeDifinito difinito inflekcio AkceptiNenombrigeblan
                   else
                      None
                | DUPFinaĵo(finaĵo, difinito, unuNombro, pluraNombro) ->
@@ -260,12 +263,12 @@ module Malinflektado =
                      let restantaj = ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)
                      if restantaj.EndsWith(unuNombroFinaĵo) then
                         let difinito = ĉeno.Substring(0, restantaj.Length - unuNombroFinaĵo.Length)
-                        malinflektiSiDifinito difinito unuNombro NeAkceptiNenombrigeblan
+                        malinflektiSeDifinito difinito unuNombro NeAkceptiNenombrigeblan
                      elif restantaj.EndsWith(pluraNombroFinaĵo) then
                         let difinito = ĉeno.Substring(0, restantaj.Length - pluraNombroFinaĵo.Length)
-                        malinflektiSiDifinito difinito pluraNombro NeAkceptiNenombrigeblan
+                        malinflektiSeDifinito difinito pluraNombro NeAkceptiNenombrigeblan
                      else
-                        malinflektiSiDifinito restantaj difinito AkceptiNenombrigeblan
+                        malinflektiSeDifinito restantaj difinito AkceptiNenombrigeblan
                   else
                      None)
          |> Option.orElseWith (fun () ->
@@ -284,16 +287,16 @@ module Malinflektado =
             | Nebazo(_, _, restanta) ->
                tuteMalinflekti restanta
                |> Result.map (fun sekva -> { sekva with InflekcioŜtupoj = malinflektita :: sekva.InflekcioŜtupoj }))
-      
+
    and tuteMalinflektiĈiujn (ĉenoj: string list) =
       ĉenoj
       |> List.fold (fun akListo sekva ->
-         match akListo with
-         | Ok(listo) ->
-            match tuteMalinflekti sekva with
-            | Ok(malinflektitaVorto) -> Ok (malinflektitaVorto :: listo)
-            | Error(eraro) -> Error eraro
-         | Error(_) -> akListo) (Ok [])
+            match akListo with
+            | Ok(listo) ->
+               match tuteMalinflekti sekva with
+               | Ok(malinflektitaVorto) -> Ok(malinflektitaVorto :: listo)
+               | Error(eraro) -> Error eraro
+            | Error(_) -> akListo) (Ok [])
       |> Result.map List.rev
 
    and ĉuVerbo (ĉeno: string) =
@@ -474,3 +477,19 @@ module Malinflektado =
       match vorto.InflekcioŜtupoj.Head with
       | Bazo(vorttipo, _, _) -> Set.contains vorttipo argumentajBazajTipoj
       | Nebazo(_, inflekcio, _) -> Set.contains inflekcio argumentajNebazajInflekcioj
+
+   let ĉiujInflekciojDe vorto =
+      ĉuInfinitivo vorto
+      |> Option.bind (fun vorttipo -> Map.tryFind vorttipo inflekciojPerVorttipoj)
+      |> Option.map (fun finaĵoj ->
+            finaĵoj
+            |> List.map (fun finaĵo ->
+                  match finaĵo with
+                  | InfinitivoFinaĵo(sufikso, inflekcio) -> (inflekcio, vorto + sufikso)
+                  | DifinitoFinaĵo(sufikso, inflekcio) -> (inflekcio, (infinitivoAlDifinito vorto) + sufikso)
+                  | DUPFinaĵo(sufikso, inflekcio, _, _) ->
+                     let difinito = infinitivoAlDifinito vorto
+                     (inflekcio,
+                      (sprintf "%s, %s, %s" (difinito + sufikso) (difinito + unuNombroFinaĵo + sufikso)
+                          (difinito + pluraNombroFinaĵo + sufikso))))
+            |> Map.ofList)

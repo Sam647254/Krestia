@@ -81,7 +81,9 @@ namespace KrestiaAWSAlirilo {
                Radikoj = vortoObjecto.GetValueOrDefault("radikoj")?.SS,
                Signifo = vortoObjecto.GetValueOrDefault("signifo")?.S,
                Vorttipo = vorttipo,
-               Silaboj = silaboj.ResultValue
+               Silaboj = silaboj.ResultValue,
+               InflektitajFormoj = Malinflektado.ĉiujInflekciojDe(vorto).Value.Select(p => (p.Key.ToString(), p.Value))
+                  .ToDictionary()
             };
       }
 
