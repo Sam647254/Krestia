@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using KrestiaAWSAlirilo;
+using KrestiaVortilo;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.FSharp.Collections;
 
 namespace KrestiaServilo.Controllers {
    [ApiController]
@@ -26,6 +29,23 @@ namespace KrestiaServilo.Controllers {
       public async Task<ActionResult> Trovi(string peto) {
          var rezulto = await _awsAlirilo.TroviVortojn(peto);
          return Ok(rezulto);
+      }
+
+      [HttpGet("malinflekti/{eniro}")]
+      public async Task<ActionResult> Malinflekti(string eniro) {
+         var vortoj = eniro.Split(' ');
+         var malinflektitaVortoj = Malinflektado.tuteMalinflektiĈiujn(ListModule.OfArray(vortoj));
+         if (malinflektitaVortoj.IsError) {
+            return UnprocessableEntity(malinflektitaVortoj.ErrorValue);
+         }
+
+         var glosoj = await _awsAlirilo.AlportiVortojn(malinflektitaVortoj.ResultValue.Select(v => v.BazaVorto));
+
+         return Ok(malinflektitaVortoj.ResultValue.Zip(glosoj).Select(p => new {
+            Gloso = p.Second.Gloso,
+            MalinflektajŜtupoj = p.First.InflekcioŜtupoj.Where(ŝ => ŝ.IsNebazo)
+               .Select(ŝ => ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝ).Item2.ToString())
+         }));
       }
    }
 }

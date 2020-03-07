@@ -14,6 +14,8 @@ namespace KrestiaAWSAlirilo {
       }
 
       public string Signifo { get; set; }
+      
+      public string Gloso { get; set; }
 
       public string Noto {
          get => _noto ?? "";

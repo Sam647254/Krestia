@@ -91,6 +91,7 @@ namespace KrestiaAWSAlirilo {
             if (partoj.Length != 5) {
                throw new ArgumentException($"{vico} estas nevalida");
             }
+
             if (!Malinflektado.ĉuInfinitivoB(partoj[0])) {
                throw new ArgumentException($"{partoj[0]} ne estas valida infinitivo");
             }
@@ -143,7 +144,8 @@ namespace KrestiaAWSAlirilo {
          Vorttipo.Vorttipo? malinflektitaTipo = null;
          string? bazo = null;
          if (malinflekajŜtupoj.IsOk) {
-            var lastaŜtupo = malinflekajŜtupoj.ResultValue.Last() as Sintaksanalizilo.MalinflektaŜtupo.Bazo; 
+            var lastaŜtupo = malinflekajŜtupoj.ResultValue.InflekcioŜtupoj.Last()
+               as Sintaksanalizilo.MalinflektaŜtupo.Bazo;
             malinflektitaVorto = lastaŜtupo?.BazaVorto;
             malinflektitaTipo = lastaŜtupo?.Item1;
             bazo = Malinflektado.bazoDe(malinflektitaVorto);
@@ -196,6 +198,26 @@ namespace KrestiaAWSAlirilo {
                Signifo = r["signifo"].S
             })
          };
+      }
+
+      public async Task<IEnumerable<VortoRespondo>> AlportiVortojn(IEnumerable<string> vortoj) {
+         var respondo = await _amazonDynamoDbClient.BatchGetItemAsync(new Dictionary<string, KeysAndAttributes>() {
+            {
+               TableName, new KeysAndAttributes {
+                  AttributesToGet = new List<string> {"gloso"},
+                  Keys = vortoj.Select(v => new Dictionary<string, AttributeValue> {{"vorto", new AttributeValue(v)}})
+                     .ToList()
+               }
+            }
+         });
+
+         if (respondo.UnprocessedKeys.Count > 0 && respondo.UnprocessedKeys[TableName].Keys.Count > 0) {
+            throw new NotImplementedException("Tro da vortoj en la peto");
+         }
+
+         return respondo.Responses[TableName].Select(r => new VortoRespondo {
+            Gloso = r["gloso"].S
+         });
       }
    }
 }
