@@ -94,7 +94,8 @@ module Malinflektado =
         InfinitivoFinaĵo("em", PartaUjo2)
         InfinitivoFinaĵo("es", PartaUjo2)
         InfinitivoFinaĵo("rim", Reflekcio)
-        InfinitivoFinaĵo("ris", Reflekcio) ]
+        InfinitivoFinaĵo("ris", Reflekcio)
+        InfinitivoFinaĵo("res", UnueUjo2) ]
       @ okazoFinaĵoj
 
    let dutransitivaVerboInflekcioj =
@@ -125,7 +126,9 @@ module Malinflektado =
         InfinitivoFinaĵo("um", PartaUjo3)
         InfinitivoFinaĵo("ut", PartaUjo3)
         InfinitivoFinaĵo("im", Reflekcio)
-        InfinitivoFinaĵo("ish", Reflekcio) ]
+        InfinitivoFinaĵo("ish", Reflekcio)
+        InfinitivoFinaĵo("rosh", UnueUjo2)
+        InfinitivoFinaĵo("rut", UnueUjo3) ]
       @ okazoFinaĵoj
 
    let nedirektaTransitivaVerboInflekcioj =
@@ -144,7 +147,8 @@ module Malinflektado =
         InfinitivoFinaĵo("am", PartaUjo1)
         InfinitivoFinaĵo("an", PartaUjo1)
         InfinitivoFinaĵo("om", PartaUjo3)
-        InfinitivoFinaĵo("os", PartaUjo3) ]
+        InfinitivoFinaĵo("os", PartaUjo3)
+        InfinitivoFinaĵo("ros", UnueUjo3) ]
       @ okazoFinaĵoj
 
    let oblikaNetransitivaVerboInflekcioj =
@@ -173,7 +177,8 @@ module Malinflektado =
         InfinitivoFinaĵo("om", PartaUjo2)
         InfinitivoFinaĵo("on", PartaUjo2)
         InfinitivoFinaĵo("im", PartaUjo3)
-        InfinitivoFinaĵo("ig", PartaUjo3) ]
+        InfinitivoFinaĵo("ig", PartaUjo3)
+        InfinitivoFinaĵo("rig", UnueUjo3) ]
       @ okazoFinaĵoj
 
    let nedirektaNetransitivaVerboInflekcioj =
