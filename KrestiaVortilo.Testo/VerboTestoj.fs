@@ -64,3 +64,9 @@ type VerboTestoj() =
               Nebazo(NombrigeblaKlaso, Translativo, "meratoniaa")
               Nebazo(TransitivaVerbo, Patiento, "merat")
               Bazo(TransitivaVerbo, Infinitivo, "merat") ]
+
+      "liverasetie"
+      |> kontroliĈiujnInfleckiojn
+            [ Nebazo(NombrigeblaKlaso, Difinito, "liverasetio")
+              Nebazo(NetransitivaVerbo, Aganto, "liveras")
+              Bazo(NetransitivaVerbo, Infinitivo, "liveras") ]

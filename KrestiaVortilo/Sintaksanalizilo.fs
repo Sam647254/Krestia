@@ -14,9 +14,9 @@ module Sintaksanalizilo =
       | Nebazo of Vorttipo * Inflekcio * RestantaVorto: string
 
    let nombrigeblaInfinitivoFinaĵoj =
-      [ "pu"; "po"; "paa"; "tu"; "to"; "taa"; "ku"; "ko"; "kaa"; "toniaa"; "poniaa"; "tetio"; "petio" ]
+      [ "pu"; "po"; "paa"; "tu"; "to"; "taa"; "ku"; "ko"; "kaa"; "toniaa"; "poniaa"; "tetio"; "petio"; "setio"; "shetio" ]
    let nombrigeblaDifinitoFinaĵoj =
-      [ "pi"; "pe"; "pa"; "ti"; "te"; "ta"; "ki"; "ke"; "ka"; "tonia"; "ponia"; "tetie"; "petie" ]
+      [ "pi"; "pe"; "pa"; "ti"; "te"; "ta"; "ki"; "ke"; "ka"; "tonia"; "ponia"; "tetie"; "petie"; "setie"; "shetie" ]
    let nombrigeblaUnuNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "si")
    let nombrigeblaPluraNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ve")
 
