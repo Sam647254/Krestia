@@ -5,8 +5,6 @@ open System
 open FSharpx.Collections
 
 module Sintaksanalizilo =
-   type SufiksoTabelo = SufiksoTabelo of FinajLiteroj: Map<string, Vorttipo * Inflekcio> * NefinajLiteroj: Map<string, SufiksoTabelo>
-
    /// Reprezentas la rezulton de unu malinflekto
    type MalinflektaŜtupo =
       // La vorto ne povis malinflektiĝi, ĉar ĝi jam estas en baza formo,
@@ -58,37 +56,6 @@ module Sintaksanalizilo =
         DutransitivaVerbo, verboTipoj |> List.ofSeq ]
       |> List.map (fun (originala, malplenigitaj) -> originala, malplenigitaj |> Set.ofList)
       |> Map.ofList
-
-   let inflekcioPostfiksarbo =
-      SufiksoTabelo
-         (DUPFinaĵoj Difinito UnuNombro PluraNombro,
-          [ "a",
-            SufiksoTabelo
-               ([ "d", (Pridiranto, UnuNombro) ] |> Map.ofList,
-                [ "w",
-                  SufiksoTabelo
-                     (finajLiteroj nombrigeblaInfinitivoFinaĵoj NombrigeblaKlaso PredikativoEsti, Map.empty)
-                  "g",
-                  SufiksoTabelo
-                     (finajLiteroj nombrigeblaInfinitivoFinaĵoj NombrigeblaKlaso AtributativoEstiMalantaŭ, Map.empty)
-                  "v",
-                  SufiksoTabelo
-                     (finajLiteroj nombrigeblaInfinitivoFinaĵoj NombrigeblaKlaso AtributativoEstiAntaŭ, Map.empty)
-                  "s",
-                  SufiksoTabelo
-                     (Map.empty,
-                      [ "n", SufiksoTabelo(DUPFinaĵoj Havaĵo UnuHavaĵo PluraHavaĵo, Map.empty) ] |> Map.ofList)
-                  "r", SufiksoTabelo(DUPFinaĵoj Sola UnuSola PluraSola, Map.empty) ]
-                |> Map.ofList)
-            "s",
-            SufiksoTabelo
-               (Map.empty,
-                [ "i",
-                  SufiksoTabelo
-                     (Map.empty,
-                      [ "r", SufiksoTabelo((DUPFinaĵoj Havado UnuHavado PluraHavado, Map.empty)) ] |> Map.ofList) ]
-                |> Map.ofList) ]
-          |> Map.ofList)
 
    let infinitivoFinaĵoj =
       (nombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo, NombrigeblaKlaso))
@@ -158,48 +125,3 @@ module Sintaksanalizilo =
                | AntaŭModifanto -> "Modifier (prefix)"
                | Makro -> "Macro"
                | FremdaVorto -> "Foreign word")
-
-   /// Provas trovi inflekcion por la finaĵo de la vorto (literoj).
-   /// Se ĝi sukcesas, ĝi returnas Nebazon.
-   let rec troviFinaĵon (literoj: char list) (arbo: SufiksoTabelo) =
-      let proviTroviFinon kontrolajLiteroj =
-         let restantajLiteroj =
-            literoj
-            |> List.rev
-            |> System.String.Concat
-         kontrolajLiteroj
-         |> Map.tryPick (fun finaĵo tipoKajInflekcio ->
-               if restantajLiteroj.EndsWith(finaĵo) then (Some tipoKajInflekcio)
-               else None)
-         |> Option.map (fun (tipo, inflekcio) -> Nebazo(tipo, inflekcio, restantajLiteroj))
-
-      let (SufiksoTabelo(finajLiteroj, nefinajLiteroj)) = arbo
-      proviTroviFinon finajLiteroj
-      |> Option.orElseWith (fun () ->
-            nefinajLiteroj
-            |> Map.tryPick (fun sufikso _ -> sufikso.Length |> Some)
-            |> Option.bind (fun sufiksoLongeco ->
-                  let sekvaSufikso =
-                     literoj
-                     |> List.take sufiksoLongeco
-                     |> System.String.Concat
-
-                  let restantajLiteroj = literoj |> List.skip sufiksoLongeco
-                  nefinajLiteroj.TryFind sekvaSufikso
-                  |> Option.bind (fun sekvaArbo -> troviFinaĵon restantajLiteroj sekvaArbo)))
-
-
-   let malinflekti (ĉeno: string): Result<MalinflektaŜtupo, string> =
-      match ĉeno with
-      | _ when ĉuFremdaVorto ĉeno -> Bazo(FremdaVorto, SolaFormo, ĉeno) |> Ok
-      | _ when ĉuLokokupilo ĉeno -> Bazo(Lokokupilo, SolaFormo, ĉeno) |> Ok
-      | _ ->
-         let literoj =
-            ĉeno.ToCharArray()
-            |> List.ofArray
-            |> List.rev
-         troviFinaĵon literoj inflekcioPostfiksarbo
-         |> Option.orElseWith (fun () ->
-               ĉuInfinitivo ĉeno |> Option.map (fun vorttipo -> Bazo(vorttipo, Infinitivo, ĉeno)))
-         |> Option.map Ok
-         |> Option.defaultValue (Error(sprintf "%s estas nevalida" ĉeno))
