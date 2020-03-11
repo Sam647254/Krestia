@@ -24,10 +24,11 @@ module Malinflektado =
         InfinitivoFinaĵo("ga", AtributativoEstiMalantaŭ)
         InfinitivoFinaĵo("va", AtributativoEstiAntaŭ)
         DUPFinaĵo("ra", Sola, UnuSola, PluraSola)
+        DUPFinaĵo("rem", Havado, UnuHavado, PluraHavado)
         DUPFinaĵo("reg", Havado, UnuHavado, PluraHavado)
         DUPFinaĵo("rim", Ekzistado, UnuEkzistado, PluraEkzistado)
-        DifinitoFinaĵo("las", Translativo)
         DifinitoFinaĵo("lam", Translativo)
+        DifinitoFinaĵo("las", Translativo)
         DifinitoFinaĵo("vra", Ĝerundo)
         DifinitoFinaĵo("va", SpecifaĜerundo) ]
 
@@ -38,10 +39,11 @@ module Malinflektado =
         InfinitivoFinaĵo("ga", AtributativoEstiMalantaŭ)
         InfinitivoFinaĵo("va", AtributativoEstiAntaŭ)
         DifinitoFinaĵo("ra", Sola)
-        DifinitoFinaĵo("ris", Havado)
+        DifinitoFinaĵo("rem", Havado)
+        DifinitoFinaĵo("reg", Havado)
         DifinitoFinaĵo("rim", Ekzistado)
-        DifinitoFinaĵo("las", Translativo)
         DifinitoFinaĵo("lam", Translativo)
+        DifinitoFinaĵo("las", Translativo)
         DifinitoFinaĵo("vra", Ĝerundo)
         DifinitoFinaĵo("va", SpecifaĜerundo) ]
 
@@ -80,12 +82,12 @@ module Malinflektado =
         InfinitivoFinaĵo("oniaa", Patiento)
         InfinitivoFinaĵo("elit", Translativo)
         InfinitivoFinaĵo("ea", Ĝerundo)
-        InfinitivoFinaĵo("ig", PartaNominativo)
         InfinitivoFinaĵo("im", PartaNominativo)
-        InfinitivoFinaĵo("es", PartaAkuzativo)
+        InfinitivoFinaĵo("ig", PartaNominativo)
         InfinitivoFinaĵo("em", PartaAkuzativo)
-        InfinitivoFinaĵo("ris", Reflekcio)
-        InfinitivoFinaĵo("rim", Reflekcio) ]
+        InfinitivoFinaĵo("es", PartaAkuzativo)
+        InfinitivoFinaĵo("rim", Reflekcio)
+        InfinitivoFinaĵo("ris", Reflekcio) ]
 
    let dutransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("re", Progresivo)
@@ -102,18 +104,19 @@ module Malinflektado =
         InfinitivoFinaĵo("oniaa", Patiento)
         InfinitivoFinaĵo("elip", Translativo)
         InfinitivoFinaĵo("ea", Ĝerundo)
-        InfinitivoFinaĵo("ev", PartaNominativo)
         InfinitivoFinaĵo("eg", PartaNominativo)
         InfinitivoFinaĵo("en", PartaNominativo)
         InfinitivoFinaĵo("em", PartaNominativo)
-        InfinitivoFinaĵo("osh", PartaAkuzativo)
+        InfinitivoFinaĵo("ev", PartaNominativo)
         InfinitivoFinaĵo("os", PartaAkuzativo)
         InfinitivoFinaĵo("on", PartaAkuzativo)
         InfinitivoFinaĵo("om", PartaAkuzativo)
-        InfinitivoFinaĵo("ut", PartaDativo)
+        InfinitivoFinaĵo("osh", PartaAkuzativo)
         InfinitivoFinaĵo("us", PartaDativo)
         InfinitivoFinaĵo("ug", PartaDativo)
         InfinitivoFinaĵo("um", PartaDativo)
+        InfinitivoFinaĵo("ut", PartaDativo)
+        InfinitivoFinaĵo("im", Reflekcio)
         InfinitivoFinaĵo("ish", Reflekcio) ]
 
    let nedirektaTransitivaVerboInflekcioj =
@@ -129,10 +132,10 @@ module Malinflektado =
         InfinitivoFinaĵo("etio", Aganto)
         InfinitivoFinaĵo("elish", Translativo)
         InfinitivoFinaĵo("mea", Ĝerundo)
-        InfinitivoFinaĵo("an", PartaNominativo)
         InfinitivoFinaĵo("am", PartaNominativo)
-        InfinitivoFinaĵo("os", PartaDativo)
-        InfinitivoFinaĵo("om", PartaDativo) ]
+        InfinitivoFinaĵo("an", PartaNominativo)
+        InfinitivoFinaĵo("om", PartaDativo)
+        InfinitivoFinaĵo("os", PartaDativo) ]
 
    let oblikaNetransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("ia", Progresivo)
@@ -156,10 +159,10 @@ module Malinflektado =
         InfinitivoFinaĵo("ea", Ĝerundo)
         InfinitivoFinaĵo("orio", Aganto)
         InfinitivoFinaĵo("etio", Patiento)
-        InfinitivoFinaĵo("on", PartaAkuzativo)
         InfinitivoFinaĵo("om", PartaAkuzativo)
-        InfinitivoFinaĵo("ig", PartaDativo)
-        InfinitivoFinaĵo("im", PartaDativo) ]
+        InfinitivoFinaĵo("on", PartaAkuzativo)
+        InfinitivoFinaĵo("im", PartaDativo)
+        InfinitivoFinaĵo("ig", PartaDativo) ]
 
    let nedirektaNetransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("ia", Progresivo)
