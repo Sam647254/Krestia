@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using KrestiaVortilo;
 
 namespace KrestiaVortaro {
-   internal static class Agoj {
+   public static class Agoj {
       internal static async Task<JsonVortaro> RenomigiVortojn(JsonVortaro vortaro, string eniro) {
          var dosiero = await File.ReadAllLinesAsync(eniro);
          var ids = vortaro.Vortoj.Select((v, i) => (v, i)).ToDictionary(p => p.v.PlenaVorto, p => p.i);
@@ -25,18 +25,19 @@ namespace KrestiaVortaro {
          };
       }
 
-      internal static IEnumerable<Vorto> AldoniVortojn(IDictionary<string, int> ekzistantajVortoj, string eniro,
-         IDictionary<string, List<int>> vortarajKategorioj) {
+      public static IEnumerable<Vorto> AldoniVortojn(JsonVortaro vortaro, IEnumerable<string> dosiero) {
+         var ekzistantajVortoj = vortaro.Vortoj.Select((v, i) => (v, i)).ToDictionary(p => p.v.PlenaVorto, p => p.i);
          var komencoId = ekzistantajVortoj.Count;
-         var dosiero = File.ReadLines(eniro);
          foreach (var vico in dosiero) {
             var partoj = vico.Split(separator: '|');
+            if (partoj.Length != 5) {
+               throw new InvalidOperationException($"{vico} ne estas valida");
+            }
             var vorto = partoj[0];
             var signifo = partoj[1];
             var gloso = partoj[2];
             var radikoj = partoj[3].Split(separator: ',').Where(r => r.Length > 0).ToImmutableList();
-            var kategorioj = partoj[4].Split(separator: ',');
-            var noto = partoj[5];
+            var noto = partoj[4];
             var eraro = ĈuValidaVortaraVorto(ekzistantajVortoj, vorto, radikoj);
             if (eraro != null) {
                throw new InvalidOperationException(eraro);
@@ -44,15 +45,6 @@ namespace KrestiaVortaro {
 
             var novaVorto = new Vorto(komencoId, vorto, Malinflektado.bazoDe(vorto),
                radikoj.Select(r => ekzistantajVortoj[r]), signifo, gloso, noto);
-
-            foreach (var kategorio in kategorioj) {
-               if (vortarajKategorioj.ContainsKey(kategorio)) {
-                  vortarajKategorioj[kategorio].Add(novaVorto.Id);
-               }
-               else {
-                  vortarajKategorioj.Add(kategorio, new List<int> {novaVorto.Id});
-               }
-            }
 
             yield return novaVorto;
          }
