@@ -24,7 +24,7 @@ module Malinflektado =
         InfinitivoFinaĵo("ga", AtributativoEstiMalantaŭ)
         InfinitivoFinaĵo("va", AtributativoEstiAntaŭ)
         DUPFinaĵo("ra", Sola, UnuSola, PluraSola)
-        DUPFinaĵo("ris", Havado, UnuHavado, PluraHavado)
+        DUPFinaĵo("reg", Havado, UnuHavado, PluraHavado)
         DUPFinaĵo("rim", Ekzistado, UnuEkzistado, PluraEkzistado)
         DifinitoFinaĵo("las", Translativo)
         DifinitoFinaĵo("lam", Translativo)

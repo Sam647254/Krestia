@@ -80,9 +80,9 @@ type KlasoTestoj() =
 
    [<TestMethod>]
    member _.Havado() =
-      [ ("lekeris", Havado)
-        ("lepasiris", UnuHavado)
-        ("trupaveris", PluraHavado) ]
+      [ ("lekereg", Havado)
+        ("lepasireg", UnuHavado)
+        ("trupavereg", PluraHavado) ]
       |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion NombrigeblaKlaso pravaInflekcio vorto)
       |> ignore
 
@@ -115,8 +115,8 @@ type KlasoTestoj() =
               Nebazo(NenombrigeblaKlaso, Translativo, "kunaa")
               Bazo(NenombrigeblaKlaso, Infinitivo, "kunaa") ]
       
-      "nekeverisora"
+      "nekeveregore"
       |> kontroliĈiujnInfleckiojn
-            [ Nebazo(NetransitivaVerbo, NominativoVolo, "nekeveris")
+            [ Nebazo(OblikaNetransitivaVerbo, AkuzativoVolo, "nekevereg")
               Nebazo(NombrigeblaKlaso, PluraHavado, "neko")
               Bazo(NombrigeblaKlaso, Infinitivo, "neko") ]
