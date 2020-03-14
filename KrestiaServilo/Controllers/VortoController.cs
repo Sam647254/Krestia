@@ -5,14 +5,14 @@ namespace KrestiaServilo.Controllers {
    [ApiController]
    [Route("")]
    public class VortoController : ControllerBase {
-      private readonly VortaroService _vortaroService;
+      private readonly IVortaroService _vortaroService;
 
-      public VortoController(VortaroService vortaroService) {
+      public VortoController(IVortaroService vortaroService) {
          _vortaroService = vortaroService;
       }
 
       [HttpGet("vorto/{vorto}")]
-      public ActionResult Get(string vorto) {
+      public IActionResult Get(string vorto) {
          var rezulto = _vortaroService.Instanco.Vorto(vorto);
          if (rezulto == null)
             return NotFound();

@@ -13,5 +13,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.0.100
-    - name: Ruli la testojn de Krestia vortilo
+    - name: Ruli la testojn de KrestiaServilo
+      run: dotnet test ./KrestiaServilo.Testo
+    - name: Ruli la testojn de KrestiaVortaro
+      run: dotnet test ./KrestiaVortaro.Testo
+    - name: Ruli la testojn de KrestiaVortilo
       run: dotnet test ./KrestiaVortilo.Testo

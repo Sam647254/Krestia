@@ -14,7 +14,7 @@ namespace KrestiaVortaro {
 
       public ImmutableDictionary<string, Vorto> Indekso { get; private set; }
       public ImmutableDictionary<int, Vorto> IdIndekso { get; private set; }
-      public ImmutableDictionary<string, ImmutableList<Vorto>> Kategorioj { get; private set; }
+      public ImmutableDictionary<string, ImmutableList<Vorto>>? Kategorioj { get; private set; }
       private ImmutableDictionary<string, Vorto> BazoIndekso { get; set; }
 
       public IOrderedEnumerable<VortoKunSignifo> Vortlisto =>
@@ -146,12 +146,16 @@ namespace KrestiaVortaro {
       public static async Task<Vortaro> KreiVortaron() {
          Console.WriteLine("KreiVortaron");
          var jsonVortaro = await JsonVortaro.Alporti(VortaroUrl);
+         return KreiVortaronDe(jsonVortaro);
+      }
+
+      public static Vortaro KreiVortaronDe(JsonVortaro jsonVortaro) {
          return new Vortaro {
             Indekso = jsonVortaro.Vortoj.ToImmutableDictionary(v => v.PlenaVorto, v => v),
             BazoIndekso = jsonVortaro.Vortoj.ToImmutableDictionary(v => v.BazaVorto, v => v),
             IdIndekso = jsonVortaro.Vortoj.Select((v, i) => (v, i)).ToImmutableDictionary(p => p.i, p => p.v),
-            Kategorioj = jsonVortaro.Kategorioj.ToImmutableDictionary(k => k.Nomo,
-               k => k.Vortoj.Select(id => jsonVortaro!.Vortoj[id]).ToImmutableList())
+            Kategorioj = jsonVortaro.Kategorioj?.ToImmutableDictionary(k => k.Nomo,
+               k => k.Vortoj.Select(id => jsonVortaro.Vortoj![id]).ToImmutableList())!,
          };
       }
 

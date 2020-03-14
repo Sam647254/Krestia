@@ -1,7 +1,7 @@
 ﻿using KrestiaVortaro;
 
 namespace KrestiaServilo.Services {
-   public class VortaroService {
+   public class VortaroService : IVortaroService {
       public Vortaro Instanco { get; }
       
       public VortaroService() {
