@@ -14,7 +14,7 @@ type EcoTestoj () =
         ("kitigre", Difinito)
         ("kitigrensa", Havaĵo)
         ("kitigrowa", PredikativoEsti)
-        ("kitigroga", AtributativoEstiMalantaŭ)
+        ("kitigroga", AtributivoEstiMalantaŭ)
         ("kitigrelas", Translativo)
         ("kitigreva", Ĝerundo) ]
       |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto AntaŭNenombrigeblaEco inflekcio)
@@ -30,7 +30,7 @@ type EcoTestoj () =
         ("edrevensa", PluraHavaĵo)
         ("edrensa", Havaĵo)
         ("edrowa", PredikativoEsti)
-        ("edroga", AtributativoEstiMalantaŭ)
+        ("edroga", AtributivoEstiMalantaŭ)
         ("edrelas", Translativo)
         ("edrerim", Ekzistado)
         ("edresirim", UnuEkzistado)

@@ -158,7 +158,9 @@ namespace KrestiaAWSAlirilo {
                   {":v", new AttributeValue(malinflektitaVorto)}
                }
             });
-            malinflektitaVorto = malinflektitaRezulto.Count == 1 ? malinflektitaRezulto.Items.First()["vorto"].S : null;
+            malinflektitaVorto = malinflektitaRezulto.Count == 1
+               ? malinflektitaRezulto.Items.First()["vorto"].S
+               : malinflektitaVorto;
          }
 
          if (bazo != null) {
@@ -194,7 +196,7 @@ namespace KrestiaAWSAlirilo {
 
          return new VortoRezulto {
             MalinflektitaVorto = malinflektitaVorto == peto ? null : malinflektitaVorto,
-            PlenigitaVorto = bazo == peto ? null : bazo,
+            PlenigitaVorto = bazo == malinflektitaVorto ? null : bazo,
             Rezultoj = rezultoj.Items.Select(r => new VortoRespondo {
                Vorto = r["vorto"].S,
                Signifo = r["signifo"].S

@@ -18,7 +18,7 @@ type NombrigeblaKlasoTestoj () =
         ("kreskivensa", NombrigeblaKlaso, PluraHavaĵo)
         ("kreskive", NombrigeblaKlaso, PluraNombro)
         ("kreskuwa", NombrigeblaKlaso, PredikativoEsti)
-        ("kreskuga", NombrigeblaKlaso, AtributativoEstiMalantaŭ)
+        ("kreskuga", NombrigeblaKlaso, AtributivoEstiMalantaŭ)
         ("kreskiris", NombrigeblaKlaso, Havado)
         ("kreskilas", NombrigeblaKlaso, Translativo)
         ("kreskirim", NombrigeblaKlaso, Ekzistado)

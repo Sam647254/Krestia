@@ -14,8 +14,8 @@ module Valenco =
       match vorttipo with
       | NombrigeblaKlaso | NenombrigeblaKlaso ->
          match inflekcio with
-         | AtributativoEstiAntaŭ -> multaVorto 0 1
-         | AtributativoEstiMalantaŭ -> multaVorto 1 0
+         | AtributivoEstiAntaŭ -> multaVorto 0 1
+         | AtributivoEstiMalantaŭ -> multaVorto 1 0
          | _ -> multaVorto 0 0
       | MalantaŭNombrigeblaEco | MalantaŭNenombrieblaEco ->
          match inflekcio with
@@ -23,8 +23,8 @@ module Valenco =
          | _ -> multaVorto 1 0
       | Pridiranto ->
          match inflekcio with
-         | AtributativoEstiAntaŭ -> multaVorto 0 1
-         | AtributativoEstiMalantaŭ -> multaVorto 1 0
+         | AtributivoEstiAntaŭ -> multaVorto 0 1
+         | AtributivoEstiMalantaŭ -> multaVorto 1 0
          | _ -> multaVorto 0 0
       | _ -> multaVorto 0 0
 

@@ -16,8 +16,8 @@ module Vorttipo =
    | AkuzativoVolo
    | DativoVolo
    | PredikativoEsti
-   | AtributativoEstiAntaŭ
-   | AtributativoEstiMalantaŭ
+   | AtributivoEstiAntaŭ
+   | AtributivoEstiMalantaŭ
    | Havado
    | UnuHavado
    | PluraHavado

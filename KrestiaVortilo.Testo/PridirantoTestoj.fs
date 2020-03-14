@@ -17,7 +17,7 @@ type PridirantoTestoj () =
         ("peridie", PluraNombro)
         ("peridia", PredikativoEsti)
         ("perido", Perfekto)
-        ("peridea", AtributativoEstiMalantaŭ)
+        ("peridea", AtributivoEstiMalantaŭ)
         ("peridis", Translativo)
         ("peridi", Ĝerundo)
         ("peridet", Igo)

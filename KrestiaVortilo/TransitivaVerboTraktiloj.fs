@@ -90,8 +90,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("trie") -> Some (TransitivaVerbo, AtributativoEstiMalantaŭ)
-           | v when v.EndsWith("prie") -> Some (DutransitivaVerbo, AtributativoEstiMalantaŭ)
+           | v when v.EndsWith("trie") -> Some (TransitivaVerbo, AtributivoEstiMalantaŭ)
+           | v when v.EndsWith("prie") -> Some (DutransitivaVerbo, AtributivoEstiMalantaŭ)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->

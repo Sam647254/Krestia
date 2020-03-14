@@ -56,8 +56,8 @@ type KlasoTestoj() =
    [<TestMethod>]
    member _.Estado() =
       [ ("verikowa", PredikativoEsti)
-        ("voritoga", AtributativoEstiMalantaŭ)
-        ("voritova", AtributativoEstiAntaŭ) ]
+        ("voritoga", AtributivoEstiMalantaŭ)
+        ("voritova", AtributivoEstiAntaŭ) ]
       |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion NombrigeblaKlaso pravaInflekcio vorto)
       |> ignore
 
