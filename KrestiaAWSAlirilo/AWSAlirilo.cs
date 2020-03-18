@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
@@ -200,7 +202,7 @@ namespace KrestiaAWSAlirilo {
             Rezultoj = rezultoj.Items.Select(r => new VortoRespondo {
                Vorto = r["vorto"].S,
                Signifo = r["signifo"].S
-            })
+            }).OrderBy(vorto => Rilateco(vorto, peto))
          };
       }
 
@@ -222,6 +224,30 @@ namespace KrestiaAWSAlirilo {
          return respondo.Responses[TableName].Select(r => new VortoRespondo {
             Gloso = r["gloso"].S
          });
+      }
+
+      private static int Rilateco(VortoRespondo vortoRespondo, string peto) {
+         if (peto == vortoRespondo.Vorto) {
+            return 0;
+         }
+
+         if (vortoRespondo.Vorto.StartsWith(peto)) {
+            return 1;
+         }
+
+         if (vortoRespondo.Signifo == peto) {
+            return 2;
+         }
+
+         if (vortoRespondo.Signifo.StartsWith(peto)) {
+            return 3;
+         }
+
+         if (Regex.IsMatch(vortoRespondo.Signifo, $"\\b{peto}\\b", RegexOptions.IgnoreCase)) {
+            return 4;
+         }
+
+         return int.MaxValue;
       }
    }
 }
