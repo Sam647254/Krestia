@@ -38,6 +38,10 @@ namespace KrestiaAWSAlirilo {
                }));
                break;
             }
+            case "kontroli": {
+               await UnuFojajProgrametoj.KontroliVortaron(awsAlirilo);
+               break;
+            }
          }
       }
    }

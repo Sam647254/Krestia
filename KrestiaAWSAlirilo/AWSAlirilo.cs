@@ -32,7 +32,7 @@ namespace KrestiaAWSAlirilo {
             Signifo = vorto["signifo"].S,
             Kategorioj = vorto.GetValueOrDefault("kategorio")?.SS,
             Noto = vorto.GetValueOrDefault("noto")?.S,
-            Radikoj = vorto.GetValueOrDefault("radikoj").L.Select(r => r.S).ToList()
+            Radikoj = vorto.GetValueOrDefault("radikoj")?.L.Select(r => r.S).ToList()
          });
       }
 
