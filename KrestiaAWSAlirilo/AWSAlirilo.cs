@@ -18,10 +18,10 @@ namespace KrestiaAWSAlirilo {
 
       private readonly AmazonDynamoDBClient _amazonDynamoDbClient = new AmazonDynamoDBClient(RegionEndpoint.USWest2);
 
-      public async Task<IEnumerable<VortoRespondo>> AlportiĈiujnVortojn() {
+      public async Task<IEnumerable<VortoRespondo>> AlportiĈiujnVortojn(bool baza = false) {
          var rezulto = await _amazonDynamoDbClient.ScanAsync(new ScanRequest {
             TableName = TableName,
-            ProjectionExpression = "vorto, signifo, radikoj, kategorio, noto"
+            ProjectionExpression = baza ? "vorto, signifo" : "vorto, signifo, radikoj, kategorio, noto"
          });
          if (rezulto.LastEvaluatedKey.Count > 0) {
             throw new NotSupportedException("Pli da rezultoj restantaj");

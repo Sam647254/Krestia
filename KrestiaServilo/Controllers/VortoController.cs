@@ -42,10 +42,16 @@ namespace KrestiaServilo.Controllers {
          var glosoj = await _awsAlirilo.AlportiVortojn(malinflektitaVortoj.ResultValue.Select(v => v.BazaVorto));
 
          return Ok(malinflektitaVortoj.ResultValue.Zip(glosoj).Select(p => new {
-            Gloso = p.Second.Gloso,
+            p.Second.Gloso,
             MalinflektajŜtupoj = p.First.InflekcioŜtupoj.Where(ŝ => ŝ.IsNebazo)
                .Select(ŝ => ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝ).Item2.ToString())
          }));
+      }
+
+      [HttpGet("vortlisto/alfabeta")]
+      public async Task<ActionResult> AlfabetaListo() {
+         var vortoj = await _awsAlirilo.AlportiĈiujnVortojn(baza: true);
+         return Ok(vortoj.OrderBy(v => v.Vorto));
       }
    }
 }
