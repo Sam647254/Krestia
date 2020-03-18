@@ -172,6 +172,24 @@ module Malinflektado =
         InfinitivoFinaĵo("ea", Ĝerundo)
         InfinitivoFinaĵo("etio", Patiento)
         InfinitivoFinaĵo("om", PartaDativo) ]
+      
+   let pridirantoInflekcioj =
+      [ InfinitivoFinaĵo("e", Difinito)
+        InfinitivoFinaĵo("a", UnuNombro)
+        InfinitivoFinaĵo("ie", PluraNombro)
+        InfinitivoFinaĵo("u", Havaĵo)
+        InfinitivoFinaĵo("ia", PredikativoEsti)
+        InfinitivoFinaĵo("ea", AtributivoEstiMalantaŭ)
+        InfinitivoFinaĵo("ra", AtributivoEstiAntaŭ)
+        InfinitivoFinaĵo("io", Sola)
+        InfinitivoFinaĵo("im", Translativo)
+        InfinitivoFinaĵo("is", Translativo)
+        InfinitivoFinaĵo("i", Ĝerundo)
+        InfinitivoFinaĵo("em", Igo)
+        InfinitivoFinaĵo("eg", Igo)
+        InfinitivoFinaĵo("es", Igo)
+        InfinitivoFinaĵo("et", Igo)
+        InfinitivoFinaĵo("od", Etigo) ]
 
    let inflekciojPerVorttipoj =
       [ NombrigeblaKlaso, nombrigeblaKlasoInflekcioj
@@ -182,7 +200,8 @@ module Malinflektado =
         DutransitivaVerbo, dutransitivaVerboInflekcioj
         OblikaNetransitivaVerbo, oblikaNetransitivaVerboInflekcioj
         OblikaTransitivaVerbo, oblikaTransitivaVerboInflekcioj
-        NedirektaNetransitivaVerbo, nedirektaNetransitivaVerboInflekcioj ]
+        NedirektaNetransitivaVerbo, nedirektaNetransitivaVerboInflekcioj
+        Pridiranto, pridirantoInflekcioj ]
       |> Map.ofList
 
    let ĉiujInflekcioj =

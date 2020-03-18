@@ -31,10 +31,10 @@ namespace KrestiaAWSAlirilo {
       public static async Task KontroliVortaron(AwsAlirilo awsAlirilo) {
          var vortoj = await awsAlirilo.AlportiĈiujnVortojn();
          vortoj.ForEach(v => {
-            var ĉuInfinitivo = Sintaksanalizilo.ĉuInfinitivo(v.Vorto);
+            var malinflektitaVorto = Malinflektado.malinflekti(v.Vorto);
             var ĉuValidaVorto = Malinflektado.dividi(v.Vorto, true);
 
-            if (FSharpOption<Vorttipo.Vorttipo>.get_IsNone(ĉuInfinitivo) || ĉuValidaVorto.IsError) {
+            if (!(malinflektitaVorto.IsOk && malinflektitaVorto.ResultValue.IsBazo) || ĉuValidaVorto.IsError) {
                Console.WriteLine($"{v.Vorto} estas nevalida vorto");
             }
          });
