@@ -12,7 +12,7 @@ jobs:
     - name: Agordi .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.0.100
+        dotnet-version: 3.1.201
     - name: Ruli la testojn de KrestiaServilo
       run: dotnet test ./KrestiaServilo.Testo
     - name: Ruli la testojn de KrestiaVortaro
