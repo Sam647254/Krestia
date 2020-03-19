@@ -149,6 +149,7 @@ namespace KrestiaAWSAlirilo {
          string? malinflektitaVorto = null;
          Vorttipo.Vorttipo? malinflektitaTipo = null;
          string? bazo = null;
+         string? bazoGloso = null;
          if (malinflekajŜtupoj.IsOk) {
             var lastaŜtupo = malinflekajŜtupoj.ResultValue.InflekcioŜtupoj.Last()
                as Sintaksanalizilo.MalinflektaŜtupo.Bazo;
@@ -170,7 +171,7 @@ namespace KrestiaAWSAlirilo {
          if (bazo != null) {
             var bazaRezulto = await _amazonDynamoDbClient.QueryAsync(new QueryRequest(TableName) {
                IndexName = "bazo-indekso",
-               ProjectionExpression = "vorto",
+               ProjectionExpression = "vorto, gloso",
                KeyConditionExpression = "bazo = :b",
                ExpressionAttributeValues = new Dictionary<string, AttributeValue>() {
                   {":b", new AttributeValue(bazo)}
@@ -179,7 +180,9 @@ namespace KrestiaAWSAlirilo {
 
             if (bazaRezulto.Count == 1) {
                var bazaVorto = bazaRezulto.Items.First()["vorto"].S;
-               bazo = Malinflektado.ĉuMalplenigita(malinflektitaTipo, bazaVorto) ? bazaVorto : null;
+               var ĉuMalplenigita = Malinflektado.ĉuMalplenigita(malinflektitaTipo, bazaVorto);
+               bazo = ĉuMalplenigita.IsOk && ĉuMalplenigita.ResultValue ? bazaVorto : bazo;
+               bazoGloso = bazaRezulto.Items.First()["gloso"].S;
             }
             else {
                bazo = null;
@@ -199,8 +202,15 @@ namespace KrestiaAWSAlirilo {
          }
 
          return new VortoRezulto {
-            MalinflektitaVorto = malinflektitaVorto == peto ? null : malinflektitaVorto,
+            MalinflektitaVorto = malinflektitaVorto == peto || bazo == null ? null : malinflektitaVorto,
             PlenigitaVorto = bazo == malinflektitaVorto ? null : bazo,
+            Gloso = malinflekajŜtupoj.IsOk && malinflekajŜtupoj.ResultValue.InflekcioŜtupoj.Length > 0
+               ? bazoGloso
+               : null,
+            MalinflektaŜtupoj = malinflekajŜtupoj.IsOk
+               ? malinflekajŜtupoj.ResultValue.InflekcioŜtupoj.Where(ŝ => ŝ.IsNebazo)
+                  .Select(ŝ => ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝ).Item2.ToString())
+               : null,
             Rezultoj = rezultoj.Items.Select(r => new VortoRespondo(r["vorto"].S) {
                Signifo = r["signifo"].S
             }).OrderBy(vorto => Rilateco(vorto, peto))
