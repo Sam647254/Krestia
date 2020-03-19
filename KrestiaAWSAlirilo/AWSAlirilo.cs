@@ -29,8 +29,7 @@ namespace KrestiaAWSAlirilo {
             throw new NotSupportedException("Pli da rezultoj restantaj");
          }
 
-         return rezulto.Items.Select(vorto => new VortoRespondo {
-            Vorto = vorto["vorto"].S,
+         return rezulto.Items.Select(vorto => new VortoRespondo(vorto["vorto"].S) {
             Signifo = vorto["signifo"].S,
             Kategorioj = vorto.GetValueOrDefault("kategorio")?.SS,
             Noto = vorto.GetValueOrDefault("noto")?.S,
@@ -79,8 +78,7 @@ namespace KrestiaAWSAlirilo {
          var inflekcioj = Malinflektado.ĉiujInflekciojDe(vorto);
          return !respondo.IsItemSet
             ? null
-            : new VortoRespondo {
-               Vorto = vortoObjecto["vorto"].S,
+            : new VortoRespondo(vortoObjecto["vorto"].S) {
                Kategorioj = vortoObjecto.GetValueOrDefault("kategorioj")?.SS,
                Noto = vortoObjecto.GetValueOrDefault("noto")?.S,
                Radikoj = vortoObjecto.GetValueOrDefault("radikoj")?.SS,
@@ -105,8 +103,7 @@ namespace KrestiaAWSAlirilo {
                throw new ArgumentException($"{partoj[0]} ne estas valida infinitivo");
             }
 
-            return new VortoRespondo {
-               Vorto = partoj[0],
+            return new VortoRespondo(partoj[0]) {
                Signifo = partoj[1],
                Kategorioj = partoj[2].Length > 0 ? partoj[2].Split(',').ToList() : null,
                Radikoj = partoj[3].Length > 0 ? partoj[3].Split(',').ToList() : null,
@@ -121,15 +118,15 @@ namespace KrestiaAWSAlirilo {
                },
                {"signifo", new AttributeValue(vorto.Signifo)}
             };
-            if (vorto.Kategorioj.Count > 0) {
+            if (vorto.Kategorioj?.Count > 0) {
                peto["kategorioj"] = new AttributeValue(vorto.Kategorioj);
             }
 
-            if (vorto.Radikoj.Count > 0) {
+            if (vorto.Radikoj?.Count > 0) {
                peto["radikoj"] = new AttributeValue(vorto.Radikoj);
             }
 
-            if (vorto.Noto.Length > 0) {
+            if (vorto.Noto?.Length > 0) {
                peto["noto"] = new AttributeValue(vorto.Noto);
             }
 
@@ -193,7 +190,7 @@ namespace KrestiaAWSAlirilo {
             ProjectionExpression = "vorto, signifo",
             FilterExpression = "contains(vorto, :p) OR contains(signifo, :p)",
             ExpressionAttributeValues = new Dictionary<string, AttributeValue> {
-               {":p", new AttributeValue(peto)}
+               {":p", new AttributeValue(peto.ToLowerInvariant())}
             }
          });
 
@@ -204,8 +201,7 @@ namespace KrestiaAWSAlirilo {
          return new VortoRezulto {
             MalinflektitaVorto = malinflektitaVorto == peto ? null : malinflektitaVorto,
             PlenigitaVorto = bazo == malinflektitaVorto ? null : bazo,
-            Rezultoj = rezultoj.Items.Select(r => new VortoRespondo {
-               Vorto = r["vorto"].S,
+            Rezultoj = rezultoj.Items.Select(r => new VortoRespondo(r["vorto"].S) {
                Signifo = r["signifo"].S
             }).OrderBy(vorto => Rilateco(vorto, peto))
          };
@@ -215,7 +211,7 @@ namespace KrestiaAWSAlirilo {
          var respondo = await _amazonDynamoDbClient.BatchGetItemAsync(new Dictionary<string, KeysAndAttributes>() {
             {
                TableName, new KeysAndAttributes {
-                  AttributesToGet = new List<string> {"gloso"},
+                  AttributesToGet = new List<string> {"gloso", "vorto"},
                   Keys = vortoj.Select(v => new Dictionary<string, AttributeValue> {{"vorto", new AttributeValue(v)}})
                      .ToList()
                }
@@ -226,7 +222,7 @@ namespace KrestiaAWSAlirilo {
             throw new NotImplementedException("Tro da vortoj en la peto");
          }
 
-         return respondo.Responses[TableName].Select(r => new VortoRespondo {
+         return respondo.Responses[TableName].Select(r => new VortoRespondo(r["vorto"].S) {
             Gloso = r["gloso"].S
          });
       }
@@ -244,11 +240,11 @@ namespace KrestiaAWSAlirilo {
             return 2;
          }
 
-         if (vortoRespondo.Signifo.StartsWith(peto)) {
+         if (vortoRespondo.Signifo?.StartsWith(peto) == true) {
             return 3;
          }
 
-         if (Regex.IsMatch(vortoRespondo.Signifo, $"\\b{peto}\\b", RegexOptions.IgnoreCase)) {
+         if (Regex.IsMatch(vortoRespondo.Signifo ?? "", $"\\b{peto}\\b", RegexOptions.IgnoreCase)) {
             return 4;
          }
 

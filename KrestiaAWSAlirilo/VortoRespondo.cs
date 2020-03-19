@@ -8,21 +8,21 @@ namespace KrestiaAWSAlirilo {
 
       public string Vorto { get; set; }
 
-      public List<string> Radikoj {
+      public List<string>? Radikoj {
          get => _radikoj ?? new List<string>();
          set => _radikoj = value;
       }
 
-      public string Signifo { get; set; }
+      public string? Signifo { get; set; }
 
-      public string Gloso { get; set; }
+      public string? Gloso { get; set; }
 
-      public string Noto {
+      public string? Noto {
          get => _noto ?? "";
          set => _noto = value;
       }
 
-      public List<string> Kategorioj {
+      public List<string>? Kategorioj {
          get => _kategorioj ?? new List<string>();
          set => _kategorioj = value;
       }
@@ -31,6 +31,10 @@ namespace KrestiaAWSAlirilo {
 
       public IEnumerable<string>? Silaboj { get; set; }
 
-      public IDictionary<string, string> InflektitajFormoj { get; set; }
+      public IDictionary<string, string>? InflektitajFormoj { get; set; }
+
+      internal VortoRespondo(string vorto) {
+         Vorto = vorto;
+      }
    }
 }

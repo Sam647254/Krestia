@@ -19,7 +19,8 @@ namespace KrestiaAWSAlirilo {
          var vortoj = await awsAlirilo.AlportiĈiujnVortojn();
          await File.WriteAllLinesAsync(dosiero,
             vortoj.Select(v =>
-               $"{v.Vorto}|{v.Signifo}|{string.Join(',', v.Kategorioj)}|{string.Join(',', v.Radikoj)}" +
+               $"{v.Vorto}|{v.Signifo}|{string.Join(separator: ',', v.Kategorioj ?? new List<string>())}" +
+               $"|{string.Join(separator: ',', v.Radikoj ?? new List<string>())}" +
                $"|{v.Noto}"));
       }
 
