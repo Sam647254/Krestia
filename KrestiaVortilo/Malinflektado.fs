@@ -145,7 +145,7 @@ module Malinflektado =
         InfinitivoFinaĵo("ra", AtributivoEstiMalantaŭ)
         InfinitivoFinaĵo("re", AtributivoEstiAntaŭ)
         InfinitivoFinaĵo("ea", Ĝerundo)
-        InfinitivoFinaĵo("orio", Aganto)
+        InfinitivoFinaĵo("orio", Patiento)
         InfinitivoFinaĵo("am", PartaAkuzativo) ]
 
    let oblikaTransitivaVerboInflekcioj =
@@ -157,8 +157,8 @@ module Malinflektado =
         InfinitivoFinaĵo("ri", AtributivoEstiMalantaŭ)
         InfinitivoFinaĵo("re", AtributivoEstiAntaŭ)
         InfinitivoFinaĵo("ea", Ĝerundo)
-        InfinitivoFinaĵo("orio", Aganto)
-        InfinitivoFinaĵo("etio", Patiento)
+        InfinitivoFinaĵo("orio", Patiento)
+        InfinitivoFinaĵo("etio", NedirektaPatiento)
         InfinitivoFinaĵo("om", PartaAkuzativo)
         InfinitivoFinaĵo("on", PartaAkuzativo)
         InfinitivoFinaĵo("im", PartaDativo)
@@ -194,6 +194,10 @@ module Malinflektado =
    let inflekciojPerVorttipoj =
       [ NombrigeblaKlaso, nombrigeblaKlasoInflekcioj
         NenombrigeblaKlaso, nenombrigeblaKlasoInflekcioj
+        AntaŭNombrigeblaEco, nombrigeblaKlasoInflekcioj
+        AntaŭNenombrigeblaEco, nenombrigeblaKlasoInflekcioj
+        MalantaŭNombrigeblaEco, nombrigeblaKlasoInflekcioj
+        MalantaŭNenombrieblaEco, nenombrigeblaKlasoInflekcioj
         MalplenaVerbo, malplenaVerboInflekcioj
         NetransitivaVerbo, netransitivaVerboInflekcioj
         TransitivaVerbo, transitivaVerboInflekcioj

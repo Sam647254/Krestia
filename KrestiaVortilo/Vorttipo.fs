@@ -24,6 +24,7 @@ module Vorttipo =
    | AtributativoHavi
    | Imperativo
    | Patiento
+   | NedirektaPatiento
    | Aganto
    | Ekzistado
    | UnuEkzistado
