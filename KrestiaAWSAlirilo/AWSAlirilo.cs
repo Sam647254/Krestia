@@ -10,6 +10,8 @@ using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
 using KrestiaVortilo;
+using Microsoft.FSharp.Collections;
+using Microsoft.FSharp.Core;
 using MoreLinq.Extensions;
 
 namespace KrestiaAWSAlirilo {
@@ -74,6 +76,7 @@ namespace KrestiaAWSAlirilo {
          }
 
          var vortoObjecto = respondo.Item;
+         var inflekcioj = Malinflektado.ĉiujInflekciojDe(vorto);
          return !respondo.IsItemSet
             ? null
             : new VortoRespondo {
@@ -84,8 +87,10 @@ namespace KrestiaAWSAlirilo {
                Signifo = vortoObjecto.GetValueOrDefault("signifo")?.S,
                Vorttipo = vorttipo,
                Silaboj = silaboj.ResultValue,
-               InflektitajFormoj = Malinflektado.ĉiujInflekciojDe(vorto).Value.Select(p => (p.Key.ToString(), p.Value))
-                  .ToDictionary()
+               InflektitajFormoj = FSharpOption<FSharpMap<Vorttipo.Inflekcio, string>>.get_IsSome(inflekcioj)
+                  ? inflekcioj.Value.Select(p => (p.Key.ToString(), p.Value))
+                     .ToDictionary()
+                  : null
             };
       }
 
