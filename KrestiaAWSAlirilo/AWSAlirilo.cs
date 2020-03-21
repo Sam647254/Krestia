@@ -148,9 +148,7 @@ namespace KrestiaAWSAlirilo {
          var kvanto = peto.Split(separator: ' ');
          if (kvanto.Length > 1) {
             var malinflektita = kvanto.Select(Malinflektado.tuteMalinflekti).ToList();
-            if (malinflektita.All(v => v.IsOk)) {
-               return await GlosaRezulto(malinflektita.Select(v => v.ResultValue).ToList());
-            }
+            return await GlosaRezulto(malinflektita.ToList());
          }
 
          var malinflekajŜtupoj = Malinflektado.tuteMalinflekti(peto);
@@ -225,8 +223,9 @@ namespace KrestiaAWSAlirilo {
          };
       }
 
-      private async Task<VortoRezulto> GlosaRezulto(IReadOnlyCollection<Malinflektado.MalinflektitaVorto> vortoj) {
-         var bazoj = vortoj.Select(v => Malinflektado.bazoDe(v.BazaVorto));
+      private async Task<VortoRezulto> GlosaRezulto(
+         IReadOnlyCollection<FSharpResult<Malinflektado.MalinflektitaVorto, string>> vortoj) {
+         var bazoj = vortoj.Select(v => v.IsOk ? Malinflektado.bazoDe(v.ResultValue.BazaVorto) : "???");
          var rezultoj = await Task.WhenAll(bazoj.Select(b => _amazonDynamoDbClient.QueryAsync(
             new QueryRequest(TableName) {
                KeyConditionExpression = "bazo = :b",
@@ -242,10 +241,12 @@ namespace KrestiaAWSAlirilo {
          }
 
          return new VortoRezulto {
-            GlosajVortoj = rezultoj.Select(r => r.Items.First()["gloso"].S),
-            GlosajŜtupoj = vortoj.Select(v => v.InflekcioŜtupoj.Where(ŝ => ŝ.IsNebazo)
-               .Select(ŝ => ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝ).Item2.ToString())),
-            BazajVortoj = rezultoj.Select(r => r.Items.First()["vorto"].S)
+            GlosajVortoj = rezultoj.Select(r => r.Items.Count == 1 ? r.Items.First()["gloso"].S : "(not found)"),
+            GlosajŜtupoj = vortoj.Select(v => v.IsOk
+               ? v.ResultValue.InflekcioŜtupoj.Where(ŝ => ŝ.IsNebazo)
+                  .Select(ŝ => ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝ).Item2.ToString())
+               : new List<string>()),
+            BazajVortoj = rezultoj.Select(r => r.Items.Count == 1 ? r.Items.First()["vorto"].S : "")
          };
       }
 
