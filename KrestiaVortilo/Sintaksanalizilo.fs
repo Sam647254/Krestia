@@ -14,14 +14,14 @@ module Sintaksanalizilo =
       | Nebazo of Vorttipo * Inflekcio * RestantaVorto: string
 
    let nombrigeblaInfinitivoFinaĵoj =
-      [ "pu"; "po"; "paa"; "tu"; "to"; "taa"; "ku"; "ko"; "kaa"; "toniaa"; "poniaa"; "tetio"; "petio"; "setio"; "shetio" ]
+      [ "pu"; "po"; "paa"; "tu"; "to"; "taa"; "ku"; "ko"; "kaa"; "toniaa"; "poniaa"; "tetio"; "petio"; "setio"; "shetio"; "dro"; "dru" ]
    let nombrigeblaDifinitoFinaĵoj =
-      [ "pi"; "pe"; "pa"; "ti"; "te"; "ta"; "ki"; "ke"; "ka"; "tonia"; "ponia"; "tetie"; "petie"; "setie"; "shetie" ]
+      [ "pi"; "pe"; "pa"; "ti"; "te"; "ta"; "ki"; "ke"; "ka"; "tonia"; "ponia"; "tetie"; "petie"; "setie"; "shetie"; "dre"; "dri" ]
    let nombrigeblaUnuNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "si")
    let nombrigeblaPluraNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ve")
 
-   let nenombrigeblaInfinitivoFinaĵoj = [ "mu"; "mo"; "maa"; "nu"; "no"; "naa" ]
-   let nenombrigeblaDifinitoFinaĵoj = [ "mi"; "me"; "ma"; "ni"; "ne"; "na" ]
+   let nenombrigeblaInfinitivoFinaĵoj = [ "mu"; "mo"; "maa"; "nu"; "no"; "naa"; "gro"; "gru" ]
+   let nenombrigeblaDifinitoFinaĵoj = [ "mi"; "me"; "ma"; "ni"; "ne"; "na"; "gre"; "gri" ]
 
    let finajLiteroj finaĵoj tipo inflekcio =
       finaĵoj

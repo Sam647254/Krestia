@@ -215,7 +215,7 @@ namespace KrestiaAWSAlirilo {
             Gloso = malinflekajŜtupoj.IsOk && malinflekajŜtupoj.ResultValue.InflekcioŜtupoj.Length > 0
                ? bazoGloso
                : null,
-            MalinflektaŜtupoj = malinflekajŜtupoj.IsOk
+            MalinflektajŜtupoj = malinflekajŜtupoj.IsOk
                ? malinflekajŜtupoj.ResultValue.InflekcioŜtupoj.Where(ŝ => ŝ.IsNebazo)
                   .Select(ŝ => ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝ).Item2.ToString())
                : null,
@@ -244,7 +244,8 @@ namespace KrestiaAWSAlirilo {
          return new VortoRezulto {
             GlosajVortoj = rezultoj.Select(r => r.Items.First()["gloso"].S),
             GlosajŜtupoj = vortoj.Select(v => v.InflekcioŜtupoj.Where(ŝ => ŝ.IsNebazo)
-               .Select(ŝ => ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝ).Item2.ToString()))
+               .Select(ŝ => ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝ).Item2.ToString())),
+            BazajVortoj = rezultoj.Select(r => r.Items.First()["vorto"].S)
          };
       }
 

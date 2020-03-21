@@ -361,7 +361,7 @@ module Malinflektado =
             (0,
              (if vorto.EndsWith("sh") then vorto.Length - 2
               else vorto.Length - 1))
-      elif vorto.EndsWith("l") || vorto.EndsWith("r") then
+      elif (vorto.EndsWith("l") || vorto.EndsWith("r")) && not(vorto.StartsWith("h") || vorto.StartsWith("w")) then
          vorto.Substring(0, vorto.Length - 1)
       else
          vorto
