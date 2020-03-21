@@ -145,6 +145,14 @@ namespace KrestiaAWSAlirilo {
       }
 
       public async Task<VortoRezulto> TroviVortojn(string peto) {
+         var kvanto = peto.Split(separator: ' ');
+         if (kvanto.Length > 1) {
+            var malinflektita = kvanto.Select(Malinflektado.tuteMalinflekti).ToList();
+            if (malinflektita.All(v => v.IsOk)) {
+               return await GlosaRezulto(malinflektita.Select(v => v.ResultValue).ToList());
+            }
+         }
+
          var malinflekajŜtupoj = Malinflektado.tuteMalinflekti(peto);
          string? malinflektitaVorto = null;
          Vorttipo.Vorttipo? malinflektitaTipo = null;
@@ -214,6 +222,29 @@ namespace KrestiaAWSAlirilo {
             Rezultoj = rezultoj.Items.Select(r => new VortoRespondo(r["vorto"].S) {
                Signifo = r["signifo"].S
             }).OrderBy(vorto => Rilateco(vorto, peto))
+         };
+      }
+
+      private async Task<VortoRezulto> GlosaRezulto(IReadOnlyCollection<Malinflektado.MalinflektitaVorto> vortoj) {
+         var bazoj = vortoj.Select(v => Malinflektado.bazoDe(v.BazaVorto));
+         var rezultoj = await Task.WhenAll(bazoj.Select(b => _amazonDynamoDbClient.QueryAsync(
+            new QueryRequest(TableName) {
+               KeyConditionExpression = "bazo = :b",
+               IndexName = "bazo-indekso",
+               ProjectionExpression = "gloso, vorto",
+               ExpressionAttributeValues = new Dictionary<string, AttributeValue>() {
+                  {":b", new AttributeValue(b)}
+               }
+            })));
+
+         if (rezultoj.Length != vortoj.Count) {
+            throw new InvalidOperationException("Mankas vortojn");
+         }
+
+         return new VortoRezulto {
+            GlosajVortoj = rezultoj.Select(r => r.Items.First()["gloso"].S),
+            GlosajŜtupoj = vortoj.Select(v => v.InflekcioŜtupoj.Where(ŝ => ŝ.IsNebazo)
+               .Select(ŝ => ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝ).Item2.ToString()))
          };
       }
 
