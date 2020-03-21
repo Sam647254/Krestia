@@ -57,19 +57,19 @@ Public Class SVGDesegnilo
       {"atributivoEsti>", AddressOf AtributivoEstiDekstra},
       {"predikativoEsti", AddressOf PredikativoEsti},
       {"vico", AddressOf Vico},
-      {"netransitiva1", AddressOf Netransitiva1},
-      {"netransitiva2", AddressOf Netransitiva2},
-      {"transitiva2", AddressOf Transitiva2},
-      {"transitiva3", AddressOf Transitiva3},
+      {"netransitiva", AddressOf Netransitiva},
+      {"nedirektaTransitiva", AddressOf NedirecktaTransitiva},
+      {"transitiva", AddressOf Transitiva},
+      {"Dutransitiva", AddressOf Dutransitiva},
       {"imperativo", AddressOf Imperativo},
       {"invito", AddressOf Invito},
-      {"nekonitaNombro", AddressOf NekonitaNombro},
+      {"difinito", AddressOf Difinito},
       {"unuNombro", AddressOf UnuNombro},
       {"pluraNombro", AddressOf PluraNombro},
       {"havaĵo", AddressOf Havaĵo},
       {"malplenaVerbo", AddressOf MalplenaVerbo},
-      {"partaTransitiva1", AddressOf PartaTransitiva1},
-      {"partaTransitiva2", AddressOf PartaTransitiva2},
+      {"oblikaNetransitiva", AddressOf OblikaNetransitiva},
+      {"oblikaTransitiva", AddressOf OblikaTransitiva},
       {"partaNetransitiva", AddressOf PartaNetransitiva},
       {"progresivo", AddressOf Progresivo},
       {"perfekto", AddressOf Perfekto},
@@ -89,9 +89,9 @@ Public Class SVGDesegnilo
       {"aganto", AddressOf Aganto},
       {"patiento", AddressOf Patiento},
       {"translativo", AddressOf Translativo},
-      {"partaNominativo", AddressOf PartaNominativo},
-      {"partaAkuzativo", AddressOf PartaAkuzativo},
-      {"partaDativo", AddressOf PartaDativo},
+      {"ujo1Unue", AddressOf Ujo1Unue},
+      {"ujo2Unue", AddressOf Ujo2Unue},
+      {"ujo3Unue", AddressOf Ujo3Unue},
       {"igo", AddressOf Igo},
       {"etigo", AddressOf Etigo}
    }
@@ -240,25 +240,25 @@ Public Class SVGDesegnilo
                            duonaLarĝeco, dy, duonaLarĝeco \ 2 - dx \ 2, dufojaAlteco \ 2 - dy, dx, dufojaAlteco - dy)
    End Function
 
-   Private Function Netransitiva1() As String
+   Private Function Netransitiva() As String
       x += duonaLarĝeco + Spaceto
       Return String.Format("m 0 {0} h {1} v -{0} h {2} v {0} h {1} v {3} h -{1} v {0} h -{2} v -{0} h -{1} z",
                            dufojaAlteco \ 2 - dy \ 2, duonaLarĝeco \ 2 - dx \ 2, dx, dy)
    End Function
 
-   Private Function Netransitiva2() As String
+   Private Function NedirecktaTransitiva() As String
       x += duonaLarĝeco + Spaceto
       Return String.Format("h {0} v {1} h -{2} v {3} h {2} v {1} h -{0} v -{1} h {2} v -{3} h -{2} z",
                            duonaLarĝeco, dy, duonaLarĝeco \ 2 - dx \ 2, dufojaAlteco - 2 * dy)
    End Function
 
-   Private Function Transitiva2() As String
+   Private Function Transitiva() As String
       x += duonaLarĝeco + Spaceto
       Return String.Format("h {0} v {1} l -{2} {3} h {2} v {1} h -{0} v -{1} l {2} -{3} h -{2} z",
                            duonaLarĝeco, dy, duonaLarĝeco - dx, dufojaAlteco - 2 * dy)
    End Function
 
-   Private Function Transitiva3() As String
+   Private Function Dutransitiva() As String
       x += duonaLarĝeco + Spaceto
       Return String.Format("h {0} v {1} l -{2} {3} h {2} v {1} h -{0} v -{1} l {2} -{3} h -{2} z m 0 {4} h {0} v {1} h -{0} z",
                            duonaLarĝeco, dy, duonaLarĝeco - dx, dufojaAlteco - 2 * dy, dufojaAlteco \ 2 - dy \ 2)
@@ -361,7 +361,7 @@ m {10} 0 h {8} v {1} h -{8} z m {10} 0 h {8} v {1} h -{8} z",
                            duonaLarĝeco - dx, dx, dufojaAlteco \ 2)
    End Function
 
-   Private Function NekonitaNombro() As String
+   Private Function Difinito() As String
       x += duonaLarĝeco + Spaceto
       Return String.Format("m 0 {0} l {1} -{0} h {3} l -{1} {0} h {1} v {2} h -{1} l {1} {0} h -{3} l -{1} -{0} z",
                            dufojaAlteco \ 2 - dy \ 2, duonaLarĝeco - dx, dy, dx)
@@ -419,7 +419,7 @@ m -{5} {6} h {1} l {2} {3} h -{1} z m {4} 0 l -{2} {3} h -{1} l {2} -{3} z",
                            0, dx, duonaLarĝeco \ 2, alteco, duonaLarĝeco + dx, duonaLarĝeco + dx, alteco + Spaceto)
    End Function
 
-   Private Function PartaTransitiva1() As String
+   Private Function OblikaNetransitiva() As String
       x += duonaLarĝeco + Spaceto * 2
       Return String.Format("h {1} l {2} {3} h -{1} z m {4} 0 l -{2} {3} h -{1} l {2} -{3} z
 m -{4} {5} h {4} v {7} h -{8} v {6} h -{1} v -{6} h -{8} z",
@@ -427,7 +427,7 @@ m -{4} {5} h {4} v {7} h -{8} v {6} h -{1} v -{6} h -{8} z",
                            duonaLarĝeco \ 2 - dx \ 2 + Spaceto \ 2)
    End Function
 
-   Private Function PartaTransitiva2() As String
+   Private Function OblikaTransitiva() As String
       x += duonaLarĝeco + Spaceto * 2
       Return String.Format("h {1} l {2} {3} h -{1} z m {4} 0 l -{2} {3} h -{1} l {2} -{3} z
 m -{4} {5} h {4} v {7} h -{8} v {6} h {8} v {7} h -{4} v -{7} h {8} v -{6} h -{8} z",
@@ -471,20 +471,20 @@ m -{2} {5} v {6} h {8} v {7} h -{4} v -{7} h {2} v -{6} z",
                            dx, dufojaAlteco \ 2, dx + Spaceto, duonaLarĝeco - dx)
    End Function
 
-   Private Function PartaNominativo() As String
+   Private Function Ujo1Unue() As String
       x += dx + Spaceto + duonaLarĝeco + Spaceto
       Return String.Format("m 0 {4} h {0} v {1} h -{0} z m {2} -{4} h {0} l {3} {1} l -{3} {1} h -{0} l {3} -{1} z",
                            dx, dufojaAlteco \ 2, dx + Spaceto, duonaLarĝeco - dx, alteco + Spaceto \ 2)
    End Function
 
-   Private Function PartaAkuzativo() As String
+   Private Function Ujo2Unue() As String
       x += (dx + Spaceto) * 2 + duonaLarĝeco + Spaceto
       Return String.Format("m 0 {4} h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z m {2} -{4}
 h {0} l {3} {1} l -{3} {1} h -{0} l {3} -{1} z",
                            dx, dufojaAlteco \ 2, dx + Spaceto, duonaLarĝeco - dx, alteco + Spaceto \ 2)
    End Function
 
-   Private Function PartaDativo() As String
+   Private Function Ujo3Unue() As String
       x += (dx + Spaceto) * 3 + duonaLarĝeco + Spaceto
       Return String.Format("m 0 {4} h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z m {2} -{4}
 h {0} l {3} {1} l -{3} {1} h -{0} l {3} -{1} z",
