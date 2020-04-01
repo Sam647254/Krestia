@@ -43,6 +43,8 @@ namespace KrestiaServilo {
          app.UseDefaultFiles();
          
          app.UseStaticFiles();
+
+         app.UseSpa(builder => { });
       }
    }
 }
