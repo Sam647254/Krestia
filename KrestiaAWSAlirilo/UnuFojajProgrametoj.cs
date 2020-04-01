@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -39,6 +40,12 @@ namespace KrestiaAWSAlirilo {
                Console.WriteLine($"{v.Vorto} estas nevalida vorto");
             }
          });
+      }
+
+      public static async Task ReagordiBazojn(AwsAlirilo awsAlirilo) {
+         var vortoj = (await awsAlirilo.AlportiĈiujnVortojn()).ToImmutableList();
+         var bazoj = vortoj.Select(v => Malinflektado.bazoDe(v.Vorto));
+         await Task.WhenAll(vortoj.Zip(bazoj).Select(p => awsAlirilo.RedaktiVorton(p.First.Vorto, "bazo", p.Second)));
       }
    }
 }

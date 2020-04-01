@@ -361,13 +361,11 @@ module Malinflektado =
             (0,
              (if vorto.EndsWith("sh") then vorto.Length - 2
               else vorto.Length - 1))
-      elif (vorto.EndsWith("l") || vorto.EndsWith("r")) && not(vorto.StartsWith("h") || vorto.StartsWith("w")) then
-         vorto.Substring(0, vorto.Length - 1)
       else
          vorto
 
    and bazoPorDividi (infinitivo: string) =
-      [ "gru"; "gro"; "dru"; "dro"; "li"; "lu"; "d" ]
+      [ "gru"; "gro"; "dru"; "dro"; "li"; "lu"; "d"; "l"; "r" ]
       |> List.tryPick (fun finaĵo ->
             if infinitivo.EndsWith(finaĵo) then Some(infinitivo.Substring(0, infinitivo.Length - finaĵo.Length))
             else None)

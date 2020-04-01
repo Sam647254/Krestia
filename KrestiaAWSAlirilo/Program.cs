@@ -42,6 +42,10 @@ namespace KrestiaAWSAlirilo {
                await UnuFojajProgrametoj.KontroliVortaron(awsAlirilo);
                break;
             }
+            case "bazoj": {
+               await UnuFojajProgrametoj.ReagordiBazojn(awsAlirilo);
+               break;
+            }
          }
       }
    }
