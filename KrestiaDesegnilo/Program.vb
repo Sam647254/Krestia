@@ -2,7 +2,7 @@
 Imports System.IO
 
 Module Program
-   Sub Desegni(svg As SVGDesegnilo, partoj As String())
+   Private Sub Desegni(svg As SvgDesegnilo, partoj As String())
       For Each silabo In partoj
          Try
             svg.DesegniFinaĵon(silabo)
@@ -21,8 +21,8 @@ Module Program
       End If
    End Sub
 
-   Sub Dosiero(eliro As String, eniro As String, dx As Integer, dy As Integer)
-      Dim svg = New SVGDesegnilo(eliro, 100, 40, dx, dy)
+   Private Sub Dosiero(eliro As String, eniro As String, dx As Integer, dy As Integer)
+      Dim svg = New SvgDesegnilo(eliro, 100, 40, dx, dy)
       For Each line In File.ReadLines(eniro)
          Dim silaboj = line.Split(" "c)
          For Each silabo In silaboj
@@ -37,8 +37,8 @@ Module Program
       svg.Fini()
    End Sub
 
-   Sub Literoj(eliro As String)
-      Dim svg = New SVGDesegnilo(eliro, alteco:=100, larĝeco:=40, dx:=4, dy:=10)
+   Private Sub Literoj(eliro As String)
+      Dim svg = New SvgDesegnilo(eliro, alteco:=100, larĝeco:=40, dx:=4, dy:=10)
       Dim silaboj = New String() {
            "pa", "ba", "ma", "vico",
            "va", "vico",
@@ -50,14 +50,14 @@ Module Program
            "a", "ma", "am", "mam", "vico",
            "[", "kres", "ti", "a", "]", "[", "ti", "me", "ran", "]", "vico",
            "klaso", "rekordo<", "rekordo>", "eco<", "eco>", "nombrigeblaEco<", "nombrigeblaEco>",
-           "malplenaVerbo", "netransitiva1", "partaTransitiva1", "partaNetransitiva",
-           "transitiva2", "netransitiva2", "partaTransitiva2", "transitiva3",
+           "malplenaVerbo", "netransitiva", "oblikaNetransitiva", "nedirektaNetransitiva",
+           "transitiva", "nedirektaTransitiva", "oblikaTransitiva", "dutransitiva",
            "pridiranto", "lokokupilo", "modifanto<", "modifanto>", "vico",
-           "nekonitaNombro", "unuNombro", "pluraNombro", "havaĵo",
+           "difinito", "unuNombro", "pluraNombro", "havaĵo",
            "progresivo", "perfekto", "estonteco", "imperativo", "volo1", "volo2", "volo3",
            "atributivoEsti<", "atributivoEsti>", "predikativoEsti", "sola", "ekzistado", "havado",
-           "invito", "aganto", "patiento", "translativo", "ĝerundo", "partaNominativo", "partaAkuzativo",
-           "partaDativo", "igo", "etigo", "vico",
+           "invito", "argumento1", "argumento2", "argumento3", "ĝerundo", "ujo1Unue", "ujo2Unue",
+           "ujo3Unue", "igo", "etigo", "vico",
            "pla", "pra", "bla", "bra", "tla", "tra", "dra", "dla", "kla", "kra", "gla", "gra"
            }
       Desegni(svg, silaboj)

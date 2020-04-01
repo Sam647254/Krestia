@@ -1,13 +1,14 @@
 ﻿Imports System.Xml
 
-Public Class SVGDesegnilo
-   Private ReadOnly xmlSkribilo As XmlWriter
-   Private ReadOnly alteco, larĝeco As Integer
-   Private ReadOnly dufojaAlteco, duonaLarĝeco As Integer
-   Private x, y As Double
-   Private dokumentoLarĝeco As Integer
-   Private ReadOnly literoDesegniloj As Dictionary(Of String, LiteroDesegnilo) =
-      New Dictionary(Of String, LiteroDesegnilo) From {
+Public Class SvgDesegnilo
+   Private ReadOnly _xmlSkribilo As XmlWriter
+   Private ReadOnly _alteco, _larĝeco As Integer
+   Private ReadOnly _dufojaAlteco, _duonaLarĝeco As Integer
+   Private _x, _y As Double
+   Private _dokumentoLarĝeco As Integer
+
+   Private ReadOnly _literoDesegniloj As Dictionary(Of String, LiteroDesegnilo) =
+                       New Dictionary(Of String, LiteroDesegnilo) From {
       {"m", AddressOf M},
       {"p", AddressOf P},
       {"pl", AddressOf Pl},
@@ -41,9 +42,10 @@ Public Class SVGDesegnilo
       {"o", AddressOf O},
       {"u", AddressOf K},
       {"w", AddressOf W}
-   }
-   Private ReadOnly finaĵoDesegniloj As Dictionary(Of String, FinaĵoDesegnilo) =
-      New Dictionary(Of String, FinaĵoDesegnilo) From {
+      }
+
+   Private ReadOnly _finaĵoDesegniloj As Dictionary(Of String, FinaĵoDesegnilo) =
+                       New Dictionary(Of String, FinaĵoDesegnilo) From {
       {"[", AddressOf NomoKomenco},
       {"]", AddressOf NomoFino},
       {"lokokupilo", AddressOf Lokokupilo},
@@ -60,7 +62,7 @@ Public Class SVGDesegnilo
       {"netransitiva", AddressOf Netransitiva},
       {"nedirektaTransitiva", AddressOf NedirecktaTransitiva},
       {"transitiva", AddressOf Transitiva},
-      {"Dutransitiva", AddressOf Dutransitiva},
+      {"dutransitiva", AddressOf Dutransitiva},
       {"imperativo", AddressOf Imperativo},
       {"invito", AddressOf Invito},
       {"difinito", AddressOf Difinito},
@@ -70,7 +72,7 @@ Public Class SVGDesegnilo
       {"malplenaVerbo", AddressOf MalplenaVerbo},
       {"oblikaNetransitiva", AddressOf OblikaNetransitiva},
       {"oblikaTransitiva", AddressOf OblikaTransitiva},
-      {"partaNetransitiva", AddressOf PartaNetransitiva},
+      {"nedirektaNetransitiva", AddressOf NedirektaNetransitiva},
       {"progresivo", AddressOf Progresivo},
       {"perfekto", AddressOf Perfekto},
       {"volo1", AddressOf Volo1},
@@ -86,658 +88,754 @@ Public Class SVGDesegnilo
       {"ĝerundo", AddressOf Ĝerundo},
       {"ekzistado", AddressOf Ekzistado},
       {"havado", AddressOf Havado},
-      {"aganto", AddressOf Aganto},
-      {"patiento", AddressOf Patiento},
+      {"argumento1", AddressOf Argumento1},
+      {"argumento2", AddressOf Argumento2},
+      {"argumento3", AddressOf Argumento3},
       {"translativo", AddressOf Translativo},
       {"ujo1Unue", AddressOf Ujo1Unue},
       {"ujo2Unue", AddressOf Ujo2Unue},
       {"ujo3Unue", AddressOf Ujo3Unue},
       {"igo", AddressOf Igo},
       {"etigo", AddressOf Etigo}
-   }
-   Private ReadOnly vojoj As List(Of String) = New List(Of String)
-   Private ReadOnly dx As Integer
-   Private ReadOnly dy As Integer
-   Private ReadOnly spaco As Integer
+      }
+
+   Private ReadOnly _vojoj As List(Of String) = New List(Of String)
+   Private ReadOnly _dx As Integer
+   Private ReadOnly _dy As Integer
+   Private ReadOnly _spaco As Integer
+
    Private ReadOnly Property Spaceto As Integer
       Get
-         Return spaco / 2
+         Return _spaco/2
       End Get
    End Property
 
-   Delegate Function LiteroDesegnilo(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
-   Delegate Function FinaĵoDesegnilo() As String
+   Private Delegate Function LiteroDesegnilo(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
 
-   Public Sub New(elirejo As String, alteco As Integer, larĝeco As Integer, dx As Integer, dy As Integer, Optional spaco As Integer = 8)
-      xmlSkribilo = XmlWriter.Create(elirejo)
-      Me.alteco = alteco \ 2
-      Me.larĝeco = larĝeco + Spaceto
-      Me.dx = dx
-      Me.dy = dy
-      Me.spaco = spaco
-      dufojaAlteco = alteco + Spaceto
-      duonaLarĝeco = larĝeco \ 2
-      dokumentoLarĝeco = 0
-      x = 10
-      y = 10
+   Private Delegate Function FinaĵoDesegnilo() As String
+
+   Public Sub New(elirejo As String, alteco As Integer, larĝeco As Integer, dx As Integer, dy As Integer,
+                  Optional spaco As Integer = 8)
+      _xmlSkribilo = XmlWriter.Create(elirejo)
+      _alteco = alteco\2
+      _larĝeco = larĝeco + Spaceto
+      _dx = dx
+      _dy = dy
+      _spaco = spaco
+      _dufojaAlteco = alteco + Spaceto
+      _duonaLarĝeco = larĝeco\2
+      _dokumentoLarĝeco = 0
+      _x = 10
+      _y = 10
    End Sub
 
    Public Sub DesegniSilabon(silabo As String)
       If silabo.Length = 1 Then
-         AldoniVojon(literoDesegniloj(silabo)(larĝeco, dufojaAlteco), x, y)
-         x += larĝeco + Spaceto
+         AldoniVojon(_literoDesegniloj(silabo)(_larĝeco, _dufojaAlteco), _x, _y)
+         _x += _larĝeco + Spaceto
       ElseIf silabo.Length = 2 Then
          If ĈuVokalo(silabo.Chars(0)) Then 'VC
-            AldoniVojon(literoDesegniloj(silabo.Substring(0, 1))(duonaLarĝeco, dufojaAlteco), x, y)
-            x += larĝeco \ 2 + Spaceto
-            AldoniVojon(literoDesegniloj(silabo.Substring(1, 1))(duonaLarĝeco, dufojaAlteco), x, y)
-            x += larĝeco \ 2 + Spaceto
+            AldoniVojon(_literoDesegniloj(silabo.Substring(0, 1))(_duonaLarĝeco, _dufojaAlteco), _x, _y)
+            _x += _larĝeco\2 + Spaceto
+            AldoniVojon(_literoDesegniloj(silabo.Substring(1, 1))(_duonaLarĝeco, _dufojaAlteco), _x, _y)
+            _x += _larĝeco\2 + Spaceto
          Else 'CV
-            AldoniVojon(literoDesegniloj(silabo.Substring(0, 1))(larĝeco, alteco), x, y)
-            Dim antaŭY = y
-            y += alteco + Spaceto
-            AldoniVojon(literoDesegniloj(silabo.Substring(1, 1))(larĝeco, alteco), x, y)
-            x += larĝeco + Spaceto
-            y = antaŭY
+            AldoniVojon(_literoDesegniloj(silabo.Substring(0, 1))(_larĝeco, _alteco), _x, _y)
+            Dim antaŭY = _y
+            _y += _alteco + Spaceto
+            AldoniVojon(_literoDesegniloj(silabo.Substring(1, 1))(_larĝeco, _alteco), _x, _y)
+            _x += _larĝeco + Spaceto
+            _y = antaŭY
          End If
       ElseIf silabo.Length = 3 Then
          If silabo.Chars(1) = "r"c Or silabo.Chars(1) = "l"c Then 'CCV
-            AldoniVojon(literoDesegniloj(silabo.Substring(0, 2))(larĝeco, alteco), x, y)
-            Dim antaŭY = y
-            y += alteco + Spaceto
-            AldoniVojon(literoDesegniloj(silabo.Substring(2, 1))(larĝeco, alteco), x, y)
-            x += larĝeco + Spaceto
-            y = antaŭY
+            AldoniVojon(_literoDesegniloj(silabo.Substring(0, 2))(_larĝeco, _alteco), _x, _y)
+            Dim antaŭY = _y
+            _y += _alteco + Spaceto
+            AldoniVojon(_literoDesegniloj(silabo.Substring(2, 1))(_larĝeco, _alteco), _x, _y)
+            _x += _larĝeco + Spaceto
+            _y = antaŭY
          Else 'CVC
-            AldoniVojon(literoDesegniloj(silabo.Substring(0, 1))(larĝeco, alteco), x, y)
-            Dim antaŭY = y
-            y += alteco + Spaceto
-            AldoniVojon(literoDesegniloj(silabo.Substring(1, 1))(duonaLarĝeco, alteco), x, y)
-            x += larĝeco \ 2 + Spaceto
-            AldoniVojon(literoDesegniloj(silabo.Substring(2, 1))(duonaLarĝeco, alteco), x, y)
-            x += larĝeco \ 2 + Spaceto
-            y = antaŭY
+            AldoniVojon(_literoDesegniloj(silabo.Substring(0, 1))(_larĝeco, _alteco), _x, _y)
+            Dim antaŭY = _y
+            _y += _alteco + Spaceto
+            AldoniVojon(_literoDesegniloj(silabo.Substring(1, 1))(_duonaLarĝeco, _alteco), _x, _y)
+            _x += _larĝeco\2 + Spaceto
+            AldoniVojon(_literoDesegniloj(silabo.Substring(2, 1))(_duonaLarĝeco, _alteco), _x, _y)
+            _x += _larĝeco\2 + Spaceto
+            _y = antaŭY
          End If
       ElseIf silabo.Length = 4 Then 'CCVC
-         AldoniVojon(literoDesegniloj(silabo.Substring(0, 2))(larĝeco, alteco), x, y)
-         Dim antaŭY = y
-         y += alteco + Spaceto
-         AldoniVojon(literoDesegniloj(silabo.Substring(2, 1))(duonaLarĝeco, alteco), x, y)
-         x += larĝeco \ 2 + Spaceto
-         AldoniVojon(literoDesegniloj(silabo.Substring(3, 1))(duonaLarĝeco, alteco), x, y)
-         x += larĝeco \ 2 + Spaceto
-         y = antaŭY
+         AldoniVojon(_literoDesegniloj(silabo.Substring(0, 2))(_larĝeco, _alteco), _x, _y)
+         Dim antaŭY = _y
+         _y += _alteco + Spaceto
+         AldoniVojon(_literoDesegniloj(silabo.Substring(2, 1))(_duonaLarĝeco, _alteco), _x, _y)
+         _x += _larĝeco\2 + Spaceto
+         AldoniVojon(_literoDesegniloj(silabo.Substring(3, 1))(_duonaLarĝeco, _alteco), _x, _y)
+         _x += _larĝeco\2 + Spaceto
+         _y = antaŭY
       Else
          Throw New Exception($"Nevalida silabo: {silabo}")
       End If
    End Sub
 
    Public Function NomoKomenco() As String
-      x += duonaLarĝeco + Spaceto
+      _x += _duonaLarĝeco + Spaceto
       Return String.Format("h {0} v {1} h -{2} v {3} h {2} v {1} h -{0} z",
-                           duonaLarĝeco, dy, duonaLarĝeco - dx, dufojaAlteco - dy * 2)
+                           _duonaLarĝeco, _dy, _duonaLarĝeco - _dx, _dufojaAlteco - _dy*2)
    End Function
 
    Public Function NomoFino() As String
-      x += duonaLarĝeco + Spaceto
+      _x += _duonaLarĝeco + Spaceto
       Return String.Format("h {0} v {1} h -{0} v -{2} h {3} v -{4} h -{3} z",
-                           duonaLarĝeco, dufojaAlteco, dy, duonaLarĝeco - dx, dufojaAlteco - dy * 2)
+                           _duonaLarĝeco, _dufojaAlteco, _dy, _duonaLarĝeco - _dx, _dufojaAlteco - _dy*2)
    End Function
 
    Public Function Lokokupilo() As String
-      x += duonaLarĝeco + Spaceto
+      _x += _duonaLarĝeco + Spaceto
       Return String.Format("m 0 {0} h {1} v -{0} h {2} v {0} h {3} v -{0} h {2} v {4} h -{5} z",
-                           dufojaAlteco - dy, duonaLarĝeco \ 2 - dx \ 2, dx, duonaLarĝeco \ 2 - dx * 3 \ 2, dufojaAlteco,
-                           duonaLarĝeco)
+                           _dufojaAlteco - _dy, _duonaLarĝeco\2 - _dx\2, _dx, _duonaLarĝeco\2 - _dx*3\2, _dufojaAlteco,
+                           _duonaLarĝeco)
    End Function
 
    Private Function EcoDekstra() As String
-      x += duonaLarĝeco + Spaceto
-      Return String.Format("m {0} 0 a {0} {1} 0 0 0 0 {2} z v {3} a {4} {5} 0 0 1 0 -{6} z m 0 {7} h -{0} v {8} h {0} z",
-                           duonaLarĝeco, alteco, dufojaAlteco, dufojaAlteco - dy, duonaLarĝeco - dx, alteco - dy,
-                           dufojaAlteco - 2 * dy,
-                           alteco - dy \ 2, dy)
+      _x += _duonaLarĝeco + Spaceto
+      Return _
+         String.Format("m {0} 0 a {0} {1} 0 0 0 0 {2} z v {3} a {4} {5} 0 0 1 0 -{6} z m 0 {7} h -{0} v {8} h {0} z",
+                       _duonaLarĝeco, _alteco, _dufojaAlteco, _dufojaAlteco - _dy, _duonaLarĝeco - _dx, _alteco - _dy,
+                       _dufojaAlteco - 2*_dy,
+                       _alteco - _dy\2, _dy)
    End Function
 
    Private Function EcoMaldekstra() As String
-      x += duonaLarĝeco + Spaceto
+      _x += _duonaLarĝeco + Spaceto
       Return String.Format("a {0} {1} 0 0 1 0 {2} z v {3} a {4} {5} 0 0 0 0 -{6} z m 0 {7} h {0} v {8} h -{0} z",
-                           duonaLarĝeco, alteco, dufojaAlteco, dufojaAlteco - dy, duonaLarĝeco - dx, alteco - dy,
-                           dufojaAlteco - 2 * dy,
-                           alteco - dy \ 2, dy)
+                           _duonaLarĝeco, _alteco, _dufojaAlteco, _dufojaAlteco - _dy, _duonaLarĝeco - _dx,
+                           _alteco - _dy,
+                           _dufojaAlteco - 2*_dy,
+                           _alteco - _dy\2, _dy)
    End Function
 
    Private Function RekordoMaldekstra() As String
-      x += duonaLarĝeco + Spaceto * 2 + dx
-      Return String.Format("a {0} {1} 0 0 1 0 {2} z v {3} a {4} {5} 0 0 0 0 -{6} z m {7} 0 h {8} v {1} h -{8} z m 0 {9} h {8} v {1} h -{8} z",
-                           duonaLarĝeco, alteco, dufojaAlteco, dufojaAlteco - dy, duonaLarĝeco - dx, alteco - dy,
-                           dufojaAlteco - 2 * dy, duonaLarĝeco + Spaceto, dx, alteco + Spaceto)
+      _x += _duonaLarĝeco + Spaceto*2 + _dx
+      Return _
+         String.Format(
+            "a {0} {1} 0 0 1 0 {2} z v {3} a {4} {5} 0 0 0 0 -{6} z m {7} 0 h {8} v {1} h -{8} z m 0 {9} h {8} v {1} h -{8} z",
+            _duonaLarĝeco, _alteco, _dufojaAlteco, _dufojaAlteco - _dy, _duonaLarĝeco - _dx, _alteco - _dy,
+            _dufojaAlteco - 2*_dy, _duonaLarĝeco + Spaceto, _dx, _alteco + Spaceto)
    End Function
 
    Private Function RekordoDekstra() As String
-      x += duonaLarĝeco + Spaceto * 2 + dx
-      Return String.Format("m {0} 0 a {0} {1} 0 0 0 0 {2} z v {3} a {4} {5} 0 0 1 0 -{6} z m {7} 0 h {8} v {1} h -{8} z m 0 {9} h {8} v {1} h -{8} z",
-                           duonaLarĝeco, alteco, dufojaAlteco, dufojaAlteco - dy, duonaLarĝeco - dx, alteco - dy,
-                           dufojaAlteco - 2 * dy, Spaceto, dx, alteco + Spaceto)
+      _x += _duonaLarĝeco + Spaceto*2 + _dx
+      Return _
+         String.Format(
+            "m {0} 0 a {0} {1} 0 0 0 0 {2} z v {3} a {4} {5} 0 0 1 0 -{6} z m {7} 0 h {8} v {1} h -{8} z m 0 {9} h {8} v {1} h -{8} z",
+            _duonaLarĝeco, _alteco, _dufojaAlteco, _dufojaAlteco - _dy, _duonaLarĝeco - _dx, _alteco - _dy,
+            _dufojaAlteco - 2*_dy, Spaceto, _dx, _alteco + Spaceto)
    End Function
 
    Private Function PredikativoEsti() As String
-      x += duonaLarĝeco + Spaceto
-      Return String.Format("m 0 {3} h {5} v {6} h -{5} z m {1} -{3} h {2} v {4} h -{2} z m {7} 0  h {2} v {4} h -{2} z",
-                           dufojaAlteco - dy, duonaLarĝeco \ 2 - dx \ 2, dx, dufojaAlteco \ 2 - dy \ 2, dufojaAlteco,
-                           duonaLarĝeco, dy, duonaLarĝeco \ 2)
+      _x += _duonaLarĝeco + Spaceto
+      Return _
+         String.Format("m 0 {3} h {5} v {6} h -{5} z m {1} -{3} h {2} v {4} h -{2} z m {7} 0  h {2} v {4} h -{2} z",
+                       _dufojaAlteco - _dy, _duonaLarĝeco\2 - _dx\2, _dx, _dufojaAlteco\2 - _dy\2, _dufojaAlteco,
+                       _duonaLarĝeco, _dy, _duonaLarĝeco\2)
    End Function
 
    Private Function Pridiranto() As String
-      x += duonaLarĝeco + Spaceto
-      Return String.Format("m 0 {3} h {0} v {1} h -{0} z l {2} -{3} h {4} l -{2} {3} z m {2} -{3} h {4} l {2} {3} h -{4} z",
-                           duonaLarĝeco, dy, duonaLarĝeco \ 2 - dx \ 2, dufojaAlteco - dy, dx)
+      _x += _duonaLarĝeco + Spaceto
+      Return _
+         String.Format(
+            "m 0 {3} h {0} v {1} h -{0} z l {2} -{3} h {4} l -{2} {3} z m {2} -{3} h {4} l {2} {3} h -{4} z",
+            _duonaLarĝeco, _dy, _duonaLarĝeco\2 - _dx\2, _dufojaAlteco - _dy, _dx)
    End Function
 
    Private Function Etigo() As String
-      x += duonaLarĝeco + Spaceto
-      Return String.Format("m 0 {5} h {0} v {1} h -{0} z l {2} -{3} h {4} l -{2} {3} z m {2} -{3} h {4} l {2} {3} h -{4} z",
-                           duonaLarĝeco, dy, duonaLarĝeco \ 2 - dx \ 2, dufojaAlteco \ 2 - dy, dx, dufojaAlteco - dy)
+      _x += _duonaLarĝeco + Spaceto
+      Return _
+         String.Format(
+            "m 0 {5} h {0} v {1} h -{0} z l {2} -{3} h {4} l -{2} {3} z m {2} -{3} h {4} l {2} {3} h -{4} z",
+            _duonaLarĝeco, _dy, _duonaLarĝeco\2 - _dx\2, _dufojaAlteco\2 - _dy, _dx, _dufojaAlteco - _dy)
    End Function
 
    Private Function Netransitiva() As String
-      x += duonaLarĝeco + Spaceto
+      _x += _duonaLarĝeco + Spaceto
       Return String.Format("m 0 {0} h {1} v -{0} h {2} v {0} h {1} v {3} h -{1} v {0} h -{2} v -{0} h -{1} z",
-                           dufojaAlteco \ 2 - dy \ 2, duonaLarĝeco \ 2 - dx \ 2, dx, dy)
+                           _dufojaAlteco\2 - _dy\2, _duonaLarĝeco\2 - _dx\2, _dx, _dy)
    End Function
 
    Private Function NedirecktaTransitiva() As String
-      x += duonaLarĝeco + Spaceto
+      _x += _duonaLarĝeco + Spaceto
       Return String.Format("h {0} v {1} h -{2} v {3} h {2} v {1} h -{0} v -{1} h {2} v -{3} h -{2} z",
-                           duonaLarĝeco, dy, duonaLarĝeco \ 2 - dx \ 2, dufojaAlteco - 2 * dy)
+                           _duonaLarĝeco, _dy, _duonaLarĝeco\2 - _dx\2, _dufojaAlteco - 2*_dy)
    End Function
 
    Private Function Transitiva() As String
-      x += duonaLarĝeco + Spaceto
+      _x += _duonaLarĝeco + Spaceto
       Return String.Format("h {0} v {1} l -{2} {3} h {2} v {1} h -{0} v -{1} l {2} -{3} h -{2} z",
-                           duonaLarĝeco, dy, duonaLarĝeco - dx, dufojaAlteco - 2 * dy)
+                           _duonaLarĝeco, _dy, _duonaLarĝeco - _dx, _dufojaAlteco - 2*_dy)
    End Function
 
    Private Function Dutransitiva() As String
-      x += duonaLarĝeco + Spaceto
-      Return String.Format("h {0} v {1} l -{2} {3} h {2} v {1} h -{0} v -{1} l {2} -{3} h -{2} z m 0 {4} h {0} v {1} h -{0} z",
-                           duonaLarĝeco, dy, duonaLarĝeco - dx, dufojaAlteco - 2 * dy, dufojaAlteco \ 2 - dy \ 2)
+      _x += _duonaLarĝeco + Spaceto
+      Return _
+         String.Format(
+            "h {0} v {1} l -{2} {3} h {2} v {1} h -{0} v -{1} l {2} -{3} h -{2} z m 0 {4} h {0} v {1} h -{0} z",
+            _duonaLarĝeco, _dy, _duonaLarĝeco - _dx, _dufojaAlteco - 2*_dy, _dufojaAlteco\2 - _dy\2)
    End Function
 
    Private Function Perfekto() As String
-      x += dx + duonaLarĝeco \ 2 + Spaceto * 2
+      _x += _dx + _duonaLarĝeco\2 + Spaceto*2
       Return String.Format("h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z m {5} 0 h {0} v {1} h -{0} z",
-                           dx, dufojaAlteco, dx * 2, duonaLarĝeco \ 2, alteco + Spaceto \ 2, duonaLarĝeco \ 2 + dx)
+                           _dx, _dufojaAlteco, _dx*2, _duonaLarĝeco\2, _alteco + Spaceto\2, _duonaLarĝeco\2 + _dx)
    End Function
 
    Private Function Progresivo() As String
-      x += dx * 2 + duonaLarĝeco \ 2 + Spaceto
-      Return String.Format("h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z m {2} 0 h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z",
-                           dx, dufojaAlteco, dx * 2, duonaLarĝeco \ 2, alteco + Spaceto \ 2)
+      _x += _dx*2 + _duonaLarĝeco\2 + Spaceto
+      Return _
+         String.Format(
+            "h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z m {2} 0 h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z",
+            _dx, _dufojaAlteco, _dx*2, _duonaLarĝeco\2, _alteco + Spaceto\2)
    End Function
 
-   Private Function Aganto() As String
-      x += dx * 2 + duonaLarĝeco \ 2 + Spaceto
-      Return String.Format("m {3} 0 h {0} l -{3} {4} l {3} {4} h -{0} l -{3} -{4} z m {2} 0 h {0} l -{3} {4} l {3} {4} h -{0} l -{3} -{4} z",
-                           dx, dufojaAlteco, dx * 2, duonaLarĝeco \ 2, alteco + Spaceto \ 2)
+   Private Function Argumento1() As String
+      _x += _dx*2 + _duonaLarĝeco\2 + Spaceto
+      Return _
+         String.Format(
+            "m {3} 0 h {0} l -{3} {4} l {3} {4} h -{0} l -{3} -{4} z m {2} 0 h {0} l -{3} {4} l {3} {4} h -{0} l -{3} -{4} z",
+            _dx, _dufojaAlteco, _dx*2, _duonaLarĝeco\2, _alteco + Spaceto\2)
    End Function
 
-   Private Function Patiento() As String
-      x += dx + duonaLarĝeco + Spaceto
-      Return String.Format("m {3} 0 h {0} l -{3} {4} l {3} {4} h -{0} l -{3} -{4} z h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z",
-                           dx, dufojaAlteco, dx * 2, duonaLarĝeco \ 2, alteco + Spaceto \ 2)
+   Private Function Argumento2() As String
+      _x += _dx + _duonaLarĝeco + Spaceto
+      Return _
+         String.Format(
+            "m {3} 0 h {0} l -{3} {4} l {3} {4} h -{0} l -{3} -{4} z h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z",
+            _dx, _dufojaAlteco, _dx*2, _duonaLarĝeco\2, _alteco + Spaceto\2)
+   End Function
+
+   Private Function Argumento3() As String
+      _x += _dx*2 + _duonaLarĝeco + Spaceto*2
+      Return _
+         String.Format(
+            "m {3} 0 h {0} l -{3} {4} l {3} {4} h -{0} l -{3} -{4} z h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z
+m {1} 0 h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z",
+            _dx, _dx + Spaceto, _dx*2, _duonaLarĝeco\2, _alteco + Spaceto\2)
    End Function
 
    Private Function Estonteco() As String
-      x += Spaceto * 2 + duonaLarĝeco \ 2 + dx * 2
+      _x += Spaceto*2 + _duonaLarĝeco\2 + _dx*2
       Return String.Format("h {0} v {1} h -{0} z m {2} 0 h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z",
-                           dx, dufojaAlteco, dx * 2, duonaLarĝeco \ 2, alteco + Spaceto \ 2)
+                           _dx, _dufojaAlteco, _dx*2, _duonaLarĝeco\2, _alteco + Spaceto\2)
    End Function
 
    Private Function Igo() As String
-      x += dx * 3 + duonaLarĝeco + Spaceto
-      Return String.Format("h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z m {5} 0 h {0} v {1} h -{0} z
+      _x += _dx*3 + _duonaLarĝeco + Spaceto
+      Return _
+         String.Format(
+            "h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z m {5} 0 h {0} v {1} h -{0} z
 m {5} 0 h {0} l -{3} {4} l {3} {4} h -{0} l -{3} -{4} z",
-                           dx, dufojaAlteco, dx * 2, duonaLarĝeco \ 2, alteco + Spaceto \ 2, duonaLarĝeco \ 2 + dx)
+            _dx, _dufojaAlteco, _dx*2, _duonaLarĝeco\2, _alteco + Spaceto\2, _duonaLarĝeco\2 + _dx)
    End Function
 
    Private Function Translativo() As String
-      x += Spaceto + duonaLarĝeco \ 2 + dx * 2
+      _x += Spaceto + _duonaLarĝeco\2 + _dx*2
       Return String.Format("h {0} v {1} h -{0} z m {5} 0 h {0} l -{3} {4} l {3} {4} h -{0} l -{3} -{4} z",
-                           dx, dufojaAlteco, dx * 2, duonaLarĝeco \ 2, alteco + Spaceto \ 2, dx + duonaLarĝeco \ 2)
+                           _dx, _dufojaAlteco, _dx*2, _duonaLarĝeco\2, _alteco + Spaceto\2, _dx + _duonaLarĝeco\2)
    End Function
 
    Private Function Ekzistado() As String
-      x += duonaLarĝeco + Spaceto
-      Return String.Format("h {0} v {1} l -{2} {3} l {2} {3} v {1} h -{0} v -{1} h {2} l -{2} -{3} l {2} -{3} h -{2} z",
-                           duonaLarĝeco, dy, duonaLarĝeco - dx, dufojaAlteco \ 2 - dy)
+      _x += _duonaLarĝeco + Spaceto
+      Return _
+         String.Format("h {0} v {1} l -{2} {3} l {2} {3} v {1} h -{0} v -{1} h {2} l -{2} -{3} l {2} -{3} h -{2} z",
+                       _duonaLarĝeco, _dy, _duonaLarĝeco - _dx, _dufojaAlteco\2 - _dy)
    End Function
 
    Private Function Imperativo() As String
-      x += dx * 3 + duonaLarĝeco + Spaceto
-      Return String.Format("h {0} v {1} h -{0} z m {2} 0 h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z
+      _x += _dx*3 + _duonaLarĝeco + Spaceto
+      Return _
+         String.Format(
+            "h {0} v {1} h -{0} z m {2} 0 h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z
 m {2} 0 h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z",
-                           dx, dufojaAlteco, dx * 2, duonaLarĝeco \ 2, alteco + Spaceto \ 2)
+            _dx, _dufojaAlteco, _dx*2, _duonaLarĝeco\2, _alteco + Spaceto\2)
    End Function
 
    Private Function Invito() As String
-      x += dx * 3 + duonaLarĝeco + Spaceto
-      Return String.Format("h {0} v {1} h -{0} z m 0 {5} h {0} v {1} h -{0} z m {2} -{5} h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z
+      _x += _dx*3 + _duonaLarĝeco + Spaceto
+      Return _
+         String.Format(
+            "h {0} v {1} h -{0} z m 0 {5} h {0} v {1} h -{0} z m {2} -{5} h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z
 m {2} 0 h {0} l {3} {4} l -{3} {4} h -{0} l {3} -{4} z",
-                           dx, alteco, dx * 2, duonaLarĝeco \ 2, alteco + Spaceto \ 2, alteco + Spaceto)
+            _dx, _alteco, _dx*2, _duonaLarĝeco\2, _alteco + Spaceto\2, _alteco + Spaceto)
    End Function
 
    Private Function Volo1() As String
-      x += duonaLarĝeco + Spaceto * 2 + dx
-      Return String.Format("m {0} 0 a {0} {1} 0 0 0 0 {2} z v {3} a {4} {5} 0 0 1 0 -{6} z m {7} {9} h {8} v {1} h -{8} z",
-                           duonaLarĝeco, alteco, dufojaAlteco, dufojaAlteco - dy, duonaLarĝeco - dx, alteco - dy,
-                           dufojaAlteco - 2 * dy, Spaceto, dx, alteco + Spaceto)
+      _x += _duonaLarĝeco + Spaceto*2 + _dx
+      Return _
+         String.Format(
+            "m {0} 0 a {0} {1} 0 0 0 0 {2} z v {3} a {4} {5} 0 0 1 0 -{6} z m {7} {9} h {8} v {1} h -{8} z",
+            _duonaLarĝeco, _alteco, _dufojaAlteco, _dufojaAlteco - _dy, _duonaLarĝeco - _dx, _alteco - _dy,
+            _dufojaAlteco - 2*_dy, Spaceto, _dx, _alteco + Spaceto)
    End Function
 
    Private Function Volo2() As String
-      x += duonaLarĝeco + Spaceto * 3 + dx * 2
-      Return String.Format("m {0} 0 a {0} {1} 0 0 0 0 {2} z v {3} a {4} {5} 0 0 1 0 -{6} z m {7} {9} h {8} v {1} h -{8} z m {10} 0 h {8} v {1} h -{8} z",
-                           duonaLarĝeco, alteco, dufojaAlteco, dufojaAlteco - dy, duonaLarĝeco - dx, alteco - dy,
-                           dufojaAlteco - 2 * dy, Spaceto, dx, alteco + Spaceto, dx + Spaceto)
+      _x += _duonaLarĝeco + Spaceto*3 + _dx*2
+      Return _
+         String.Format(
+            "m {0} 0 a {0} {1} 0 0 0 0 {2} z v {3} a {4} {5} 0 0 1 0 -{6} z m {7} {9} h {8} v {1} h -{8} z m {10} 0 h {8} v {1} h -{8} z",
+            _duonaLarĝeco, _alteco, _dufojaAlteco, _dufojaAlteco - _dy, _duonaLarĝeco - _dx, _alteco - _dy,
+            _dufojaAlteco - 2*_dy, Spaceto, _dx, _alteco + Spaceto, _dx + Spaceto)
    End Function
 
    Private Function Volo3() As String
-      x += duonaLarĝeco + Spaceto * 4 + dx * 3
-      Return String.Format("m {0} 0 a {0} {1} 0 0 0 0 {2} z v {3} a {4} {5} 0 0 1 0 -{6} z m {7} {9} h {8} v {1} h -{8} z
+      _x += _duonaLarĝeco + Spaceto*4 + _dx*3
+      Return _
+         String.Format(
+            "m {0} 0 a {0} {1} 0 0 0 0 {2} z v {3} a {4} {5} 0 0 1 0 -{6} z m {7} {9} h {8} v {1} h -{8} z
 m {10} 0 h {8} v {1} h -{8} z m {10} 0 h {8} v {1} h -{8} z",
-                           duonaLarĝeco, alteco, dufojaAlteco, dufojaAlteco - dy, duonaLarĝeco - dx, alteco - dy,
-                           dufojaAlteco - 2 * dy, Spaceto, dx, alteco + Spaceto, dx + Spaceto)
+            _duonaLarĝeco, _alteco, _dufojaAlteco, _dufojaAlteco - _dy, _duonaLarĝeco - _dx, _alteco - _dy,
+            _dufojaAlteco - 2*_dy, Spaceto, _dx, _alteco + Spaceto, _dx + Spaceto)
    End Function
 
    Private Function Sola() As String
-      x += duonaLarĝeco + Spaceto
-      Return String.Format("h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z m -{2} {3} h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z",
-                           dx, alteco, duonaLarĝeco - dx, alteco + Spaceto)
+      _x += _duonaLarĝeco + Spaceto
+      Return _
+         String.Format(
+            "h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z m -{2} {3} h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z",
+            _dx, _alteco, _duonaLarĝeco - _dx, _alteco + Spaceto)
    End Function
 
    Private Function Klaso() As String
-      x += duonaLarĝeco + Spaceto
+      _x += _duonaLarĝeco + Spaceto
       Return String.Format("m {0} 0 h {1} l -{0} {2} l {0} {2} h -{1} l -{0} -{2} z",
-                           duonaLarĝeco - dx, dx, dufojaAlteco \ 2)
+                           _duonaLarĝeco - _dx, _dx, _dufojaAlteco\2)
    End Function
 
    Private Function Difinito() As String
-      x += duonaLarĝeco + Spaceto
+      _x += _duonaLarĝeco + Spaceto
       Return String.Format("m 0 {0} l {1} -{0} h {3} l -{1} {0} h {1} v {2} h -{1} l {1} {0} h -{3} l -{1} -{0} z",
-                           dufojaAlteco \ 2 - dy \ 2, duonaLarĝeco - dx, dy, dx)
+                           _dufojaAlteco\2 - _dy\2, _duonaLarĝeco - _dx, _dy, _dx)
    End Function
 
    Private Function UnuNombro() As String
-      x += duonaLarĝeco + Spaceto * 2 + dx
-      Return String.Format("m 0 {0} l {1} -{0} h {3} l -{1} {0} h {1} v {2} h -{1} l {1} {0} h -{3} l -{1} -{0} z m {4} -{0} h {3} v {5} h -{3} z",
-                           dufojaAlteco \ 2 - dy \ 2, duonaLarĝeco - dx, dy, dx, duonaLarĝeco + Spaceto, alteco)
+      _x += _duonaLarĝeco + Spaceto*2 + _dx
+      Return _
+         String.Format(
+            "m 0 {0} l {1} -{0} h {3} l -{1} {0} h {1} v {2} h -{1} l {1} {0} h -{3} l -{1} -{0} z m {4} -{0} h {3} v {5} h -{3} z",
+            _dufojaAlteco\2 - _dy\2, _duonaLarĝeco - _dx, _dy, _dx, _duonaLarĝeco + Spaceto, _alteco)
    End Function
 
    Private Function PluraNombro() As String
-      x += duonaLarĝeco + Spaceto * 2 + dx
-      Return String.Format("m 0 {0} l {1} -{0} h {3} l -{1} {0} h {1} v {2} h -{1} l {1} {0} h -{3} l -{1} -{0} z m {4} -{0} h {3} v {5} h -{3} z
+      _x += _duonaLarĝeco + Spaceto*2 + _dx
+      Return _
+         String.Format(
+            "m 0 {0} l {1} -{0} h {3} l -{1} {0} h {1} v {2} h -{1} l {1} {0} h -{3} l -{1} -{0} z m {4} -{0} h {3} v {5} h -{3} z
 m 0 {6} h {3} v {5} h -{3} z",
-                           dufojaAlteco \ 2 - dy \ 2, duonaLarĝeco - dx, dy, dx, duonaLarĝeco + Spaceto, alteco, Spaceto + alteco)
+            _dufojaAlteco\2 - _dy\2, _duonaLarĝeco - _dx, _dy, _dx, _duonaLarĝeco + Spaceto, _alteco, Spaceto + _alteco)
    End Function
 
    Private Function Havaĵo() As String
-      x += duonaLarĝeco + Spaceto
+      _x += _duonaLarĝeco + Spaceto
       Return String.Format("m 0 {0} h {1} v -{0} h {2} v {3} h -{2} v -{0} h -{1} z",
-                           dufojaAlteco \ 2 - dy \ 2, duonaLarĝeco - dx, dx, dufojaAlteco)
+                           _dufojaAlteco\2 - _dy\2, _duonaLarĝeco - _dx, _dx, _dufojaAlteco)
    End Function
 
    Private Function AtributivoEstiMaldekstra() As String
-      x += duonaLarĝeco + Spaceto
+      _x += _duonaLarĝeco + Spaceto
       Return String.Format("m 0 {0} h {1} v -{0} h {2} v {3} h -{2} v -{0} h -{1} v -{4} h {1} v -{4} h -{1} z",
-                           (dufojaAlteco - 3 * dy) \ 2, duonaLarĝeco - dx, dx, dufojaAlteco, dy)
+                           (_dufojaAlteco - 3*_dy)\2, _duonaLarĝeco - _dx, _dx, _dufojaAlteco, _dy)
    End Function
 
    Private Function AtributivoEstiDekstra() As String
-      x += duonaLarĝeco + Spaceto
+      _x += _duonaLarĝeco + Spaceto
       Return String.Format("h {2} v {0} h {1} v {4} h -{1} v {4} h {1} v {4} h -{1} v {0} h -{2} z",
-                           (dufojaAlteco - 3 * dy) \ 2, duonaLarĝeco - dx, dx, dufojaAlteco, dy)
+                           (_dufojaAlteco - 3*_dy)\2, _duonaLarĝeco - _dx, _dx, _dufojaAlteco, _dy)
    End Function
 
    Private Function Ĝerundo() As String
-      x += duonaLarĝeco + dx * 2 + Spaceto
-      Return String.Format("h {3} l {1} {0} h {3} l -{1} -{0} h {3} l {1} {0} v {2} l -{1} {0} h -{3} l {1} -{0} h -{3} l -{1} {0}
+      _x += _duonaLarĝeco + _dx*2 + Spaceto
+      Return _
+         String.Format(
+            "h {3} l {1} {0} h {3} l -{1} -{0} h {3} l {1} {0} v {2} l -{1} {0} h -{3} l {1} -{0} h -{3} l -{1} {0}
 h -{3} l {1} -{0} h -{1} v -{2} h {1} z",
-                           dufojaAlteco \ 2 - dy \ 2, duonaLarĝeco - dx, dy, dx)
+            _dufojaAlteco\2 - _dy\2, _duonaLarĝeco - _dx, _dy, _dx)
    End Function
 
    Private Function Havado() As String
-      x += duonaLarĝeco + dx * 2 + Spaceto
-      Return String.Format("m {1} 0 h {3} l -{1} {0} h {3} l {1} -{0} h {3} l -{1} {0} v {2} l {1} {0} h -{3}
+      _x += _duonaLarĝeco + _dx*2 + Spaceto
+      Return _
+         String.Format(
+            "m {1} 0 h {3} l -{1} {0} h {3} l {1} -{0} h {3} l -{1} {0} v {2} l {1} {0} h -{3}
 l -{1} -{0} h -{3} l {1} {0} h -{3} l -{1} -{0} v -{2} z",
-                           dufojaAlteco \ 2 - dy \ 2, duonaLarĝeco - dx, dy, dx)
+            _dufojaAlteco\2 - _dy\2, _duonaLarĝeco - _dx, _dy, _dx)
    End Function
 
    Private Function MalplenaVerbo() As String
-      x += duonaLarĝeco + Spaceto * 2
-      Return String.Format("h {1} l {2} {3} h -{1} z m {4} 0 l -{2} {3} h -{1} l {2} -{3} z
+      _x += _duonaLarĝeco + Spaceto*2
+      Return _
+         String.Format(
+            "h {1} l {2} {3} h -{1} z m {4} 0 l -{2} {3} h -{1} l {2} -{3} z
 m -{5} {6} h {1} l {2} {3} h -{1} z m {4} 0 l -{2} {3} h -{1} l {2} -{3} z",
-                           0, dx, duonaLarĝeco \ 2, alteco, duonaLarĝeco + dx, duonaLarĝeco + dx, alteco + Spaceto)
+            0, _dx, _duonaLarĝeco\2, _alteco, _duonaLarĝeco + _dx, _duonaLarĝeco + _dx, _alteco + Spaceto)
    End Function
 
    Private Function OblikaNetransitiva() As String
-      x += duonaLarĝeco + Spaceto * 2
-      Return String.Format("h {1} l {2} {3} h -{1} z m {4} 0 l -{2} {3} h -{1} l {2} -{3} z
+      _x += _duonaLarĝeco + Spaceto*2
+      Return _
+         String.Format(
+            "h {1} l {2} {3} h -{1} z m {4} 0 l -{2} {3} h -{1} l {2} -{3} z
 m -{4} {5} h {4} v {7} h -{8} v {6} h -{1} v -{6} h -{8} z",
-                           0, dx, duonaLarĝeco \ 2, alteco, duonaLarĝeco + dx, alteco + Spaceto, alteco - dy, dy,
-                           duonaLarĝeco \ 2 - dx \ 2 + Spaceto \ 2)
+            0, _dx, _duonaLarĝeco\2, _alteco, _duonaLarĝeco + _dx, _alteco + Spaceto, _alteco - _dy, _dy,
+            _duonaLarĝeco\2 - _dx\2 + Spaceto\2)
    End Function
 
    Private Function OblikaTransitiva() As String
-      x += duonaLarĝeco + Spaceto * 2
-      Return String.Format("h {1} l {2} {3} h -{1} z m {4} 0 l -{2} {3} h -{1} l {2} -{3} z
+      _x += _duonaLarĝeco + Spaceto*2
+      Return _
+         String.Format(
+            "h {1} l {2} {3} h -{1} z m {4} 0 l -{2} {3} h -{1} l {2} -{3} z
 m -{4} {5} h {4} v {7} h -{8} v {6} h {8} v {7} h -{4} v -{7} h {8} v -{6} h -{8} z",
-                           0, dx, duonaLarĝeco \ 2, alteco, duonaLarĝeco + dx, alteco + Spaceto, alteco - dy * 2, dy,
-                           duonaLarĝeco \ 2 - dx \ 2 + Spaceto \ 2)
+            0, _dx, _duonaLarĝeco\2, _alteco, _duonaLarĝeco + _dx, _alteco + Spaceto, _alteco - _dy*2, _dy,
+            _duonaLarĝeco\2 - _dx\2 + Spaceto\2)
    End Function
 
-   Private Function PartaNetransitiva() As String
-      x += duonaLarĝeco + Spaceto * 2
-      Return String.Format("h {1} l {2} {3} h -{1} z m {4} 0 l -{2} {3} h -{1} l {2} -{3} z
+   Private Function NedirektaNetransitiva() As String
+      _x += _duonaLarĝeco + Spaceto*2
+      Return _
+         String.Format(
+            "h {1} l {2} {3} h -{1} z m {4} 0 l -{2} {3} h -{1} l {2} -{3} z
 m -{2} {5} v {6} h {8} v {7} h -{4} v -{7} h {2} v -{6} z",
-                           0, dx, duonaLarĝeco \ 2, alteco, duonaLarĝeco + dx, alteco + Spaceto, alteco - dy, dy,
-                           duonaLarĝeco \ 2 + Spaceto \ 2 - dx \ 2)
+            0, _dx, _duonaLarĝeco\2, _alteco, _duonaLarĝeco + _dx, _alteco + Spaceto, _alteco - _dy, _dy,
+            _duonaLarĝeco\2 + Spaceto\2 - _dx\2)
    End Function
 
    Private Function ModifantoMaldekstra() As String
-      x += duonaLarĝeco + Spaceto
-      Return String.Format("h {0} v {1} h -{4} v -{3} h -{2} z", duonaLarĝeco, dufojaAlteco, duonaLarĝeco - dx, dufojaAlteco - dy, dx)
+      _x += _duonaLarĝeco + Spaceto
+      Return _
+         String.Format("h {0} v {1} h -{4} v -{3} h -{2} z", _duonaLarĝeco, _dufojaAlteco, _duonaLarĝeco - _dx,
+                       _dufojaAlteco - _dy, _dx)
    End Function
 
    Private Function ModifantoDekstra() As String
-      x += duonaLarĝeco + Spaceto
-      Return String.Format("h {0} v {1} h -{2} v {3} h -{4} z", duonaLarĝeco, dy, duonaLarĝeco - dx, dufojaAlteco - dy, dx)
+      _x += _duonaLarĝeco + Spaceto
+      Return _
+         String.Format("h {0} v {1} h -{2} v {3} h -{4} z", _duonaLarĝeco, _dy, _duonaLarĝeco - _dx, _dufojaAlteco - _dy,
+                       _dx)
    End Function
 
    Private Function NombrigeblaEcoDekstra() As String
-      x += duonaLarĝeco + Spaceto
+      _x += _duonaLarĝeco + Spaceto
       Return String.Format("h {0} v {1} h -{2} v {3} h {2} v {1} h -{2} v {3} h {2} v {1} h -{0} z",
-                           duonaLarĝeco, dy, duonaLarĝeco - dx, alteco + Spaceto \ 2 - dy * 3 \ 2)
+                           _duonaLarĝeco, _dy, _duonaLarĝeco - _dx, _alteco + Spaceto\2 - _dy*3\2)
    End Function
 
    Private Function NombrigeblaEcoMaldekstra() As String
-      x += duonaLarĝeco + Spaceto
+      _x += _duonaLarĝeco + Spaceto
       Return String.Format("h {0} v {1} h -{0} v -{2} h {3} v -{4} h -{3} v {2} h {3} v -{4} h -{3} z",
-                           duonaLarĝeco, dufojaAlteco, dy, duonaLarĝeco - dx, alteco + Spaceto \ 2 - dy \ 2)
+                           _duonaLarĝeco, _dufojaAlteco, _dy, _duonaLarĝeco - _dx, _alteco + Spaceto\2 - _dy\2)
    End Function
 
    Private Function MankaNominativo() As String
-      x += dx + Spaceto + duonaLarĝeco + Spaceto
+      _x += _dx + Spaceto + _duonaLarĝeco + Spaceto
       Return String.Format("h {0} v {1} h -{0} z m {2} 0 h {0} l {3} {1} l -{3} {1} h -{0} l {3} -{1} z",
-                           dx, dufojaAlteco \ 2, dx + Spaceto, duonaLarĝeco - dx)
+                           _dx, _dufojaAlteco\2, _dx + Spaceto, _duonaLarĝeco - _dx)
    End Function
 
    Private Function Ujo1Unue() As String
-      x += dx + Spaceto + duonaLarĝeco + Spaceto
+      _x += _dx + Spaceto + _duonaLarĝeco + Spaceto
       Return String.Format("m 0 {4} h {0} v {1} h -{0} z m {2} -{4} h {0} l {3} {1} l -{3} {1} h -{0} l {3} -{1} z",
-                           dx, dufojaAlteco \ 2, dx + Spaceto, duonaLarĝeco - dx, alteco + Spaceto \ 2)
+                           _dx, _dufojaAlteco\2, _dx + Spaceto, _duonaLarĝeco - _dx, _alteco + Spaceto\2)
    End Function
 
    Private Function Ujo2Unue() As String
-      x += (dx + Spaceto) * 2 + duonaLarĝeco + Spaceto
-      Return String.Format("m 0 {4} h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z m {2} -{4}
+      _x += (_dx + Spaceto)*2 + _duonaLarĝeco + Spaceto
+      Return _
+         String.Format(
+            "m 0 {4} h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z m {2} -{4}
 h {0} l {3} {1} l -{3} {1} h -{0} l {3} -{1} z",
-                           dx, dufojaAlteco \ 2, dx + Spaceto, duonaLarĝeco - dx, alteco + Spaceto \ 2)
+            _dx, _dufojaAlteco\2, _dx + Spaceto, _duonaLarĝeco - _dx, _alteco + Spaceto\2)
    End Function
 
    Private Function Ujo3Unue() As String
-      x += (dx + Spaceto) * 3 + duonaLarĝeco + Spaceto
-      Return String.Format("m 0 {4} h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z m {2} -{4}
+      _x += (_dx + Spaceto)*3 + _duonaLarĝeco + Spaceto
+      Return _
+         String.Format(
+            "m 0 {4} h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z m {2} -{4}
 h {0} l {3} {1} l -{3} {1} h -{0} l {3} -{1} z",
-                           dx, dufojaAlteco \ 2, dx + Spaceto, duonaLarĝeco - dx, alteco + Spaceto \ 2)
+            _dx, _dufojaAlteco\2, _dx + Spaceto, _duonaLarĝeco - _dx, _alteco + Spaceto\2)
    End Function
 
    Public Sub DesegniFinaĵon(finaĵo As String)
-      Dim antaŭX = x
-      Dim antaŭY = y
-      AldoniVojon(finaĵoDesegniloj(finaĵo)(), antaŭX, antaŭY)
+      Dim antaŭX = _x
+      Dim antaŭY = _y
+      AldoniVojon(_finaĵoDesegniloj(finaĵo)(), antaŭX, antaŭY)
    End Sub
 
    Public Function Vico() As String
-      dokumentoLarĝeco = Math.Max(dokumentoLarĝeco, x + spaco)
-      x = spaco
-      y += dufojaAlteco + spaco
+      _dokumentoLarĝeco = Math.Max(_dokumentoLarĝeco, _x + _spaco)
+      _x = _spaco
+      _y += _dufojaAlteco + _spaco
       Return ""
    End Function
 
    Private Function M(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {1} h {2} v {3} h -{4} v -{5}",
-                           dx, aktualaAlteco - dy, aktualaLarĝeco - dx, dy, aktualaLarĝeco, aktualaAlteco)
+                           _dx, aktualaAlteco - _dy, aktualaLarĝeco - _dx, _dy, aktualaLarĝeco, aktualaAlteco)
    End Function
 
    Private Function P(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {1} h -{2} v {3} h -{4} v -{5}",
-                           aktualaLarĝeco, dy, aktualaLarĝeco - dx, aktualaAlteco - dy, dx, aktualaAlteco)
+                           aktualaLarĝeco, _dy, aktualaLarĝeco - _dx, aktualaAlteco - _dy, _dx, aktualaAlteco)
    End Function
 
    Private Function Pl(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {4} h -{6} v -{2} h -{5} v {2} h -{3} z m {9} {7} v {8} h {1} v -{8} z",
-                           aktualaLarĝeco, aktualaLarĝeco \ 5, aktualaAlteco - dy, dx, aktualaAlteco,
-                           aktualaLarĝeco - (aktualaLarĝeco \ 5 + dx * 3),
-                           (aktualaLarĝeco \ 5 + dx * 2), dy, aktualaAlteco - 2 * dy, aktualaAlteco - aktualaAlteco \ 5 - dx * 2)
+                           aktualaLarĝeco, aktualaLarĝeco\5, aktualaAlteco - _dy, _dx, aktualaAlteco,
+                           aktualaLarĝeco - (aktualaLarĝeco\5 + _dx*3),
+                           (aktualaLarĝeco\5 + _dx*2), _dy, aktualaAlteco - 2*_dy,
+                           aktualaAlteco - aktualaAlteco\5 - _dx*3)
    End Function
 
    Private Function Pr(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
-      Dim rSpaco = aktualaLarĝeco \ 5
-      Return String.Format("v {4} h {3} v -{2} h {1} v -{5} z m {0} 0 m 0 {5} l -{6} {2} h -{3} l {6} -{2} z m -{7} 0 l {6} {2} h -{3} l -{6} -{2} z",
-                           aktualaLarĝeco, aktualaLarĝeco - dx, aktualaAlteco - dy, dx, aktualaAlteco,
-                           dy, rSpaco \ 2 + dx \ 2, rSpaco + dx)
+      Dim rSpaco = aktualaLarĝeco\5
+      Return _
+         String.Format(
+            "v {4} h {3} v -{2} h {1} v -{5} z m {0} 0 m 0 {5} l -{6} {2} h -{3} l {6} -{2} z m -{7} 0 l {6} {2} h -{3} l -{6} -{2} z",
+            aktualaLarĝeco, aktualaLarĝeco - _dx, aktualaAlteco - _dy, _dx, aktualaAlteco,
+            _dy, rSpaco\2 + _dx\2, rSpaco + _dx)
    End Function
 
    Private Function B(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {4} h -{5} v {2} h -{3} v -{2} h -{1} v {2} h -{3} z",
-                           aktualaLarĝeco, dx * 2, aktualaAlteco - dy, dx, dy, aktualaLarĝeco - dx * 4)
+                           aktualaLarĝeco, _dx*2, aktualaAlteco - _dy, _dx, _dy, aktualaLarĝeco - _dx*4)
    End Function
 
    Private Function Bl(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
-      Return String.Format("h {0} v {4} h -{6} v -{2} h -{5} v {2} h -{3} v -{2} h -{1} v {2} h -{3} z m {9} {7} v {8} h {1} v -{8} z",
-                           aktualaLarĝeco, aktualaLarĝeco \ 5, aktualaAlteco - dy, dx, aktualaAlteco,
-                           aktualaLarĝeco - 2 * (aktualaLarĝeco \ 5 + dx * 2),
-                           (aktualaLarĝeco \ 5 + dx * 2), dy, aktualaAlteco - 2 * dy, aktualaAlteco - aktualaAlteco \ 5 - dx * 2)
+      Return _
+         String.Format(
+            "h {0} v {4} h -{6} v -{2} h -{5} v {2} h -{3} v -{2} h -{1} v {2} h -{3} z m {9} {7} v {8} h {1} v -{8} z",
+            aktualaLarĝeco, aktualaLarĝeco\5, aktualaAlteco - _dy, _dx, aktualaAlteco,
+            aktualaLarĝeco - 2*(aktualaLarĝeco\5 + _dx*2),
+            (aktualaLarĝeco\5 + _dx*2), _dy, aktualaAlteco - 2*_dy, aktualaAlteco - aktualaAlteco\5 - _dx*3)
    End Function
 
    Private Function Br(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
-      Dim rSpaco = aktualaLarĝeco \ 5
-      Return String.Format("v {4} h {3} v -{2} h {8} v {2} h {3} v -{2} h {1} v -{5} z m {0} 0 m 0 {5}
+      Dim rSpaco = aktualaLarĝeco\5
+      Return _
+         String.Format(
+            "v {4} h {3} v -{2} h {8} v {2} h {3} v -{2} h {1} v -{5} z m {0} 0 m 0 {5}
 l -{6} {2} h -{3} l {6} -{2} z m -{7} 0 l {6} {2} h -{3} l -{6} -{2} z",
-                           aktualaLarĝeco, aktualaLarĝeco - (aktualaLarĝeco \ 5 + 2 * dx),
-                           aktualaAlteco - dy, dx, aktualaAlteco,
-                           dy, rSpaco \ 2 + dx \ 2, rSpaco + dx, aktualaLarĝeco \ 5)
+            aktualaLarĝeco, aktualaLarĝeco - (aktualaLarĝeco\5 + 2*_dx),
+            aktualaAlteco - _dy, _dx, aktualaAlteco,
+            _dy, rSpaco\2 + _dx\2, rSpaco + _dx, aktualaLarĝeco\5)
    End Function
 
    Private Function V(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {1} h -{0} z m 0 {1} l {2} {3} h {4} l -{2} -{3} z",
-                           aktualaLarĝeco, dy, If(aktualaLarĝeco < larĝeco, aktualaLarĝeco - dx, aktualaLarĝeco \ 2 - dx \ 2),
-                           aktualaAlteco - dy, dx)
+                           aktualaLarĝeco, _dy,
+                           If(aktualaLarĝeco < _larĝeco, aktualaLarĝeco - _dx, aktualaLarĝeco\2 - _dx\2),
+                           aktualaAlteco - _dy, _dx)
    End Function
 
    Private Function K(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {4} h -{3} v -{2} h -{1} z",
-                           aktualaLarĝeco, aktualaLarĝeco - dx, aktualaAlteco - dy, dx, aktualaAlteco)
+                           aktualaLarĝeco, aktualaLarĝeco - _dx, aktualaAlteco - _dy, _dx, aktualaAlteco)
    End Function
 
    Private Function Kl(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
-      Dim l = aktualaLarĝeco \ 5
-      Dim lLarĝeco = l + 2 * dx
+      Dim l = aktualaLarĝeco\5
+      Dim lLarĝeco = l + 2*_dx
       Return String.Format("h {0} v {1} h -{2} v -{3} h -{4} v {3} h -{5} z m {2} {6} v {7} h {8} v -{7} z",
-                           aktualaLarĝeco, aktualaAlteco, dx, aktualaAlteco - dy, aktualaLarĝeco - lLarĝeco - dx, lLarĝeco, dy,
-                           aktualaAlteco - dy * 2, l)
+                           aktualaLarĝeco, aktualaAlteco, _dx, aktualaAlteco - _dy, aktualaLarĝeco - lLarĝeco - _dx,
+                           lLarĝeco, _dy,
+                           aktualaAlteco - _dy*2, l)
    End Function
 
    Private Function Kr(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
-      Dim rSpaco = aktualaLarĝeco \ 5
-      Return String.Format("h {0} v {4} h -{3} v -{2} h -{1} z m 0 {5} l {6} {2} h {3} l -{6} -{2} z m {7} 0 l -{6} {2} h {3} l {6} -{2} z",
-                           aktualaLarĝeco, aktualaLarĝeco - dx, aktualaAlteco - dy, dx, aktualaAlteco,
-                           dy, rSpaco \ 2 + dx \ 2, rSpaco + dx)
+      Dim rSpaco = aktualaLarĝeco\5
+      Return _
+         String.Format(
+            "h {0} v {4} h -{3} v -{2} h -{1} z m 0 {5} l {6} {2} h {3} l -{6} -{2} z m {7} 0 l -{6} {2} h {3} l {6} -{2} z",
+            aktualaLarĝeco, aktualaLarĝeco - _dx, aktualaAlteco - _dy, _dx, aktualaAlteco,
+            _dy, rSpaco\2 + _dx\2, rSpaco + _dx)
    End Function
 
    Private Function G(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {4} h -{3} v -{2} h -{1} v {2} h -{3} v -{2} h -{5} z",
-                           aktualaLarĝeco, dx * 2, aktualaAlteco - dy, dx, aktualaAlteco, aktualaLarĝeco - dx * 4)
+                           aktualaLarĝeco, _dx*2, aktualaAlteco - _dy, _dx, aktualaAlteco, aktualaLarĝeco - _dx*4)
    End Function
 
    Private Function Gr(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
-      Dim rSpaco = aktualaLarĝeco \ 5
-      Return String.Format("h {0} v {4} h -{3} v -{2} h -{1} v {2} h -{3} v -{2} h -{8} z m 0 {5} l {6} {2} h {3} l -{6} -{2} z m {7} 0
+      Dim rSpaco = aktualaLarĝeco\5
+      Return _
+         String.Format(
+            "h {0} v {4} h -{3} v -{2} h -{1} v {2} h -{3} v -{2} h -{8} z m 0 {5} l {6} {2} h {3} l -{6} -{2} z m {7} 0
 l -{6} {2} h {3} l {6} -{2} z",
-                           aktualaLarĝeco, rSpaco, aktualaAlteco - dy, dx, aktualaAlteco,
-                           dy, rSpaco \ 2 + dx \ 2, rSpaco + dx, aktualaLarĝeco - rSpaco - 2 * dx)
+            aktualaLarĝeco, rSpaco, aktualaAlteco - _dy, _dx, aktualaAlteco,
+            _dy, rSpaco\2 + _dx\2, rSpaco + _dx, aktualaLarĝeco - rSpaco - 2*_dx)
    End Function
 
    Private Function Gl(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
-      Return String.Format("h {0} v {4} h -{3} v -{2} h -{1} v {2} h -{3} v -{2} h -{5} v {2} h -{6} z m {3} {7} v {8} h {1} v -{8} z",
-                           aktualaLarĝeco, aktualaLarĝeco \ 5, aktualaAlteco - dy, dx, aktualaAlteco,
-                           aktualaLarĝeco - 2 * (aktualaLarĝeco \ 5 + dx * 2),
-                           (aktualaLarĝeco \ 5 + dx * 2), dy, aktualaAlteco - 2 * dy)
+      Return _
+         String.Format(
+            "h {0} v {4} h -{3} v -{2} h -{1} v {2} h -{3} v -{2} h -{5} v {2} h -{6} z m {3} {7} v {8} h {1} v -{8} z",
+            aktualaLarĝeco, aktualaLarĝeco\5, aktualaAlteco - _dy, _dx, aktualaAlteco,
+            aktualaLarĝeco - 2*(aktualaLarĝeco\5 + _dx*2),
+            (aktualaLarĝeco\5 + _dx*2), _dy, aktualaAlteco - 2*_dy)
    End Function
 
    Private Function E(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {1} h {2} v {3} h -{2} v {1} h -{0} z",
-                           dx, aktualaAlteco \ 2 - dy \ 2, aktualaLarĝeco - dx, dy)
+                           _dx, aktualaAlteco\2 - _dy\2, aktualaLarĝeco - _dx, _dy)
    End Function
 
    Private Function I(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {1} h -{2} v {3} h -{4} z",
-                           aktualaLarĝeco, dy, aktualaLarĝeco - dx, aktualaAlteco - dy, dx)
+                           aktualaLarĝeco, _dy, aktualaLarĝeco - _dx, aktualaAlteco - _dy, _dx)
    End Function
 
    Private Function O(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("m 0 {1} h {2} v -{1} h {0} v {3} h -{0} v -{1} h -{2} z",
-                           dx, aktualaAlteco \ 2 - dy \ 2, aktualaLarĝeco - dx, aktualaAlteco)
+                           _dx, aktualaAlteco\2 - _dy\2, aktualaLarĝeco - _dx, aktualaAlteco)
    End Function
 
    Private Function AA(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("m 0 {3} h {2} v -{3} h {4} v {5} h -{0} z",
-                           aktualaLarĝeco, dy, aktualaLarĝeco - dx, aktualaAlteco - dy, dx, aktualaAlteco)
+                           aktualaLarĝeco, _dy, aktualaLarĝeco - _dx, aktualaAlteco - _dy, _dx, aktualaAlteco)
    End Function
 
    Private Function N(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("m 0 {0} h {1} v -{0} h {2} v {0} h {1} v {3} h -{4}",
-                           aktualaAlteco - dy,
-                           aktualaLarĝeco \ 2 - dx \ 2,
-                           dx,
-                           dy,
+                           aktualaAlteco - _dy,
+                           aktualaLarĝeco\2 - _dx\2,
+                           _dx,
+                           _dy,
                            aktualaLarĝeco)
    End Function
 
    Private Function H(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {1} h -{0} z m 0 {2} h {0} v {1} h -{0} z",
                            aktualaLarĝeco,
-                           dy,
-                           aktualaAlteco - dy)
+                           _dy,
+                           aktualaAlteco - _dy)
    End Function
 
    Private Function T(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {1} h -{2} v {3} h -{4} v -{3} h -{2} z",
                            aktualaLarĝeco,
-                           dy,
-                           aktualaLarĝeco \ 2 - dx \ 2,
-                           aktualaAlteco - dy,
-                           dx)
+                           _dy,
+                           aktualaLarĝeco\2 - _dx\2,
+                           aktualaAlteco - _dy,
+                           _dx)
    End Function
 
    Private Function Tl(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {1} h -{2} v {3} h -{4} v -{3} h -{2} z m {5} {1} v {6} h {7} v -{6} z",
                            aktualaLarĝeco,
-                           dy,
-                           aktualaLarĝeco \ 2 - (aktualaLarĝeco \ 5 + 2 * dx) \ 2,
-                           aktualaAlteco - dy,
-                           aktualaLarĝeco \ 5 + 2 * dx,
-                           aktualaLarĝeco \ 2 - (aktualaLarĝeco \ 5 + 2 * dx) \ 2 + dx, aktualaAlteco - 2 * dy,
-                           aktualaLarĝeco \ 5)
+                           _dy,
+                           aktualaLarĝeco\2 - (aktualaLarĝeco\5 + 2*_dx)\2,
+                           aktualaAlteco - _dy,
+                           aktualaLarĝeco\5 + 2*_dx,
+                           aktualaLarĝeco\2 - (aktualaLarĝeco\5 + 2*_dx)\2 + _dx, aktualaAlteco - 2*_dy,
+                           aktualaLarĝeco\5)
    End Function
 
    Private Function Tr(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {1} h -{0} z m {2} 0 h {3} l {5} {4} h -{3} z m {6} 0 h {3} l -{5} {4} h -{3} z",
                            aktualaLarĝeco,
-                           dy,
-                           aktualaLarĝeco \ 2 - (aktualaLarĝeco \ 5 + 2 * dx) \ 2,
-                           dx,
+                           _dy,
+                           aktualaLarĝeco\2 - (aktualaLarĝeco\5 + 2*_dx)\2,
+                           _dx,
                            aktualaAlteco,
-                           aktualaLarĝeco \ 10 + dx \ 2,
-                           aktualaLarĝeco \ 5 + dx)
+                           aktualaLarĝeco\10 + _dx\2,
+                           aktualaLarĝeco\5 + _dx)
    End Function
 
    Private Function D(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {1} h -{2} v {5} h -{3} v -{5} h -{4} v {5} h -{3} v -{5} h -{2} z",
                            aktualaLarĝeco,
-                           dy, aktualaLarĝeco \ 2 - 2 * dx, dx, 2 * dx, aktualaAlteco - dy)
+                           _dy, aktualaLarĝeco\2 - 2*_dx, _dx, 2*_dx, aktualaAlteco - _dy)
    End Function
 
    Private Function Dl(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
-      Dim l = aktualaLarĝeco \ 5
-      Dim lLarĝeco = aktualaLarĝeco \ 5 + 2 * dx
-      Return String.Format("h {0} v {1} h -{2} v -{3} h -{4} v {3} h -{2} z m {5} {6} v {7} h {8} v -{7} z m {9} 0 v {7} h {8} v -{7} z",
-                           aktualaLarĝeco, aktualaAlteco, lLarĝeco, aktualaAlteco - dy, aktualaLarĝeco - 2 * lLarĝeco, dx, dy,
-                           aktualaAlteco - 2 * dy, l, l + dx * 2 + aktualaLarĝeco - 2 * lLarĝeco)
+      Dim l = aktualaLarĝeco\5
+      Dim lLarĝeco = aktualaLarĝeco\5 + 2*_dx
+      Return _
+         String.Format(
+            "h {0} v {1} h -{2} v -{3} h -{4} v {3} h -{2} z m {5} {6} v {7} h {8} v -{7} z m {9} 0 v {7} h {8} v -{7} z",
+            aktualaLarĝeco, aktualaAlteco, lLarĝeco, aktualaAlteco - _dy, aktualaLarĝeco - 2*lLarĝeco, _dx, _dy,
+            aktualaAlteco - 2*_dy, l, l + _dx*2 + aktualaLarĝeco - 2*lLarĝeco)
    End Function
 
    Private Function Dr(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
-      Return String.Format("h {0} v {1} h -{0} z m 0 {1} l {2} {3} h {4} l -{2} -{3} z m {2} 0 v {3} h {4} v -{3} z m {5} 0
+      Return _
+         String.Format(
+            "h {0} v {1} h -{0} z m 0 {1} l {2} {3} h {4} l -{2} -{3} z m {2} 0 v {3} h {4} v -{3} z m {5} 0
 h {4} v {3} h -{4} z m 0 {3} l {2} -{3} h {4} l -{2} {3} z",
-                           aktualaLarĝeco, dy, aktualaLarĝeco \ 2 - dx * 2, aktualaAlteco - dy, dx, dx * 3)
+            aktualaLarĝeco, _dy, aktualaLarĝeco\2 - _dx*2, aktualaAlteco - _dy, _dx, _dx*3)
    End Function
 
    Private Function S(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
-      Return String.Format("h {0} v {1} h -{0} z m 0 {2} l {3} -{2} h {4} l -{3} {2} z m {3} -{2} h {4} l {3} {2} h -{4}",
-                           aktualaLarĝeco, dy, aktualaAlteco, aktualaLarĝeco \ 2 - dx \ 2, dx)
+      Return _
+         String.Format("h {0} v {1} h -{0} z m 0 {2} l {3} -{2} h {4} l -{3} {2} z m {3} -{2} h {4} l {3} {2} h -{4}",
+                       aktualaLarĝeco, _dy, aktualaAlteco, aktualaLarĝeco\2 - _dx\2, _dx)
    End Function
 
    Private Function R(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
-      Return String.Format("h {0} v {1} h -{0} z m 0 {1} l {2} {3} h {4} l -{2} -{3} z m {0} 0 h -{4} l -{2} {3} h {4} z",
-                           aktualaLarĝeco, dy, aktualaLarĝeco \ 2 - dx \ 2,
-                           aktualaAlteco - dy, dx)
+      Return _
+         String.Format("h {0} v {1} h -{0} z m 0 {1} l {2} {3} h {4} l -{2} -{3} z m {0} 0 h -{4} l -{2} {3} h {4} z",
+                       aktualaLarĝeco, _dy, aktualaLarĝeco\2 - _dx\2,
+                       aktualaAlteco - _dy, _dx)
    End Function
 
    Private Function L(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {1} h -{0} z m {2} {3} v {4} h {5} v -{4} z",
-                           aktualaLarĝeco, aktualaAlteco, dx, dy, aktualaAlteco - 2 * dy, aktualaLarĝeco - 2 * dx)
+                           aktualaLarĝeco, aktualaAlteco, _dx, _dy, aktualaAlteco - 2*_dy, aktualaLarĝeco - 2*_dx)
    End Function
 
    Private Function J(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
       Return String.Format("h {0} v {1} h -{2} v {3} h {2} v {1} h -{0} v -{1} h {2} v -{3} h -{2} z",
                            aktualaLarĝeco,
-                           dy,
-                           aktualaLarĝeco \ 2 - dx \ 2,
-                           aktualaAlteco - dy * 2)
+                           _dy,
+                           aktualaLarĝeco\2 - _dx\2,
+                           aktualaAlteco - _dy*2)
    End Function
 
    Private Function W(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
-      Return String.Format("m {0} 0 a {0} {1} 0 0 0 0 {2} v -{3} a {4} {5} 0 0 1 0 -{6} z a {0} {1} 0 0 1 0 {2} v -{3} a {4} {5} 0 0 0 0 -{6} z",
-                           aktualaLarĝeco \ 2, aktualaAlteco \ 2, aktualaAlteco, dy, aktualaLarĝeco \ 2 - dx, aktualaAlteco \ 2 - dy, aktualaAlteco - dy * 2)
+      Return _
+         String.Format(
+            "m {0} 0 a {0} {1} 0 0 0 0 {2} v -{3} a {4} {5} 0 0 1 0 -{6} z a {0} {1} 0 0 1 0 {2} v -{3} a {4} {5} 0 0 0 0 -{6} z",
+            aktualaLarĝeco\2, aktualaAlteco\2, aktualaAlteco, _dy, aktualaLarĝeco\2 - _dx, aktualaAlteco\2 - _dy,
+            aktualaAlteco - _dy*2)
    End Function
 
    Private Function ĈuVokalo(litero As Char) As Boolean
       Return litero = "a"c Or
-         litero = "e"c Or
-         litero = "i"c Or
-         litero = "o"c Or
-         litero = "u"c Or
-         litero = "ɒ"c
+             litero = "e"c Or
+             litero = "i"c Or
+             litero = "o"c Or
+             litero = "u"c Or
+             litero = "ɒ"c
    End Function
 
    Private Sub AldoniVojon(vojo As String, x As Integer, y As Integer)
-      vojoj.Add(String.Format("M {0} {1} {2}", x, y, vojo))
+      _vojoj.Add(String.Format("M {0} {1} {2}", x, y, vojo))
    End Sub
 
    Public Sub Fini()
-      xmlSkribilo.WriteStartDocument()
-      xmlSkribilo.WriteStartElement("svg", "http://www.w3.org/2000/svg")
-      xmlSkribilo.WriteAttributeString("width", Math.Max(x + spaco, dokumentoLarĝeco))
-      xmlSkribilo.WriteAttributeString("height", dufojaAlteco + y + 2 * spaco)
+      _xmlSkribilo.WriteStartDocument()
+      _xmlSkribilo.WriteStartElement("svg", "http://www.w3.org/2000/svg")
+      _xmlSkribilo.WriteAttributeString("width", Math.Max(_x + _spaco, _dokumentoLarĝeco))
+      _xmlSkribilo.WriteAttributeString("height", _dufojaAlteco + _y + 2*_spaco)
 
-      For Each vojo In vojoj
-         xmlSkribilo.WriteStartElement("path")
-         xmlSkribilo.WriteAttributeString("d", vojo)
-         xmlSkribilo.WriteEndElement()
+      For Each vojo In _vojoj
+         _xmlSkribilo.WriteStartElement("path")
+         _xmlSkribilo.WriteAttributeString("d", vojo)
+         _xmlSkribilo.WriteEndElement()
       Next
 
-      xmlSkribilo.WriteEndElement()
-      xmlSkribilo.WriteEndDocument()
-      xmlSkribilo.Close()
+      _xmlSkribilo.WriteEndElement()
+      _xmlSkribilo.WriteEndDocument()
+      _xmlSkribilo.Close()
    End Sub
 End Class
