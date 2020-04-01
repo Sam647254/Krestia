@@ -148,7 +148,10 @@ namespace KrestiaAWSAlirilo {
          var kvanto = peto.Split(separator: ' ');
          if (kvanto.Length > 1) {
             var malinflektita = kvanto.Select(Malinflektado.tuteMalinflekti).ToList();
-            return await GlosaRezulto(malinflektita.ToList());
+            try {
+               return await GlosaRezulto(malinflektita.ToList());
+            }
+            catch (InvalidOperationException) { }
          }
 
          var malinflekajŜtupoj = Malinflektado.tuteMalinflekti(peto);
@@ -236,7 +239,7 @@ namespace KrestiaAWSAlirilo {
                }
             })));
 
-         if (rezultoj.Length != vortoj.Count) {
+         if (rezultoj.All(r => r.Count == 0)) {
             throw new InvalidOperationException("Mankas vortojn");
          }
 
