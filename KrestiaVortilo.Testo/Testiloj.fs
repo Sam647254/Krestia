@@ -90,3 +90,10 @@ module Testiloj =
                                     Argumentoj = Deque.ofList (argumentoj) }, sintaksanalizilo)))))
       |> Result.mapError Assert.Fail
       |> ignore
+      
+   let kontroliMalplenigitajnFormojn (vorto: string) (pravajFormoj: string list) =
+      malplenigitajFormojDe vorto
+      |> Result.map (fun rezultoj ->
+         Assert.AreEqual(rezultoj, pravajFormoj |> Set.ofList))
+      |> Result.mapError Assert.Fail
+      |> ignore

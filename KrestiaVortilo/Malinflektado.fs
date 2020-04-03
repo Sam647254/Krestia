@@ -379,6 +379,18 @@ module Malinflektado =
       |> Option.map (fun malplenigeblaTipoj -> Set.contains malplenigita malplenigeblaTipoj)
       |> Option.map Ok
       |> Option.defaultValue ((sprintf "%s ne estas verbo" originala) |> Error)
+      
+   and malplenigitajFormojDe (ĉeno: string) =
+      ĉuInfinitivo ĉeno
+      |> Option.filter (fun tipo -> Set.contains tipo verboTipoj)
+      |> Option.bind (fun verboTipo -> Map.tryFind verboTipo malplenigeblaVerboTipoj)
+      |> Option.map (fun tipoj ->
+         let bazo = bazoDe ĉeno
+         tipoj
+         |> Set.map (fun tipo -> Map.find tipo verboFinaĵoj)
+         |> Set.map (fun finaĵo -> bazo + finaĵo))
+      |> Option.map Ok
+      |> Option.defaultValue ((sprintf "%s ne estas verbo" ĉeno) |> Error)
 
    and kategorigiLiterojn =
       List.map (fun litero ->

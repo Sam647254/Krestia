@@ -79,6 +79,17 @@ module Sintaksanalizilo =
             "r", AntaŭModifanto ]
       |> Map.ofList
 
+   let verboFinaĵoj =
+      [ MalplenaVerbo, "m"
+        NetransitivaVerbo, "s"
+        TransitivaVerbo, "t"
+        NedirektaTransitivaVerbo, "sh"
+        DutransitivaVerbo, "p"
+        OblikaNetransitivaVerbo, "g"
+        OblikaTransitivaVerbo, "v"
+        NedirektaNetransitivaVerbo, "n" ]
+      |> Map.ofList
+
    let ĉuFremdaVorto (ĉeno: string) = ĉeno.Length > 0 && not (Char.IsLower(ĉeno.Chars(0)))
 
    let ĉuLokokupilo (ĉeno: string) = ĉeno.StartsWith("w") || ĉeno.StartsWith("h")
