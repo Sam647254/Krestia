@@ -30,14 +30,22 @@ namespace KrestiaAWSAlirilo {
             awsAlirilo.RedaktiVorton(v.Item1, "gloso", v.Item2)));
       }
 
+      /// <summary>
+      /// Kontroli, ĉu ĉiuj vortoj en la vortaro estas validaj.
+      /// Por esti valida, vorto:
+      /// - devas esti infinitivo (laŭ malinflekti)
+      /// - devas havas radikojn, kiuj ekzistas en la vortaro
+      /// - (se ĝi estas verbo) devas havas malplenigitajn formojn, kiuj estas infinitivoj
+      /// </summary>
+      /// <param name="awsAlirilo"></param>
+      /// <returns></returns>
       public static async Task KontroliVortaron(AwsAlirilo awsAlirilo) {
-         var vortoj = await awsAlirilo.AlportiĈiujnVortojn();
+         var vortoj = (await awsAlirilo.AlportiĈiujnVortojn()).ToImmutableList();
+         var vortaro = vortoj.Select(v => v.Vorto).ToImmutableHashSet();
          vortoj.ForEach(v => {
-            var malinflektitaVorto = Malinflektado.malinflekti(v.Vorto);
-            var ĉuValidaVorto = Malinflektado.dividi(v.Vorto, true);
-
-            if (!(malinflektitaVorto.IsOk && malinflektitaVorto.ResultValue.IsBazo) || ĉuValidaVorto.IsError) {
-               Console.WriteLine($"{v.Vorto} estas nevalida vorto");
+            var rezulto = AwsAlirilo.ĈuValidaVortaraVorto(vortaro, v.Vorto, v.Radikoj);
+            if (rezulto != null) {
+               Console.WriteLine(rezulto);
             }
          });
       }

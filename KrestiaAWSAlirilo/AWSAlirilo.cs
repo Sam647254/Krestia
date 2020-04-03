@@ -33,7 +33,7 @@ namespace KrestiaAWSAlirilo {
             Signifo = vorto["signifo"].S,
             Kategorioj = vorto.GetValueOrDefault("kategorio")?.SS,
             Noto = vorto.GetValueOrDefault("noto")?.S,
-            Radikoj = vorto.GetValueOrDefault("radikoj")?.L.Select(r => r.S).ToList()
+            Radikoj = vorto.GetValueOrDefault("radikoj")?.SS
          });
       }
 
@@ -93,21 +93,25 @@ namespace KrestiaAWSAlirilo {
       }
 
       public async Task AldoniVortojn(string eniro) {
+         var vortaro = (await AlportiĈiujnVortojn()).Select(r => r.Vorto).ToImmutableHashSet();
          var vortoj = (await File.ReadAllLinesAsync(eniro)).Select(vico => {
             var partoj = vico.Split('|');
-            if (partoj.Length != 5) {
+            if (partoj.Length != 6) {
                throw new ArgumentException($"{vico} estas nevalida");
             }
 
-            if (!Malinflektado.ĉuInfinitivoB(partoj[0])) {
-               throw new ArgumentException($"{partoj[0]} ne estas valida infinitivo");
+            var radikoj = partoj[4].Length > 0 ? partoj[3].Split(',').ToList() : null;
+            var eraro = ĈuValidaVortaraVorto(vortaro, partoj[0], radikoj ?? new List<string>());
+            if (eraro != null) {
+               throw new ArgumentException(eraro);
             }
 
             return new VortoRespondo(partoj[0]) {
                Signifo = partoj[1],
-               Kategorioj = partoj[2].Length > 0 ? partoj[2].Split(',').ToList() : null,
-               Radikoj = partoj[3].Length > 0 ? partoj[3].Split(',').ToList() : null,
-               Noto = partoj[4].Length > 0 ? partoj[4] : null
+               Gloso = partoj[2],
+               Kategorioj = partoj[3].Length > 0 ? partoj[2].Split(',').ToList() : null,
+               Radikoj = radikoj,
+               Noto = partoj[5].Length > 0 ? partoj[4] : null
             };
          });
          await Task.WhenAll(vortoj.Select(vorto => {
@@ -116,6 +120,7 @@ namespace KrestiaAWSAlirilo {
                   "bazo",
                   new AttributeValue(Malinflektado.bazoDe(vorto.Vorto))
                },
+               {"gloso", new AttributeValue(vorto.Gloso)},
                {"signifo", new AttributeValue(vorto.Signifo)}
             };
             if (vorto.Kategorioj?.Count > 0) {
@@ -295,6 +300,36 @@ namespace KrestiaAWSAlirilo {
          }
 
          return int.MaxValue;
+      }
+
+      public static string? ĈuValidaVortaraVorto(ISet<string> ekzistantajVortoj, string novaVorto,
+         IList<string> radikoj) {
+         var malinflektitaVorto = Malinflektado.malinflekti(novaVorto);
+         var ĉuHavasValidajnRadikojn = radikoj.All(ekzistantajVortoj.Contains);
+         var ĉuValidaVorto = Malinflektado.dividi(novaVorto, inkluziFinaĵon: true);
+         var malplenigitajVerboj = Malinflektado.malplenigitajFormojDe(novaVorto);
+         var ĉuValidajMalplenigitajVerboj = malplenigitajVerboj.IsError || malplenigitajVerboj.ResultValue.All(m => {
+            var ŝtupoj = Malinflektado.malinflekti(m);
+            return ŝtupoj.IsOk && ŝtupoj.ResultValue.IsBazo;
+         });
+
+         if (!(malinflektitaVorto.IsOk && malinflektitaVorto.ResultValue.IsBazo)) {
+            return $"{novaVorto} ne estas baza vorto";
+         }
+
+         if (ĉuValidaVorto.IsError) {
+            return $"{novaVorto} ne havas validajn silabojn";
+         }
+
+         if (!ĉuHavasValidajnRadikojn) {
+            return $"{novaVorto} ne havas validajn radikojn ({string.Join(',', radikoj)})";
+         }
+
+         if (!ĉuValidajMalplenigitajVerboj) {
+            return $"{novaVorto} ne havas validajn malplenigitajn formojn";
+         }
+
+         return null;
       }
    }
 }
