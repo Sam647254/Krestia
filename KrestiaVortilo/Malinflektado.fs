@@ -357,10 +357,7 @@ module Malinflektado =
 
    and bazoDe (vorto: string) =
       if ĉuVerboInfinitivoB vorto then
-         vorto.Substring
-            (0,
-             (if vorto.EndsWith("sh") then vorto.Length - 2
-              else vorto.Length - 1))
+         vorto.Substring(0, vorto.Length - 1)
       else
          vorto
 

@@ -72,6 +72,7 @@ module Sintaksanalizilo =
             "n", NedirektaNetransitivaVerbo
             "t", TransitivaVerbo
             "sh", NedirektaTransitivaVerbo
+            "ʃ", NedirektaNetransitivaVerbo
             "v", OblikaTransitivaVerbo
             "p", DutransitivaVerbo
             "d", Pridiranto
