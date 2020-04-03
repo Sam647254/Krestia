@@ -396,8 +396,7 @@ module Malinflektado =
       |> Option.filter (fun originalaTipo -> Set.contains originalaTipo verboTipoj)
       |> Option.bind (fun originalaTipo -> Map.tryFind originalaTipo malplenigeblaVerboTipoj)
       |> Option.map (fun malplenigeblaTipoj -> Set.contains malplenigita malplenigeblaTipoj)
-      |> Option.map Ok
-      |> Option.defaultValue ((sprintf "%s ne estas verbo" originala) |> Error)
+      |> Option.defaultValue false
 
    and malplenigitajFormojDe (ĉeno: string) =
       ĉuInfinitivo ĉeno

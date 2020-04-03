@@ -78,7 +78,7 @@ namespace KrestiaVortaro {
 
             if (bazaRezulto != null) {
                var ĉuMalplenigita = Malinflektado.ĉuMalplenigita(malinflektitaTipo, bazaRezulto.PlenaVorto);
-               bazo = ĉuMalplenigita.IsOk && ĉuMalplenigita.ResultValue ? bazaRezulto.PlenaVorto : null;
+               bazo = ĉuMalplenigita ? bazaRezulto.PlenaVorto : bazo;
                bazoGloso = bazaRezulto.GlosaSignifo;
             }
             else {
