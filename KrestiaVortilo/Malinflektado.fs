@@ -201,6 +201,7 @@ module Malinflektado =
         MalplenaVerbo, malplenaVerboInflekcioj
         NetransitivaVerbo, netransitivaVerboInflekcioj
         TransitivaVerbo, transitivaVerboInflekcioj
+        NedirektaTransitivaVerbo, nedirektaTransitivaVerboInflekcioj
         DutransitivaVerbo, dutransitivaVerboInflekcioj
         OblikaNetransitivaVerbo, oblikaNetransitivaVerboInflekcioj
         OblikaTransitivaVerbo, oblikaTransitivaVerboInflekcioj
