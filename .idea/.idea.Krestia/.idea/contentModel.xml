@@ -66,6 +66,48 @@
           <e p="VortaroService.cs" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
+        <e p="wwwroot" t="Include">
+          <e p="asset-manifest.json" t="Include" />
+          <e p="favicon.ico" t="Include" />
+          <e p="index.html" t="Include" />
+          <e p="logo192.png" t="Include" />
+          <e p="logo512.png" t="Include" />
+          <e p="manifest.json" t="Include" />
+          <e p="precache-manifest.0088a845839fa1f5e8778ddfe935f985.js" t="Include" />
+          <e p="precache-manifest.58fab1593464c0256136b934b13ebea5.js" t="Include" />
+          <e p="precache-manifest.6d276190c531849ec8550438e5400734.js" t="Include" />
+          <e p="robots.txt" t="Include" />
+          <e p="service-worker.js" t="Include" />
+          <e p="static" t="Include">
+            <e p="css" t="Include">
+              <e p="main.4296a97c.chunk.css" t="Include" />
+              <e p="main.4296a97c.chunk.css.map" t="Include" />
+              <e p="main.96eb321a.chunk.css" t="Include" />
+              <e p="main.96eb321a.chunk.css.map" t="Include" />
+              <e p="main.e59456f2.chunk.css" t="Include" />
+              <e p="main.e59456f2.chunk.css.map" t="Include" />
+            </e>
+            <e p="js" t="Include">
+              <e p="2.3953a329.chunk.js" t="Include" />
+              <e p="2.3953a329.chunk.js.LICENSE.txt" t="Include" />
+              <e p="2.3953a329.chunk.js.map" t="Include" />
+              <e p="2.711ecea3.chunk.js" t="Include" />
+              <e p="2.711ecea3.chunk.js.LICENSE.txt" t="Include" />
+              <e p="2.711ecea3.chunk.js.map" t="Include" />
+              <e p="2.be46b615.chunk.js" t="Include" />
+              <e p="2.be46b615.chunk.js.LICENSE.txt" t="Include" />
+              <e p="2.be46b615.chunk.js.map" t="Include" />
+              <e p="main.148b75d7.chunk.js" t="Include" />
+              <e p="main.148b75d7.chunk.js.map" t="Include" />
+              <e p="main.52e0ff82.chunk.js" t="Include" />
+              <e p="main.52e0ff82.chunk.js.map" t="Include" />
+              <e p="main.61774587.chunk.js" t="Include" />
+              <e p="main.61774587.chunk.js.map" t="Include" />
+              <e p="runtime-main.57058461.js" t="Include" />
+              <e p="runtime-main.57058461.js.map" t="Include" />
+            </e>
+          </e>
+        </e>
       </e>
       <e p="KrestiaVortaro" t="IncludeRecursive">
         <e p="Agoj.cs" t="Include" />
