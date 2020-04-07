@@ -46,6 +46,10 @@ namespace KrestiaAWSAlirilo {
                await UnuFojajProgrametoj.ReagordiBazojn(awsAlirilo);
                break;
             }
+            case "json": {
+               await UnuFojajProgrametoj.KreiVortaronEnJson(awsAlirilo, args[1]);
+               break;
+            }
          }
       }
    }

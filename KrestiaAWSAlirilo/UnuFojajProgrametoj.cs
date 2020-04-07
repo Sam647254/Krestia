@@ -4,12 +4,14 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using KrestiaVortaro;
 using KrestiaVortilo;
 using Microsoft.FSharp.Core;
 using MoreLinq.Extensions;
+using Newtonsoft.Json;
 
 namespace KrestiaAWSAlirilo {
-   static class UnuFojajProgrametoj {
+   internal static class UnuFojajProgrametoj {
       public static async Task AldoniKategorionAlĈiujVortoj(AwsAlirilo awsAlirilo,
          IEnumerable<(string, string)> vortoj) {
          await Task.WhenAll(vortoj.Where(v => v.Item2.Length > 0).Select(v =>
@@ -54,6 +56,26 @@ namespace KrestiaAWSAlirilo {
          var vortoj = (await awsAlirilo.AlportiĈiujnVortojn()).ToImmutableList();
          var bazoj = vortoj.Select(v => Malinflektado.bazoDe(v.Vorto));
          await Task.WhenAll(vortoj.Zip(bazoj).Select(p => awsAlirilo.RedaktiVorton(p.First.Vorto, "bazo", p.Second)));
+      }
+
+      public static async Task KreiVortaronEnJson(AwsAlirilo awsAlirilo, string eliro) {
+         var vortoj = (await awsAlirilo.AlportiĈiujnVortojn()).ToImmutableList();
+         var kategorioj = vortoj.Select(v => v.Kategorioj).Flatten().Cast<string>().ToImmutableHashSet()
+            .ToImmutableList();
+         var vortojKunId = vortoj.Select((v, i) => (v, i)).ToDictionary(p => p.v.Vorto, p => p.i);
+         var vortojEnJson = vortoj.Select((v, i) => new Vorto(
+            i, v.Vorto, v.Bazo, v.Radikoj.Select(r => vortojKunId[r]), v.Signifo, v.Gloso, v.Noto));
+         var kategoriojEnJson = kategorioj.Select((k, i) => new VortaraKategorio {
+            Id = i,
+            Nomo = k,
+            Vortoj = vortoj.Where(v => v.Kategorioj.Contains(k)).Select(v => vortojKunId[v.Vorto])
+         });
+         var jsonVortaro = new JsonVortaro {
+            Vortoj = vortojEnJson,
+            Kategorioj = kategoriojEnJson
+         };
+         var vortaro = JsonConvert.SerializeObject(jsonVortaro);
+         await File.WriteAllTextAsync(eliro, vortaro);
       }
    }
 }

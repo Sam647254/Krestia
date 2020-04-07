@@ -7,6 +7,8 @@ namespace KrestiaAWSAlirilo {
       private List<string>? _radikoj;
 
       public string Vorto { get; set; }
+      
+      public string Bazo { get; set; }
 
       public List<string>? Radikoj {
          get => _radikoj ?? new List<string>();
