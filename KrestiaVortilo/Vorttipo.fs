@@ -45,6 +45,9 @@ module Vorttipo =
    | UnuSola
    | PluraSola
    | Reflekcio
+   | Okazo
+   | AktualaOkazo
+   | FinitaOkazo
 
    type Vorttipo =
    | NombrigeblaKlaso

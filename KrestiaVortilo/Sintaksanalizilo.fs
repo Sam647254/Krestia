@@ -12,11 +12,72 @@ module Sintaksanalizilo =
       | Bazo of Vorttipo * Inflekcio * BazaVorto: string
       // La vorto malinflektiĝis.
       | Nebazo of Vorttipo * Inflekcio * RestantaVorto: string
+   
+   let verboFinaĵoj =
+      [ MalplenaVerbo, "m"
+        NetransitivaVerbo, "s"
+        TransitivaVerbo, "t"
+        NedirektaTransitivaVerbo, "sh"
+        DutransitivaVerbo, "p"
+        OblikaNetransitivaVerbo, "g"
+        OblikaTransitivaVerbo, "v"
+        NedirektaNetransitivaVerbo, "n" ]
+      |> Map.ofList
 
    let nombrigeblaInfinitivoFinaĵoj =
-      [ "pu"; "po"; "paa"; "tu"; "to"; "taa"; "ku"; "ko"; "kaa"; "toniaa"; "poniaa"; "tetio"; "petio"; "setio"; "shetio"; "dro"; "dru" ]
+      [ "pu"
+        "po"
+        "paa"
+        "tu"
+        "to"
+        "taa"
+        "ku"
+        "ko"
+        "kaa"
+        // Patiento
+        "toniaa"
+        "poniaa"
+        // Aganto
+        "tetio"
+        "petio"
+        "setio"
+        "shetio"
+        // Eco
+        "dro"
+        "dru" ]
+      @ (verboFinaĵoj
+         |> Map.values
+         |> Seq.map (fun sufikso -> [ sufikso + "lo"; sufikso + "laa"; sufikso + "lu" ])
+         |> Seq.concat
+         |> Seq.toList)
+
    let nombrigeblaDifinitoFinaĵoj =
-      [ "pi"; "pe"; "pa"; "ti"; "te"; "ta"; "ki"; "ke"; "ka"; "tonia"; "ponia"; "tetie"; "petie"; "setie"; "shetie"; "dre"; "dri" ]
+      [ "pi"
+        "pe"
+        "pa"
+        "ti"
+        "te"
+        "ta"
+        "ki"
+        "ke"
+        "ka"
+        // Patiento
+        "tonia"
+        "ponia"
+        // Aganto
+        "tetie"
+        "petie"
+        "setie"
+        "shetie"
+        // Eco
+        "dre"
+        "dri" ]
+      @ (verboFinaĵoj
+         |> Map.values
+         |> Seq.map (fun sufikso -> [ sufikso + "le"; sufikso + "la"; sufikso + "li" ])
+         |> Seq.concat
+         |> Seq.toList)
+
    let nombrigeblaUnuNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "si")
    let nombrigeblaPluraNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ve")
 
@@ -78,17 +139,6 @@ module Sintaksanalizilo =
             "d", Pridiranto
             "l", MalantaŭModifanto
             "r", AntaŭModifanto ]
-      |> Map.ofList
-
-   let verboFinaĵoj =
-      [ MalplenaVerbo, "m"
-        NetransitivaVerbo, "s"
-        TransitivaVerbo, "t"
-        NedirektaTransitivaVerbo, "sh"
-        DutransitivaVerbo, "p"
-        OblikaNetransitivaVerbo, "g"
-        OblikaTransitivaVerbo, "v"
-        NedirektaNetransitivaVerbo, "n" ]
       |> Map.ofList
 
    let ĉuFremdaVorto (ĉeno: string) = ĉeno.Length > 0 && not (Char.IsLower(ĉeno.Chars(0)))

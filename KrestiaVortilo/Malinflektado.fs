@@ -17,6 +17,11 @@ module Malinflektado =
       { BazaVorto: string
         InflekcioŜtupoj: MalinflektaŜtupo list }
 
+   let okazoFinaĵoj =
+      [ InfinitivoFinaĵo("lo", Okazo)
+        InfinitivoFinaĵo("laa", AktualaOkazo)
+        InfinitivoFinaĵo("lu", FinitaOkazo) ]
+
    let nombrigeblaKlasoInflekcioj =
       [ DUPFinaĵo("", Difinito, UnuNombro, PluraNombro)
         DUPFinaĵo("nsa", Havaĵo, UnuHavaĵo, PluraHavaĵo)
@@ -53,6 +58,7 @@ module Malinflektado =
         InfinitivoFinaĵo("ela", Estonteco)
         InfinitivoFinaĵo("elim", Translativo)
         InfinitivoFinaĵo("ea", Ĝerundo) ]
+      @ okazoFinaĵoj
 
    let netransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("e", Progresivo)
@@ -67,6 +73,7 @@ module Malinflektado =
         InfinitivoFinaĵo("elis", Translativo)
         InfinitivoFinaĵo("mea", Ĝerundo)
         InfinitivoFinaĵo("em", PartaNominativo) ]
+      @ okazoFinaĵoj
 
    let transitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("re", Progresivo)
@@ -75,7 +82,7 @@ module Malinflektado =
         InfinitivoFinaĵo("ora", NominativoVolo)
         InfinitivoFinaĵo("ore", AkuzativoVolo)
         InfinitivoFinaĵo("rie", AtributivoEstiMalantaŭ)
-        InfinitivoFinaĵo("lia", AtributivoEstiAntaŭ)
+        InfinitivoFinaĵo("ria", AtributivoEstiAntaŭ)
         InfinitivoFinaĵo("ri", Imperativo)
         InfinitivoFinaĵo("ia", Invito)
         InfinitivoFinaĵo("etio", Aganto)
@@ -88,6 +95,7 @@ module Malinflektado =
         InfinitivoFinaĵo("es", PartaAkuzativo)
         InfinitivoFinaĵo("rim", Reflekcio)
         InfinitivoFinaĵo("ris", Reflekcio) ]
+      @ okazoFinaĵoj
 
    let dutransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("re", Progresivo)
@@ -97,7 +105,7 @@ module Malinflektado =
         InfinitivoFinaĵo("ore", AkuzativoVolo)
         InfinitivoFinaĵo("eri", DativoVolo)
         InfinitivoFinaĵo("rie", AtributivoEstiMalantaŭ)
-        InfinitivoFinaĵo("lia", AtributivoEstiAntaŭ)
+        InfinitivoFinaĵo("ria", AtributivoEstiAntaŭ)
         InfinitivoFinaĵo("ri", Imperativo)
         InfinitivoFinaĵo("ia", Invito)
         InfinitivoFinaĵo("etio", Aganto)
@@ -118,6 +126,7 @@ module Malinflektado =
         InfinitivoFinaĵo("ut", PartaDativo)
         InfinitivoFinaĵo("im", Reflekcio)
         InfinitivoFinaĵo("ish", Reflekcio) ]
+      @ okazoFinaĵoj
 
    let nedirektaTransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("e", Progresivo)
@@ -136,6 +145,7 @@ module Malinflektado =
         InfinitivoFinaĵo("an", PartaNominativo)
         InfinitivoFinaĵo("om", PartaDativo)
         InfinitivoFinaĵo("os", PartaDativo) ]
+      @ okazoFinaĵoj
 
    let oblikaNetransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("ia", Progresivo)
@@ -147,6 +157,7 @@ module Malinflektado =
         InfinitivoFinaĵo("ea", Ĝerundo)
         InfinitivoFinaĵo("orio", Patiento)
         InfinitivoFinaĵo("am", PartaAkuzativo) ]
+      @ okazoFinaĵoj
 
    let oblikaTransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("ia", Progresivo)
@@ -163,6 +174,7 @@ module Malinflektado =
         InfinitivoFinaĵo("on", PartaAkuzativo)
         InfinitivoFinaĵo("im", PartaDativo)
         InfinitivoFinaĵo("ig", PartaDativo) ]
+      @ okazoFinaĵoj
 
    let nedirektaNetransitivaVerboInflekcioj =
       [ InfinitivoFinaĵo("ia", Progresivo)
@@ -172,7 +184,8 @@ module Malinflektado =
         InfinitivoFinaĵo("ea", Ĝerundo)
         InfinitivoFinaĵo("etio", Patiento)
         InfinitivoFinaĵo("om", PartaDativo) ]
-      
+      @ okazoFinaĵoj
+
    let pridirantoInflekcioj =
       [ InfinitivoFinaĵo("e", Difinito)
         InfinitivoFinaĵo("a", UnuNombro)
@@ -358,7 +371,10 @@ module Malinflektado =
 
    and bazoDe (vorto: string) =
       if ĉuVerboInfinitivoB vorto then
-         vorto.Substring(0, vorto.Length - 1)
+         vorto.Substring
+            (0,
+             vorto.Length - (if vorto.EndsWith("sh") then 2
+                             else 1))
       else
          vorto
 
@@ -377,16 +393,16 @@ module Malinflektado =
       |> Option.map (fun malplenigeblaTipoj -> Set.contains malplenigita malplenigeblaTipoj)
       |> Option.map Ok
       |> Option.defaultValue ((sprintf "%s ne estas verbo" originala) |> Error)
-      
+
    and malplenigitajFormojDe (ĉeno: string) =
       ĉuInfinitivo ĉeno
       |> Option.filter (fun tipo -> Set.contains tipo verboTipoj)
       |> Option.bind (fun verboTipo -> Map.tryFind verboTipo malplenigeblaVerboTipoj)
       |> Option.map (fun tipoj ->
-         let bazo = bazoDe ĉeno
-         tipoj
-         |> Set.map (fun tipo -> Map.find tipo verboFinaĵoj)
-         |> Set.map (fun finaĵo -> bazo + finaĵo))
+            let bazo = bazoDe ĉeno
+            tipoj
+            |> Set.map (fun tipo -> Map.find tipo verboFinaĵoj)
+            |> Set.map (fun finaĵo -> bazo + finaĵo))
       |> Option.map Ok
       |> Option.defaultValue ((sprintf "%s ne estas verbo" ĉeno) |> Error)
 
