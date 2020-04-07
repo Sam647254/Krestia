@@ -5,9 +5,9 @@ namespace KrestiaVortaro {
    public class Vorto {
       public int Id { get; }
 
-      public string PlenaVorto { get; }
+      public string PlenaVorto { get; set; }
 
-      public string BazaVorto { get; }
+      public string BazaVorto { get; set; }
 
       public ImmutableList<int> Radikoj { get; }
 

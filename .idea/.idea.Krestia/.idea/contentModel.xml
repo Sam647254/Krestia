@@ -66,6 +66,7 @@
         <e p="Startup.cs" t="Include" />
       </e>
       <e p="KrestiaVortaro" t="IncludeRecursive">
+        <e p="Agoj.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="JsonVortaro.cs" t="Include" />
         <e p="Kategorio.cs" t="Include" />
