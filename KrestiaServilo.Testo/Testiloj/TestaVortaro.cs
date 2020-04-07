@@ -9,8 +9,8 @@ namespace KrestiaServilo.Testo.Testiloj {
       internal TestaVortaro() {
          Instanco = Vortaro.KreiVortaronDe(new JsonVortaro {
             Vortoj = new List<Vorto> {
-               new Vorto(id: 0, "kunaa", "kunaa", new int[] { }, "water", "water"),
-               new Vorto(id: 1, "kresku", "kresku", new int[] { }, "flame", "flame"),
+               new Vorto( "kunaa", "kunaa", new int[] { }, "water", "water"),
+               new Vorto("kresku", "kresku", new int[] { }, "flame", "flame"),
             },
          });
       }

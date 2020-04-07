@@ -548,3 +548,13 @@ module Malinflektado =
                       (sprintf "%s, %s, %s" (difinito + sufikso) (difinito + unuNombroFinaĵo + sufikso)
                           (difinito + pluraNombroFinaĵo + sufikso))))
             |> Map.ofList)
+
+   let valencoDe vorto =
+      ĉuInfinitivo vorto
+      |> Option.map (fun vorttipo ->
+         match vorttipo with
+         | NetransitivaVerbo | OblikaNetransitivaVerbo | NedirektaNetransitivaVerbo -> 1
+         | TransitivaVerbo | NedirektaTransitivaVerbo | OblikaTransitivaVerbo -> 2
+         | DutransitivaVerbo -> 3
+         | _ -> 0)
+      |> Option.defaultValue 0

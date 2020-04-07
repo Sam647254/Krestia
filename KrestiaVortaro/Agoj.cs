@@ -21,39 +21,49 @@ namespace KrestiaVortaro {
 
          return new JsonVortaro {
             Vortoj = vortoj,
-            Kategorioj = vortaro.Kategorioj
+            Kategorioj = vortaro.Kategorioj,
          };
       }
 
-      public static IEnumerable<Vorto> AldoniVortojn(JsonVortaro vortaro, IEnumerable<string> dosiero) {
-         var ekzistantajVortoj = vortaro.Vortoj.Select((v, i) => (v, i)).ToDictionary(p => p.v.PlenaVorto, p => p.i);
-         var komencoId = ekzistantajVortoj.Count;
-         foreach (var vico in dosiero) {
-            var partoj = vico.Split(separator: '|');
+      public static ImmutableSortedSet<Vorto> AldoniVortojn(JsonVortaro vortaro, IEnumerable<string> dosiero) {
+         var ĉiujPartoj = dosiero.Select(v => v.Split(separator: '|')).ToImmutableList();
+         var novajVortoj = ĉiujPartoj.Select(vico => vico[0]).ToImmutableHashSet();
+         var ekzistantajVortoj = vortaro.Vortoj.Select(v => v.PlenaVorto).ToImmutableHashSet();
+         var denoveAldonitajVortoj = ekzistantajVortoj.Intersect(novajVortoj);
+         if (!denoveAldonitajVortoj.IsEmpty) {
+            throw new InvalidOperationException($"Jam ekzistas: {denoveAldonitajVortoj}");
+         }
+
+         var ĉiujVortoj = ekzistantajVortoj.Union(novajVortoj).Select((v, i) => (v, i))
+            .ToImmutableSortedDictionary(p => p.v, p => p.i);
+         var novajVicoj = ĉiujPartoj.Select(partoj => {
             if (partoj.Length != 5) {
-               throw new InvalidOperationException($"{vico} ne estas valida");
+               throw new InvalidOperationException($"{string.Join(separator: '|', partoj)} ne estas valida");
             }
+
             var vorto = partoj[0];
-            var signifo = partoj[1];
+            var signifajPartoj = partoj[1].Split(separator: '^');
+            var signifo = signifajPartoj[0];
             var gloso = partoj[2];
             var radikoj = partoj[3].Split(separator: ',').Where(r => r.Length > 0).ToImmutableList();
             var noto = partoj[4];
-            var eraro = ĈuValidaVortaraVorto(ekzistantajVortoj, vorto, radikoj);
-            if (eraro != null) {
-               throw new InvalidOperationException(eraro);
-            }
+            var valenco = KontroliVortonKajValencon(ĉiujVortoj.Keys.ToImmutableHashSet(), vorto, radikoj);
+            var ujo1 = valenco >= 1 ? partoj[1] : null;
+            var ujo2 = valenco >= 2 ? partoj[2] : null;
+            var ujo3 = valenco == 3 ? partoj[3] : null;
 
-            var novaVorto = new Vorto(komencoId, vorto, Malinflektado.bazoDe(vorto),
-               radikoj.Select(r => ekzistantajVortoj[r]), signifo, gloso, noto);
+            var novaVorto = new Vorto(vorto, Malinflektado.bazoDe(vorto),
+               radikoj.Select(r => ĉiujVortoj[r]), signifo, gloso, ujo1, ujo2, ujo3, noto);
 
-            yield return novaVorto;
-         }
+            return novaVorto;
+         });
+         return vortaro.Vortoj.ToImmutableSortedSet().Union(novajVicoj);
       }
 
-      private static string? ĈuValidaVortaraVorto(IDictionary<string, int> ekzistantajVortoj, string novaVorto,
+      private static int KontroliVortonKajValencon(ICollection<string> ekzistantajVortoj, string novaVorto,
          IList<string> radikoj) {
          var malinflektitaVorto = Malinflektado.malinflekti(novaVorto);
-         var ĉuHavasValidajnRadikojn = radikoj.All(ekzistantajVortoj.ContainsKey);
+         var ĉuHavasValidajnRadikojn = radikoj.All(ekzistantajVortoj.Contains);
          var ĉuValidaVorto = Malinflektado.dividi(novaVorto, inkluziFinaĵon: true);
          var malplenigitajVerboj = Malinflektado.malplenigitajFormojDe(novaVorto);
          var ĉuValidajMalplenigitajVerboj = malplenigitajVerboj.IsError || malplenigitajVerboj.ResultValue.All(m => {
@@ -62,26 +72,23 @@ namespace KrestiaVortaro {
          });
 
          if (!(malinflektitaVorto.IsOk && malinflektitaVorto.ResultValue.IsBazo)) {
-            return $"{novaVorto} ne estas baza vorto";
+            throw new InvalidOperationException($"{novaVorto} ne estas baza vorto");
          }
 
          if (ĉuValidaVorto.IsError) {
-            return $"{novaVorto} ne havas validajn silabojn";
+            throw new InvalidOperationException($"{novaVorto} ne havas validajn silabojn");
          }
 
          if (!ĉuHavasValidajnRadikojn) {
-            return $"{novaVorto} ne havas validajn radikojn ({string.Join(',', radikoj)})";
+            throw new InvalidOperationException(
+               $"{novaVorto} ne havas validajn radikojn ({string.Join(separator: ',', radikoj)}))");
          }
 
          if (!ĉuValidajMalplenigitajVerboj) {
-            return $"{novaVorto} ne havas validajn malplenigitajn formojn";
+            throw new InvalidOperationException($"{novaVorto} ne havas validajn malplenigitajn formojn");
          }
 
-         if (ekzistantajVortoj.ContainsKey(novaVorto)) {
-            return $"{novaVorto} jam ekzistas";
-         }
-
-         return null;
+         return Malinflektado.valencoDe(novaVorto);
       }
    }
 }

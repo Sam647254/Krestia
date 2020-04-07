@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 
 namespace KrestiaVortaro {
    public class JsonVortaro {
-      public List<Vorto>? Vortoj { get; set; }
-      public IEnumerable<VortaraKategorio>? Kategorioj { get; set; }
+      public List<Vorto>? Vortoj { get; set; } = new List<Vorto>();
+      public IEnumerable<VortaraKategorio>? Kategorioj { get; set; } = new List<VortaraKategorio>();
 
       public async Task Konservi(string eliro) {
          await File.WriteAllTextAsync(eliro, JsonConvert.SerializeObject(this));
