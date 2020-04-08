@@ -22,8 +22,8 @@ namespace KrestiaAWSAlirilo {
          var vortoj = await awsAlirilo.AlportiĈiujnVortojn();
          await File.WriteAllLinesAsync(dosiero,
             vortoj.Select(v =>
-               $"{v.Vorto}|{v.Signifo}|{string.Join(separator: ',', v.Kategorioj ?? new List<string>())}" +
-               $"|{string.Join(separator: ',', v.Radikoj ?? new List<string>())}" +
+               $"{v.Vorto}|{v.Signifo}|{string.Join(',', v.Kategorioj ?? new List<string>())}" +
+               $"|{string.Join(',', v.Radikoj ?? new List<string>())}" +
                $"|{v.Noto}"));
       }
 
@@ -62,13 +62,11 @@ namespace KrestiaAWSAlirilo {
          var vortoj = (await awsAlirilo.AlportiĈiujnVortojn()).ToImmutableList();
          var kategorioj = vortoj.Select(v => v.Kategorioj).Flatten().Cast<string>().ToImmutableHashSet()
             .ToImmutableList();
-         var vortojKunId = vortoj.Select((v, i) => (v, i)).ToDictionary(p => p.v.Vorto, p => p.i);
          var vortojEnJson = vortoj.Select((v, i) => new Vorto(
             v.Vorto, v.Bazo, v.Radikoj!, v.Signifo!, v.Gloso, v.Noto));
          var kategoriojEnJson = kategorioj.Select((k, i) => new VortaraKategorio {
-            Id = i,
             Nomo = k,
-            Vortoj = vortoj.Where(v => v.Kategorioj!.Contains(k)).Select(v => vortojKunId[v.Vorto])
+            Vortoj = vortoj.Where(v => v.Kategorioj!.Contains(k)).Select(v => v.Vorto).ToList(),
          });
          var jsonVortaro = new JsonVortaro {
             Vortoj = vortojEnJson.ToList(),

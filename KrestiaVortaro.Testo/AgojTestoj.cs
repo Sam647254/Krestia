@@ -21,9 +21,9 @@ namespace KrestiaVortaro.Testo {
       public void AldoniVortojn() {
          const string eniro = @"lirano|night (peaceful)|night||
 mikaa|day|day||";
-         var vicoj = eniro.Split(separator: '\n');
+         var vicoj = eniro.Split('\n');
          var novajVortoj = Agoj.AldoniVortojn(_vortaro, vicoj).ToList();
-         Assert.AreEqual(expected: 2, novajVortoj.Count);
+         Assert.AreEqual(3, novajVortoj.Count);
       }
 
       [Test]

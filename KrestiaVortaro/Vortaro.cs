@@ -22,7 +22,7 @@ namespace KrestiaVortaro {
             .OrderBy(v => v.Vorto);
 
       public VortoRespondo? Vorto(string vorto) {
-         var respondo = Indekso.GetValueOrDefault(vorto, defaultValue: null);
+         var respondo = Indekso.GetValueOrDefault(vorto, null);
          if (respondo == null) {
             return null;
          }
@@ -49,7 +49,7 @@ namespace KrestiaVortaro {
       }
 
       public VortoRezulto TroviVortojn(string peto) {
-         var kvanto = peto.Split(separator: ' ');
+         var kvanto = peto.Split(' ');
          if (kvanto.Length > 1) {
             var malinflektita = kvanto.Select(Malinflektado.tuteMalinflekti).ToList();
             try {
@@ -69,12 +69,12 @@ namespace KrestiaVortaro {
             malinflektitaVorto = lastaŜtupo?.BazaVorto;
             malinflektitaTipo = lastaŜtupo?.Item1;
             bazo = Malinflektado.bazoDe(malinflektitaVorto);
-            var malinflektitaRezulto = Indekso.GetValueOrDefault(malinflektitaVorto, defaultValue: null);
+            var malinflektitaRezulto = Indekso.GetValueOrDefault(malinflektitaVorto, null);
             malinflektitaVorto = malinflektitaRezulto?.PlenaVorto ?? malinflektitaVorto;
          }
 
          if (bazo != null) {
-            var bazaRezulto = BazoIndekso.GetValueOrDefault(bazo, defaultValue: null);
+            var bazaRezulto = BazoIndekso.GetValueOrDefault(bazo, null);
 
             if (bazaRezulto != null) {
                var ĉuMalplenigita = Malinflektado.ĉuMalplenigita(malinflektitaTipo, bazaRezulto.PlenaVorto);
@@ -107,7 +107,7 @@ namespace KrestiaVortaro {
       private VortoRezulto GlosaRezulto(
          IReadOnlyCollection<FSharpResult<Malinflektado.MalinflektitaVorto, string>> vortoj) {
          var bazoj = vortoj.Select(v => v.IsOk ? Malinflektado.bazoDe(v.ResultValue.BazaVorto) : "???");
-         var rezultoj = bazoj.Select(b => BazoIndekso.GetValueOrDefault(b, defaultValue: null)).ToList();
+         var rezultoj = bazoj.Select(b => BazoIndekso.GetValueOrDefault(b, null)).ToList();
 
          return new VortoRezulto {
             GlosajVortoj = rezultoj.Select(r => r?.GlosaSignifo ?? "(not found)"),
@@ -150,12 +150,13 @@ namespace KrestiaVortaro {
       }
 
       public static Vortaro KreiVortaronDe(JsonVortaro jsonVortaro) {
+         var indekso = jsonVortaro.Vortoj.ToImmutableDictionary(v => v.PlenaVorto, v => v);
          return new Vortaro {
-            Indekso = jsonVortaro.Vortoj.ToImmutableDictionary(v => v.PlenaVorto, v => v),
+            Indekso = indekso,
             BazoIndekso = jsonVortaro.Vortoj.ToImmutableDictionary(v => v.BazaVorto, v => v),
             IdIndekso = jsonVortaro.Vortoj.Select((v, i) => (v, i)).ToImmutableDictionary(p => p.i, p => p.v),
             Kategorioj = jsonVortaro.Kategorioj?.ToImmutableDictionary(k => k.Nomo,
-               k => k.Vortoj.Select(id => jsonVortaro.Vortoj![id]).ToImmutableList())!,
+               k => k.Vortoj.Select(v => indekso[v]).ToImmutableList())!,
          };
       }
 

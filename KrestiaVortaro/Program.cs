@@ -29,6 +29,10 @@ namespace KrestiaVortaro {
                break;
             }
             case "kategorigi": {
+               var vortaro = await JsonVortaro.Malfermi(args[1]);
+               var eniro = File.ReadLines(args[2]);
+               vortaro.Kategorioj = Agoj.KategorigiVortojn(eniro, vortaro);
+               await vortaro.Konservi(args[3]);
                break;
             }
             case "listi": {

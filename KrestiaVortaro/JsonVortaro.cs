@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace KrestiaVortaro {
    public class JsonVortaro {
       public List<Vorto>? Vortoj { get; set; } = new List<Vorto>();
-      public IEnumerable<VortaraKategorio>? Kategorioj { get; set; } = new List<VortaraKategorio>();
+      public IEnumerable<VortaraKategorio> Kategorioj { get; set; } = new List<VortaraKategorio>();
 
       public async Task Konservi(string eliro) {
          await File.WriteAllTextAsync(eliro, JsonConvert.SerializeObject(this));
@@ -33,8 +33,8 @@ namespace KrestiaVortaro {
    }
 
    public class VortaraKategorio {
-      public int Id { get; set; }
-      public string? Nomo { get; set; }
-      public IEnumerable<int>? Vortoj { get; set; }
+      public string Nomo { get; set; } = "";
+      public List<string>? Vortoj { get; set; }
+      public List<string>? Subkategorioj { get; set; }
    }
 }

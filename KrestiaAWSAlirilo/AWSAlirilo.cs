@@ -228,7 +228,7 @@ namespace KrestiaAWSAlirilo {
          IList<string> radikoj) {
          var malinflektitaVorto = Malinflektado.malinflekti(novaVorto);
          var ĉuHavasValidajnRadikojn = radikoj.All(ekzistantajVortoj.Contains);
-         var ĉuValidaVorto = Malinflektado.dividi(novaVorto, inkluziFinaĵon: true);
+         var ĉuValidaVorto = Malinflektado.dividi(novaVorto, true);
          var malplenigitajVerboj = Malinflektado.malplenigitajFormojDe(novaVorto);
          var ĉuValidajMalplenigitajVerboj = malplenigitajVerboj.IsError || malplenigitajVerboj.ResultValue.All(m => {
             var ŝtupoj = Malinflektado.malinflekti(m);
