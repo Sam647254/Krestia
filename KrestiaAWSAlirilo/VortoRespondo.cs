@@ -10,7 +10,7 @@ namespace KrestiaAWSAlirilo {
       
       public string Bazo { get; set; }
 
-      public List<string>? Radikoj {
+      public List<string> Radikoj {
          get => _radikoj ?? new List<string>();
          set => _radikoj = value;
       }

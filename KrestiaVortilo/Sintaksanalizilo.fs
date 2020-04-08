@@ -12,7 +12,7 @@ module Sintaksanalizilo =
       | Bazo of Vorttipo * Inflekcio * BazaVorto: string
       // La vorto malinflektiĝis.
       | Nebazo of Vorttipo * Inflekcio * RestantaVorto: string
-   
+
    let verboFinaĵoj =
       [ MalplenaVerbo, "m"
         NetransitivaVerbo, "s"
@@ -44,12 +44,14 @@ module Sintaksanalizilo =
         "shetio"
         // Eco
         "dro"
-        "dru" ]
-      @ (verboFinaĵoj
-         |> Map.values
-         |> Seq.map (fun sufikso -> [ sufikso + "lo"; sufikso + "laa"; sufikso + "lu" ])
-         |> Seq.concat
-         |> Seq.toList)
+        "dru" ] @ (verboFinaĵoj
+                   |> Map.values
+                   |> Seq.map (fun sufikso ->
+                         [ sufikso + "lo"
+                           sufikso + "laa"
+                           sufikso + "lu" ])
+                   |> Seq.concat
+                   |> Seq.toList)
 
    let nombrigeblaDifinitoFinaĵoj =
       [ "pi"
@@ -71,12 +73,14 @@ module Sintaksanalizilo =
         "shetie"
         // Eco
         "dre"
-        "dri" ]
-      @ (verboFinaĵoj
-         |> Map.values
-         |> Seq.map (fun sufikso -> [ sufikso + "le"; sufikso + "la"; sufikso + "li" ])
-         |> Seq.concat
-         |> Seq.toList)
+        "dri" ] @ (verboFinaĵoj
+                   |> Map.values
+                   |> Seq.map (fun sufikso ->
+                         [ sufikso + "le"
+                           sufikso + "la"
+                           sufikso + "li" ])
+                   |> Seq.concat
+                   |> Seq.toList)
 
    let nombrigeblaUnuNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "si")
    let nombrigeblaPluraNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ve")
@@ -153,8 +157,12 @@ module Sintaksanalizilo =
       else
          infinitivoFinaĵoj
          |> Map.tryPick (fun finaĵo tipo ->
-               if ĉeno.EndsWith(finaĵo) && ĉeno.Length > finaĵo.Length then Some tipo
+               if ĉeno.EndsWith(finaĵo) && ĉeno.Length > finaĵo.Length
+               then Some tipo
                else None)
+
+   let ĉuReciproka (infinitivo: string) =
+      [ "at"; "ap"; "av"; "ash" ] |> List.exists infinitivo.EndsWith
 
    let infinitivoNomoDe (ĉeno: string): string option =
       if ĉuFremdaVorto ĉeno then
@@ -187,3 +195,5 @@ module Sintaksanalizilo =
                | AntaŭModifanto -> "Modifier (prefix)"
                | Makro -> "Macro"
                | FremdaVorto -> "Foreign word")
+         |> Option.map (fun bazo ->
+               if ĉuReciproka bazo then bazo + " (reciprocal)" else bazo)

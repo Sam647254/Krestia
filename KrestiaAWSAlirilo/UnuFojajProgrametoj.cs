@@ -64,11 +64,11 @@ namespace KrestiaAWSAlirilo {
             .ToImmutableList();
          var vortojKunId = vortoj.Select((v, i) => (v, i)).ToDictionary(p => p.v.Vorto, p => p.i);
          var vortojEnJson = vortoj.Select((v, i) => new Vorto(
-            v.Vorto, v.Bazo, v.Radikoj.Select(r => vortojKunId[r]), v.Signifo, v.Gloso, v.Noto));
+            v.Vorto, v.Bazo, v.Radikoj!, v.Signifo!, v.Gloso, v.Noto));
          var kategoriojEnJson = kategorioj.Select((k, i) => new VortaraKategorio {
             Id = i,
             Nomo = k,
-            Vortoj = vortoj.Where(v => v.Kategorioj.Contains(k)).Select(v => vortojKunId[v.Vorto])
+            Vortoj = vortoj.Where(v => v.Kategorioj!.Contains(k)).Select(v => vortojKunId[v.Vorto])
          });
          var jsonVortaro = new JsonVortaro {
             Vortoj = vortojEnJson.ToList(),

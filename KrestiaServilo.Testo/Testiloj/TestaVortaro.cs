@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using KrestiaServilo.Services;
 using KrestiaVortaro;
 
@@ -9,8 +10,8 @@ namespace KrestiaServilo.Testo.Testiloj {
       internal TestaVortaro() {
          Instanco = Vortaro.KreiVortaronDe(new JsonVortaro {
             Vortoj = new List<Vorto> {
-               new Vorto( "kunaa", "kunaa", new int[] { }, "water", "water"),
-               new Vorto("kresku", "kresku", new int[] { }, "flame", "flame"),
+               new Vorto( "kunaa", "kunaa", new string[] { }, "water", "water"),
+               new Vorto("kresku", "kresku", new string[] { }, "flame", "flame"),
             },
          });
       }

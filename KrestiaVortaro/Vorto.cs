@@ -8,7 +8,7 @@ namespace KrestiaVortaro {
 
       public string BazaVorto { get; set; }
 
-      public ImmutableList<int> Radikoj { get; }
+      public ImmutableList<string> Radikoj { get; }
 
       public string Signifo { get; }
       
@@ -22,7 +22,7 @@ namespace KrestiaVortaro {
 
       public string? Noto { get; }
 
-      public Vorto(string plenaVorto, string bazaVorto, IEnumerable<int> radikoj, string signifo,
+      public Vorto(string plenaVorto, string bazaVorto, IEnumerable<string> radikoj, string signifo,
          string glosaSignifo, string? ujo1 = null, string? ujo2 = null, string? ujo3 = null, string? noto = null) {
          PlenaVorto = plenaVorto;
          BazaVorto = bazaVorto;

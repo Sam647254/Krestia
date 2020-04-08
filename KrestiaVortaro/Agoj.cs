@@ -34,8 +34,7 @@ namespace KrestiaVortaro {
             throw new InvalidOperationException($"Jam ekzistas: {denoveAldonitajVortoj}");
          }
 
-         var ĉiujVortoj = ekzistantajVortoj.Union(novajVortoj).Select((v, i) => (v, i))
-            .ToImmutableSortedDictionary(p => p.v, p => p.i);
+         var ĉiujVortoj = ekzistantajVortoj.Union(novajVortoj);
          var novajVicoj = ĉiujPartoj.Select(partoj => {
             if (partoj.Length != 5) {
                throw new InvalidOperationException($"{string.Join(separator: '|', partoj)} ne estas valida");
@@ -47,13 +46,19 @@ namespace KrestiaVortaro {
             var gloso = partoj[2];
             var radikoj = partoj[3].Split(separator: ',').Where(r => r.Length > 0).ToImmutableList();
             var noto = partoj[4];
-            var valenco = KontroliVortonKajValencon(ĉiujVortoj.Keys.ToImmutableHashSet(), vorto, radikoj);
+            var valenco = KontroliVortonKajValencon(ĉiujVortoj, vorto, radikoj);
             var ujo1 = valenco >= 1 ? partoj[1] : null;
             var ujo2 = valenco >= 2 ? partoj[2] : null;
             var ujo3 = valenco == 3 ? partoj[3] : null;
 
             var novaVorto = new Vorto(vorto, Malinflektado.bazoDe(vorto),
-               radikoj.Select(r => ĉiujVortoj[r]), signifo, gloso, ujo1, ujo2, ujo3, noto);
+               radikoj.Select(r => {
+                  if (ĉiujVortoj.Contains(r)) {
+                     return r;
+                  }
+
+                  throw new InvalidOperationException($"La radiko de {vorto}, {r} ne ekzistas");
+               }), signifo, gloso, ujo1, ujo2, ujo3, noto);
 
             return novaVorto;
          });

@@ -37,15 +37,15 @@ namespace KrestiaVortaro {
          var inflekcioj = Malinflektado.ĉiujInflekciojDe(vorto);
          return new VortoRespondo(respondo.PlenaVorto) {
             Noto = respondo.Noto,
-               Radikoj = respondo.Radikoj.Select(r => IdIndekso[r].PlenaVorto).ToList(),
-               Signifo = respondo.Signifo,
-               Vorttipo = vorttipo,
-               Silaboj = silaboj.ResultValue,
-               InflektitajFormoj = FSharpOption<FSharpMap<Vorttipo.Inflekcio, string>>.get_IsSome(inflekcioj)
-                  ? inflekcioj.Value.Select(p => (p.Key.ToString(), p.Value))
-                     .ToDictionary(p => p.Item1, p => p.Value)
-                  : null
-            };
+            Radikoj = respondo.Radikoj.ToList(),
+            Signifo = respondo.Signifo,
+            Vorttipo = vorttipo,
+            Silaboj = silaboj.ResultValue,
+            InflektitajFormoj = FSharpOption<FSharpMap<Vorttipo.Inflekcio, string>>.get_IsSome(inflekcioj)
+               ? inflekcioj.Value.Select(p => (p.Key.ToString(), p.Value))
+                  .ToDictionary(p => p.Item1, p => p.Value)
+               : null,
+         };
       }
 
       public VortoRezulto TroviVortojn(string peto) {

@@ -11,7 +11,7 @@ namespace KrestiaVortaro.Testo {
       public void Setup() {
          _vortaro = new JsonVortaro {
             Vortoj = new List<Vorto> {
-               new Vorto("kunaa", "kunaa", new List<int>(), "water", "water")
+               new Vorto("kunaa", "kunaa", new List<string>(), "water", "water")
             },
             Kategorioj = new List<VortaraKategorio>()
          };

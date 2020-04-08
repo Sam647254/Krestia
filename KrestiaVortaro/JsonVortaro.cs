@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using KrestiaVortilo;
 using Newtonsoft.Json;
 
 namespace KrestiaVortaro {
@@ -20,6 +22,13 @@ namespace KrestiaVortaro {
       public static async Task<JsonVortaro> Alporti(string url) {
          var respondo = await new HttpClient().GetStringAsync(url);
          return JsonConvert.DeserializeObject<JsonVortaro>(respondo);
+      }
+
+      public void Listi() {
+         Vortoj?.ForEach(v => {
+            Console.WriteLine(
+               $"{v.PlenaVorto} - {Sintaksanalizilo.infinitivoNomoDe(v.PlenaVorto).Value} - {v.Signifo}");
+         });
       }
    }
 

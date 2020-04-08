@@ -8,13 +8,13 @@ namespace KrestiaVortaro {
       static async Task Main(string[] args) {
          switch (args[0]) {
             case "renomigi": {
-               var vortaro = await JsonVortaro.Malfermi(args[0]);
+               var vortaro = await JsonVortaro.Malfermi(args[1]);
                var novaVortaro = await Agoj.RenomigiVortojn(vortaro, args[2]);
                await novaVortaro.Konservi(args[3]);
                break;
             }
             case "aldoni": {
-               var vortaro = await JsonVortaro.Malfermi(args[0]);
+               var vortaro = await JsonVortaro.Malfermi(args[1]);
                var novajVortoj =
                   Agoj.AldoniVortojn(vortaro, File.ReadLines(args[2]));
                vortaro.Vortoj!.AddRange(novajVortoj);
@@ -29,6 +29,11 @@ namespace KrestiaVortaro {
                break;
             }
             case "kategorigi": {
+               break;
+            }
+            case "listi": {
+               var vortaro = await JsonVortaro.Malfermi(args[1]);
+               vortaro.Listi();
                break;
             }
          }
