@@ -71,7 +71,7 @@ namespace KrestiaAWSAlirilo {
             Vortoj = vortoj.Where(v => v.Kategorioj.Contains(k)).Select(v => vortojKunId[v.Vorto])
          });
          var jsonVortaro = new JsonVortaro {
-            Vortoj = vortojEnJson,
+            Vortoj = vortojEnJson.ToList(),
             Kategorioj = kategoriojEnJson
          };
          var vortaro = JsonConvert.SerializeObject(jsonVortaro);

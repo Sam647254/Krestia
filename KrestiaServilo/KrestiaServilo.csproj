@@ -16,6 +16,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\KrestiaAWSAlirilo\KrestiaAWSAlirilo.csproj" />
+        <ProjectReference Include="..\KrestiaVortaro\KrestiaVortaro.csproj" />
     </ItemGroup>
     
     <ItemGroup>

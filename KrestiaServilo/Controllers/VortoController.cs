@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using KrestiaAWSAlirilo;
+using KrestiaServilo.Respondoj;
 using KrestiaVortilo;
+using KrestiaVortaro;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.FSharp.Collections;
 
@@ -49,9 +51,11 @@ namespace KrestiaServilo.Controllers {
       }
 
       [HttpGet("vortlisto/alfabeta")]
-      public async Task<ActionResult> AlfabetaListo() {
-         var vortoj = await _awsAlirilo.AlportiĈiujnVortojn(baza: true);
-         return Ok(vortoj.OrderBy(v => v.Vorto));
+      public ActionResult AlfabetaListo() {
+         var vortaro = Vortaro.Instanco;
+         return Ok(vortaro.Indekso.Values.Select(vorto => new {
+            Vorto = vorto.PlenaVorto, vorto.Signifo
+         }).OrderBy(v => v.Vorto));
       }
    }
 }
