@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using KrestiaVortilo;
+using Microsoft.FSharp.Collections;
 using Microsoft.FSharp.Core;
 
 namespace KrestiaVortaro {
@@ -19,6 +20,33 @@ namespace KrestiaVortaro {
       public IOrderedEnumerable<VortoKunSignifo> Vortlisto =>
          Indekso.Values.Select(vorto => new VortoKunSignifo(vorto.PlenaVorto, vorto.Signifo))
             .OrderBy(v => v.Vorto);
+
+      public VortoRespondo? Vorto(string vorto) {
+         var respondo = Indekso.GetValueOrDefault(vorto, defaultValue: null);
+         if (respondo == null) {
+            return null;
+         }
+
+         var vorttipo = Sintaksanalizilo.infinitivoNomoDe(vorto).Value;
+         var silaboj = Malinflektado.dividiKunFinaĵo(vorto);
+
+         if (silaboj.IsError) {
+            throw new Exception(silaboj.ErrorValue);
+         }
+
+         var inflekcioj = Malinflektado.ĉiujInflekciojDe(vorto);
+         return new VortoRespondo(respondo.PlenaVorto) {
+            Noto = respondo.Noto,
+               Radikoj = respondo.Radikoj.Select(r => IdIndekso[r].PlenaVorto).ToList(),
+               Signifo = respondo.Signifo,
+               Vorttipo = vorttipo,
+               Silaboj = silaboj.ResultValue,
+               InflektitajFormoj = FSharpOption<FSharpMap<Vorttipo.Inflekcio, string>>.get_IsSome(inflekcioj)
+                  ? inflekcioj.Value.Select(p => (p.Key.ToString(), p.Value))
+                     .ToDictionary(p => p.Item1, p => p.Value)
+                  : null
+            };
+      }
 
       public VortoRezulto TroviVortojn(string peto) {
          var kvanto = peto.Split(separator: ' ');

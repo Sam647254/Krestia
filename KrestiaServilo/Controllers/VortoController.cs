@@ -13,7 +13,10 @@ namespace KrestiaServilo.Controllers {
 
       [HttpGet("vorto/{vorto}")]
       public ActionResult Get(string vorto) {
-         return NotFound();
+         var rezulto = _vortaroService.Instanco.Vorto(vorto);
+         if (rezulto == null)
+            return NotFound();
+         return Ok(rezulto);
       }
 
       [HttpGet("trovi/{peto}")]
