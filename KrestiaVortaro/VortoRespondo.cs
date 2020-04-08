@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace KrestiaServilo.Respondoj {
+namespace KrestiaVortaro {
    public class VortoRespondo {
       private List<string>? _kategorioj;
       private string? _noto;

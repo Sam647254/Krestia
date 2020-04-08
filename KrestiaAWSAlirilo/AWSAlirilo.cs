@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.Model;
+using KrestiaVortaro;
 using KrestiaVortilo;
 using Microsoft.FSharp.Collections;
 using Microsoft.FSharp.Core;
@@ -149,88 +150,6 @@ namespace KrestiaAWSAlirilo {
                }
             });
          }));
-      }
-
-      public async Task<VortoRezulto> TroviVortojn(string peto) {
-         var kvanto = peto.Split(separator: ' ');
-         if (kvanto.Length > 1) {
-            var malinflektita = kvanto.Select(Malinflektado.tuteMalinflekti).ToList();
-            try {
-               return await GlosaRezulto(malinflektita.ToList());
-            }
-            catch (InvalidOperationException) { }
-         }
-
-         var malinflekajŜtupoj = Malinflektado.tuteMalinflekti(peto);
-         string? malinflektitaVorto = null;
-         Vorttipo.Vorttipo? malinflektitaTipo = null;
-         string? bazo = null;
-         string? bazoGloso = null;
-         if (malinflekajŜtupoj.IsOk) {
-            var lastaŜtupo = malinflekajŜtupoj.ResultValue.InflekcioŜtupoj.Last()
-               as Sintaksanalizilo.MalinflektaŜtupo.Bazo;
-            malinflektitaVorto = lastaŜtupo?.BazaVorto;
-            malinflektitaTipo = lastaŜtupo?.Item1;
-            bazo = Malinflektado.bazoDe(malinflektitaVorto);
-            var malinflektitaRezulto = await _amazonDynamoDbClient.QueryAsync(new QueryRequest(TableName) {
-               ProjectionExpression = "vorto",
-               KeyConditionExpression = "vorto = :v",
-               ExpressionAttributeValues = new Dictionary<string, AttributeValue> {
-                  {":v", new AttributeValue(malinflektitaVorto)}
-               }
-            });
-            malinflektitaVorto = malinflektitaRezulto.Count == 1
-               ? malinflektitaRezulto.Items.First()["vorto"].S
-               : malinflektitaVorto;
-         }
-
-         if (bazo != null) {
-            var bazaRezulto = await _amazonDynamoDbClient.QueryAsync(new QueryRequest(TableName) {
-               IndexName = "bazo-indekso",
-               ProjectionExpression = "vorto, gloso",
-               KeyConditionExpression = "bazo = :b",
-               ExpressionAttributeValues = new Dictionary<string, AttributeValue>() {
-                  {":b", new AttributeValue(bazo)}
-               }
-            });
-
-            if (bazaRezulto.Count == 1) {
-               var bazaVorto = bazaRezulto.Items.First()["vorto"].S;
-               var ĉuMalplenigita = Malinflektado.ĉuMalplenigita(malinflektitaTipo, bazaVorto);
-               bazo = ĉuMalplenigita.IsOk && ĉuMalplenigita.ResultValue ? bazaVorto : bazo;
-               bazoGloso = bazaRezulto.Items.First()["gloso"].S;
-            }
-            else {
-               bazo = null;
-            }
-         }
-
-         var rezultoj = await _amazonDynamoDbClient.ScanAsync(new ScanRequest(TableName) {
-            ProjectionExpression = "vorto, signifo",
-            FilterExpression = "contains(vorto, :p) OR contains(signifo, :p)",
-            ExpressionAttributeValues = new Dictionary<string, AttributeValue> {
-               {":p", new AttributeValue(peto.ToLowerInvariant())}
-            }
-         });
-
-         if (rezultoj.LastEvaluatedKey.Count > 0) {
-            throw new NotSupportedException("Pli da vortoj restantaj");
-         }
-
-         return new VortoRezulto {
-            MalinflektitaVorto = malinflektitaVorto == peto || bazo == null ? null : malinflektitaVorto,
-            PlenigitaVorto = bazo == malinflektitaVorto ? null : bazo,
-            Gloso = malinflekajŜtupoj.IsOk && malinflekajŜtupoj.ResultValue.InflekcioŜtupoj.Length > 0
-               ? bazoGloso
-               : null,
-            MalinflektajŜtupoj = malinflekajŜtupoj.IsOk
-               ? malinflekajŜtupoj.ResultValue.InflekcioŜtupoj.Where(ŝ => ŝ.IsNebazo)
-                  .Select(ŝ => ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝ).Item2.ToString())
-               : null,
-            Rezultoj = rezultoj.Items.Select(r => new VortoRespondo(r["vorto"].S) {
-               Signifo = r["signifo"].S
-            }).OrderBy(vorto => Rilateco(vorto, peto))
-         };
       }
 
       private async Task<VortoRezulto> GlosaRezulto(

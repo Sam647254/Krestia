@@ -1,61 +1,31 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using KrestiaAWSAlirilo;
-using KrestiaServilo.Respondoj;
-using KrestiaVortilo;
-using KrestiaVortaro;
+﻿using KrestiaServilo.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.FSharp.Collections;
 
 namespace KrestiaServilo.Controllers {
    [ApiController]
    [Route("")]
    public class VortoController : ControllerBase {
-      private readonly AwsAlirilo _awsAlirilo;
+      private readonly VortaroService _vortaroService;
 
-      public VortoController(AwsAlirilo awsAlirilo) {
-         _awsAlirilo = awsAlirilo;
+      public VortoController(VortaroService vortaroService) {
+         _vortaroService = vortaroService;
       }
 
       [HttpGet("vorto/{vorto}")]
-      public async Task<ActionResult> Get(string vorto) {
-         var vortoRespondo = await _awsAlirilo.AlportiVorton(vorto);
-         if (vortoRespondo == null) {
-            return NotFound();
-         }
-
-         return Ok(vortoRespondo);
+      public ActionResult Get(string vorto) {
+         return NotFound();
       }
 
       [HttpGet("trovi/{peto}")]
-      public async Task<ActionResult> Trovi(string peto) {
-         var rezulto = await _awsAlirilo.TroviVortojn(peto);
+      public ActionResult Trovi(string peto) {
+         var vortaro = _vortaroService.Instanco;
+         var rezulto = vortaro.TroviVortojn(peto);
          return Ok(rezulto);
-      }
-
-      [HttpGet("malinflekti/{eniro}")]
-      public async Task<ActionResult> Malinflekti(string eniro) {
-         var vortoj = eniro.Split(' ');
-         var malinflektitaVortoj = Malinflektado.tuteMalinflektiĈiujn(ListModule.OfArray(vortoj));
-         if (malinflektitaVortoj.IsError) {
-            return UnprocessableEntity(malinflektitaVortoj.ErrorValue);
-         }
-
-         var glosoj = await _awsAlirilo.AlportiVortojn(malinflektitaVortoj.ResultValue.Select(v => v.BazaVorto));
-
-         return Ok(malinflektitaVortoj.ResultValue.Zip(glosoj).Select(p => new {
-            p.Second.Gloso,
-            MalinflektajŜtupoj = p.First.InflekcioŜtupoj.Where(ŝ => ŝ.IsNebazo)
-               .Select(ŝ => ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝ).Item2.ToString())
-         }));
       }
 
       [HttpGet("vortlisto/alfabeta")]
       public ActionResult AlfabetaListo() {
-         var vortaro = Vortaro.Instanco;
-         return Ok(vortaro.Indekso.Values.Select(vorto => new {
-            Vorto = vorto.PlenaVorto, vorto.Signifo
-         }).OrderBy(v => v.Vorto));
+         return Ok(_vortaroService.Instanco.Vortlisto);
       }
    }
 }
