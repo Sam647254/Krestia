@@ -96,7 +96,11 @@ Public Class SvgDesegnilo
       {"ujo2Unue", AddressOf Ujo2Unue},
       {"ujo3Unue", AddressOf Ujo3Unue},
       {"igo", AddressOf Igo},
-      {"etigo", AddressOf Etigo}
+      {"etigo", AddressOf Etigo},
+      {"reflekcio", AddressOf Reflekcio},
+      {"okazo", AddressOf Okazo},
+      {"aktualaOkazo", AddressOf AktualaOkazo},
+      {"finitaOkazo", AddressOf FinitaOkazo}
       }
 
    Private ReadOnly _vojoj As List(Of String) = New List(Of String)
@@ -179,19 +183,19 @@ Public Class SvgDesegnilo
       End If
    End Sub
 
-   Public Function NomoKomenco() As String
+   Private Function NomoKomenco() As String
       _x += _duonaLarĝeco + Spaceto
       Return String.Format("h {0} v {1} h -{2} v {3} h {2} v {1} h -{0} z",
                            _duonaLarĝeco, _dy, _duonaLarĝeco - _dx, _dufojaAlteco - _dy*2)
    End Function
 
-   Public Function NomoFino() As String
+   Private Function NomoFino() As String
       _x += _duonaLarĝeco + Spaceto
       Return String.Format("h {0} v {1} h -{0} v -{2} h {3} v -{4} h -{3} z",
                            _duonaLarĝeco, _dufojaAlteco, _dy, _duonaLarĝeco - _dx, _dufojaAlteco - _dy*2)
    End Function
 
-   Public Function Lokokupilo() As String
+   Private Function Lokokupilo() As String
       _x += _duonaLarĝeco + Spaceto
       Return String.Format("m 0 {0} h {1} v -{0} h {2} v {0} h {3} v -{0} h {2} v {4} h -{5} z",
                            _dufojaAlteco - _dy, _duonaLarĝeco\2 - _dx\2, _dx, _duonaLarĝeco\2 - _dx*3\2, _dufojaAlteco,
@@ -256,6 +260,13 @@ Public Class SvgDesegnilo
          String.Format(
             "m 0 {5} h {0} v {1} h -{0} z l {2} -{3} h {4} l -{2} {3} z m {2} -{3} h {4} l {2} {3} h -{4} z",
             _duonaLarĝeco, _dy, _duonaLarĝeco\2 - _dx\2, _dufojaAlteco\2 - _dy, _dx, _dufojaAlteco - _dy)
+   End Function
+   
+   Private Function Reflekcio() As String
+      _x += Spaceto + _dx + _duonaLarĝeco
+      Return String.Format(
+         "h {0} l {1} {2} h -{0} z m {3} 0 h {0} l -{1} {2} h -{0} z",
+         _dx, _duonaLarĝeco, _dufojaAlteco, _duonaLarĝeco)
    End Function
 
    Private Function Netransitiva() As String
@@ -403,6 +414,27 @@ m {10} 0 h {8} v {1} h -{8} z m {10} 0 h {8} v {1} h -{8} z",
          String.Format(
             "h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z m -{2} {3} h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z",
             _dx, _alteco, _duonaLarĝeco - _dx, _alteco + Spaceto)
+   End Function
+   
+   Private Function AktualaOkazo() As String
+      _x += _dx * 3 + Spaceto
+      Return String.Format(
+         "h {0} v {1} h {0} v -{1} h {0} v {2} h -{0} v -{1} h -{0} v {1} h -{0} z",
+         _dx, (_dufojaAlteco - _dy) / 2, _dufojaAlteco)
+   End Function
+   
+   Private Function Okazo() As String
+      _x += _dx * 3 + Spaceto
+      Return String.Format(
+         "h {0} v {1} h -{0} z m {2} {3} v {4} h {2} v -{4} z",
+         _dx * 3, _dufojaAlteco, _dx, _dy, _dufojaAlteco - 2 * _dy)
+   End Function
+   
+   Private Function FinitaOkazo() As String
+      _x += _dx * 4 + Spaceto * 2
+      Return String.Format(
+         "h {0} v {1} h -{0} z m {2} 0 h {3} v {1} h -{3} z m {0} {4} v {5} h {0} v -{5} z",
+         _dx, _dufojaAlteco, _dx + Spaceto, _dx * 3, _dy, _dufojaAlteco - 2 * _dy)
    End Function
 
    Private Function Klaso() As String
