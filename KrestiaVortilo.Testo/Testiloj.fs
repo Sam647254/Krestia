@@ -10,6 +10,10 @@ open KrestiaVortilo.Sintaksanalizilo2
 open KrestiaVortilo.Malinflektado
 
 module Testiloj =
+   let testaVorto vorto = { Vico = 0; Pozo = 0; Vorto = vorto }
+   
+   let malsukcesi (_, eraro) = Assert.Fail eraro
+   
    let kontroliFormon (vorto: string) (pravaTipo: Vorttipo) (pravaInflekcio: Inflekcio) =
       kontroli vorto
       |> Option.map (fun (tipo, formo) ->
@@ -28,7 +32,9 @@ module Testiloj =
       |> ignore
 
    let kontroliInflekcion (pravaTipo: Vorttipo) (pravaInflekcio: Inflekcio) (vorto: string) =
-      malinflekti vorto
+      vorto
+      |> testaVorto
+      |> malinflekti
       |> Result.map (fun malinflektaŜtupo ->
             match malinflektaŜtupo with
             | Sintaksanalizilo.Bazo (vorttipo, inflekcio, _) ->
@@ -37,17 +43,21 @@ module Testiloj =
             | Sintaksanalizilo.Nebazo (vorttipo, inflekcio, _) ->
                Assert.AreEqual(pravaTipo, vorttipo)
                Assert.AreEqual(pravaInflekcio, inflekcio))
-      |> Result.mapError Assert.Fail
+      |> Result.mapError malsukcesi
       |> ignore
 
    let kontroliĈiujnInfleckiojn (ŝtupoj: Sintaksanalizilo.MalinflektaŜtupo list) (vorto: string) =
-      tuteMalinflekti vorto
+      vorto
+      |> testaVorto
+      |> tuteMalinflekti
       |> Result.map (fun malinflektaVorto -> Assert.AreEqual(ŝtupoj, malinflektaVorto.InflekcioŜtupoj))
-      |> Result.mapError Assert.Fail
+      |> Result.mapError malsukcesi
       |> ignore
 
    let kontroliNevalidanVorton (vorto: string) =
-      malinflekti vorto
+      vorto
+      |> testaVorto
+      |> malinflekti
       |> Result.map
             (fun malinflektaŜtupo ->
                Assert.Fail(sprintf "%s estas nevalida vorto, sed malinflektiĝis: %A" vorto malinflektaŜtupo))
@@ -65,27 +75,34 @@ module Testiloj =
       |> ignore
 
    let kontroliĈuPredikata (vorto: string) =
-      tuteMalinflekti vorto
+      vorto
+      |> testaVorto
+      |> tuteMalinflekti
       |> Result.map ĉuPredikataVorto
-      |> Result.mapError Assert.Fail
+      |> Result.mapError malsukcesi
 
    let kontroliĈuArgumenta (vorto: string) =
-      tuteMalinflekti vorto
+      vorto
+      |> testaVorto
+      |> tuteMalinflekti
       |> Result.map ĉuArgumentaVorto
-      |> Result.mapError Assert.Fail
-
+      |> Result.mapError malsukcesi
+      
    let kontroliKategorigadon (frazo: string) (verboj: string list) (argumentoj: string list) =
       frazo.Split(' ')
       |> List.ofArray
+      |> List.map testaVorto
       |> tuteMalinflektiĈiujn
       |> Result.bind (fun malinflektitaVortoj ->
             malinflektitaVortoj
             |> Sintaksanalizilo2.kategorigi Sintaksanalizilo2.kreiSintaksanalizilon
             |> Result.bind (fun sintaksanalizilo ->
                   verboj
+                  |> List.map testaVorto
                   |> tuteMalinflektiĈiujn
                   |> Result.bind (fun malinflektitaVerboj ->
                         argumentoj
+                        |> List.map testaVorto
                         |> tuteMalinflektiĈiujn
                         |> Result.map (fun malinflektitaArgumentoj ->
                               let verboj = malinflektitaVerboj |> List.map plenaVerbo
@@ -94,7 +111,7 @@ module Testiloj =
                                  |> List.map (fun a -> Sintaksanalizilo2.Argumento(a, Set.empty))
                               Assert.AreEqual(Deque.ofList verboj, Deque.toSeq sintaksanalizilo.Verboj)
                               Assert.AreEqual(Deque.ofList argumentoj, sintaksanalizilo.Argumentoj)))))
-      |> Result.mapError Assert.Fail
+      |> Result.mapError malsukcesi
       |> ignore
 
    let kontroliMalplenigitajnFormojn (vorto: string) (pravajFormoj: string list) =
@@ -106,7 +123,7 @@ module Testiloj =
    let praveMalinflekti ĉeno =
       match tuteMalinflekti ĉeno with
       | Ok (rezulto) -> rezulto
-      | Error (eraro) ->
+      | Error (_, eraro) ->
          Assert.Fail(eraro)
          failwith eraro
 
@@ -115,7 +132,7 @@ module Testiloj =
       |> Result.map (fun rezulto ->
             Assert.AreEqual(1, rezulto.Frazoj.Length)
             Assert.AreEqual(prava, rezulto.Frazoj.Item 0))
-      |> Result.mapError Assert.Fail
+      |> Result.mapError malsukcesi
       |> ignore
 
    let kontroliPlurajnFrazojn eniro (pravaj: Predikato list) (restantaj: Argumento list) =
@@ -123,11 +140,11 @@ module Testiloj =
       |> Result.map (fun rezulto ->
             Assert.AreEqual(pravaj, rezulto.Frazoj)
             Assert.AreEqual(restantaj, rezulto.RestantajVortoj))
-      |> Result.mapError Assert.Fail
+      |> Result.mapError malsukcesi
       |> ignore
 
    let kontroliRestantajnVortojn eniro (pravajRestantaj: Argumento list) =
       analizi eniro
       |> Result.map (fun rezulto -> Assert.AreEqual(pravajRestantaj, rezulto.RestantajVortoj))
-      |> Result.mapError Assert.Fail
+      |> Result.mapError malsukcesi
       |> ignore
