@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -115,6 +116,21 @@ namespace KrestiaVortaro {
 
       public static IEnumerable<string> KreiListiPorKreiBlissimbolojn(JsonVortaro vortaro) {
          return vortaro.Vortoj!.Where(v => v.Blissimbolo == null).Select(v => $"{v.PlenaVorto}|{v.Signifo}|");
+      }
+
+      public static IEnumerable<Vorto> AldoniBlissimbolojnAlVortaro(JsonVortaro vortaro, IEnumerable<string> eniro) {
+         var vortoj = vortaro.Vortoj!.ToDictionary(v => v.PlenaVorto, v => v);
+         foreach (var vico in eniro) {
+            var partoj = vico.Split('|');
+            var vorto = partoj[0];
+            var blissId = partoj[2];
+            var ĉuEkzistas = int.TryParse(blissId, out var id);
+            if (ĉuEkzistas) {
+               vortoj[vorto].Blissimbolo = id;
+            }
+
+            yield return vortoj[vorto];
+         }
       }
 
       private static int KontroliVortonKajValencon(ICollection<string> ekzistantajVortoj, string novaVorto,

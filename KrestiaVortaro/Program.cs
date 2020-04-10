@@ -17,7 +17,7 @@ namespace KrestiaVortaro {
                var vortaro = await JsonVortaro.Malfermi(args[1]);
                var novajVortoj =
                   Agoj.AldoniVortojn(vortaro, File.ReadLines(args[2]));
-               vortaro.Vortoj!.AddRange(novajVortoj);
+               vortaro.Vortoj = novajVortoj.ToList();
                await vortaro.Konservi(args[3]);
                break;
             }
@@ -43,6 +43,13 @@ namespace KrestiaVortaro {
             case "bliss1": {
                var vortaro = await JsonVortaro.Malfermi(args[1]);
                await File.WriteAllLinesAsync(args[2], Agoj.KreiListiPorKreiBlissimbolojn(vortaro));
+               break;
+            }
+            case "bliss2": {
+               var vortaro = await JsonVortaro.Malfermi(args[1]);
+               var novajVortoj = Agoj.AldoniBlissimbolojnAlVortaro(vortaro, File.ReadLines(args[2]));
+               vortaro.Vortoj = novajVortoj.ToList();
+               await vortaro.Konservi(args[3]);
                break;
             }
          }

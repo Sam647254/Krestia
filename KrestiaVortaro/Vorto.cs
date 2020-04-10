@@ -22,7 +22,7 @@ namespace KrestiaVortaro {
 
       public string? Noto { get; }
       
-      public int? Blissimbolo { get; }
+      public int? Blissimbolo { get; set; }
 
       public Vorto(string plenaVorto, string bazaVorto, IEnumerable<string> radikoj, string signifo,
          string glosaSignifo, string? ujo1 = null, string? ujo2 = null, string? ujo3 = null, string? noto = null,
