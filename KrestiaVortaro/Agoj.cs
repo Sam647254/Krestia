@@ -73,7 +73,8 @@ namespace KrestiaVortaro {
                .ToImmutableDictionary(g => g.Key, g => g.ToImmutableHashSet());
             return new VortaraKategorio {
                Nomo = kategorioNomo,
-               Subkategorioj = vortoj.GetValueOrDefault(true, ImmutableHashSet<string>.Empty).Select(k => k.Substring(1)).ToList(),
+               Subkategorioj = vortoj.GetValueOrDefault(true, ImmutableHashSet<string>.Empty)
+                  .Select(k => k.Substring(1)).ToList(),
                Vortoj = vortoj[false].ToList(),
             };
          }).ToImmutableList();
@@ -110,6 +111,10 @@ namespace KrestiaVortaro {
          }
 
          return ĉiujKategorioj.Values;
+      }
+
+      public static IEnumerable<string> KreiListiPorKreiBlissimbolojn(JsonVortaro vortaro) {
+         return vortaro.Vortoj!.Where(v => v.Blissimbolo == null).Select(v => $"{v.PlenaVorto}|{v.Signifo}|");
       }
 
       private static int KontroliVortonKajValencon(ICollection<string> ekzistantajVortoj, string novaVorto,

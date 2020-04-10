@@ -21,9 +21,12 @@ namespace KrestiaVortaro {
       public string GlosaSignifo { get; }
 
       public string? Noto { get; }
+      
+      public int? Blissimbolo { get; }
 
       public Vorto(string plenaVorto, string bazaVorto, IEnumerable<string> radikoj, string signifo,
-         string glosaSignifo, string? ujo1 = null, string? ujo2 = null, string? ujo3 = null, string? noto = null) {
+         string glosaSignifo, string? ujo1 = null, string? ujo2 = null, string? ujo3 = null, string? noto = null,
+         int? blissimbolo = null) {
          PlenaVorto = plenaVorto;
          BazaVorto = bazaVorto;
          Radikoj = radikoj.ToImmutableList();
@@ -33,6 +36,7 @@ namespace KrestiaVortaro {
          Ujo2 = ujo2;
          Ujo3 = ujo3;
          Noto = noto;
+         Blissimbolo = blissimbolo;
       }
 
       public int CompareTo(Vorto other) {

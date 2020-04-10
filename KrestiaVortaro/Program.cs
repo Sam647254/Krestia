@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace KrestiaVortaro {
    internal static class Program {
-      static async Task Main(string[] args) {
+      private static async Task Main(string[] args) {
          switch (args[0]) {
             case "renomigi": {
                var vortaro = await JsonVortaro.Malfermi(args[1]);
@@ -38,6 +38,11 @@ namespace KrestiaVortaro {
             case "listi": {
                var vortaro = await JsonVortaro.Malfermi(args[1]);
                vortaro.Listi();
+               break;
+            }
+            case "bliss1": {
+               var vortaro = await JsonVortaro.Malfermi(args[1]);
+               await File.WriteAllLinesAsync(args[2], Agoj.KreiListiPorKreiBlissimbolojn(vortaro));
                break;
             }
          }
