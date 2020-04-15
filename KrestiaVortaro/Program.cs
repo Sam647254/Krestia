@@ -48,8 +48,7 @@ namespace KrestiaVortaro {
                }
                case "bliss2": {
                   var vortaro = await JsonVortaro.Malfermi(args[1]);
-                  var novajVortoj = Agoj.AldoniBlissimbolojnAlVortaro(vortaro, File.ReadLines(args[2]));
-                  vortaro.Vortoj = novajVortoj.ToList();
+                  Agoj.AldoniBlissimbolojnAlVortaro(vortaro, File.ReadLines(args[2]));
                   await vortaro.Konservi(args[3]);
                   break;
                }

@@ -127,7 +127,7 @@ namespace KrestiaVortaro {
          return vortaro.Vortoj!.Where(v => v.Blissimbolo == null).Select(v => $"{v.PlenaVorto}|{v.Signifo}|");
       }
 
-      public static IEnumerable<Vorto> AldoniBlissimbolojnAlVortaro(JsonVortaro vortaro, IEnumerable<string> eniro) {
+      public static void AldoniBlissimbolojnAlVortaro(JsonVortaro vortaro, IEnumerable<string> eniro) {
          var vortoj = vortaro.Vortoj!.ToDictionary(v => v.PlenaVorto, v => v);
          foreach (var vico in eniro) {
             var partoj = vico.Split('|');
@@ -137,8 +137,6 @@ namespace KrestiaVortaro {
             if (ĉuEkzistas) {
                vortoj[vorto].Blissimbolo = id;
             }
-
-            yield return vortoj[vorto];
          }
       }
 
