@@ -1,4 +1,8 @@
-﻿using KrestiaServilo.Services;
+﻿using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+using Amazon.S3;
+using KrestiaServilo.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KrestiaServilo.Controllers {
@@ -6,9 +10,11 @@ namespace KrestiaServilo.Controllers {
    [Route("")]
    public class VortoController : ControllerBase {
       private readonly IVortaroService _vortaroService;
+      private readonly IBlissFonto _blissFonto;
 
-      public VortoController(IVortaroService vortaroService) {
+      public VortoController(IVortaroService vortaroService, IBlissFonto blissFonto) {
          _vortaroService = vortaroService;
+         _blissFonto = blissFonto;
       }
 
       [HttpGet("vorto/{vorto}")]
@@ -29,6 +35,12 @@ namespace KrestiaServilo.Controllers {
       [HttpGet("vortlisto/alfabeta")]
       public ActionResult AlfabetaListo() {
          return Ok(_vortaroService.Instanco.Vortlisto);
+      }
+
+      [HttpGet("bliss/{id}")]
+      public async Task<ActionResult> Blissimbolo(int id) {
+         var svg = await _blissFonto.AlportiBlissimbolon(id);
+         return File(new MemoryStream(Encoding.UTF8.GetBytes(svg)), "image/svg+xml");
       }
    }
 }

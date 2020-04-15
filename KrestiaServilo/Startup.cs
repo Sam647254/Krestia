@@ -17,6 +17,7 @@ namespace KrestiaServilo {
       public void ConfigureServices(IServiceCollection services) {
          services.AddControllers();
          services.AddSingleton<IVortaroService>(provider => new VortaroService());
+         services.AddSingleton<IBlissFonto>(provider => new AwsBlissimbolaro());
       }
 
       // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

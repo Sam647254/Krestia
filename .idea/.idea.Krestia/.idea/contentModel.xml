@@ -72,6 +72,8 @@
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="Services" t="Include">
+          <e p="AwsBlissimbolaro.cs" t="Include" />
+          <e p="BlissFonto.cs" t="Include" />
           <e p="IVortaroService.cs" t="Include" />
           <e p="VortaroService.cs" t="Include" />
         </e>
