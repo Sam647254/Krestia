@@ -27,12 +27,21 @@ namespace KrestiaVortaro {
       }
 
       public static ImmutableSortedSet<Vorto> AldoniVortojn(JsonVortaro vortaro, IEnumerable<string> dosiero) {
-         var ĉiujPartoj = dosiero.Select(v => v.Split('|')).ToImmutableList();
+         var ĉiujPartoj = (from v in dosiero select v.Split('|')).ToImmutableList();
+         var novajVortojGrupoj = ĉiujPartoj.Select(vico => vico[0]).GroupBy(Malinflektado.bazoDe).ToImmutableHashSet();
          var novajVortoj = ĉiujPartoj.Select(vico => vico[0]).ToImmutableHashSet();
+         var plurfojeAldonitajVortoj =
+            novajVortojGrupoj.Where(grupo => grupo.Count() > 1).Select(g => g.Key).ToImmutableHashSet();
+         if (!plurfojeAldonitajVortoj.IsEmpty) {
+            throw new InvalidOperationException($"Plurfoje aldonis: {string.Join(", ", plurfojeAldonitajVortoj)}");
+         }
+
          var ekzistantajVortoj = vortaro.Vortoj.Select(v => v.PlenaVorto).ToImmutableHashSet();
-         var denoveAldonitajVortoj = ekzistantajVortoj.Intersect(novajVortoj);
-         if (!denoveAldonitajVortoj.IsEmpty) {
-            throw new InvalidOperationException($"Jam ekzistas: {denoveAldonitajVortoj}");
+         var ekzistantajBazoj = ekzistantajVortoj.Select(Malinflektado.bazoDe).ToImmutableHashSet();
+         var novajBazoj = novajVortoj.Select(Malinflektado.bazoDe).ToImmutableHashSet();
+         var denoveAldonitajVortoj = ekzistantajBazoj.Intersect(novajBazoj);
+         if (denoveAldonitajVortoj.Any()) {
+            throw new InvalidOperationException($"La bazo jam ekzistas: {string.Join(", ", denoveAldonitajVortoj)}");
          }
 
          var ĉiujVortoj = ekzistantajVortoj.Union(novajVortoj);
@@ -154,7 +163,7 @@ namespace KrestiaVortaro {
 
          if (!ĉuHavasValidajnRadikojn) {
             throw new InvalidOperationException(
-               $"{novaVorto} ne havas validajn radikojn ({string.Join(',', radikoj)}))");
+               $"{novaVorto} ne havas validajn radikojn ({string.Join(',', radikoj)})");
          }
 
          if (!ĉuValidajMalplenigitajVerboj) {
