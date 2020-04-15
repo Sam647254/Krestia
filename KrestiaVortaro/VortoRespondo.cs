@@ -8,7 +8,7 @@ namespace KrestiaVortaro {
 
       public string Vorto { get; set; }
       
-      public string Bazo { get; set; }
+      public string? Bazo { get; set; }
 
       public List<string>? Radikoj {
          get => _radikoj ?? new List<string>();
@@ -17,7 +17,7 @@ namespace KrestiaVortaro {
 
       public string? Signifo { get; set; }
 
-      public string Gloso { get; set; }
+      public string? Gloso { get; set; }
 
       public string? Noto {
          get => _noto ?? "";
@@ -34,6 +34,8 @@ namespace KrestiaVortaro {
       public IEnumerable<string>? Silaboj { get; set; }
 
       public IDictionary<string, string>? InflektitajFormoj { get; set; }
+      
+      public int? Blissimbolo { get; set; }
 
       internal VortoRespondo(string vorto) {
          Vorto = vorto;

@@ -10,7 +10,7 @@ using Microsoft.FSharp.Core;
 
 namespace KrestiaVortaro {
    public class Vortaro {
-      private const string VortaroUrl = "https://raw.githubusercontent.com/Sam647254/Krestia/master/vortaro.json";
+      private const string VortaroUrl = "https://raw.githubusercontent.com/Sam647254/Krestia/v0.2/vortaro.json";
 
       public ImmutableDictionary<string, Vorto> Indekso { get; private set; }
       public ImmutableDictionary<int, Vorto> IdIndekso { get; private set; }
@@ -41,6 +41,7 @@ namespace KrestiaVortaro {
             Signifo = respondo.Signifo,
             Vorttipo = vorttipo,
             Silaboj = silaboj.ResultValue,
+            Blissimbolo = respondo.Blissimbolo,
             InflektitajFormoj = FSharpOption<FSharpMap<Vorttipo.Inflekcio, string>>.get_IsSome(inflekcioj)
                ? inflekcioj.Value.Select(p => (p.Key.ToString(), p.Value))
                   .ToDictionary(p => p.Item1, p => p.Value)
