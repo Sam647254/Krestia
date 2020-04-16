@@ -69,7 +69,7 @@ module Malinflektado =
         InfinitivoFinaĵo("ia", AtributivoEstiAntaŭ)
         InfinitivoFinaĵo("ea", Imperativo)
         InfinitivoFinaĵo("a", Invito)
-        InfinitivoFinaĵo("etio", Aganto)
+        InfinitivoFinaĵo("etio", Argumento1)
         InfinitivoFinaĵo("elis", Translativo)
         InfinitivoFinaĵo("mea", Ĝerundo)
         InfinitivoFinaĵo("em", PartaUjo1) ]
@@ -85,8 +85,8 @@ module Malinflektado =
         InfinitivoFinaĵo("ria", AtributivoEstiAntaŭ)
         InfinitivoFinaĵo("ri", Imperativo)
         InfinitivoFinaĵo("ia", Invito)
-        InfinitivoFinaĵo("etio", Aganto)
-        InfinitivoFinaĵo("oniaa", Patiento)
+        InfinitivoFinaĵo("etio", Argumento1)
+        InfinitivoFinaĵo("oniaa", Argumento2)
         InfinitivoFinaĵo("elit", Translativo)
         InfinitivoFinaĵo("ea", Ĝerundo)
         InfinitivoFinaĵo("im", PartaUjo1)
@@ -109,8 +109,8 @@ module Malinflektado =
         InfinitivoFinaĵo("ria", AtributivoEstiAntaŭ)
         InfinitivoFinaĵo("ri", Imperativo)
         InfinitivoFinaĵo("ia", Invito)
-        InfinitivoFinaĵo("etio", Aganto)
-        InfinitivoFinaĵo("oniaa", Patiento)
+        InfinitivoFinaĵo("etio", Argumento1)
+        InfinitivoFinaĵo("oniaa", Argumento2)
         InfinitivoFinaĵo("elip", Translativo)
         InfinitivoFinaĵo("ea", Ĝerundo)
         InfinitivoFinaĵo("eg", PartaUjo1)
@@ -141,14 +141,15 @@ module Malinflektado =
         InfinitivoFinaĵo("ia", AtributivoEstiAntaŭ)
         InfinitivoFinaĵo("ea", Imperativo)
         InfinitivoFinaĵo("a", Invito)
-        InfinitivoFinaĵo("etio", Aganto)
+        InfinitivoFinaĵo("etio", Argumento1)
         InfinitivoFinaĵo("elish", Translativo)
         InfinitivoFinaĵo("mea", Ĝerundo)
         InfinitivoFinaĵo("am", PartaUjo1)
         InfinitivoFinaĵo("an", PartaUjo1)
         InfinitivoFinaĵo("om", PartaUjo3)
         InfinitivoFinaĵo("os", PartaUjo3)
-        InfinitivoFinaĵo("ros", UnueUjo3) ]
+        InfinitivoFinaĵo("ros", UnueUjo3)
+        InfinitivoFinaĵo("es", Reflekcio) ]
       @ okazoFinaĵoj
 
    let oblikaNetransitivaVerboInflekcioj =
@@ -159,7 +160,7 @@ module Malinflektado =
         InfinitivoFinaĵo("ra", AtributivoEstiMalantaŭ)
         InfinitivoFinaĵo("re", AtributivoEstiAntaŭ)
         InfinitivoFinaĵo("ea", Ĝerundo)
-        InfinitivoFinaĵo("orio", Patiento)
+        InfinitivoFinaĵo("oniaa", Argumento2)
         InfinitivoFinaĵo("am", PartaUjo2) ]
       @ okazoFinaĵoj
 
@@ -172,13 +173,14 @@ module Malinflektado =
         InfinitivoFinaĵo("ri", AtributivoEstiMalantaŭ)
         InfinitivoFinaĵo("re", AtributivoEstiAntaŭ)
         InfinitivoFinaĵo("ea", Ĝerundo)
-        InfinitivoFinaĵo("orio", Patiento)
-        InfinitivoFinaĵo("etio", NedirektaPatiento)
+        InfinitivoFinaĵo("oniaa", Argumento2)
+        InfinitivoFinaĵo("eru", Argumento3)
         InfinitivoFinaĵo("om", PartaUjo2)
         InfinitivoFinaĵo("on", PartaUjo2)
         InfinitivoFinaĵo("im", PartaUjo3)
         InfinitivoFinaĵo("ig", PartaUjo3)
-        InfinitivoFinaĵo("rig", UnueUjo3) ]
+        InfinitivoFinaĵo("rig", UnueUjo3)
+        InfinitivoFinaĵo("eg", Reflekcio) ]
       @ okazoFinaĵoj
 
    let nedirektaNetransitivaVerboInflekcioj =
@@ -187,7 +189,7 @@ module Malinflektado =
         InfinitivoFinaĵo("ela", Estonteco)
         InfinitivoFinaĵo("eri", Ujo3Volo)
         InfinitivoFinaĵo("ea", Ĝerundo)
-        InfinitivoFinaĵo("etio", Patiento)
+        InfinitivoFinaĵo("oniaa", Argumento2)
         InfinitivoFinaĵo("om", PartaUjo3) ]
       @ okazoFinaĵoj
 

@@ -110,8 +110,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("toniaa") -> Some (TransitivaVerbo, Patiento)
-           | v when v.EndsWith("poniaa") -> Some (DutransitivaVerbo, Patiento)
+           | v when v.EndsWith("toniaa") -> Some (TransitivaVerbo, Argumento2)
+           | v when v.EndsWith("poniaa") -> Some (DutransitivaVerbo, Argumento2)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->
@@ -120,8 +120,8 @@ module TransitivaVerboTraktiloj =
 
       { Kontroli = fun vorto ->
            match vorto with
-           | v when v.EndsWith("tetio") -> Some (TransitivaVerbo, Aganto)
-           | v when v.EndsWith("petio") -> Some (DutransitivaVerbo, Aganto)
+           | v when v.EndsWith("tetio") -> Some (TransitivaVerbo, Argumento1)
+           | v when v.EndsWith("petio") -> Some (DutransitivaVerbo, Argumento1)
            | _ -> None
         Inflekti = neinflektebla
         Malinflekti = fun vorto ->

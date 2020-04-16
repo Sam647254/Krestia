@@ -23,9 +23,9 @@ module Vorttipo =
    | PluraHavado
    | AtributativoHavi
    | Imperativo
-   | Patiento
-   | NedirektaPatiento
-   | Aganto
+   | Argumento1
+   | Argumento2
+   | Argumento3
    | Ekzistado
    | UnuEkzistado
    | PluraEkzistado

@@ -62,11 +62,11 @@ type VerboTestoj() =
       |> kontroliĈiujnInfleckiojn
             [ Nebazo(NetransitivaVerbo, Estonteco, "meratonialas")
               Nebazo(NombrigeblaKlaso, Translativo, "meratoniaa")
-              Nebazo(TransitivaVerbo, Patiento, "merat")
+              Nebazo(TransitivaVerbo, Argumento2, "merat")
               Bazo(TransitivaVerbo, Infinitivo, "merat") ]
 
       "liverasetie"
       |> kontroliĈiujnInfleckiojn
             [ Nebazo(NombrigeblaKlaso, Difinito, "liverasetio")
-              Nebazo(NetransitivaVerbo, Aganto, "liveras")
+              Nebazo(NetransitivaVerbo, Argumento1, "liveras")
               Bazo(NetransitivaVerbo, Infinitivo, "liveras") ]

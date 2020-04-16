@@ -60,12 +60,12 @@ module NombrigeblaKlasoTraktiloj =
 
    let normaligi (infinitivo: string) =
       match infinitivo with
-      | v when v.EndsWith("setio") -> (NetransitivaVerbo, Aganto)
-      | v when v.EndsWith("shetio") -> (NedirektaTransitivaVerbo, Aganto)
-      | v when v.EndsWith("tetio") -> (TransitivaVerbo, Aganto)
-      | v when v.EndsWith("petio") -> (DutransitivaVerbo, Aganto)
-      | v when v.EndsWith("toniaa") -> (TransitivaVerbo, Patiento)
-      | v when v.EndsWith("poniaa") -> (DutransitivaVerbo, Patiento)
+      | v when v.EndsWith("setio") -> (NetransitivaVerbo, Argumento1)
+      | v when v.EndsWith("shetio") -> (NedirektaTransitivaVerbo, Argumento1)
+      | v when v.EndsWith("tetio") -> (TransitivaVerbo, Argumento1)
+      | v when v.EndsWith("petio") -> (DutransitivaVerbo, Argumento1)
+      | v when v.EndsWith("toniaa") -> (TransitivaVerbo, Argumento2)
+      | v when v.EndsWith("poniaa") -> (DutransitivaVerbo, Argumento2)
       | _ -> (NombrigeblaKlaso, Infinitivo)
 
    let infinitivigi (nekonitaNombro: string) =

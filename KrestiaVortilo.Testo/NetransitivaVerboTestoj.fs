@@ -17,7 +17,7 @@ type NetransitivaVerboTestoj () =
         ("dulavisera", Ujo1Volo)
         ("dulavisie", AtributivoEstiMalantaŭ)
         ("dulavisea", Imperativo)
-        ("dulavisetio", Aganto)
+        ("dulavisetio", Argumento1)
         ("dulaviselis", Translativo)
         ("dulavisema", Ĝerundo)
         ("dulavisem", PartaUjo1) ]

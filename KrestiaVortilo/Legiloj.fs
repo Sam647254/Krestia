@@ -56,8 +56,8 @@ module Legiloj =
                | Inflekcio.Havado -> (PredikativoHavi :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.AtributativoHavi -> (AtributativoHavi :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.Imperativo -> (Imperativo :: inflekcioj, restantaj, lastaVorto) |> Ok
-               | Inflekcio.Patiento -> (Patiento :: inflekcioj, restantaj, lastaVorto) |> Ok
-               | Inflekcio.Aganto -> (Aganto :: inflekcioj, restantaj, lastaVorto) |> Ok
+               | Inflekcio.Argumento2 -> (Patiento :: inflekcioj, restantaj, lastaVorto) |> Ok
+               | Inflekcio.Argumento1 -> (Aganto :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.Translativo -> (Translativo :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.Ĝerundo -> (InflekcioŜtupo.Ĝerundo :: inflekcioj, restantaj, lastaVorto) |> Ok
                | Inflekcio.PartaUjo1
