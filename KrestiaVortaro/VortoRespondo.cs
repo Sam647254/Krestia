@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace KrestiaVortaro {
    public class VortoRespondo {
@@ -36,6 +37,8 @@ namespace KrestiaVortaro {
       public IDictionary<string, string>? InflektitajFormoj { get; set; }
       
       public IEnumerable<long>? Blissimbolo { get; set; }
+      
+      public IEnumerable<string?>? Ujoj { get; set; }
 
       internal VortoRespondo(string vorto) {
          Vorto = vorto;

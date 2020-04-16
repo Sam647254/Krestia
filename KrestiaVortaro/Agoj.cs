@@ -171,5 +171,16 @@ namespace KrestiaVortaro {
 
          return Malinflektado.valencoDe(novaVorto).Value;
       }
+
+      public static void Repari(JsonVortaro vortaro) {
+         foreach (var vorto in vortaro.Vortoj!) {
+            var signifoPartoj = vorto.Ujo1?.Split('^');
+            if (signifoPartoj == null) continue;
+            vorto.Signifo = signifoPartoj[0];
+            if (signifoPartoj.Length > 1) vorto.Ujo1 = signifoPartoj[1];
+            if (signifoPartoj.Length > 2) vorto.Ujo2 = signifoPartoj[2];
+            if (signifoPartoj.Length > 3) vorto.Ujo3 = signifoPartoj[3];
+         }
+      }
    }
 }

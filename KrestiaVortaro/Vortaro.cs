@@ -46,6 +46,7 @@ namespace KrestiaVortaro {
                ? inflekcioj.Value.Select(p => (p.Key.ToString(), p.Value))
                   .ToDictionary(p => p.Item1, p => p.Value)
                : null,
+            Ujoj = new[] {respondo.Ujo1, respondo.Ujo2, respondo.Ujo3},
          };
       }
 

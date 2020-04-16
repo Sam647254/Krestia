@@ -11,13 +11,13 @@ namespace KrestiaVortaro {
 
       public ImmutableList<string> Radikoj { get; }
 
-      public string Signifo { get; }
+      public string Signifo { get; set; }
       
-      public string? Ujo1 { get; }
+      public string? Ujo1 { get; set; }
       
-      public string? Ujo2 { get; }
+      public string? Ujo2 { get; set; }
       
-      public string? Ujo3 { get; }
+      public string? Ujo3 { get; set; }
 
       public string GlosaSignifo { get; }
 

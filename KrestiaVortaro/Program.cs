@@ -52,6 +52,12 @@ namespace KrestiaVortaro {
                   await vortaro.Konservi(args[3]);
                   break;
                }
+               case "ripari": {
+                  var vortaro = await JsonVortaro.Malfermi(args[1]);
+                  Agoj.Repari(vortaro);
+                  await vortaro.Konservi(args[2]);
+                  break;
+               }
             }
          }
          catch (InvalidOperationException e) {
