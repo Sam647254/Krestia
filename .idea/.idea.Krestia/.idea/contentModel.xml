@@ -143,6 +143,7 @@
           </e>
         </e>
         <e p="Testiloj" t="Include">
+          <e p="TestaBlissFonto.cs" t="Include" />
           <e p="TestaVortaro.cs" t="Include" />
         </e>
         <e p="VortoControllerTestoj.cs" t="Include" />

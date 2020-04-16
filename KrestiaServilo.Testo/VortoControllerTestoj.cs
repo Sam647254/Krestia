@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace KrestiaServilo.Testo {
    public class Tests {
-      private readonly VortoController _controller = new VortoController(new TestaVortaro());
+      private readonly VortoController _controller = new VortoController(new TestaVortaro(), new TestaBlissFonto());
 
       [Test]
       public void Get() {
