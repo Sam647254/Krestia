@@ -2,12 +2,14 @@
 
 open FSharpx.Collections
 open KrestiaVortilo
+open KrestiaVortilo.Strukturo
 open Microsoft.VisualStudio.TestTools.UnitTesting
 open KrestiaVortilo.Traktilaro
 open KrestiaVortilo.Vorttipo
-open KrestiaVortilo.Strukturo
 open KrestiaVortilo.Sintaksanalizilo2
 open KrestiaVortilo.Malinflektado
+open Microsoft.VisualStudio.TestTools.UnitTesting
+open Microsoft.VisualStudio.TestTools.UnitTesting
 
 module Testiloj =
    let kontroliFormon (vorto: string) (pravaTipo: Vorttipo) (pravaInflekcio: Inflekcio) =
@@ -31,10 +33,10 @@ module Testiloj =
       malinflekti vorto
       |> Result.map (fun malinflektaŜtupo ->
             match malinflektaŜtupo with
-            | Sintaksanalizilo.Bazo(vorttipo, inflekcio, _) ->
+            | Sintaksanalizilo.Bazo (vorttipo, inflekcio, _) ->
                Assert.AreEqual(pravaTipo, vorttipo)
                Assert.AreEqual(pravaInflekcio, inflekcio)
-            | Sintaksanalizilo.Nebazo(vorttipo, inflekcio, _) ->
+            | Sintaksanalizilo.Nebazo (vorttipo, inflekcio, _) ->
                Assert.AreEqual(pravaTipo, vorttipo)
                Assert.AreEqual(pravaInflekcio, inflekcio))
       |> Result.mapError Assert.Fail
@@ -50,7 +52,7 @@ module Testiloj =
       malinflekti vorto
       |> Result.map
             (fun malinflektaŜtupo ->
-            Assert.Fail(sprintf "%s estas nevalida vorto, sed malinflektiĝis: %A" vorto malinflektaŜtupo))
+               Assert.Fail(sprintf "%s estas nevalida vorto, sed malinflektiĝis: %A" vorto malinflektaŜtupo))
       |> ignore
 
    let kontroliSilabojn (vorto: string, prava: string list) =
@@ -90,10 +92,24 @@ module Testiloj =
                                     Argumentoj = Deque.ofList (argumentoj) }, sintaksanalizilo)))))
       |> Result.mapError Assert.Fail
       |> ignore
-      
+
    let kontroliMalplenigitajnFormojn (vorto: string) (pravajFormoj: string list) =
       malplenigitajFormojDe vorto
-      |> Result.map (fun rezultoj ->
-         Assert.AreEqual(rezultoj, pravajFormoj |> Set.ofList))
+      |> Result.map (fun rezultoj -> Assert.AreEqual(rezultoj, pravajFormoj |> Set.ofList))
+      |> Result.mapError Assert.Fail
+      |> ignore
+
+   let praveMalinflekti ĉeno =
+      match tuteMalinflekti ĉeno with
+      | Ok (rezulto) -> rezulto
+      | Error (eraro) ->
+         Assert.Fail(eraro)
+         failwith eraro
+
+   let kontroliUnuFrazon eniro (prava: Predikato) =
+      analizi eniro
+      |> Result.map (fun rezulto ->
+            Assert.AreEqual(1, rezulto.Frazoj.Length)
+            Assert.AreEqual(prava, rezulto.Frazoj.Item 0))
       |> Result.mapError Assert.Fail
       |> ignore

@@ -559,4 +559,3 @@ module Malinflektado =
          | TransitivaVerbo | NedirektaTransitivaVerbo | OblikaTransitivaVerbo -> 2
          | DutransitivaVerbo -> 3
          | _ -> 0)
-      |> Option.defaultValue 0

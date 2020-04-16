@@ -1,5 +1,6 @@
 ﻿namespace KrestiaVortilo.Testo
 
+open KrestiaVortilo.Sintaksanalizilo2
 open Microsoft.VisualStudio.TestTools.UnitTesting
 
 open Testiloj
@@ -8,32 +9,41 @@ open Testiloj
 type Sintaksanalizilo() =
 
    [<TestMethod>]
-   member _.``hem meratre gremi``() =
-      // meratre(hem, gremi)
-      kontroliKategorigadon "hem meratre gremi" [ "meratre" ] [ "hem"; "gremi" ]
+   member _.``hem belitre gremi``() =
+      // belitre(hem, gremi)
+      kontroliKategorigadon "hem belitre gremi" [ "belitre" ] [ "hem"; "gremi" ]
       
    [<TestMethod>]
    member _.MalplenigitajFormoj () =
-      [ "morem" ]
-      |> kontroliMalplenigitajnFormojn "morem"
+      [ "belim" ]
+      |> kontroliMalplenigitajnFormojn "belim"
       
-      [ "liveras"; "liveram" ]
-      |> kontroliMalplenigitajnFormojn "liveras"
+      [ "belis"; "belim" ]
+      |> kontroliMalplenigitajnFormojn "belis"
       
-      [ "emat"; "emas"; "emag"; "emam" ]
-      |> kontroliMalplenigitajnFormojn "emat"
+      [ "belit"; "belis"; "belig"; "belim" ]
+      |> kontroliMalplenigitajnFormojn "belit"
       
-      [ "erash"; "eras"; "eran"; "eram" ]
-      |> kontroliMalplenigitajnFormojn "erash"
+      [ "belish"; "belis"; "belin"; "belim" ]
+      |> kontroliMalplenigitajnFormojn "belish"
       
-      [ "trirep"; "triret"; "trires"; "triresh"; "trirev"; "trireg"; "triren"; "trirem" ]
-      |> kontroliMalplenigitajnFormojn "trirep"
+      [ "belip"; "belit"; "belish"; "beliv"; "belis"; "belig"; "belin"; "belim" ]
+      |> kontroliMalplenigitajnFormojn "belip"
       
-      [ "aleg"; "alem" ]
-      |> kontroliMalplenigitajnFormojn "aleg"
+      [ "belig"; "belim" ]
+      |> kontroliMalplenigitajnFormojn "belig"
       
-      [ "serav"; "serag"; "seran" ]
-      |> kontroliMalplenigitajnFormojn "serav"
+      [ "beliv"; "belig"; "belin"; "belim" ]
+      |> kontroliMalplenigitajnFormojn "beliv"
       
-      [ "prevan"; "prevam" ]
-      |> kontroliMalplenigitajnFormojn "prevan"
+      [ "belin"; "belim" ]
+      |> kontroliMalplenigitajnFormojn "belin"
+   
+   [<TestMethod>]
+   member _.Predikato1Testoj() =
+      let _ =
+         let belise = praveMalinflekti "belise"
+         let hem = praveMalinflekti "hem"
+         let prava = Predikato1(Verbo(belise), Argumento(hem))
+         kontroliUnuFrazon "hem belise" prava
+      ()

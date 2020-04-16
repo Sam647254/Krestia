@@ -117,7 +117,8 @@ module Sintaksanalizilo =
         TransitivaVerbo, [ TransitivaVerbo; NetransitivaVerbo; OblikaNetransitivaVerbo; MalplenaVerbo ]
         NedirektaTransitivaVerbo,
         [ NedirektaTransitivaVerbo; NetransitivaVerbo; NedirektaNetransitivaVerbo; MalplenaVerbo ]
-        OblikaTransitivaVerbo, [ OblikaTransitivaVerbo; OblikaNetransitivaVerbo; NedirektaNetransitivaVerbo ]
+        OblikaTransitivaVerbo,
+        [ OblikaTransitivaVerbo; OblikaNetransitivaVerbo; NedirektaNetransitivaVerbo; MalplenaVerbo ]
         DutransitivaVerbo, verboTipoj |> List.ofSeq ]
       |> List.map (fun (originala, malplenigitaj) -> originala, malplenigitaj |> Set.ofList)
       |> Map.ofList
