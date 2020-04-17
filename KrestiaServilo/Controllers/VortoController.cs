@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KrestiaServilo.Controllers {
    [ApiController]
-   [Route("")]
+   [Route("api")]
    public class VortoController : ControllerBase {
       private readonly IVortaroService _vortaroService;
       private readonly IBlissFonto _blissFonto;
@@ -34,6 +34,11 @@ namespace KrestiaServilo.Controllers {
       [HttpGet("vortlisto/alfabeta")]
       public ActionResult AlfabetaListo() {
          return Ok(_vortaroService.Instanco.Vortlisto);
+      }
+
+      [HttpGet("vortlisto/tipo")]
+      public ActionResult TipaVortlisto() {
+         return Ok(_vortaroService.Instanco.TipaVortlisto);
       }
 
       [HttpGet("bliss/{id}")]

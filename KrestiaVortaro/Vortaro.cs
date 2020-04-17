@@ -12,6 +12,9 @@ namespace KrestiaVortaro {
    public class Vortaro {
       private const string VortaroUrl = "https://raw.githubusercontent.com/Sam647254/Krestia/v0.2/vortaro.json";
 
+      private readonly IImmutableDictionary<char, int> _alfabeto = "pbmvtdnsʃlrjkgwhieauoɒ".Select((l, i) => (l, i))
+         .ToImmutableDictionary(p => p.l, p => p.i);
+
       public ImmutableDictionary<string, Vorto> Indekso { get; private set; }
       public ImmutableDictionary<int, Vorto> IdIndekso { get; private set; }
       public ImmutableDictionary<string, ImmutableList<Vorto>>? Kategorioj { get; private set; }
@@ -20,6 +23,12 @@ namespace KrestiaVortaro {
       public IOrderedEnumerable<VortoKunSignifo> Vortlisto =>
          Indekso.Values.Select(vorto => new VortoKunSignifo(vorto.PlenaVorto, vorto.Signifo))
             .OrderBy(v => v.Vorto);
+
+      public IImmutableDictionary<string, IOrderedEnumerable<VortoKunSignifo>> TipaVortlisto =>
+         Indekso.Values.Select(v => new VortoKunSignifo(v.PlenaVorto, v.Signifo)).GroupBy(v =>
+               (Malinflektado.tuteMalinflekti(v.Vorto).ResultValue.InflekcioŜtupoj.Last() as
+                  Sintaksanalizilo.MalinflektaŜtupo.Bazo)!.Item1.ToString())
+            .ToImmutableDictionary(g => g.Key, g => g.OrderBy(v => v.Vorto));
 
       public VortoRespondo? Vorto(string vorto) {
          var respondo = Indekso.GetValueOrDefault(vorto, null);
