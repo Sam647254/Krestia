@@ -114,7 +114,7 @@ namespace KrestiaAWSAlirilo {
                Signifo = partoj[1],
                Gloso = partoj[2],
                Kategorioj = partoj[3].Length > 0 ? partoj[2].Split(',').ToList() : null,
-               Radikoj = radikoj,
+               Radikoj = radikoj!,
                Noto = partoj[5].Length > 0 ? partoj[4] : null
             };
          });

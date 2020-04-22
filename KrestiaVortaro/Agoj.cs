@@ -45,31 +45,34 @@ namespace KrestiaVortaro {
 
          var ĉiujVortoj = ekzistantajVortoj.Union(novajVortoj);
          var novajVicoj = ĉiujPartoj.Select(partoj => {
-            if (partoj.Length != 5) {
-               throw new InvalidOperationException($"{string.Join('|', partoj)} ne estas valida");
+            try {
+               var vorto = partoj[0];
+               var signifajPartoj = partoj[1].Split('^');
+               var signifo = signifajPartoj[0];
+               var gloso = partoj[2];
+               var radikoj = partoj[3].Split(',').Where(r => r.Length > 0).ToImmutableList();
+               var noto = partoj[4];
+               var valenco = KontroliVortonKajValencon(ĉiujVortoj, vorto, radikoj);
+               var ujo1 = valenco >= 1 ? signifajPartoj[1] : null;
+               var ujo2 = valenco >= 2 ? signifajPartoj[2] : null;
+               var ujo3 = valenco == 3 ? signifajPartoj[3] : null;
+
+               var novaVorto = new Vorto(vorto, Malinflektado.bazoDe(vorto),
+                  radikoj.Select(r => {
+                     if (ĉiujVortoj.Contains(r)) {
+                        return r;
+                     }
+
+                     throw new InvalidOperationException($"La radiko de {vorto}, {r} ne ekzistas");
+                  }), signifo, gloso, ujo1, ujo2, ujo3, noto);
+
+               return novaVorto;
             }
-
-            var vorto = partoj[0];
-            var signifajPartoj = partoj[1].Split('^');
-            var signifo = signifajPartoj[0];
-            var gloso = partoj[2];
-            var radikoj = partoj[3].Split(',').Where(r => r.Length > 0).ToImmutableList();
-            var noto = partoj[4];
-            var valenco = KontroliVortonKajValencon(ĉiujVortoj, vorto, radikoj);
-            var ujo1 = valenco >= 1 ? partoj[1] : null;
-            var ujo2 = valenco >= 2 ? partoj[2] : null;
-            var ujo3 = valenco == 3 ? partoj[3] : null;
-
-            var novaVorto = new Vorto(vorto, Malinflektado.bazoDe(vorto),
-               radikoj.Select(r => {
-                  if (ĉiujVortoj.Contains(r)) {
-                     return r;
-                  }
-
-                  throw new InvalidOperationException($"La radiko de {vorto}, {r} ne ekzistas");
-               }), signifo, gloso, ujo1, ujo2, ujo3, noto);
-
-            return novaVorto;
+            catch (Exception e) {
+               Console.WriteLine($"La vico {string.Join('|', partoj)} ne estas nevalida");
+               Console.WriteLine(e.Message);
+               throw;
+            }
          });
          return vortaro.Vortoj.ToImmutableSortedSet().Union(novajVicoj);
       }
@@ -174,6 +177,7 @@ namespace KrestiaVortaro {
 
       public static void Repari(JsonVortaro vortaro) {
          foreach (var vorto in vortaro.Vortoj!) {
+            if (vorto.Ujo1?.Contains("^") == false) continue;
             var signifoPartoj = vorto.Ujo1?.Split('^');
             if (signifoPartoj == null) continue;
             vorto.Signifo = signifoPartoj[0];
