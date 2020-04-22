@@ -17,7 +17,7 @@ namespace KrestiaVortaro {
 
       public ImmutableDictionary<string, Vorto> Indekso { get; private set; }
       public ImmutableDictionary<int, Vorto> IdIndekso { get; private set; }
-      public ImmutableDictionary<string, ImmutableList<Vorto>>? Kategorioj { get; private set; }
+      public ImmutableDictionary<string, Kategorio>? Kategorioj { get; private set; }
       private ImmutableDictionary<string, Vorto> BazoIndekso { get; set; }
 
       public IOrderedEnumerable<VortoKunSignifo> Vortlisto =>
@@ -28,6 +28,9 @@ namespace KrestiaVortaro {
          Indekso.Values.Select(v => new VortoKunSignifo(v.PlenaVorto, v.Signifo)).GroupBy(v =>
                Malinflektado.vortaraTipoDe(v.Vorto))
             .ToImmutableSortedDictionary(g => g.Key, g => g.OrderBy(v => v.Vorto));
+
+      public IImmutableDictionary<string, KategorioRespondo> KategoriaVortlisto =>
+         Kategorioj.Select(p => (p.Key, p.Value.Respondigi())).ToImmutableSortedDictionary(p => p.Key, p => p.Item2);
 
       public VortoRespondo? Vorto(string vorto) {
          var respondo = Indekso.GetValueOrDefault(vorto, null);
@@ -166,17 +169,46 @@ namespace KrestiaVortaro {
             BazoIndekso = jsonVortaro.Vortoj.ToImmutableDictionary(v => v.BazaVorto, v => v),
             IdIndekso = jsonVortaro.Vortoj.Select((v, i) => (v, i)).ToImmutableDictionary(p => p.i, p => p.v),
             Kategorioj = jsonVortaro.Kategorioj?.ToImmutableDictionary(k => k.Nomo,
-               k => k.Vortoj.Select(v => indekso[v]).ToImmutableList())!,
+               k => new Kategorio {
+                  Vortoj = k.Vortoj!.Select(v => indekso[v]).ToImmutableList(),
+                  Subkategorioj = k.Subkategorioj!.ToImmutableHashSet(),
+                  Superkategorioj = jsonVortaro.Kategorioj!.Where(sk => sk.Subkategorioj!.Contains(k.Nomo))
+                     .Select(sk => sk.Nomo).ToImmutableHashSet(),
+               })!,
          };
       }
 
-      public struct VortoKunSignifo {
+      public readonly struct VortoKunSignifo {
          public string Vorto { get; }
          public string Signifo { get; }
 
          public VortoKunSignifo(string vorto, string signifo) {
             Vorto = vorto;
             Signifo = signifo;
+         }
+      }
+
+      public class Kategorio {
+         public IImmutableList<Vorto> Vortoj { get; set; }
+         public IImmutableSet<string> Subkategorioj { get; set; }
+         public IImmutableSet<string> Superkategorioj { get; set; }
+
+         public KategorioRespondo Respondigi() {
+            return new KategorioRespondo(Vortoj.Select(v => new VortoKunSignifo(v.PlenaVorto, v.Signifo)),
+               Subkategorioj, Superkategorioj);
+         }
+      }
+
+      public class KategorioRespondo {
+         public IImmutableList<VortoKunSignifo> Vortoj { get; }
+         public ImmutableSortedSet<string> Subkategorioj { get; }
+         public ImmutableSortedSet<string> Superkategorioj { get; }
+
+         public KategorioRespondo(IEnumerable<VortoKunSignifo> vortoj, IEnumerable<string> subkategorioj,
+            IEnumerable<string> superkategorioj) {
+            Vortoj = vortoj.ToImmutableList();
+            Subkategorioj = subkategorioj.ToImmutableSortedSet();
+            Superkategorioj = superkategorioj.ToImmutableSortedSet();
          }
       }
    }

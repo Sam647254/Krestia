@@ -41,6 +41,11 @@ namespace KrestiaServilo.Controllers {
          return Ok(_vortaroService.Instanco.TipaVortlisto);
       }
 
+      [HttpGet("vortlisto/kategorioj")]
+      public ActionResult KategoriaVortlisto() {
+         return Ok(_vortaroService.Instanco.KategoriaVortlisto);
+      }
+
       [HttpGet("bliss/{id}")]
       public async Task<ActionResult> Blissimbolo(int id) {
          var svg = await _blissFonto.AlportiBlissimbolon(id);
