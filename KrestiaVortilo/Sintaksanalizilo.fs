@@ -37,6 +37,7 @@ module Sintaksanalizilo =
         // Patiento
         "toniaa"
         "poniaa"
+        "voniaa"
         // Aganto
         "tetio"
         "petio"
