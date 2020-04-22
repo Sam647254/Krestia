@@ -14,12 +14,21 @@ Public Class BlissSvgDesegnilo
                String.Format("m {0} 0 h -{0} l {1} {2}", aktualaLarĝeco,
                              If(aktualaLarĝeco >= Larĝeco, aktualaLarĝeco\2, aktualaLarĝeco), aktualaAlteco)
          End Function},
+         {"t", Function(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
+            Return String.Format("h {1} m -{2} 0 v {0}", aktualaAlteco, aktualaLarĝeco, aktualaLarĝeco\2)
+         End Function},
          {"n", Function(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
             Return String.Format("m 0 {0} h {1} m -{2} -{0} v {0}", aktualaAlteco, aktualaLarĝeco, aktualaLarĝeco\2)
          End Function},
+         {"l", Function(aktualaLarĝeco, aktualaAlteco)
+            Return String.Format("h {0} v {1} h -{0} z", aktualaLarĝeco, aktualaAlteco)
+         End function},
          {"r", Function(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
             Return String.Format("h {0} l -{1} {2} z", aktualaLarĝeco, aktualaLarĝeco\2, aktualaAlteco)
          End Function},
+         {"ʃ", Function(aktualaLarĝeco, aktualaAlteco) As String 
+            Return String.Format("h {0} v {1} m -{0} 0 l {0} -{1}", aktualaLarĝeco, aktualaAlteco)
+         End function},
          {"k", Addressof K},
          {"i", AddressOf P},
          {"e", Function(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
@@ -32,6 +41,9 @@ Public Class BlissSvgDesegnilo
          End Function},
          {"ɒ", Function(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
             Return String.Format("m 0 {0} h {1} v {0}", aktualaAlteco, aktualaLarĝeco)
+         End Function},
+         {"x", Function(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
+            Return String.Format("m 0 {0} l {1} -{0} l {1} {0}", aktualaAlteco, aktualaLarĝeco\2)
          End Function}
          }
 
@@ -105,7 +117,21 @@ Public Class BlissSvgDesegnilo
          {"nedirektaTransitiva", Function() As String
             X += DuonaLarĝeco + Spaco
             Return String.Format("h {0} m -{1} 0 v {2} m -{1} 0 h {0}", DuonaLarĝeco, DuonaLarĝeco\2, DufojaAlteco)
-         End Function}
+         End Function},
+         {"difinito", function()
+            X += DuonaLarĝeco + Spaco
+            Return String.Format("m {0} 0 l -{0} {1} l {0} {1} m 0 -{1} h -{0}", DuonaLarĝeco, DufojaAlteco\2)
+         End function},
+         {"pluraNombro", Function()
+            X += DuonaLarĝeco + Spaco + Spaceto
+            Return String.Format("m {0} 0 l -{0} {1} l {0} {1} m -{0} -{1} h {0} m {2} -{1} v {3} m 0 {2} v {3}",
+                                 DuonaLarĝeco, DufojaAlteco\2, Spaceto, Alteco)
+         End function},
+         {"progresivo", Function()
+            X += DuonaLarĝeco + Spaco + Spaco
+            Return String.Format("l {0} {1} l -{0} {1} m {2} -{3} l {0} {1} l -{0} {1}",
+                                 DuonaLarĝeco, DufojaAlteco\2, Spaco, DufojaAlteco)
+         End function}
          }
 
    Private ReadOnly _awsAlirilo As AmazonS3Client

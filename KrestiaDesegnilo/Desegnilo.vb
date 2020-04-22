@@ -70,7 +70,7 @@ Public MustInherit Class Desegnilo
             X += Larĝeco + spacoInterSilaboj
             Y = antaŭY
          Else 'CVC
-            AldoniVojon(LiteroDesegniloj(silabo.Substring(0, 1))(Larĝeco, Alteco), X, Y)
+            AldoniVojon(LiteroDesegniloj(silabo.Substring(0, 1))(Larĝeco + Spaceto, Alteco), X, Y)
             Dim antaŭY = Y
             Y += Alteco + Spaceto
             AldoniVojon(LiteroDesegniloj(silabo.Substring(1, 1))(DuonaLarĝeco, Alteco), X, Y)
@@ -80,7 +80,7 @@ Public MustInherit Class Desegnilo
             Y = antaŭY
          End If
       ElseIf silabo.Length = 4 Then 'CCVC
-         AldoniVojon(LiteroDesegniloj(silabo.Substring(0, 2))(Larĝeco, Alteco), X, Y)
+         AldoniVojon(LiteroDesegniloj(silabo.Substring(0, 2))(Larĝeco + Spaceto, Alteco), X, Y)
          Dim antaŭY = Y
          Y += Alteco + Spaceto
          AldoniVojon(LiteroDesegniloj(silabo.Substring(2, 1))(DuonaLarĝeco, Alteco), X, Y)
