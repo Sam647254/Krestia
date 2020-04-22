@@ -260,8 +260,8 @@ module Malinflektado =
    let infinitivoAlDifinito (vorto: string) =
       difinitivoAlInfinitivoTabelo
       |> Map.pick (fun difinitoFinaĵo infinitivoFinaĵo ->
-            if vorto.EndsWith(infinitivoFinaĵo) then
-               (vorto.Substring(0, vorto.Length - infinitivoFinaĵo.Length) + difinitoFinaĵo.ToString()) |> Some
+            if vorto.EndsWith(infinitivoFinaĵo)
+            then (vorto.Substring(0, vorto.Length - infinitivoFinaĵo.Length) + difinitoFinaĵo.ToString()) |> Some
             else None)
 
    let ĉuDifinito (vorto: string) akceptiNenombrigeblan =
@@ -269,7 +269,8 @@ module Malinflektado =
       | AkceptiNenombrigeblan -> difinitoFinaĵoj
       | NeAkceptiNenombrigeblan -> nombrigeblaDifinitoFinaĵoj
       |> List.tryPick (fun (finaĵo, vorttipo) ->
-            if vorto.EndsWith(finaĵo) && vorto.Length > finaĵo.Length then Some vorttipo
+            if vorto.EndsWith(finaĵo) && vorto.Length > finaĵo.Length
+            then Some vorttipo
             else None)
 
    let malinflektiSeDifinito (vorto: string) inflekcio akceptiNenombrigeblan =
@@ -287,25 +288,26 @@ module Malinflektado =
          ĉiujInflekcioj
          |> List.tryPick (fun (vorttipo, finaĵo) ->
                match finaĵo with
-               | InfinitivoFinaĵo(finaĵo, inflekcio) ->
+               | InfinitivoFinaĵo (finaĵo, inflekcio) ->
                   infinitivoFinaĵoj
                   |> Map.tryPick (fun infinitivoFinaĵo infinitivoTipo ->
-                        if ĉeno.EndsWith(infinitivoFinaĵo + finaĵo) && infinitivoTipo = vorttipo then Some()
+                        if ĉeno.EndsWith(infinitivoFinaĵo + finaĵo) && infinitivoTipo = vorttipo
+                        then Some()
                         else None)
                   |> Option.bind (fun _ ->
                         Some(ĉeno.Substring(0, ĉeno.Length - finaĵo.Length))
                         |> Option.filter (fun subĉeno ->
                               match dividi subĉeno true with
-                              | Ok(_) -> true
-                              | Error(_) -> false)
+                              | Ok (_) -> true
+                              | Error (_) -> false)
                         |> Option.map (fun malinflektita -> Nebazo(vorttipo, inflekcio, malinflektita)))
-               | DifinitoFinaĵo(finaĵo, inflekcio) ->
+               | DifinitoFinaĵo (finaĵo, inflekcio) ->
                   if ĉeno.EndsWith(finaĵo) then
                      let difinito = ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)
                      malinflektiSeDifinito difinito inflekcio AkceptiNenombrigeblan
                   else
                      None
-               | DUPFinaĵo(finaĵo, difinito, unuNombro, pluraNombro) ->
+               | DUPFinaĵo (finaĵo, difinito, unuNombro, pluraNombro) ->
                   if ĉeno.EndsWith(finaĵo) then
                      let restantaj = ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)
                      if restantaj.EndsWith(unuNombroFinaĵo) then
@@ -327,11 +329,11 @@ module Malinflektado =
       malinflekti ĉeno
       |> Result.bind (fun malinflektita ->
             match malinflektita with
-            | Bazo(_, _, bazaVorto) ->
+            | Bazo (_, _, bazaVorto) ->
                { BazaVorto = bazaVorto
                  InflekcioŜtupoj = List.singleton malinflektita }
                |> Ok
-            | Nebazo(_, _, restanta) ->
+            | Nebazo (_, _, restanta) ->
                tuteMalinflekti restanta
                |> Result.map (fun sekva -> { sekva with InflekcioŜtupoj = malinflektita :: sekva.InflekcioŜtupoj }))
 
@@ -339,11 +341,11 @@ module Malinflektado =
       ĉenoj
       |> List.fold (fun akListo sekva ->
             match akListo with
-            | Ok(listo) ->
+            | Ok (listo) ->
                match tuteMalinflekti sekva with
-               | Ok(malinflektitaVorto) -> Ok(malinflektitaVorto :: listo)
-               | Error(eraro) -> Error eraro
-            | Error(_) -> akListo) (Ok [])
+               | Ok (malinflektitaVorto) -> Ok(malinflektitaVorto :: listo)
+               | Error (eraro) -> Error eraro
+            | Error (_) -> akListo) (Ok [])
       |> Result.map List.rev
 
    and ĉuVerbo (ĉeno: string) =
@@ -352,9 +354,9 @@ module Malinflektado =
             match malinflektitaVorto.InflekcioŜtupoj with
             | unua :: _ ->
                match unua with
-               | Bazo(vorttipo, _, _) ->
+               | Bazo (vorttipo, _, _) ->
                   verboTipoj |> Set.contains vorttipo
-               | Nebazo(_, _, _) -> failwith "ne valida unua ŝtupo"
+               | Nebazo (_, _, _) -> failwith "ne valida unua ŝtupo"
             | [] -> failwith "ne valida ŝtupoj")
 
    and ĉuVerboInfinitivo (ĉeno: string) =
@@ -363,7 +365,7 @@ module Malinflektado =
             match malinflektitaVorto.InflekcioŜtupoj with
             | [ solaŜtupo ] ->
                match solaŜtupo with
-               | Bazo(vorttipo, inflekcio, _) ->
+               | Bazo (vorttipo, inflekcio, _) ->
                   (inflekcio = Infinitivo) && verboTipoj |> Set.contains vorttipo
                | _ -> false
             | _ -> false)
@@ -373,22 +375,22 @@ module Malinflektado =
 
    and ĉuVerboInfinitivoB (ĉeno: string) =
       match ĉuVerboInfinitivo ĉeno with
-      | Ok(rezulto) -> rezulto
-      | Error(_) -> false
+      | Ok (rezulto) -> rezulto
+      | Error (_) -> false
 
    and bazoDe (vorto: string) =
       if ĉuVerboInfinitivoB vorto then
          vorto.Substring
             (0,
-             vorto.Length - (if vorto.EndsWith("sh") then 2
-                             else 1))
+             vorto.Length - (if vorto.EndsWith("sh") then 2 else 1))
       else
          vorto
 
    and bazoPorDividi (infinitivo: string) =
       [ "gru"; "gro"; "dru"; "dro"; "li"; "lu"; "d"; "l"; "r" ]
       |> List.tryPick (fun finaĵo ->
-            if infinitivo.EndsWith(finaĵo) then Some(infinitivo.Substring(0, infinitivo.Length - finaĵo.Length))
+            if infinitivo.EndsWith(finaĵo)
+            then Some(infinitivo.Substring(0, infinitivo.Length - finaĵo.Length))
             else None)
       |> Option.defaultValue infinitivo
       |> bazoDe
@@ -414,66 +416,69 @@ module Malinflektado =
 
    and kategorigiLiterojn =
       List.map (fun litero ->
-         if ĉuVokalo litero then Vokalo litero
-         else Konsonanto litero)
+         if ĉuVokalo litero then Vokalo litero else Konsonanto litero)
 
    and dividi (ĉeno: string) (inkluziFinaĵon: bool) =
       let normaligita =
          ĉeno.Replace("aa", "ɒ").Replace("sh", "ʃ")
-         |> if inkluziFinaĵon then (fun s -> s)
-            else bazoPorDividi
+         |> if inkluziFinaĵon then (fun s -> s) else bazoPorDividi
 
       let rec dividiAk ĉuKomenca (literoj: Litero list): Result<string list, string> =
          match literoj with
          // CCVC
-         | Konsonanto(k1) :: Konsonanto(k2) :: Vokalo(v) :: Konsonanto(kf) :: Konsonanto(kk2) :: restantaj ->
+         | Konsonanto (k1) :: Konsonanto (k2) :: Vokalo (v) :: Konsonanto (kf) :: Konsonanto (kk2) :: restantaj ->
             if ĉuKomenca then
                dividiAk false (Konsonanto(kk2) :: restantaj)
                |> Result.map (fun restantajSilaboj -> System.String.Concat([ k1; k2; v; kf ]) :: restantajSilaboj)
-            else Error "Vorto ne rajtas komenci per du konsonantoj"
-         | [ Konsonanto(k1); Konsonanto(k2); Vokalo(v); Konsonanto(kf) ] ->
-            if ĉuKomenca then [ System.String.Concat([ k1; k2; v; kf ]) ] |> Ok
+            else
+               Error "Vorto ne rajtas komenci per du konsonantoj"
+         | [ Konsonanto (k1); Konsonanto (k2); Vokalo (v); Konsonanto (kf) ] ->
+            if ĉuKomenca
+            then [ System.String.Concat([ k1; k2; v; kf ]) ] |> Ok
             else Error "Vorto ne rajtas komenci per du konsonantoj"
          // CCV
-         | Konsonanto(k1) :: Konsonanto(k2) :: Vokalo(v) :: Konsonanto(kf) :: Vokalo(v2) :: restantaj ->
+         | Konsonanto (k1) :: Konsonanto (k2) :: Vokalo (v) :: Konsonanto (kf) :: Vokalo (v2) :: restantaj ->
             if ĉuKomenca then
                dividiAk false (Konsonanto(kf) :: Vokalo(v2) :: restantaj)
                |> Result.map (fun restantajSilaboj -> System.String.Concat([ k1; k2; v ]) :: restantajSilaboj)
-            else Error "Vorto ne rajtas komenci per du konsonantoj"
-         | Konsonanto(k1) :: Konsonanto(k2) :: Vokalo(v) :: Vokalo(v2) :: restantaj ->
+            else
+               Error "Vorto ne rajtas komenci per du konsonantoj"
+         | Konsonanto (k1) :: Konsonanto (k2) :: Vokalo (v) :: Vokalo (v2) :: restantaj ->
             if ĉuKomenca then
                dividiAk false (Vokalo(v2) :: restantaj)
                |> Result.map (fun restantajSilaboj -> System.String.Concat([ k1; k2; v ]) :: restantajSilaboj)
-            else Error "Vorto ne rajtas komenci per du konsonantoj"
-         | [ Konsonanto(k1); Konsonanto(k2); Vokalo(v) ] ->
-            if ĉuKomenca then [ System.String.Concat([ k1; k2; v ]) ] |> Ok
+            else
+               Error "Vorto ne rajtas komenci per du konsonantoj"
+         | [ Konsonanto (k1); Konsonanto (k2); Vokalo (v) ] ->
+            if ĉuKomenca
+            then [ System.String.Concat([ k1; k2; v ]) ] |> Ok
             else Error "Vorto ne rajtas komenci per du konsonantoj"
          // CVC
-         | Konsonanto(k1) :: Vokalo(v) :: Konsonanto(kf) :: Konsonanto(kk2) :: restantaj ->
+         | Konsonanto (k1) :: Vokalo (v) :: Konsonanto (kf) :: Konsonanto (kk2) :: restantaj ->
             dividiAk false (Konsonanto(kk2) :: restantaj)
             |> Result.map (fun restantajSilaboj -> System.String.Concat([ k1; v; kf ]) :: restantajSilaboj)
-         | [ Konsonanto(k1); Vokalo(v); Konsonanto(kf) ] -> [ System.String.Concat([ k1; v; kf ]) ] |> Ok
+         | [ Konsonanto (k1); Vokalo (v); Konsonanto (kf) ] -> [ System.String.Concat([ k1; v; kf ]) ] |> Ok
          // CV
-         | Konsonanto(k1) :: Vokalo(v) :: Konsonanto(kk2) :: Vokalo(v2) :: restantaj ->
+         | Konsonanto (k1) :: Vokalo (v) :: Konsonanto (kk2) :: Vokalo (v2) :: restantaj ->
             dividiAk false (Konsonanto(kk2) :: Vokalo(v2) :: restantaj)
             |> Result.map (fun restantajSilaboj -> System.String.Concat([ k1; v ]) :: restantajSilaboj)
-         | Konsonanto(k1) :: Vokalo(v) :: Vokalo(v2) :: restantaj ->
+         | Konsonanto (k1) :: Vokalo (v) :: Vokalo (v2) :: restantaj ->
             dividiAk false (Vokalo(v2) :: restantaj)
             |> Result.map (fun restantajSilaboj -> System.String.Concat([ k1; v ]) :: restantajSilaboj)
-         | [ Konsonanto(k1); Vokalo(v) ] -> [ System.String.Concat([ k1; v ]) ] |> Ok
+         | [ Konsonanto (k1); Vokalo (v) ] -> [ System.String.Concat([ k1; v ]) ] |> Ok
          // VC
-         | Vokalo(v) :: Konsonanto(kf) :: Konsonanto(kk2) :: restantaj ->
+         | Vokalo (v) :: Konsonanto (kf) :: Konsonanto (kk2) :: restantaj ->
             dividiAk false (Konsonanto(kk2) :: restantaj)
             |> Result.map (fun restantajSilaboj -> System.String.Concat([ v; kf ]) :: restantajSilaboj)
-         | [ Vokalo(v); Konsonanto(kf) ] -> [ System.String.Concat([ v; kf ]) ] |> Ok
+         | [ Vokalo (v); Konsonanto (kf) ] -> [ System.String.Concat([ v; kf ]) ] |> Ok
          // V
-         | Vokalo(v) :: Konsonanto(kf) :: Vokalo(v2) :: restantaj ->
+         | Vokalo (v) :: Konsonanto (kf) :: Vokalo (v2) :: restantaj ->
             dividiAk false (Konsonanto(kf) :: Vokalo(v2) :: restantaj)
             |> Result.map (fun restantajSilaboj -> v.ToString() :: restantajSilaboj)
-         | Vokalo(v) :: Vokalo(v2) :: restantaj ->
+         | Vokalo (v) :: Vokalo (v2) :: restantaj ->
             dividiAk false (Vokalo(v2) :: restantaj)
             |> Result.map (fun restantajSilaboj -> v.ToString() :: restantajSilaboj)
-         | [ Vokalo(v) ] -> [ v.ToString() ] |> Ok
+         | [ Vokalo (v) ] -> [ v.ToString() ] |> Ok
          // Eraro
          | [] -> Error "La vorto estas vida"
          | _ -> Error(sprintf "Ne povas dividi %A" literoj)
@@ -527,13 +532,13 @@ module Malinflektado =
 
    let ĉuPredikataVorto (vorto: MalinflektitaVorto) =
       match vorto.InflekcioŜtupoj.Head with
-      | Bazo(vorttipo, _, _) -> Set.contains vorttipo predikatajBazajTipoj
-      | Nebazo(_, inflekcio, _) -> Set.contains inflekcio predikatajNebazajInflekcioj
+      | Bazo (vorttipo, _, _) -> Set.contains vorttipo predikatajBazajTipoj
+      | Nebazo (_, inflekcio, _) -> Set.contains inflekcio predikatajNebazajInflekcioj
 
    let ĉuArgumentaVorto (vorto: MalinflektitaVorto) =
       match vorto.InflekcioŜtupoj.Head with
-      | Bazo(vorttipo, _, _) -> Set.contains vorttipo argumentajBazajTipoj
-      | Nebazo(_, inflekcio, _) -> Set.contains inflekcio argumentajNebazajInflekcioj
+      | Bazo (vorttipo, _, _) -> Set.contains vorttipo argumentajBazajTipoj
+      | Nebazo (_, inflekcio, _) -> Set.contains inflekcio argumentajNebazajInflekcioj
 
    let ĉiujInflekciojDe vorto =
       ĉuInfinitivo vorto
@@ -542,9 +547,9 @@ module Malinflektado =
             finaĵoj
             |> List.map (fun finaĵo ->
                   match finaĵo with
-                  | InfinitivoFinaĵo(sufikso, inflekcio) -> (inflekcio, vorto + sufikso)
-                  | DifinitoFinaĵo(sufikso, inflekcio) -> (inflekcio, (infinitivoAlDifinito vorto) + sufikso)
-                  | DUPFinaĵo(sufikso, inflekcio, _, _) ->
+                  | InfinitivoFinaĵo (sufikso, inflekcio) -> (inflekcio, vorto + sufikso)
+                  | DifinitoFinaĵo (sufikso, inflekcio) -> (inflekcio, (infinitivoAlDifinito vorto) + sufikso)
+                  | DUPFinaĵo (sufikso, inflekcio, _, _) ->
                      let difinito = infinitivoAlDifinito vorto
                      (inflekcio,
                       (sprintf "%s, %s, %s" (difinito + sufikso) (difinito + unuNombroFinaĵo + sufikso)
@@ -554,8 +559,42 @@ module Malinflektado =
    let valencoDe vorto =
       ĉuInfinitivo vorto
       |> Option.map (fun vorttipo ->
-         match vorttipo with
-         | NetransitivaVerbo | OblikaNetransitivaVerbo | NedirektaNetransitivaVerbo -> 1
-         | TransitivaVerbo | NedirektaTransitivaVerbo | OblikaTransitivaVerbo -> 2
-         | DutransitivaVerbo -> 3
-         | _ -> 0)
+            match vorttipo with
+            | NetransitivaVerbo
+            | OblikaNetransitivaVerbo
+            | NedirektaNetransitivaVerbo -> 1
+            | TransitivaVerbo
+            | NedirektaTransitivaVerbo
+            | OblikaTransitivaVerbo -> 2
+            | DutransitivaVerbo -> 3
+            | _ -> 0)
+
+   let vortaraTipoDe vorto =
+      match malinflekti vorto with
+      | Ok (malinflektaŜtupo) ->
+         match malinflektaŜtupo with
+         | Bazo (vorttipo, _, _) ->
+            match vorttipo with
+            | NombrigeblaKlaso
+            | NenombrigeblaKlaso -> "Class"
+            | MalplenaVerbo
+            | NetransitivaVerbo
+            | TransitivaVerbo
+            | NedirektaTransitivaVerbo
+            | DutransitivaVerbo
+            | OblikaTransitivaVerbo
+            | OblikaNetransitivaVerbo
+            | NedirektaNetransitivaVerbo -> "Verb"
+            | Pridiranto -> "Descriptor"
+            | AntaŭNenombrigeblaEco
+            | MalantaŭNenombrieblaEco
+            | AntaŭNombrigeblaEco
+            | MalantaŭNombrigeblaEco -> "Associative class"
+            | AntaŭRekordo | MalantaŭRekordo -> "Record"
+            | MalantaŭModifanto
+            | AntaŭModifanto -> "Modifier"
+            | Lokokupilo -> "Placeholder"
+            | FremdaVorto -> "Foreign word"
+            | Makro -> "Macro"
+         | Nebazo (_) -> failwith "Nevalida lasta malinflekta ŝtupo"
+      | Error (eraro) -> failwith eraro

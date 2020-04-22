@@ -26,9 +26,8 @@ namespace KrestiaVortaro {
 
       public IImmutableDictionary<string, IOrderedEnumerable<VortoKunSignifo>> TipaVortlisto =>
          Indekso.Values.Select(v => new VortoKunSignifo(v.PlenaVorto, v.Signifo)).GroupBy(v =>
-               (Malinflektado.tuteMalinflekti(v.Vorto).ResultValue.InflekcioŜtupoj.Last() as
-                  Sintaksanalizilo.MalinflektaŜtupo.Bazo)!.Item1.ToString())
-            .ToImmutableDictionary(g => g.Key, g => g.OrderBy(v => v.Vorto));
+               Malinflektado.vortaraTipoDe(v.Vorto))
+            .ToImmutableSortedDictionary(g => g.Key, g => g.OrderBy(v => v.Vorto));
 
       public VortoRespondo? Vorto(string vorto) {
          var respondo = Indekso.GetValueOrDefault(vorto, null);
