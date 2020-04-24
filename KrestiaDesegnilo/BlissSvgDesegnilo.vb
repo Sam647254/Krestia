@@ -42,6 +42,11 @@ Public Class BlissSvgDesegnilo
          {"h", function(aktualaLarĝeco, aktualaAlteco) 
             Return String.Format("h {0} m -{0} {1} h {0}", aktualaLarĝeco, aktualaAlteco)
          End function},
+         {"tr", function(aktualaLarĝeco, aktualaAlteco) 
+            Return _
+               String.Format("h {0} m -{1} 0 l {2} {3} l {2} -{3}", aktualaLarĝeco, aktualaLarĝeco*2\3, aktualaLarĝeco\6,
+                             aktualaAlteco)
+         End function},
          {"kr", function(aktualaLarĝeco, aktualaAlteco)
             Return _
                String.Format("m {0} 0 l -{1} {2} l -{1} -{2} h {3} v {2}", aktualaLarĝeco\2, aktualaLarĝeco\4,
