@@ -180,6 +180,7 @@
             </e>
           </e>
         </e>
+        <e p="TimeranTestoj.cs" t="Include" />
       </e>
       <e p="KrestiaVortilo" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />

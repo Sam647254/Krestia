@@ -144,6 +144,34 @@ namespace KrestiaVortaro {
          }
       }
 
+      public static IEnumerable<string> KonvertiEnTimeranTxt(JsonVortaro jsonVortaro, IEnumerable<string> eniro) {
+         var vortaro = Vortaro.KreiVortaronDe(jsonVortaro);
+         foreach (var vico in eniro) {
+            var vortoj = vico.Split(' ').Select(vorto => {
+               var malinflektita = Malinflektado.tuteMalinflekti(vorto);
+               if (malinflektita.IsError) {
+                  throw new InvalidOperationException(malinflektita.ErrorValue);
+               }
+
+               var gramatikajLiteroj = malinflektita.ResultValue.InflekcioŜtupoj.Select(ŝtupo => {
+                  var literoNomo = ŝtupo.IsBazo
+                     ? ((Sintaksanalizilo.MalinflektaŜtupo.Bazo) ŝtupo).Item1.ToString()
+                     : ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝtupo).Item2.ToString();
+                  return char.ToLowerInvariant(literoNomo[0]) + literoNomo.Substring(1);
+               }).Reverse().ToImmutableList();
+               if (gramatikajLiteroj.First() == "nombrigeblaKlaso" ||
+                   gramatikajLiteroj.First() == "nenombrigeblaKlaso") {
+                  gramatikajLiteroj = gramatikajLiteroj.RemoveAt(0);
+               }
+               var vortoEnVortaro = vortaro.Indekso[malinflektita.ResultValue.BazaVorto]!;
+               var partoj = new List<string> {vortoEnVortaro.Blissimbolo?[0].ToString() ?? vortoEnVortaro.BazaVorto};
+               partoj.AddRange(gramatikajLiteroj);
+               return partoj;
+            }).SelectMany(v => v);
+            yield return string.Join(' ', vortoj);
+         }
+      }
+
       private static int KontroliVortonKajValencon(ICollection<string> ekzistantajVortoj, string novaVorto,
          IList<string> radikoj) {
          var malinflektitaVorto = Malinflektado.malinflekti(novaVorto);
