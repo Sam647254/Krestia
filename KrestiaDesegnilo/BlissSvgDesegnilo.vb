@@ -151,7 +151,7 @@ Public Class BlissSvgDesegnilo
          End function},
          {"havaĵo", Function()
             X += DuonaLarĝeco
-            Return String.Format("m 0 {0} h {1} m 0 -{1} v {2}", DufojaAlteco\2, DuonaLarĝeco, DufojaAlteco)
+            Return String.Format("m 0 {0} h {1} m 0 -{0} v {2}", DufojaAlteco\2, DuonaLarĝeco, DufojaAlteco)
          End Function},
          {"progresivo", Function()
             X += DuonaLarĝeco + Spaco + Spaco
