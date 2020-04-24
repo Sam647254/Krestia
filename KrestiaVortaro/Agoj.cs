@@ -144,7 +144,8 @@ namespace KrestiaVortaro {
          }
       }
 
-      public static IEnumerable<string> KonvertiEnTimeranTxt(JsonVortaro jsonVortaro, IEnumerable<string> eniro) {
+      public static IEnumerable<string> KonvertiEnTimeranTxt(JsonVortaro jsonVortaro, IEnumerable<string> eniro,
+         bool uziBliss = true) {
          var vortaro = Vortaro.KreiVortaronDe(jsonVortaro);
          foreach (var vico in eniro) {
             var vortoj = vico.Split(' ').Select(vorto => {
@@ -163,8 +164,14 @@ namespace KrestiaVortaro {
                    gramatikajLiteroj.First() == "nenombrigeblaKlaso") {
                   gramatikajLiteroj = gramatikajLiteroj.RemoveAt(0);
                }
-               var vortoEnVortaro = vortaro.Indekso[malinflektita.ResultValue.BazaVorto]!;
-               var partoj = new List<string> {vortoEnVortaro.Blissimbolo?[0].ToString() ?? vortoEnVortaro.BazaVorto};
+
+               var vortoEnVortaro = vortaro.BazoIndekso[
+                  Malinflektado.normaligiEnVortaranFormon(malinflektita.ResultValue.BazaVorto)];
+               var partoj = new List<string> {
+                  uziBliss && vortoEnVortaro.Blissimbolo != null
+                     ? vortoEnVortaro.Blissimbolo[0].ToString()
+                     : string.Join(' ', Malinflektado.dividi(vortoEnVortaro.BazaVorto, false).ResultValue),
+               };
                partoj.AddRange(gramatikajLiteroj);
                return partoj;
             }).SelectMany(v => v);

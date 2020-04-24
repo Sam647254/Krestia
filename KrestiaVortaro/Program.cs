@@ -58,6 +58,18 @@ namespace KrestiaVortaro {
                   await vortaro.Konservi(args[2]);
                   break;
                }
+               case "bliss": {
+                  var vortaro = await JsonVortaro.Malfermi(args[1]);
+                  var vicoj = Agoj.KonvertiEnTimeranTxt(vortaro, File.ReadLines(args[2]));
+                  await File.WriteAllLinesAsync(args[3], vicoj);
+                  break;
+               }
+               case "timeran": {
+                  var vortaro = await JsonVortaro.Malfermi(args[1]);
+                  var vicoj = Agoj.KonvertiEnTimeranTxt(vortaro, File.ReadLines(args[2]), false);
+                  await File.WriteAllLinesAsync(args[3], vicoj);
+                  break;
+               }
             }
          }
          catch (InvalidOperationException e) {

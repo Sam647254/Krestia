@@ -18,7 +18,7 @@ namespace KrestiaVortaro {
       public ImmutableDictionary<string, Vorto> Indekso { get; private set; }
       public ImmutableDictionary<int, Vorto> IdIndekso { get; private set; }
       public ImmutableDictionary<string, Kategorio>? Kategorioj { get; private set; }
-      private ImmutableDictionary<string, Vorto> BazoIndekso { get; set; }
+      internal ImmutableDictionary<string, Vorto> BazoIndekso { get; set; }
 
       public IOrderedEnumerable<VortoKunSignifo> Vortlisto =>
          Indekso.Values.Select(vorto => new VortoKunSignifo(vorto.PlenaVorto, vorto.Signifo))

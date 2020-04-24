@@ -1,5 +1,6 @@
 ﻿namespace KrestiaVortilo
 
+open System
 open Vorttipo
 open Sintaksanalizilo
 
@@ -394,6 +395,20 @@ module Malinflektado =
             else None)
       |> Option.defaultValue infinitivo
       |> bazoDe
+      
+   and normaligiEnVortaranFormon (infinitivo: string) =
+      if Char.IsUpper(infinitivo.[0])
+      then infinitivo
+      else
+         [ "gru", "gro"
+           "dru", "dro"
+           "r", "l" ]
+         |> List.tryPick (fun (alterativa, vortara) ->
+            if infinitivo.EndsWith(alterativa)
+            then infinitivo.Substring(0, infinitivo.Length - alterativa.Length) + vortara |> Some
+            else None)
+         |> Option.defaultValue infinitivo
+         |> bazoDe
 
    and ĉuMalplenigita (malplenigita: Vorttipo) (originala: string) =
       ĉuInfinitivo originala

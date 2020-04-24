@@ -40,6 +40,7 @@ Module Program
                End Try
             End If
          Next
+         bliss.Vico()
       Next
       bliss.Fini()
    End Sub
