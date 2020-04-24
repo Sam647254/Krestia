@@ -4,12 +4,15 @@ Imports Amazon.S3
 
 Public Class BlissSvgDesegnilo
    Inherits Desegnilo
-   
+
    Private Property XMax As Integer
 
    Protected Overrides Property LiteroDesegniloj As Dictionary(Of String,LiteroDesegnilo) =
       New Dictionary(Of String, LiteroDesegnilo) From {
          {"p", AddressOf P},
+         {"b", Function(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
+            Return String.Format("m 0 {0} v -{0} h {1} m -{2} 0 v {0}", aktualaAlteco, aktualaLarĝeco, aktualaLarĝeco\2)
+         End Function},
          {"m", AddressOf M},
          {"v", Function(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
             Return _
@@ -22,6 +25,10 @@ Public Class BlissSvgDesegnilo
          {"n", Function(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
             Return String.Format("m 0 {0} h {1} m -{2} -{0} v {0}", aktualaAlteco, aktualaLarĝeco, aktualaLarĝeco\2)
          End Function},
+         {"s", function(aktualaLarĝeco, aktualaAlteco) 
+            Return _
+               String.Format("h {0} m -{0} {1} l {2} -{1} l {2} {1}", aktualaLarĝeco, aktualaAlteco, aktualaLarĝeco\2)
+         End function},
          {"l", Function(aktualaLarĝeco, aktualaAlteco)
             Return String.Format("h {0} v {1} h -{0} z", aktualaLarĝeco, aktualaAlteco)
          End function},
@@ -32,6 +39,19 @@ Public Class BlissSvgDesegnilo
             Return String.Format("h {0} v {1} m -{0} 0 l {0} -{1}", aktualaLarĝeco, aktualaAlteco)
          End function},
          {"k", Addressof K},
+         {"h", function(aktualaLarĝeco, aktualaAlteco) 
+            Return String.Format("h {0} m -{0} {1} h {0}", aktualaLarĝeco, aktualaAlteco)
+         End function},
+         {"kr", function(aktualaLarĝeco, aktualaAlteco)
+            Return _
+               String.Format("m {0} 0 l -{1} {2} l -{1} -{2} h {3} v {2}", aktualaLarĝeco\2, aktualaLarĝeco\4,
+                             aktualaAlteco, aktualaLarĝeco)
+         End function},
+         {"gr", function(aktualaLarĝeco, aktualaAlteco)
+            Return String.Format("m {0} 0 l -{1} {2} l -{1} -{2} h {3} v {2} m -{4} -{2} v {2}",
+                                 aktualaLarĝeco\2, aktualaLarĝeco\4,
+                                 aktualaAlteco, aktualaLarĝeco, aktualaLarĝeco\3)
+         End function},
          {"i", AddressOf P},
          {"e", Function(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
             Return String.Format("v {0} m 0 -{1} h {2}", aktualaAlteco, aktualaAlteco\2, aktualaLarĝeco)
@@ -42,7 +62,7 @@ Public Class BlissSvgDesegnilo
             Return String.Format("m 0 {1} h {2} m 0 -{1} v {0}", aktualaAlteco, aktualaAlteco\2, aktualaLarĝeco)
          End Function},
          {"ɒ", Function(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
-            Return String.Format("m 0 {0} h {1} v {0}", aktualaAlteco, aktualaLarĝeco)
+            Return String.Format("m 0 {0} h {1} v -{0}", aktualaAlteco, aktualaLarĝeco)
          End Function},
          {"x", Function(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
             Return String.Format("m 0 {0} l {1} -{0} l {1} {0}", aktualaAlteco, aktualaLarĝeco\2)
@@ -219,15 +239,16 @@ Public Class BlissSvgDesegnilo
       _xmlDokumento = New XDocument()
       Y = 130
    End Sub
-   
+
    Public Sub Vico()
       XMax = Math.Max(XMax, X)
       X = 10
-      Y += DufojaAlteco + Spaco * 4
+      Y += DufojaAlteco + Spaco*4
    End Sub
 
    Public Overrides Sub Fini()
-      Dim svg = <svg width=<%= Math.Max(XMax, X) %> height=<%= Y + DufojaAlteco + 2*Spaceto %> stroke-linecap="round"></svg>
+      Dim svg =
+             <svg width=<%= Math.Max(XMax, X) %> height=<%= Y + DufojaAlteco + 2*Spaceto %> stroke-linecap="round"></svg>
       svg.Add(
          <style type="text/css">
          .brush0 { fill: rgb(255,255,255); }
@@ -254,7 +275,7 @@ Public Class BlissSvgDesegnilo
    Public Sub Desegni(id As Integer)
       Dim simboloLarĝeco As Integer
       Dim bliss = TroviBlissimbolon(id, simboloLarĝeco)
-      bliss.Add(New XAttribute("transform", $"translate({X}, {Y-130})"))
+      bliss.Add(New XAttribute("transform", $"translate({X}, {Y - 130})"))
       X += simboloLarĝeco + Spaco
       _blissimboloj.Add(bliss)
    End Sub
