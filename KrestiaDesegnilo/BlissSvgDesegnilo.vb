@@ -236,7 +236,7 @@ Public Class BlissSvgDesegnilo
       Return String.Format("m {0} 0 l -{0} {1} l {0} {1}", DuonaLarĝeco, DufojaAlteco\2)
    End Function
 
-   Public Sub New(elirejo As String, radio As Integer, Optional spaco As Integer = 20)
+   Public Sub New(elirejo As String, radio As Integer, Optional spaco As Integer = 30)
       MyBase.New(elirejo, DufojaAlteco - spaco\2, Larĝeco, radio, radio, spaco, True)
       _elirejo = elirejo
       _blissimboloj = New List(Of XElement)
