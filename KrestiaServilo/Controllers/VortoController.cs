@@ -43,7 +43,7 @@ namespace KrestiaServilo.Controllers {
 
       [HttpGet("vortlisto/kategorioj")]
       public ActionResult KategoriaVortlisto() {
-         return Ok(_vortaroService.Instanco.KategoriaVortlisto);
+         return Ok(_vortaroService.Instanco.KategoriaVortlisto.Value);
       }
 
       [HttpGet("bliss/{id}")]

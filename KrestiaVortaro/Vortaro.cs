@@ -29,8 +29,19 @@ namespace KrestiaVortaro {
                Malinflektado.vortaraTipoDe(v.Vorto))
             .ToImmutableSortedDictionary(g => g.Key, g => g.OrderBy(v => v.Vorto));
 
-      public IImmutableDictionary<string, KategorioRespondo> KategoriaVortlisto =>
-         Kategorioj.Select(p => (p.Key, p.Value.Respondigi())).ToImmutableSortedDictionary(p => p.Key, p => p.Item2);
+      public Lazy<IImmutableDictionary<string, KategorioRespondo>> KategoriaVortlisto =>
+         new Lazy<IImmutableDictionary<string, KategorioRespondo>>(
+            () => {
+               var kategorioj = Kategorioj.Select(p => (p.Key, p.Value.Respondigi()))
+                  .ToImmutableSortedDictionary(p => p.Key, p => p.Item2);
+               var ĉiujKategorigitajVortoj =
+                  kategorioj.Values.SelectMany(k => k.Vortoj).Select(v => v.Vorto).ToImmutableHashSet();
+               var ĉiujVortoj = Indekso.Values.Select(v => v.PlenaVorto).ToImmutableHashSet();
+               var nekategorigitajVortoj = ĉiujVortoj.Except(ĉiujKategorigitajVortoj);
+               return kategorioj.Add("Uncategorized",
+                  new KategorioRespondo(nekategorigitajVortoj.Select(v => new VortoKunSignifo(v, Indekso[v].Signifo)),
+                     new string[0], new string[0]));
+            });
 
       public VortoRespondo? Vorto(string vorto) {
          var respondo = Indekso.GetValueOrDefault(vorto, null);
