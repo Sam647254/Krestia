@@ -3,7 +3,7 @@
 Public Class RektangulaSvgDesegnilo
    Inherits Desegnilo
 
-   Private Overrides ReadOnly Property LiteroDesegniloj As Dictionary(Of String, LiteroDesegnilo) =
+   Protected Overrides Property LiteroDesegniloj As Dictionary(Of String, LiteroDesegnilo) =
                        New Dictionary(Of String, LiteroDesegnilo) From {
       {"m", AddressOf M},
       {"p", AddressOf P},
@@ -40,7 +40,7 @@ Public Class RektangulaSvgDesegnilo
       {"w", AddressOf W}
       }
 
-   Private Overrides ReadOnly Property FinaĵoDesegniloj As Dictionary(Of String, FinaĵoDesegnilo) =
+   Protected Overrides Property FinaĵoDesegniloj As Dictionary(Of String, FinaĵoDesegnilo) =
                        New Dictionary(Of String, FinaĵoDesegnilo) From {
       {"[", AddressOf NomoKomenco},
       {"]", AddressOf NomoFino},
@@ -98,10 +98,6 @@ Public Class RektangulaSvgDesegnilo
       {"aktualaOkazo", AddressOf AktualaOkazo},
       {"finitaOkazo", AddressOf FinitaOkazo}
       }
-
-   Private Delegate Function LiteroDesegnilo(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
-
-   Private Delegate Function FinaĵoDesegnilo() As String
    
    Private Function NomoKomenco() As String
       X += DuonaLarĝeco + Spaceto

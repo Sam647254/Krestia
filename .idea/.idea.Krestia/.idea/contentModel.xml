@@ -38,7 +38,7 @@
       </e>
       <e p="KrestiaDesegnilo" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
-        <e p="BlissSvgBesegnilo.vb" t="Include" />
+        <e p="BlissSvgDesegnilo.vb" t="Include" />
         <e p="Desegnilo.vb" t="Include" />
         <e p="My Project" t="Include">
           <e p="launchSettings.json" t="Include" />

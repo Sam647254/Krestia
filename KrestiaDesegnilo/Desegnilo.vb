@@ -15,8 +15,8 @@ Public MustInherit Class Desegnilo
    Protected ReadOnly Dx As Integer
    Protected ReadOnly Dy As Integer
    Protected ReadOnly Spaco As Integer
+   Protected ReadOnly XmlSkribilo As XmlWriter
    
-   Private ReadOnly _xmlSkribilo As XmlWriter
    Private ReadOnly _vojoj As List(Of String) = New List(Of String)
    
    Protected ReadOnly Property Spaceto As Integer
@@ -27,7 +27,7 @@ Public MustInherit Class Desegnilo
    
    Public Sub New(elirejo As String, alteco As Integer, larĝeco As Integer, dx As Integer, dy As Integer,
                   Optional spaco As Integer = 8)
-      _xmlSkribilo = XmlWriter.Create(elirejo)
+      XmlSkribilo = XmlWriter.Create(elirejo)
       Me.Alteco = alteco\2
       Me.Larĝeco = larĝeco + Spaceto
       Me.Dx = dx
@@ -100,21 +100,21 @@ Public MustInherit Class Desegnilo
       AldoniVojon(FinaĵoDesegniloj(finaĵo)(), antaŭX, antaŭY)
    End Sub
    
-   Public Sub Fini()
-      _xmlSkribilo.WriteStartDocument()
-      _xmlSkribilo.WriteStartElement("svg", "http://www.w3.org/2000/svg")
-      _xmlSkribilo.WriteAttributeString("width", Math.Max(X + Spaco, DokumentoLarĝeco))
-      _xmlSkribilo.WriteAttributeString("height", DufojaAlteco + Y + 2*Spaco)
+   Public Overridable Sub Fini()
+      XmlSkribilo.WriteStartDocument()
+      XmlSkribilo.WriteStartElement("svg", "http://www.w3.org/2000/svg")
+      XmlSkribilo.WriteAttributeString("width", Math.Max(X + Spaco, DokumentoLarĝeco))
+      XmlSkribilo.WriteAttributeString("height", DufojaAlteco + Y + 2*Spaco)
 
       For Each vojo In _vojoj
-         _xmlSkribilo.WriteStartElement("path")
-         _xmlSkribilo.WriteAttributeString("d", vojo)
-         _xmlSkribilo.WriteEndElement()
+         XmlSkribilo.WriteStartElement("path")
+         XmlSkribilo.WriteAttributeString("d", vojo)
+         XmlSkribilo.WriteEndElement()
       Next
 
-      _xmlSkribilo.WriteEndElement()
-      _xmlSkribilo.WriteEndDocument()
-      _xmlSkribilo.Close()
+      XmlSkribilo.WriteEndElement()
+      XmlSkribilo.WriteEndDocument()
+      XmlSkribilo.Close()
    End Sub
    
    Private Shared Function ĈuVokalo(litero As Char) As Boolean
