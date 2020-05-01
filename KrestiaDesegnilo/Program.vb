@@ -2,7 +2,7 @@
 Imports System.IO
 
 Module Program
-   Private Sub Desegni(svg As SvgDesegnilo, partoj As String())
+   Private Sub Desegni(svg As RektangulaSvgDesegnilo, partoj As String())
       For Each silabo In partoj
          Try
             svg.DesegniFinaĵon(silabo)
@@ -22,7 +22,7 @@ Module Program
    End Sub
 
    Private Sub Dosiero(eliro As String, eniro As String, dx As Integer, dy As Integer)
-      Dim svg = New SvgDesegnilo(eliro, 100, 40, dx, dy)
+      Dim svg = New RektangulaSvgDesegnilo(eliro, 100, 40, dx, dy)
       For Each line In File.ReadLines(eniro)
          Dim silaboj = line.Split(" "c)
          For Each silabo In silaboj
@@ -38,7 +38,7 @@ Module Program
    End Sub
 
    Private Sub Literoj(eliro As String)
-      Dim svg = New SvgDesegnilo(eliro, alteco:=100, larĝeco:=40, dx:=4, dy:=10)
+      Dim svg = New RektangulaSvgDesegnilo(eliro, alteco:=100, larĝeco:=40, dx:=4, dy:=10)
       Dim silaboj = New String() {
            "pa", "ba", "ma", "vico",
            "va", "vico",

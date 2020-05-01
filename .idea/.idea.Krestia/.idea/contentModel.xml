@@ -38,6 +38,8 @@
       </e>
       <e p="KrestiaDesegnilo" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
+        <e p="BlissSvgBesegnilo.vb" t="Include" />
+        <e p="Desegnilo.vb" t="Include" />
         <e p="My Project" t="Include">
           <e p="launchSettings.json" t="Include" />
         </e>
@@ -49,7 +51,7 @@
           </e>
         </e>
         <e p="Program.vb" t="Include" />
-        <e p="SVGDesegnilo.vb" t="Include" />
+        <e p="RektangulaSvgDesegnilo.vb" t="Include" />
         <e p="TimeranDesegnilo.vbproj" t="IncludeRecursive" />
       </e>
       <e p="KrestiaServilo" t="IncludeRecursive">
