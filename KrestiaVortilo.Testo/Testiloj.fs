@@ -113,3 +113,11 @@ module Testiloj =
             Assert.AreEqual(prava, rezulto.Frazoj.Item 0))
       |> Result.mapError Assert.Fail
       |> ignore
+      
+   let kontroliPlurajnFrazojn eniro (pravaj: Predikato list) (restantaj: Argumento list) =
+      analizi eniro
+      |> Result.map (fun rezulto ->
+            Assert.AreEqual(pravaj, rezulto.Frazoj)
+            Assert.AreEqual(restantaj, rezulto.RestantajVortoj))
+      |> Result.mapError Assert.Fail
+      |> ignore

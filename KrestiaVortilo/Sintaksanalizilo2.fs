@@ -9,6 +9,7 @@ module Sintaksanalizilo2 =
    type Argumento = Argumento of MalinflektitaVorto
 
    type Predikato =
+      | Predikato0 of predikatoVorto: Verbo
       | Predikato1 of predikataVorto: Verbo * argumento1: Argumento
       | Predikato2 of predikataVorto: Verbo * argumento1: Argumento * argumento2: Argumento
       | Predikato3 of predikataVorto: Verbo * argumento1: Argumento * argumento2: Argumento * argumento3: Argumento
@@ -19,13 +20,15 @@ module Sintaksanalizilo2 =
 
    type AnaziloRezulto =
       { Frazoj: Predikato list
-        RestantajVortoj: MalinflektitaVorto list }
+        RestantajVortoj: Argumento list }
 
    let kreiSintaksanalizilon =
       { Argumentoj = Deque.empty
         Verboj = Deque.empty }
-      
-   let kreiRezulton = { Frazoj = []; RestantajVortoj = [] }
+
+   let kreiRezulton =
+      { Frazoj = []
+        RestantajVortoj = [] }
 
    let kategorigi sintaksanalizilo vortoj =
       vortoj
@@ -59,22 +62,23 @@ module Sintaksanalizilo2 =
                      |> List.rev
                      |> (fun argumentoj ->
                         match valenco with
+                        | 0 -> Predikato0(sekvaVerbo) |> Ok
                         | 1 -> Predikato1(sekvaVerbo, argumentoj.Item 0) |> Ok
                         | 2 -> Predikato2(sekvaVerbo, argumentoj.Item 0, argumentoj.Item 1) |> Ok
                         | 3 -> Predikato3(sekvaVerbo, argumentoj.Item 0, argumentoj.Item 1, argumentoj.Item 2) |> Ok
-                        | _ -> Error (sprintf "Ne povas legi frazon por %s de valencon %d" vorto.BazaVorto valenco))
+                        | _ -> Error(sprintf "Ne povas legi frazon por %s de valencon %d" vorto.BazaVorto valenco))
                      |> Result.bind (fun frazo ->
-                        { rezulto with Frazoj = frazo :: rezulto.Frazoj }
-                        |> legiFrazojn { Verboj = sintaksanalizilo.Verboj.Tail; Argumentoj = restantaj }))
+                           { rezulto with Frazoj = frazo :: rezulto.Frazoj }
+                           |> legiFrazojn
+                                 { Verboj = sintaksanalizilo.Verboj.Tail
+                                   Argumentoj = restantaj }))
             |> Option.defaultValue (Error(sprintf "Ne konas la valencon de %s" vorto.BazaVorto))
       | None ->
          { rezulto with
               RestantajVortoj =
                  Deque.toSeq sintaksanalizilo.Argumentoj
-                 |> Seq.map (fun argumento ->
-                       match argumento with
-                       | Argumento (vorto) -> vorto)
-                 |> List.ofSeq }
+                 |> List.ofSeq
+              Frazoj = List.rev rezulto.Frazoj }
          |> Ok
 
    let analizi (eniro: string): Result<AnaziloRezulto, string> =
@@ -83,5 +87,5 @@ module Sintaksanalizilo2 =
       |> tuteMalinflektiĈiujn
       |> Result.bind (kategorigi kreiSintaksanalizilon)
       |> Result.bind (fun sintaksanalizilo ->
-         let rezulto = kreiRezulton
-         legiFrazojn sintaksanalizilo rezulto)
+            let rezulto = kreiRezulton
+            legiFrazojn sintaksanalizilo rezulto)
