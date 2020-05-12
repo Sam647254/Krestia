@@ -46,4 +46,11 @@ type Sintaksanalizilo() =
          let hem = praveMalinflekti "hem"
          let prava = Predikato1(Verbo(belise), Argumento(hem))
          kontroliUnuFrazon "hem belise" prava
+         
+      let _ =
+         let belitri = praveMalinflekti "belitri"
+         let hes = praveMalinflekti "hes"
+         let lipa = praveMalinflekti "lipa"
+         let prava = Predikato2(Verbo(belitri), Argumento(hes), Argumento(lipa))
+         kontroliUnuFrazon "belitri hes lipa" prava
       ()

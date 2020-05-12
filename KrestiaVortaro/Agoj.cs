@@ -71,6 +71,9 @@ namespace KrestiaVortaro {
             catch (Exception e) {
                Console.WriteLine($"La vico {string.Join('|', partoj)} ne estas nevalida");
                Console.WriteLine(e.Message);
+               if (e is IndexOutOfRangeException) {
+                  throw new InvalidOperationException(null, e);
+               }
                throw;
             }
          });

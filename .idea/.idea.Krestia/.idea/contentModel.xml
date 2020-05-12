@@ -16,8 +16,8 @@
     <e p="C:\Users\Sam\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\NUnit3.TestAdapter.dll" t="Include" />
     <e p="C:\Users\Sam\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\NUnit3.TestAdapter.pdb" t="Include" />
     <e p="C:\Users\Sam\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Sam\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_Krestia.410427199.00" t="ExcludeRecursive" />
-    <e p="D:\Studies\Big projects\Krestia" t="IncludeFlat">
+    <e p="C:\Users\Sam\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_Krestia.-1393254369.00" t="ExcludeRecursive" />
+    <e p="D:\Studies\Projects\Krestia" t="IncludeFlat">
       <e p=".github\workflows\dotnetcore.yml" t="Include" />
       <e p=".gitignore" t="Include" />
       <e p="Krestia.sln" t="IncludeFlat" />

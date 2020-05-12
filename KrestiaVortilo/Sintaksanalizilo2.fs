@@ -59,6 +59,7 @@ module Sintaksanalizilo2 =
                      |> (fun argumentoj ->
                         match valenco with
                         | 1 -> Predikato1(sekvaVerbo, argumentoj.Item 0) |> Ok
+                        | 2 -> Predikato2(sekvaVerbo, argumentoj.Item 0, argumentoj.Item 1) |> Ok
                         | _ -> Error (sprintf "Ne povas legi frazon por %s de valencon %d" vorto.BazaVorto valenco))
                      |> Result.bind (fun frazo ->
                         { rezulto with Frazoj = frazo :: rezulto.Frazoj }
