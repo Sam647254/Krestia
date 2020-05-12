@@ -11,6 +11,7 @@ module Sintaksanalizilo2 =
    type Predikato =
       | Predikato1 of predikataVorto: Verbo * argumento1: Argumento
       | Predikato2 of predikataVorto: Verbo * argumento1: Argumento * argumento2: Argumento
+      | Predikato3 of predikataVorto: Verbo * argumento1: Argumento * argumento2: Argumento * argumento3: Argumento
 
    type Sintaksanalizilo =
       { Argumentoj: Deque<Argumento>
@@ -60,6 +61,7 @@ module Sintaksanalizilo2 =
                         match valenco with
                         | 1 -> Predikato1(sekvaVerbo, argumentoj.Item 0) |> Ok
                         | 2 -> Predikato2(sekvaVerbo, argumentoj.Item 0, argumentoj.Item 1) |> Ok
+                        | 3 -> Predikato3(sekvaVerbo, argumentoj.Item 0, argumentoj.Item 1, argumentoj.Item 2) |> Ok
                         | _ -> Error (sprintf "Ne povas legi frazon por %s de valencon %d" vorto.BazaVorto valenco))
                      |> Result.bind (fun frazo ->
                         { rezulto with Frazoj = frazo :: rezulto.Frazoj }
