@@ -41,11 +41,11 @@ type Sintaksanalizilo() =
          kontroliUnuFrazon "hem belise" prava
 
       let _ =
-         let belitri = praveMalinflekti "belitri"
+         let belitri = praveMalinflekti "belitre"
          let hes = praveMalinflekti "hes"
          let lipa = praveMalinflekti "lipa"
          let prava = Predikato2(Verbo(belitri), Argumento(hes), Argumento(lipa))
-         kontroliUnuFrazon "belitri hes lipa" prava
+         kontroliUnuFrazon "belitre hes lipa" prava
 
       let _ =
          let vortoj = [ "lipa"; "hem"; "het"; "belipro" ] |> List.map praveMalinflekti
@@ -70,3 +70,13 @@ type Sintaksanalizilo() =
             kontroliPlurajnFrazojn "lipa belisela het belitela hime belimio" prava []
          | _ -> Assert.Fail "Invalid state"
       ()
+
+   [<TestMethod>]
+   member _.RestantajVortoj() =
+      [ "lipa"; "het" ]
+      |> List.map (praveMalinflekti >> Argumento)
+      |> kontroliRestantajnVortojn "lipa het"
+      
+      kontroliRestantajnVortojn "hem belisela" []
+      kontroliRestantajnVortojn "hem belitre hes" []
+      kontroliRestantajnVortojn "belitri hes hem" [ "hem" |> praveMalinflekti |> Argumento ]

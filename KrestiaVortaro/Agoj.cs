@@ -210,7 +210,7 @@ namespace KrestiaVortaro {
             throw new InvalidOperationException($"{novaVorto} ne havas validajn malplenigitajn formojn");
          }
 
-         return Malinflektado.valencoDe(novaVorto).Value;
+         return Malinflektado.valencoDeInfinitivo(novaVorto).Value;
       }
 
       public static void Repari(JsonVortaro vortaro) {

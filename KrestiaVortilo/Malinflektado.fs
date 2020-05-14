@@ -570,8 +570,8 @@ module Malinflektado =
                       (sprintf "%s, %s, %s" (difinito + sufikso) (difinito + unuNombroFinaĵo + sufikso)
                           (difinito + pluraNombroFinaĵo + sufikso))))
             |> Map.ofList)
-
-   let valencoDe vorto =
+      
+   let valencoDeInfinitivo vorto =
       ĉuInfinitivo vorto
       |> Option.map (fun vorttipo ->
             match vorttipo with
@@ -583,6 +583,17 @@ module Malinflektado =
             | OblikaTransitivaVerbo -> 2
             | DutransitivaVerbo -> 3
             | _ -> 0)
+
+   let valencoDe vorto =
+      vorto.InflekcioŜtupoj
+      |> List.tryFind (fun ŝtupo ->
+         match ŝtupo with
+         | Nebazo(_, inflekcio, _) -> inflekcio = Imperativo
+         | _ -> false)
+      |> Option.bind (fun _ ->
+         valencoDeInfinitivo vorto.BazaVorto
+         |> Option.map (fun valenco -> valenco - 1))
+      |> Option.orElseWith (fun () -> valencoDeInfinitivo vorto.BazaVorto)
 
    let vortaraTipoDe vorto =
       match malinflekti vorto with

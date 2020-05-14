@@ -8,8 +8,6 @@ open KrestiaVortilo.Traktilaro
 open KrestiaVortilo.Vorttipo
 open KrestiaVortilo.Sintaksanalizilo2
 open KrestiaVortilo.Malinflektado
-open Microsoft.VisualStudio.TestTools.UnitTesting
-open Microsoft.VisualStudio.TestTools.UnitTesting
 
 module Testiloj =
    let kontroliFormon (vorto: string) (pravaTipo: Vorttipo) (pravaInflekcio: Inflekcio) =
@@ -119,5 +117,12 @@ module Testiloj =
       |> Result.map (fun rezulto ->
             Assert.AreEqual(pravaj, rezulto.Frazoj)
             Assert.AreEqual(restantaj, rezulto.RestantajVortoj))
+      |> Result.mapError Assert.Fail
+      |> ignore
+      
+   let kontroliRestantajnVortojn eniro (pravajRestantaj: Argumento list) =
+      analizi eniro
+      |> Result.map (fun rezulto ->
+            Assert.AreEqual(pravajRestantaj, rezulto.RestantajVortoj))
       |> Result.mapError Assert.Fail
       |> ignore

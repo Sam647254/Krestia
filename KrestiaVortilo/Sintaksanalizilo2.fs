@@ -48,7 +48,7 @@ module Sintaksanalizilo2 =
       | Some sekvaVerbo ->
          match sekvaVerbo with
          | Verbo (vorto) ->
-            valencoDe vorto.BazaVorto
+            valencoDe vorto
             |> Option.map (fun valenco ->
                   if sintaksanalizilo.Argumentoj.Length < valenco then
                      Error(sprintf "Ne sufiĉe da argumentoj por %s" vorto.BazaVorto)
