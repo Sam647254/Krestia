@@ -6,11 +6,7 @@
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d5c0d006_002D2fdd_002D4245_002D8b8c_002D4730ea25de23/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Pridirantoj" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;MSTest::51A4B98B-C381-4D26-8974-30BCDA505A2F::.NETCoreApp,Version=v3.0::KrestiaVortilo.Testo.Sintaksanalizilo.Pridirantoj&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
+	
 	
 	
 	</wpf:ResourceDictionary>

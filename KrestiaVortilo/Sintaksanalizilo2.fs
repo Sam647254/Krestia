@@ -5,7 +5,7 @@ open Malinflektado
 
 module Sintaksanalizilo2 =
    type Verbo = Verbo of MalinflektitaVorto
-   
+
    type Modifanto = Modifanto of MalinflektitaVorto
 
    type Argumento =
@@ -20,7 +20,8 @@ module Sintaksanalizilo2 =
 
    type Sintaksanalizilo =
       { Argumentoj: Deque<Argumento>
-        Verboj: Deque<Verbo> }
+        Verboj: Deque<Verbo>
+        AtendantaModifantoj: Modifanto list }
 
    type AnaziloRezulto =
       { Frazoj: Predikato list
@@ -28,7 +29,8 @@ module Sintaksanalizilo2 =
 
    let kreiSintaksanalizilon =
       { Argumentoj = Deque.empty
-        Verboj = Deque.empty }
+        Verboj = Deque.empty
+        AtendantaModifantoj = [] }
 
    let kreiRezulton =
       { Frazoj = []
@@ -42,14 +44,26 @@ module Sintaksanalizilo2 =
                if ĉuPredikataVorto sekvaVorto then
                   { sintaksanalizilo with Verboj = sintaksanalizilo.Verboj.Conj(Verbo sekvaVorto) } |> Ok
                elif ĉuArgumentaVorto sekvaVorto then
-                  { sintaksanalizilo with Argumentoj = sintaksanalizilo.Argumentoj.Conj(Argumento sekvaVorto) } |> Ok
+                  if List.isEmpty sintaksanalizilo.AtendantaModifantoj then
+                     { sintaksanalizilo with Argumentoj = sintaksanalizilo.Argumentoj.Conj(Argumento sekvaVorto) } |> Ok
+                  else
+                     { sintaksanalizilo with
+                          Argumentoj =
+                             sintaksanalizilo.Argumentoj.Conj
+                                (ModifitaArgumento(sekvaVorto, sintaksanalizilo.AtendantaModifantoj))
+                          AtendantaModifantoj = [] }
+                     |> Ok
                elif ĉuMalantaŭModifantaVorto sekvaVorto then
                   let lastaArgumento = sintaksanalizilo.Argumentoj.Last
+
                   let novaArgumento =
                      match lastaArgumento with
-                     | Argumento(a) -> ModifitaArgumento(a, [ Modifanto(sekvaVorto) ])
-                     | ModifitaArgumento(a, modifantoj) -> ModifitaArgumento(a, Modifanto(sekvaVorto) :: modifantoj)
+                     | Argumento (a) -> ModifitaArgumento(a, [ Modifanto(sekvaVorto) ])
+                     | ModifitaArgumento (a, modifantoj) -> ModifitaArgumento(a, Modifanto(sekvaVorto) :: modifantoj)
                   { sintaksanalizilo with Argumentoj = sintaksanalizilo.Argumentoj.Initial.Conj novaArgumento } |> Ok
+               elif ĉuAntaŭModifantaVorto sekvaVorto then
+                  { sintaksanalizilo with AtendantaModifantoj =
+                       Modifanto(sekvaVorto) :: sintaksanalizilo.AtendantaModifantoj } |> Ok
                else
                   Error(sprintf "Ne povas kategorigi %s" sekvaVorto.BazaVorto)
             | Error (_) -> sintaksanaliziloAk) (Ok sintaksanalizilo)
@@ -82,13 +96,12 @@ module Sintaksanalizilo2 =
                            { rezulto with Frazoj = frazo :: rezulto.Frazoj }
                            |> legiFrazojn
                                  { Verboj = sintaksanalizilo.Verboj.Tail
-                                   Argumentoj = restantaj }))
+                                   Argumentoj = restantaj
+                                   AtendantaModifantoj = sintaksanalizilo.AtendantaModifantoj }))
             |> Option.defaultValue (Error(sprintf "Ne konas la valencon de %s" vorto.BazaVorto))
       | None ->
          { rezulto with
-              RestantajVortoj =
-                 Deque.toSeq sintaksanalizilo.Argumentoj
-                 |> List.ofSeq
+              RestantajVortoj = Deque.toSeq sintaksanalizilo.Argumentoj |> List.ofSeq
               Frazoj = List.rev rezulto.Frazoj }
          |> Ok
 

@@ -87,7 +87,8 @@ module Testiloj =
                               let argumentoj = malinflektitaArgumentoj |> List.map Sintaksanalizilo2.Argumento
                               Assert.AreEqual
                                  ({ Verboj = Deque.ofList (verboj)
-                                    Argumentoj = Deque.ofList (argumentoj) }, sintaksanalizilo)))))
+                                    Argumentoj = Deque.ofList (argumentoj)
+                                    AtendantaModifantoj = [] }, sintaksanalizilo)))))
       |> Result.mapError Assert.Fail
       |> ignore
 

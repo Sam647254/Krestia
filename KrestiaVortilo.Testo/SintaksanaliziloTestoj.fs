@@ -86,9 +86,18 @@ type Sintaksanalizilo() =
 
    [<TestMethod>]
    member _.Pridirantoj() =
-      let vortoj =
-         [ "lipa"; "lidea" ] |> List.map praveMalinflekti
-      match vortoj with
-      | [ lipa; lidea ] ->
-         kontroliRestantajnVortojn "lipa lidea" [ ModifitaArgumento(lipa, [ Modifanto(lidea) ]) ]
-      | _ -> failwith "Invalid state"
+      let _ =
+         let vortoj = [ "lipa"; "lidea" ] |> List.map praveMalinflekti
+         match vortoj with
+         | [ lipa; lidea ] ->
+            kontroliRestantajnVortojn "lipa lidea" [ ModifitaArgumento(lipa, [ Modifanto(lidea) ]) ]
+         | _ -> failwith "Invalid state"
+
+      let _ =
+         let vortoj = [ "lidra"; "lipa" ] |> List.map praveMalinflekti
+         match vortoj with
+         | [ lidra; lipa ] ->
+            kontroliRestantajnVortojn "lidra lipa" [ ModifitaArgumento(lipa, [ Modifanto(lidra) ]) ]
+         | _ -> failwith "Invalid state"
+
+      ()
