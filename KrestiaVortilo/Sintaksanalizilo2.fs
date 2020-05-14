@@ -5,8 +5,12 @@ open Malinflektado
 
 module Sintaksanalizilo2 =
    type Verbo = Verbo of MalinflektitaVorto
+   
+   type Modifanto = Modifanto of MalinflektitaVorto
 
-   type Argumento = Argumento of MalinflektitaVorto
+   type Argumento =
+      | Argumento of MalinflektitaVorto
+      | ModifitaArgumento of MalinflektitaVorto * Modifanto list
 
    type Predikato =
       | Predikato0 of predikatoVorto: Verbo
@@ -39,6 +43,13 @@ module Sintaksanalizilo2 =
                   { sintaksanalizilo with Verboj = sintaksanalizilo.Verboj.Conj(Verbo sekvaVorto) } |> Ok
                elif ĉuArgumentaVorto sekvaVorto then
                   { sintaksanalizilo with Argumentoj = sintaksanalizilo.Argumentoj.Conj(Argumento sekvaVorto) } |> Ok
+               elif ĉuMalantaŭModifantaVorto sekvaVorto then
+                  let lastaArgumento = sintaksanalizilo.Argumentoj.Last
+                  let novaArgumento =
+                     match lastaArgumento with
+                     | Argumento(a) -> ModifitaArgumento(a, [ Modifanto(sekvaVorto) ])
+                     | ModifitaArgumento(a, modifantoj) -> ModifitaArgumento(a, Modifanto(sekvaVorto) :: modifantoj)
+                  { sintaksanalizilo with Argumentoj = sintaksanalizilo.Argumentoj.Initial.Conj novaArgumento } |> Ok
                else
                   Error(sprintf "Ne povas kategorigi %s" sekvaVorto.BazaVorto)
             | Error (_) -> sintaksanaliziloAk) (Ok sintaksanalizilo)

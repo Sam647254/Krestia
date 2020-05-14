@@ -76,7 +76,19 @@ type Sintaksanalizilo() =
       [ "lipa"; "het" ]
       |> List.map (praveMalinflekti >> Argumento)
       |> kontroliRestantajnVortojn "lipa het"
-      
+
       kontroliRestantajnVortojn "hem belisela" []
       kontroliRestantajnVortojn "hem belitre hes" []
-      kontroliRestantajnVortojn "belitri hes hem" [ "hem" |> praveMalinflekti |> Argumento ]
+      kontroliRestantajnVortojn "belitri hes hem"
+         [ "hem"
+           |> praveMalinflekti
+           |> Argumento ]
+
+   [<TestMethod>]
+   member _.Pridirantoj() =
+      let vortoj =
+         [ "lipa"; "lidea" ] |> List.map praveMalinflekti
+      match vortoj with
+      | [ lipa; lidea ] ->
+         kontroliRestantajnVortojn "lipa lidea" [ ModifitaArgumento(lipa, [ Modifanto(lidea) ]) ]
+      | _ -> failwith "Invalid state"

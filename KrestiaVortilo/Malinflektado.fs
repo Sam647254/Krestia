@@ -544,6 +544,9 @@ module Malinflektado =
 
    let argumentajNebazajInflekcioj =
       [ Difinito; UnuNombro; PluraNombro ] |> Set.ofList
+      
+   let malantaŭModifantajInflekcioj =
+      [ AtributivoEstiMalantaŭ ] |> Set.ofList
 
    let ĉuPredikataVorto (vorto: MalinflektitaVorto) =
       match vorto.InflekcioŜtupoj.Head with
@@ -554,6 +557,11 @@ module Malinflektado =
       match vorto.InflekcioŜtupoj.Head with
       | Bazo (vorttipo, _, _) -> Set.contains vorttipo argumentajBazajTipoj
       | Nebazo (_, inflekcio, _) -> Set.contains inflekcio argumentajNebazajInflekcioj
+      
+   let ĉuMalantaŭModifantaVorto (vorto: MalinflektitaVorto) =
+      match vorto.InflekcioŜtupoj.Head with
+      | Bazo (_, _, _) -> false
+      | Nebazo (_, inflekcio, _) -> Set.contains inflekcio malantaŭModifantajInflekcioj
 
    let ĉiujInflekciojDe vorto =
       ĉuInfinitivo vorto
