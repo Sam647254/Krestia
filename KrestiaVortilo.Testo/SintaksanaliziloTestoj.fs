@@ -101,3 +101,13 @@ type Sintaksanalizilo() =
          | _ -> failwith "Invalid state"
 
       ()
+   
+   [<TestMethod>]
+   member _.PlurvortajArgumentoj() =
+      let _ =
+         let vortoj = [ "lipa"; "het" ] |> List.map praveMalinflekti
+         match vortoj with
+         | [ lipa; het ] ->
+            kontroliRestantajnVortojn "lipa vol het" [ Vol(Argumento(het), Argumento(lipa)) ]
+         | _ -> failwith "Invalid state"
+      ()

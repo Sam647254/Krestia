@@ -9,8 +9,8 @@ module Sintaksanalizilo2 =
    type Modifanto = Modifanto of MalinflektitaVorto
 
    type Argumento =
-      | Argumento of MalinflektitaVorto
-      | ModifitaArgumento of MalinflektitaVorto * Modifanto list
+      | Argumento of MalinflektitaVorto * Modifanto list
+      | Vol of nukleo: Argumento * modifanto: Argumento
 
    type Predikato =
       | Predikato0 of predikatoVorto: Verbo
@@ -21,7 +21,9 @@ module Sintaksanalizilo2 =
    type Sintaksanalizilo =
       { Argumentoj: Deque<Argumento>
         Verboj: Deque<Verbo>
-        AtendantaModifantoj: Modifanto list }
+        AtendantaModifantoj: Modifanto list
+        AtendantaVol: Argumento option
+        LastaArgumento: Argumento option }
 
    type AnaziloRezulto =
       { Frazoj: Predikato list
@@ -30,11 +32,31 @@ module Sintaksanalizilo2 =
    let kreiSintaksanalizilon =
       { Argumentoj = Deque.empty
         Verboj = Deque.empty
-        AtendantaModifantoj = [] }
+        AtendantaModifantoj = []
+        AtendantaVol = None
+        LastaArgumento = None }
 
    let kreiRezulton =
       { Frazoj = []
         RestantajVortoj = [] }
+
+   let rec aldoniModifanton argumento modifanto =
+      match argumento with
+      | Argumento (a, modifantoj) -> Argumento(a, modifanto :: modifantoj)
+      | Vol (nukleo, subvorto) -> Vol(aldoniModifanton nukleo modifanto, subvorto)
+
+   let aldoniArgumenton sintaksanalizilo argumento =
+      match sintaksanalizilo.LastaArgumento with
+      | Some (lastaArgumento) ->
+         { sintaksanalizilo with
+              Argumentoj = sintaksanalizilo.Argumentoj.Conj(lastaArgumento)
+              LastaArgumento = Some argumento }
+      | None ->
+         { sintaksanalizilo with LastaArgumento = Some argumento }
+
+   let aldoniArgumentonKunAtendantajModifantoj sintaksanalizilo argumento =
+      let novaArgumento = Argumento(argumento, sintaksanalizilo.AtendantaModifantoj)
+      { aldoniArgumenton sintaksanalizilo novaArgumento with AtendantaModifantoj = [] }
 
    let kategorigi sintaksanalizilo vortoj =
       vortoj
@@ -44,26 +66,20 @@ module Sintaksanalizilo2 =
                if ĉuPredikataVorto sekvaVorto then
                   { sintaksanalizilo with Verboj = sintaksanalizilo.Verboj.Conj(Verbo sekvaVorto) } |> Ok
                elif ĉuArgumentaVorto sekvaVorto then
-                  if List.isEmpty sintaksanalizilo.AtendantaModifantoj then
-                     { sintaksanalizilo with Argumentoj = sintaksanalizilo.Argumentoj.Conj(Argumento sekvaVorto) } |> Ok
-                  else
-                     { sintaksanalizilo with
-                          Argumentoj =
-                             sintaksanalizilo.Argumentoj.Conj
-                                (ModifitaArgumento(sekvaVorto, sintaksanalizilo.AtendantaModifantoj))
-                          AtendantaModifantoj = [] }
-                     |> Ok
+                  if List.isEmpty sintaksanalizilo.AtendantaModifantoj
+                  then aldoniArgumenton sintaksanalizilo (Argumento(sekvaVorto, [])) |> Ok
+                  else aldoniArgumentonKunAtendantajModifantoj sintaksanalizilo sekvaVorto |> Ok
                elif ĉuMalantaŭModifantaVorto sekvaVorto then
                   let lastaArgumento = sintaksanalizilo.Argumentoj.Last
 
-                  let novaArgumento =
-                     match lastaArgumento with
-                     | Argumento (a) -> ModifitaArgumento(a, [ Modifanto(sekvaVorto) ])
-                     | ModifitaArgumento (a, modifantoj) -> ModifitaArgumento(a, Modifanto(sekvaVorto) :: modifantoj)
+                  let novaArgumento = aldoniModifanton lastaArgumento (Modifanto(sekvaVorto))
                   { sintaksanalizilo with Argumentoj = sintaksanalizilo.Argumentoj.Initial.Conj novaArgumento } |> Ok
                elif ĉuAntaŭModifantaVorto sekvaVorto then
                   { sintaksanalizilo with AtendantaModifantoj =
                        Modifanto(sekvaVorto) :: sintaksanalizilo.AtendantaModifantoj } |> Ok
+               elif sekvaVorto.BazaVorto = "vol" then
+                  let lastaArgumento = sintaksanalizilo.Argumentoj.Last
+                  { sintaksanalizilo with AtendantaVol = Some lastaArgumento } |> Ok
                else
                   Error(sprintf "Ne povas kategorigi %s" sekvaVorto.BazaVorto)
             | Error (_) -> sintaksanaliziloAk) (Ok sintaksanalizilo)
@@ -97,7 +113,9 @@ module Sintaksanalizilo2 =
                            |> legiFrazojn
                                  { Verboj = sintaksanalizilo.Verboj.Tail
                                    Argumentoj = restantaj
-                                   AtendantaModifantoj = sintaksanalizilo.AtendantaModifantoj }))
+                                   AtendantaModifantoj = sintaksanalizilo.AtendantaModifantoj
+                                   AtendantaVol = sintaksanalizilo.AtendantaVol
+                                   LastaArgumento = sintaksanalizilo.LastaArgumento }))
             |> Option.defaultValue (Error(sprintf "Ne konas la valencon de %s" vorto.BazaVorto))
       | None ->
          { rezulto with

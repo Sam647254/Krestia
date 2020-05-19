@@ -50,6 +50,7 @@ module Vorttipo =
    | FinitaOkazo
    | UnueUjo2
    | UnueUjo3
+   | Subklaŭzo
 
    type Vorttipo =
    | NombrigeblaKlaso
