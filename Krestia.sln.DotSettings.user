@@ -7,7 +7,7 @@
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b378919c_002D5b33_002D475c_002D8723_002Dc90bcb8f713d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PlurvortajArgumentoj" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;MSTest::51A4B98B-C381-4D26-8974-30BCDA505A2F::.NETCoreApp,Version=v3.0::KrestiaVortilo.Testo.Sintaksanalizilo.PlurvortajArgumentoj&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::51A4B98B-C381-4D26-8974-30BCDA505A2F::.NETCoreApp,Version=v3.0::KrestiaVortilo.Testo.Sintaksanalizilo.PlurvortajplenaArgumentoj&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	

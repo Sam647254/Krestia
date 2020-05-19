@@ -46,6 +46,11 @@ module Sintaksanalizilo2 =
       match argumento with
       | Argumento (a, modifantoj) -> Argumento(a, modifanto :: modifantoj)
       | Vol (nukleo, subvorto) -> Vol(aldoniModifanton nukleo modifanto, subvorto)
+   
+   let lastaArgumentoDe sintaksanalizilo =
+      match sintaksanalizilo.LastaArgumento with
+      | Some(a) -> Ok a
+      | None -> Error "Mankas lasta argumento"
 
    let aldoniArgumenton sintaksanalizilo argumento =
       match sintaksanalizilo.LastaArgumento with
@@ -80,8 +85,9 @@ module Sintaksanalizilo2 =
                   { sintaksanalizilo with AtendantaModifantoj =
                        Modifanto(sekvaVorto) :: sintaksanalizilo.AtendantaModifantoj } |> Ok
                elif sekvaVorto.BazaVorto = "vol" then
-                  let lastaArgumento = sintaksanalizilo.Argumentoj.Last
-                  { sintaksanalizilo with AtendantaVol = Some lastaArgumento } |> Ok
+                  lastaArgumentoDe sintaksanalizilo
+                  |> Result.map (fun lastaArgumento ->
+                     { sintaksanalizilo with AtendantaVol = Some lastaArgumento })
                else
                   Error(sprintf "Ne povas kategorigi %s" sekvaVorto.BazaVorto)
             | Error (_) -> sintaksanaliziloAk) (Ok sintaksanalizilo)
