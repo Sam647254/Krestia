@@ -37,21 +37,21 @@ type Sintaksanalizilo() =
       let _ =
          let belise = praveMalinflekti "belise"
          let hem = praveMalinflekti "hem"
-         let prava = Predikato1(Verbo(belise), Argumento(hem))
+         let prava = Predikato1(Verbo(belise), plenaArgumento (hem))
          kontroliUnuFrazon "hem belise" prava
 
       let _ =
          let belitri = praveMalinflekti "belitre"
          let hes = praveMalinflekti "hes"
          let lipa = praveMalinflekti "lipa"
-         let prava = Predikato2(Verbo(belitri), Argumento(hes), Argumento(lipa))
+         let prava = Predikato2(Verbo(belitri), plenaArgumento (hes), plenaArgumento (lipa))
          kontroliUnuFrazon "belitre hes lipa" prava
 
       let _ =
          let vortoj = [ "lipa"; "hem"; "het"; "belipro" ] |> List.map praveMalinflekti
          match vortoj with
          | [ lipa; hem; het; belipro ] ->
-            let prava = Predikato3(Verbo(belipro), Argumento(lipa), Argumento(hem), Argumento(het))
+            let prava = Predikato3(Verbo(belipro), plenaArgumento (lipa), plenaArgumento (hem), plenaArgumento (het))
             kontroliUnuFrazon "lipa hem het belipro" prava
          | _ -> Assert.Fail "Invalid state"
 
@@ -64,8 +64,8 @@ type Sintaksanalizilo() =
          match vortoj with
          | [ lipa; belisela; het; belitela; hime; belimio ] ->
             let prava =
-               [ Predikato1(Verbo(belisela), Argumento(lipa))
-                 Predikato2(Verbo(belitela), Argumento(het), Argumento(hime))
+               [ Predikato1(Verbo(belisela), plenaArgumento (lipa))
+                 Predikato2(Verbo(belitela), plenaArgumento (het), plenaArgumento (hime))
                  Predikato0(Verbo(belimio)) ]
             kontroliPlurajnFrazojn "lipa belisela het belitela hime belimio" prava []
          | _ -> Assert.Fail "Invalid state"
@@ -74,7 +74,7 @@ type Sintaksanalizilo() =
    [<TestMethod>]
    member _.RestantajVortoj() =
       [ "lipa"; "het" ]
-      |> List.map (praveMalinflekti >> Argumento)
+      |> List.map (praveMalinflekti >> plenaArgumento)
       |> kontroliRestantajnVortojn "lipa het"
 
       kontroliRestantajnVortojn "hem belisela" []
@@ -82,7 +82,7 @@ type Sintaksanalizilo() =
       kontroliRestantajnVortojn "belitri hes hem"
          [ "hem"
            |> praveMalinflekti
-           |> Argumento ]
+           |> plenaArgumento ]
 
    [<TestMethod>]
    member _.Pridirantoj() =
@@ -90,24 +90,24 @@ type Sintaksanalizilo() =
          let vortoj = [ "lipa"; "lidea" ] |> List.map praveMalinflekti
          match vortoj with
          | [ lipa; lidea ] ->
-            kontroliRestantajnVortojn "lipa lidea" [ ModifitaArgumento(lipa, [ Modifanto(lidea) ]) ]
+            kontroliRestantajnVortojn "lipa lidea" [ Argumento(lipa, [ Modifanto(lidea) ]) ]
          | _ -> failwith "Invalid state"
 
       let _ =
          let vortoj = [ "lidra"; "lipa" ] |> List.map praveMalinflekti
          match vortoj with
          | [ lidra; lipa ] ->
-            kontroliRestantajnVortojn "lidra lipa" [ ModifitaArgumento(lipa, [ Modifanto(lidra) ]) ]
+            kontroliRestantajnVortojn "lidra lipa" [ Argumento(lipa, [ Modifanto(lidra) ]) ]
          | _ -> failwith "Invalid state"
 
       ()
-   
+
    [<TestMethod>]
-   member _.PlurvortajArgumentoj() =
+   member _.PlurvortajplenaArgumentoj() =
       let _ =
          let vortoj = [ "lipa"; "het" ] |> List.map praveMalinflekti
          match vortoj with
          | [ lipa; het ] ->
-            kontroliRestantajnVortojn "lipa vol het" [ Vol(Argumento(het), Argumento(lipa)) ]
+            kontroliRestantajnVortojn "lipa vol het" [ Vol(plenaArgumento (het), plenaArgumento (lipa)) ]
          | _ -> failwith "Invalid state"
       ()

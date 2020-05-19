@@ -28,6 +28,8 @@ module Sintaksanalizilo2 =
    type AnaziloRezulto =
       { Frazoj: Predikato list
         RestantajVortoj: Argumento list }
+   
+   let plenaArgumento vorto = Argumento(vorto, [])
 
    let kreiSintaksanalizilon =
       { Argumentoj = Deque.empty
