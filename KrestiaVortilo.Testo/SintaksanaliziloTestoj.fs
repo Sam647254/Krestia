@@ -108,6 +108,6 @@ type Sintaksanalizilo() =
          let vortoj = [ "lipa"; "het" ] |> List.map praveMalinflekti
          match vortoj with
          | [ lipa; het ] ->
-            kontroliRestantajnVortojn "lipa vol het" [ Vol(plenaArgumento (het), plenaArgumento (lipa)) ]
+            kontroliRestantajnVortojn "lipa vol het" [ Plurvorto(plenaArgumento (het), plenaArgumento (lipa), Vol) ]
          | _ -> failwith "Invalid state"
       ()

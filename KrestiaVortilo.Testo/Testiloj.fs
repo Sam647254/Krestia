@@ -89,7 +89,7 @@ module Testiloj =
                                  ({ Verboj = Deque.ofList (verboj)
                                     Argumentoj = Deque.ofList (argumentoj)
                                     AtendantaModifantoj = []
-                                    AtendantaVol = None
+                                    AtendantajFrazoj = []
                                     LastaArgumento = None }, sintaksanalizilo)))))
       |> Result.mapError Assert.Fail
       |> ignore
