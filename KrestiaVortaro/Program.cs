@@ -76,6 +76,12 @@ namespace KrestiaVortaro {
                   await File.WriteAllLinesAsync(args[2], vicoj);
                   break;
                }
+               case "alkg": {
+                  var vortaro = await JsonVortaro.Malfermi(args[1]);
+                  var vicoj = Agoj.AlKg(vortaro);
+                  await File.WriteAllLinesAsync(args[2], vicoj);
+                  break;
+               }
             }
          }
          catch (InvalidOperationException e) {

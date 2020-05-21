@@ -246,5 +246,19 @@ namespace KrestiaVortaro {
             yield return vico.ToString();
          }
       }
+
+      public static IEnumerable<string> AlKg(JsonVortaro vortaro) {
+         foreach (var kategorio in vortaro.Kategorioj) {
+            var vico = new StringBuilder();
+            vico.Append(kategorio.Nomo);
+            vico.Append(':');
+            vico.Append(string.Join(',', kategorio.Vortoj!));
+            if (kategorio.Subkategorioj?.Count > 0) {
+               vico.Append(',');
+               vico.Append(string.Join(',', kategorio.Subkategorioj!.Select(k => $"#{k}")));
+            }
+            yield return vico.ToString();
+         }
+      }
    }
 }
