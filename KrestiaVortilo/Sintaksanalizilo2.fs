@@ -53,7 +53,7 @@ module Sintaksanalizilo2 =
 
    let lastaArgumentoDe sintaksanalizilo =
       match sintaksanalizilo.LastaArgumento with
-      | Some (a) -> Ok a
+      | Some (a) -> Ok (a, { sintaksanalizilo with LastaArgumento = None })
       | None -> Error "Mankas lasta argumento"
 
    let purigiLastanArgumenton sintaksanalizilo =
@@ -92,7 +92,7 @@ module Sintaksanalizilo2 =
                   aldoniArgumenton sintaksanalizilo (Argumento(sekvaVorto, [])) |> Ok
                elif ĉuMalantaŭModifantaVorto sekvaVorto then
                   lastaArgumentoDe sintaksanalizilo
-                  |> Result.map (fun lastaArgumento ->
+                  |> Result.map (fun (lastaArgumento, sintaksanalizilo) ->
                         let novaArgumento = aldoniModifanton lastaArgumento (Modifanto(sekvaVorto))
                         anstataŭigiLastanArgumenton sintaksanalizilo novaArgumento)
                elif ĉuAntaŭModifantaVorto sekvaVorto then
@@ -107,7 +107,7 @@ module Sintaksanalizilo2 =
                   |> Ok
                elif sekvaVorto.BazaVorto = "vol" then
                   lastaArgumentoDe sintaksanalizilo
-                  |> Result.map (fun lastaArgumento ->
+                  |> Result.map (fun (lastaArgumento, sintaksanalizilo) ->
                         { sintaksanalizilo with
                              AtendantajFrazoj =
                                 (fun argumento -> Plurvorto(lastaArgumento, argumento, Vol))

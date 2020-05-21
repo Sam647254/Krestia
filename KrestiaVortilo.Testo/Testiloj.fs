@@ -85,12 +85,8 @@ module Testiloj =
                         |> Result.map (fun malinflektitaArgumentoj ->
                               let verboj = malinflektitaVerboj |> List.map Sintaksanalizilo2.Verbo
                               let argumentoj = malinflektitaArgumentoj |> List.map (fun a -> Sintaksanalizilo2.Argumento(a, []))
-                              Assert.AreEqual
-                                 ({ Verboj = Deque.ofList (verboj)
-                                    Argumentoj = Deque.ofList (argumentoj)
-                                    AtendantaModifantoj = []
-                                    AtendantajFrazoj = []
-                                    LastaArgumento = None }, sintaksanalizilo)))))
+                              Assert.AreEqual(Deque.ofList verboj, Deque.toSeq sintaksanalizilo.Verboj)
+                              Assert.AreEqual(Deque.ofList argumentoj, sintaksanalizilo.Argumentoj)))))
       |> Result.mapError Assert.Fail
       |> ignore
 
