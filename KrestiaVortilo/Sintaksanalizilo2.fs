@@ -74,8 +74,8 @@ module Sintaksanalizilo2 =
                sintaksanalizilo.AtendantajFrazoj.Tail
                |> List.fold (fun ak sekva ->
                      match ak with
-                     | Plurvorto(_, _, _) as p -> Plurvorto(sekva.Nukleo, p, sekva.Parvorto)
-                     | Argumento(_, _) -> failwith "Nevalida") komenco
+                     | Plurvorto (_, _, _) as p -> Plurvorto(sekva.Nukleo, p, sekva.Parvorto)
+                     | Argumento (_, _) -> failwith "Nevalida") komenco
 
             { sintaksanalizilo with
                  Argumentoj = sintaksanalizilo.Argumentoj.Conj(plurvorto)
@@ -83,10 +83,13 @@ module Sintaksanalizilo2 =
                  LastaArgumento = None }
       | None ->
          { sintaksanalizilo with LastaArgumento = None }
-   
+
    let aldoniArgumenton sintaksanalizilo argumento =
       let purigita = purigiLastanArgumenton sintaksanalizilo
       { purigita with LastaArgumento = Some argumento }
+   
+   let anstataŭigiLastanArgumenton sintaksanalizilo argumento =
+      { sintaksanalizilo with LastaArgumento = Some argumento }
 
    let aldoniArgumentonKunAtendantajModifantoj sintaksanalizilo argumento =
       let novaArgumento = Argumento(argumento, sintaksanalizilo.AtendantaModifantoj)
@@ -104,10 +107,10 @@ module Sintaksanalizilo2 =
                   then aldoniArgumenton sintaksanalizilo (Argumento(sekvaVorto, [])) |> Ok
                   else aldoniArgumentonKunAtendantajModifantoj sintaksanalizilo sekvaVorto |> Ok
                elif ĉuMalantaŭModifantaVorto sekvaVorto then
-                  let lastaArgumento = sintaksanalizilo.Argumentoj.Last
-
-                  let novaArgumento = aldoniModifanton lastaArgumento (Modifanto(sekvaVorto))
-                  { sintaksanalizilo with Argumentoj = sintaksanalizilo.Argumentoj.Initial.Conj novaArgumento } |> Ok
+                  lastaArgumentoDe sintaksanalizilo
+                  |> Result.map (fun lastaArgumento ->
+                        let novaArgumento = aldoniModifanton lastaArgumento (Modifanto(sekvaVorto))
+                        anstataŭigiLastanArgumenton sintaksanalizilo novaArgumento)
                elif ĉuAntaŭModifantaVorto sekvaVorto then
                   { sintaksanalizilo with AtendantaModifantoj =
                        Modifanto(sekvaVorto) :: sintaksanalizilo.AtendantaModifantoj } |> Ok

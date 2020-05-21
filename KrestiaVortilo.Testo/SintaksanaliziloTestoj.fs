@@ -103,11 +103,11 @@ type Sintaksanalizilo() =
       ()
 
    [<TestMethod>]
-   member _.PlurvortajplenaArgumentoj() =
+   member _.PlurvortajPlenaArgumentoj() =
       let _ =
          let vortoj = [ "lipa"; "het" ] |> List.map praveMalinflekti
          match vortoj with
          | [ lipa; het ] ->
-            kontroliRestantajnVortojn "lipa vol het" [ Plurvorto(plenaArgumento (het), plenaArgumento (lipa), Vol) ]
+            kontroliRestantajnVortojn "lipa vol het" [ Plurvorto(plenaArgumento (lipa), plenaArgumento (het), Vol) ]
          | _ -> failwith "Invalid state"
       ()
