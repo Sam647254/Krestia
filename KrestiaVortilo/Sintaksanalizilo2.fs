@@ -8,7 +8,10 @@ module Sintaksanalizilo2 =
 
    type Modifanto = Modifanto of MalinflektitaVorto
 
-   type Parvorto = | Vol
+   type Parvorto =
+      | Vol
+      | Del
+      | Nal
 
    type Argumento =
       | Argumento of MalinflektitaVorto * Modifanto list
@@ -33,6 +36,12 @@ module Sintaksanalizilo2 =
    type AnaziloRezulto =
       { Frazoj: Predikato list
         RestantajVortoj: Argumento list }
+   
+   let parvortoj =
+      [ "vol", Vol
+        "del", Del
+        "nal", Nal ]
+      |> Map.ofList
 
    let plenaArgumento vorto = Argumento(vorto, [])
 
@@ -105,12 +114,13 @@ module Sintaksanalizilo2 =
                                 Plurvorto(aldoniModifanton nukleo (Modifanto(sekvaVorto)), modifanto, parvorto))
                           :: sintaksanalizilo.AtendantajFrazoj }
                   |> Ok
-               elif sekvaVorto.BazaVorto = "vol" then
+               elif Map.containsKey sekvaVorto.BazaVorto parvortoj then
+                  let parvorto = parvortoj.[sekvaVorto.BazaVorto]
                   lastaArgumentoDe sintaksanalizilo
                   |> Result.map (fun (lastaArgumento, sintaksanalizilo) ->
                         { sintaksanalizilo with
                              AtendantajFrazoj =
-                                (fun argumento -> Plurvorto(lastaArgumento, argumento, Vol))
+                                (fun argumento -> Plurvorto(lastaArgumento, argumento, parvorto))
                                 :: sintaksanalizilo.AtendantajFrazoj })
                else
                   Error(sprintf "Ne povas kategorigi %s" sekvaVorto.BazaVorto)
