@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using KrestiaVortilo;
 
@@ -222,6 +223,27 @@ namespace KrestiaVortaro {
             if (signifoPartoj.Length > 1) vorto.Ujo1 = signifoPartoj[1];
             if (signifoPartoj.Length > 2) vorto.Ujo2 = signifoPartoj[2];
             if (signifoPartoj.Length > 3) vorto.Ujo3 = signifoPartoj[3];
+         }
+      }
+
+      public static IEnumerable<string> AlKv(JsonVortaro vortaro) {
+         foreach (var vorto in vortaro.Vortoj!) {
+            var vico = new StringBuilder();
+            vico.Append(vorto.PlenaVorto);
+            vico.Append('|');
+            vico.Append(vorto.Signifo);
+            foreach (var ujo in new [] { vorto.Ujo1, vorto.Ujo2, vorto.Ujo3 }) {
+               if (ujo == null) continue;
+               vico.Append('^');
+               vico.Append(ujo);
+            }
+            vico.Append('|');
+            vico.Append(vorto.GlosaSignifo);
+            vico.Append('|');
+            vico.Append(string.Join(',', vorto.Radikoj));
+            vico.Append('|');
+            vico.Append(vorto.Noto);
+            yield return vico.ToString();
          }
       }
    }
