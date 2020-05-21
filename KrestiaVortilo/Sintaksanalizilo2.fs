@@ -21,14 +21,13 @@ module Sintaksanalizilo2 =
       | Predikato3 of predikataVorto: Verbo * argumento1: Argumento * argumento2: Argumento * argumento3: Argumento
 
    type AtendantaPlurvorto =
-      { Nukleo: Argumento
-        Parvorto: Parvorto }
+      | AtendantaParvorto of argumento: Argumento * parvorto: Parvorto
+      | AtendantaModifanto of Modifanto
 
    type Sintaksanalizilo =
       { Argumentoj: Deque<Argumento>
         Verboj: Deque<Verbo>
-        AtendantaModifantoj: Modifanto list
-        AtendantajFrazoj: AtendantaPlurvorto list
+        AtendantajFrazoj: (Argumento -> Argumento) list
         LastaArgumento: Argumento option }
 
    type AnaziloRezulto =
@@ -40,7 +39,6 @@ module Sintaksanalizilo2 =
    let kreiSintaksanalizilon =
       { Argumentoj = Deque.empty
         Verboj = Deque.empty
-        AtendantaModifantoj = []
         AtendantajFrazoj = []
         LastaArgumento = None }
 
@@ -66,34 +64,22 @@ module Sintaksanalizilo2 =
                  Argumentoj = sintaksanalizilo.Argumentoj.Conj(lastaArgumento)
                  LastaArgumento = None }
          else
-            let komenco =
-               let head = sintaksanalizilo.AtendantajFrazoj.Head
-               Plurvorto(head.Nukleo, lastaArgumento, head.Parvorto)
-
-            let plurvorto =
-               sintaksanalizilo.AtendantajFrazoj.Tail
-               |> List.fold (fun ak sekva ->
-                     match ak with
-                     | Plurvorto (_, _, _) as p -> Plurvorto(sekva.Nukleo, p, sekva.Parvorto)
-                     | Argumento (_, _) -> failwith "Nevalida") komenco
+            let modifitaArgumento =
+               sintaksanalizilo.AtendantajFrazoj
+               |> List.fold (fun ak sekva -> sekva ak) lastaArgumento
 
             { sintaksanalizilo with
-                 Argumentoj = sintaksanalizilo.Argumentoj.Conj(plurvorto)
+                 Argumentoj = sintaksanalizilo.Argumentoj.Conj(modifitaArgumento)
                  AtendantajFrazoj = []
                  LastaArgumento = None }
-      | None ->
-         { sintaksanalizilo with LastaArgumento = None }
+      | None -> sintaksanalizilo
 
    let aldoniArgumenton sintaksanalizilo argumento =
       let purigita = purigiLastanArgumenton sintaksanalizilo
       { purigita with LastaArgumento = Some argumento }
-   
+
    let anstataŭigiLastanArgumenton sintaksanalizilo argumento =
       { sintaksanalizilo with LastaArgumento = Some argumento }
-
-   let aldoniArgumentonKunAtendantajModifantoj sintaksanalizilo argumento =
-      let novaArgumento = Argumento(argumento, sintaksanalizilo.AtendantaModifantoj)
-      { aldoniArgumenton sintaksanalizilo novaArgumento with AtendantaModifantoj = [] }
 
    let kategorigi sintaksanalizilo vortoj =
       vortoj
@@ -103,24 +89,28 @@ module Sintaksanalizilo2 =
                if ĉuPredikataVorto sekvaVorto then
                   { sintaksanalizilo with Verboj = sintaksanalizilo.Verboj.Conj(Verbo sekvaVorto) } |> Ok
                elif ĉuArgumentaVorto sekvaVorto then
-                  if List.isEmpty sintaksanalizilo.AtendantaModifantoj
-                  then aldoniArgumenton sintaksanalizilo (Argumento(sekvaVorto, [])) |> Ok
-                  else aldoniArgumentonKunAtendantajModifantoj sintaksanalizilo sekvaVorto |> Ok
+                  aldoniArgumenton sintaksanalizilo (Argumento(sekvaVorto, [])) |> Ok
                elif ĉuMalantaŭModifantaVorto sekvaVorto then
                   lastaArgumentoDe sintaksanalizilo
                   |> Result.map (fun lastaArgumento ->
                         let novaArgumento = aldoniModifanton lastaArgumento (Modifanto(sekvaVorto))
                         anstataŭigiLastanArgumenton sintaksanalizilo novaArgumento)
                elif ĉuAntaŭModifantaVorto sekvaVorto then
-                  { sintaksanalizilo with AtendantaModifantoj =
-                       Modifanto(sekvaVorto) :: sintaksanalizilo.AtendantaModifantoj } |> Ok
+                  { sintaksanalizilo with
+                       AtendantajFrazoj =
+                          (fun argumento ->
+                             match argumento with
+                             | Argumento (a, modifantoj) -> Argumento(a, Modifanto(sekvaVorto) :: modifantoj)
+                             | Plurvorto (nukleo, modifanto, parvorto) ->
+                                Plurvorto(aldoniModifanton nukleo (Modifanto(sekvaVorto)), modifanto, parvorto))
+                          :: sintaksanalizilo.AtendantajFrazoj }
+                  |> Ok
                elif sekvaVorto.BazaVorto = "vol" then
                   lastaArgumentoDe sintaksanalizilo
                   |> Result.map (fun lastaArgumento ->
                         { sintaksanalizilo with
                              AtendantajFrazoj =
-                                { Nukleo = lastaArgumento
-                                  Parvorto = Vol }
+                                (fun argumento -> Plurvorto(lastaArgumento, argumento, Vol))
                                 :: sintaksanalizilo.AtendantajFrazoj })
                else
                   Error(sprintf "Ne povas kategorigi %s" sekvaVorto.BazaVorto)
@@ -156,7 +146,6 @@ module Sintaksanalizilo2 =
                            |> legiFrazojn
                                  { Verboj = sintaksanalizilo.Verboj.Tail
                                    Argumentoj = restantaj
-                                   AtendantaModifantoj = sintaksanalizilo.AtendantaModifantoj
                                    AtendantajFrazoj = sintaksanalizilo.AtendantajFrazoj
                                    LastaArgumento = sintaksanalizilo.LastaArgumento }))
             |> Option.defaultValue (Error(sprintf "Ne konas la valencon de %s" vorto.BazaVorto))
