@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FSharpx.Collections;
 using KrestiaVortilo;
 
 namespace KrestiaVortaro {
    public static class Agoj {
-      
       [Obsolete("Ne plu necesas ĉi tion; redaktu rekte la KV-dosieron")]
       internal static async Task<JsonVortaro> RenomigiVortojn(JsonVortaro vortaro, string eniro) {
          var dosiero = await File.ReadAllLinesAsync(eniro);
@@ -78,58 +79,11 @@ namespace KrestiaVortaro {
                if (e is IndexOutOfRangeException) {
                   throw new InvalidOperationException(null, e);
                }
+
                throw;
             }
          });
          return vortaro.Vortoj.ToImmutableSortedSet().Union(novajVicoj);
-      }
-
-      public static IEnumerable<VortaraKategorio> KategorigiVortojn(IEnumerable<string> eniro, JsonVortaro vortaro) {
-         var novajKategorioj = eniro.Select(e => {
-            var partoj = e.Split(':');
-            var kategorioNomo = partoj[0];
-            var vortoj = partoj[1].Split(',').GroupBy(v => v.StartsWith('^'))
-               .ToImmutableDictionary(g => g.Key, g => g.ToImmutableHashSet());
-            return new VortaraKategorio {
-               Nomo = kategorioNomo,
-               Subkategorioj = vortoj.GetValueOrDefault(true, ImmutableHashSet<string>.Empty)
-                  .Select(k => k.Substring(1)).ToList(),
-               Vortoj = vortoj[false].ToList(),
-            };
-         }).ToImmutableList();
-         var ekzistantajKategorioj = vortaro.Kategorioj.Select(k => k.Nomo).ToImmutableHashSet();
-         var ĉiujKategorioj = ekzistantajKategorioj.Union(novajKategorioj.Select(k => k.Nomo))
-            .ToDictionary(k => k, k => new VortaraKategorio {
-               Nomo = k,
-               Subkategorioj = new List<string>(),
-               Vortoj = new List<string>(),
-            });
-         novajKategorioj.ForEach(k => {
-            var kategorio = ĉiujKategorioj[k.Nomo];
-            kategorio.Subkategorioj?.AddRange(k.Subkategorioj!);
-            kategorio.Vortoj?.AddRange(k.Vortoj!);
-         });
-         foreach (var kategorio in vortaro.Kategorioj) {
-            var novaKategorio = ĉiujKategorioj[kategorio.Nomo];
-            novaKategorio.Subkategorioj?.AddRange(kategorio.Subkategorioj!);
-            novaKategorio.Vortoj?.AddRange(kategorio.Vortoj!);
-         }
-
-         var ĉiujVortoj = vortaro.Vortoj.Select(v => v.PlenaVorto).ToImmutableHashSet();
-         foreach (var (kategorioNomo, vortaraKategorio) in ĉiujKategorioj) {
-            vortaraKategorio.Subkategorioj?.ForEach(sk => {
-               if (!ĉiujKategorioj.ContainsKey(sk)) {
-                  throw new InvalidOperationException($"La subkategorio {sk} ne ekzistas");
-               }
-            });
-            vortaraKategorio.Vortoj?.ForEach(v => {
-               if (!ĉiujVortoj.Contains(v)) {
-                  throw new InvalidOperationException($"La vorto {v} en {kategorioNomo} ne ekzistas");
-               }
-            });
-         }
-
-         return ĉiujKategorioj.Values;
       }
 
       [Obsolete("Ne plu uzas Blissimbolojn")]
@@ -237,11 +191,12 @@ namespace KrestiaVortaro {
             vico.Append(vorto.PlenaVorto);
             vico.Append('|');
             vico.Append(vorto.Signifo);
-            foreach (var ujo in new [] { vorto.Ujo1, vorto.Ujo2, vorto.Ujo3 }) {
+            foreach (var ujo in new[] {vorto.Ujo1, vorto.Ujo2, vorto.Ujo3}) {
                if (ujo == null) continue;
                vico.Append('^');
                vico.Append(ujo);
             }
+
             vico.Append('|');
             vico.Append(vorto.GlosaSignifo);
             vico.Append('|');
@@ -262,6 +217,7 @@ namespace KrestiaVortaro {
                vico.Append(',');
                vico.Append(string.Join(',', kategorio.Subkategorioj!.Select(k => $"#{k}")));
             }
+
             yield return vico.ToString();
          }
       }
@@ -310,6 +266,41 @@ namespace KrestiaVortaro {
                throw;
             }
          }).ToImmutableSortedSet();
+      }
+
+      public static ImmutableSortedSet<VortaraKategorio> KontroliKategoriojn(IImmutableSet<Vorto> vortoj,
+         IEnumerable<string> kg) {
+         var kategorioj = kg.Select(vico => {
+            var partoj = vico.Split(':');
+            var nomo = partoj[0];
+            var vortojKajSubkategorioj = partoj[1].Split(',').GroupBy(v => v.StartsWith('#'))
+               .ToImmutableDictionary(g => g.Key, g => g.ToImmutableHashSet());
+            return new VortaraKategorio(
+               nomo,
+               subkategorioj: vortojKajSubkategorioj.GetValueOrDefault(true, ImmutableHashSet<string>.Empty)
+                  .Select(k => k.Substring((1))).ToImmutableHashSet(),
+               vortoj: vortojKajSubkategorioj[false]
+            );
+         }).ToImmutableSortedSet();
+
+         var ekzistantajVortoj = vortoj.Select(v => v.PlenaVorto).ToImmutableHashSet();
+         var kategoriajNomoj = kategorioj.Select(k => k.Nomo);
+         var erarojn = new List<string>();
+
+         foreach (var kategorio in kategorioj) {
+            erarojn.AddRange(from vorto in kategorio.Vortoj
+               where !ekzistantajVortoj.Contains(vorto)
+               select $"{vorto} ne ekzistas");
+            erarojn.AddRange(from subkategorio in kategorio.Subkategorioj
+               where !kategoriajNomoj.Contains(subkategorio)
+               select $"La kategorio {subkategorio} ne ekzistas");
+         }
+
+         if (erarojn.Count > 0) {
+            throw new InvalidOperationException(string.Join('\n', erarojn));
+         }
+
+         return kategorioj;
       }
    }
 }

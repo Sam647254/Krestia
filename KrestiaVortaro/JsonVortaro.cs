@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -32,9 +33,20 @@ namespace KrestiaVortaro {
       }
    }
 
-   public class VortaraKategorio {
-      public string Nomo { get; set; } = "";
-      public List<string>? Vortoj { get; set; }
-      public List<string>? Subkategorioj { get; set; }
+   public class VortaraKategorio : IComparable<VortaraKategorio> {
+      public string Nomo { get; }
+      public IImmutableSet<string> Vortoj { get; }
+      public IImmutableSet<string> Subkategorioj { get; }
+
+      public VortaraKategorio(string nomo, IImmutableSet<string>? vortoj = null,
+         IImmutableSet<string>? subkategorioj = null) {
+         Nomo = nomo;
+         Vortoj = vortoj ?? ImmutableHashSet<string>.Empty;
+         Subkategorioj = subkategorioj ?? ImmutableHashSet<string>.Empty;
+      }
+
+      public int CompareTo(VortaraKategorio? other) {
+         return string.Compare(Nomo, other?.Nomo, StringComparison.Ordinal);
+      }
    }
 }

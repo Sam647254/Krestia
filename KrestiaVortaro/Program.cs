@@ -8,13 +8,6 @@ namespace KrestiaVortaro {
       private static async Task Main(string[] args) {
          try {
             switch (args[0]) {
-               case "kategorigi": {
-                  var vortaro = await JsonVortaro.Malfermi(args[1]);
-                  var eniro = File.ReadLines(args[2]);
-                  vortaro.Kategorioj = Agoj.KategorigiVortojn(eniro, vortaro);
-                  await vortaro.Konservi(args[3]);
-                  break;
-               }
                case "listi": {
                   var vortaro = await JsonVortaro.Malfermi(args[1]);
                   vortaro.Listi();
@@ -52,13 +45,16 @@ namespace KrestiaVortaro {
                }
                case "kontroli": {
                   var kv = File.ReadLines(args[1]);
-                  Agoj.KontroliVortojn(kv);
+                  var kg = File.ReadLines(args[2]);
+                  var vortoj = Agoj.KontroliVortojn(kv);
+                  Agoj.KontroliKategoriojn(vortoj, kg);
                   break;
                }
             }
          }
          catch (InvalidOperationException e) {
             await Console.Error.WriteLineAsync(e.Message);
+            await Console.Error.WriteAsync(e.StackTrace);
          }
       }
    }

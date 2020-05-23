@@ -1,7 +1,7 @@
 body:bevidro,veredro,edro,buvidro,liredro
 activities:narish,kivat,porip,nitrosh,demis
 nature:lukreno,krenaa,kuvostaa,kuleto,lunataa,meku,metaa,temitaa,rimataa,vilmo,gremaa,gelumo,rimaa,posku,vosrimaa,kresku,dunaa,seskunaa,ritmaa,lunaa,kanedro,gremu,rismo,vosmaa,memu,kunapaa,pomupaa,vosnataa,belimo,lurikaa,krelnu,#weather
-forceful actions:vosip,borop,kebot,sebot,rebot,tesip,delit,enet,poskit,sinip,lisip,sirit,vilot,tot,tilit,sokit,morot,povep,vulot
+forceful actions:vosip,borop,kebot,sebot,rebot,tesip,delit,enet,poskit,sinip,lisip,sirit,vilot,tot,tilit,sokit,morot,posip,vulot
 verb helpers:dal,kanel
 predicate helpers:meral,mogal
 abstract:revitaa,meromo,runataa,meropo,gremegro
@@ -27,7 +27,7 @@ humans:griko,grid,tato,bred,grito,breto,tatreto,brepo,toto,#kinship
 expressions:lemid,kirish,set,nolop,goriv,nerig,lomov,balag,lemiv,#emotions
 date:sempaa,rimpo,kumomo,nelelto,neleli,nelito,semali,semagro,nelegro,memomo,rimogro
 kinship:marodro,gritodro,bretodro,venedro,besedro,todro,miradro,bodro,gedro,nemito,moromu
-actions:sibit,sibed,prelig,mesip,meves,buvrit,bevat,tenip,tenet,bup,bulit,veresh,trolot,lirish,liresh,trelit,trelot,tregro,rivep,beselet,kitrot,binip,vososit,#forceful actions,#arts and craftsmanship
+actions:sibit,sibed,prelig,mesip,meves,buvlit,bevat,tenip,tenet,bup,bulit,veresh,trolot,lirish,liresh,trelit,trelot,tregro,rilep,beselet,kitrot,binip,vososit,#forceful actions,#arts and craftsmanship
 time:merko,voluno,tomol,merli,volino,relito,tokol,remikaa,tomop,mikali,regel,lito,dedro,mevemo,renel,nomal,lukreno,renod,minakaa,dunagro,dumbeto,mikaa,krenaa,dunamo,tenil,#dates,#seasons
 common attributes:olud,sorod,olid,gromod,bomol,sirid,elid,olad,elad,vid,nolod,sud,popid
 tools:bilepo,moropaa,toseto,soku,besegro,repeto,tilto,enoto,vilipu

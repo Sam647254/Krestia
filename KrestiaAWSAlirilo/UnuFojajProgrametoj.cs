@@ -57,23 +57,5 @@ namespace KrestiaAWSAlirilo {
          var bazoj = vortoj.Select(v => Malinflektado.bazoDe(v.Vorto));
          await Task.WhenAll(vortoj.Zip(bazoj).Select(p => awsAlirilo.RedaktiVorton(p.First.Vorto, "bazo", p.Second)));
       }
-
-      public static async Task KreiVortaronEnJson(AwsAlirilo awsAlirilo, string eliro) {
-         var vortoj = (await awsAlirilo.AlportiĈiujnVortojn()).ToImmutableList();
-         var kategorioj = vortoj.Select(v => v.Kategorioj).Flatten().Cast<string>().ToImmutableHashSet()
-            .ToImmutableList();
-         var vortojEnJson = vortoj.Select((v, i) => new Vorto(
-            v.Vorto, v.Bazo, v.Radikoj!, v.Signifo!, v.Gloso, v.Noto));
-         var kategoriojEnJson = kategorioj.Select((k, i) => new VortaraKategorio {
-            Nomo = k,
-            Vortoj = vortoj.Where(v => v.Kategorioj!.Contains(k)).Select(v => v.Vorto).ToList(),
-         });
-         var jsonVortaro = new JsonVortaro {
-            Vortoj = vortojEnJson.ToList(),
-            Kategorioj = kategoriojEnJson
-         };
-         var vortaro = JsonConvert.SerializeObject(jsonVortaro);
-         await File.WriteAllTextAsync(eliro, vortaro);
-      }
    }
 }
