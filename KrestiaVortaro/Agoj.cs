@@ -9,6 +9,8 @@ using KrestiaVortilo;
 
 namespace KrestiaVortaro {
    public static class Agoj {
+      
+      [Obsolete("Ne plu necesas ĉi tion; redaktu rekte la KV-dosieron")]
       internal static async Task<JsonVortaro> RenomigiVortojn(JsonVortaro vortaro, string eniro) {
          var dosiero = await File.ReadAllLinesAsync(eniro);
          var ids = vortaro.Vortoj.Select((v, i) => (v, i)).ToDictionary(p => p.v.PlenaVorto, p => p.i);
@@ -26,6 +28,7 @@ namespace KrestiaVortaro {
          };
       }
 
+      [Obsolete("Ne plu necesas ĉi tion; redaktu rekte la KV-dosieron")]
       public static ImmutableSortedSet<Vorto> AldoniVortojn(JsonVortaro vortaro, IEnumerable<string> dosiero) {
          var ĉiujPartoj = (from v in dosiero select v.Split('|')).ToImmutableList();
          var novajVortojGrupoj = ĉiujPartoj.Select(vico => vico[0]).GroupBy(Malinflektado.bazoDe).ToImmutableHashSet();
@@ -129,10 +132,12 @@ namespace KrestiaVortaro {
          return ĉiujKategorioj.Values;
       }
 
+      [Obsolete("Ne plu uzas Blissimbolojn")]
       public static IEnumerable<string> KreiListiPorKreiBlissimbolojn(JsonVortaro vortaro) {
          return vortaro.Vortoj!.Where(v => v.Blissimbolo == null).Select(v => $"{v.PlenaVorto}|{v.Signifo}|");
       }
 
+      [Obsolete("Ne plu uzas Blissimbolojn")]
       public static void AldoniBlissimbolojnAlVortaro(JsonVortaro vortaro, IEnumerable<string> eniro) {
          var vortoj = vortaro.Vortoj!.ToDictionary(v => v.PlenaVorto, v => v);
          foreach (var vico in eniro) {
@@ -259,6 +264,52 @@ namespace KrestiaVortaro {
             }
             yield return vico.ToString();
          }
+      }
+
+      public static ImmutableSortedSet<Vorto> KontroliVortojn(IEnumerable<string> kv) {
+         var ĉiujPartoj = (from v in kv select v.Split('|')).ToImmutableList();
+         var novajVortojGrupoj = ĉiujPartoj.Select(vico => vico[0]).GroupBy(Malinflektado.bazoDe).ToImmutableHashSet();
+         var ĉiujVortoj = ĉiujPartoj.Select(vico => vico[0]).ToImmutableHashSet();
+         var plurfojeAldonitajVortoj =
+            novajVortojGrupoj.Where(grupo => grupo.Count() > 1).Select(g => g.Key).ToImmutableHashSet();
+         if (!plurfojeAldonitajVortoj.IsEmpty) {
+            throw new InvalidOperationException($"Vortoj jam ekzistas: {string.Join(", ", plurfojeAldonitajVortoj)}");
+         }
+
+         return ĉiujPartoj.Select(partoj => {
+            try {
+               var vorto = partoj[0];
+               var signifajPartoj = partoj[1].Split('^');
+               var signifo = signifajPartoj[0];
+               var gloso = partoj[2];
+               var radikoj = partoj[3].Split(',').Where(r => r.Length > 0).ToImmutableList();
+               var noto = partoj[4];
+               var valenco = KontroliVortonKajValencon(ĉiujVortoj, vorto, radikoj);
+               var ujo1 = valenco >= 1 ? signifajPartoj[1] : null;
+               var ujo2 = valenco >= 2 ? signifajPartoj[2] : null;
+               var ujo3 = valenco == 3 ? signifajPartoj[3] : null;
+
+               var novaVorto = new Vorto(vorto, Malinflektado.bazoDe(vorto),
+                  radikoj.Select(r => {
+                     if (ĉiujVortoj.Contains(r)) {
+                        return r;
+                     }
+
+                     throw new InvalidOperationException($"La radiko de {vorto}, {r} ne ekzistas");
+                  }), signifo, gloso, ujo1, ujo2, ujo3, noto);
+
+               return novaVorto;
+            }
+            catch (Exception e) {
+               Console.WriteLine($"La vico {string.Join('|', partoj)} ne estas nevalida");
+               Console.WriteLine(e.Message);
+               if (e is IndexOutOfRangeException) {
+                  throw new InvalidOperationException(null, e);
+               }
+
+               throw;
+            }
+         }).ToImmutableSortedSet();
       }
    }
 }
