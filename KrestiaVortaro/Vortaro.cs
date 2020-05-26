@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using KrestiaVortilo;
@@ -15,10 +17,9 @@ namespace KrestiaVortaro {
       private readonly IImmutableDictionary<char, int> _alfabeto = "pbmvtdnsʃlrjkgwhieauoɒ".Select((l, i) => (l, i))
          .ToImmutableDictionary(p => p.l, p => p.i);
 
-      public ImmutableDictionary<string, Vorto> Indekso { get; private set; }
-      public ImmutableDictionary<int, Vorto> IdIndekso { get; private set; }
-      public ImmutableDictionary<string, Kategorio>? Kategorioj { get; private set; }
-      internal ImmutableDictionary<string, Vorto> BazoIndekso { get; set; }
+      private ImmutableDictionary<string, Vorto> Indekso { get; }
+      private ImmutableDictionary<string, Kategorio>? Kategorioj { get; }
+      internal ImmutableDictionary<string, Vorto> BazoIndekso { get; }
 
       public IOrderedEnumerable<VortoKunSignifo> Vortlisto =>
          Indekso.Values.Select(vorto => new VortoKunSignifo(vorto.PlenaVorto, vorto.Signifo))
@@ -32,6 +33,18 @@ namespace KrestiaVortaro {
       public IImmutableDictionary<string, KategorioRespondo> KategoriaVortlisto =>
          Kategorioj.Select(p => (p.Key, p.Value.Respondigi())).ToImmutableSortedDictionary(p => p.Key, p => p.Item2);
 
+      private Vortaro(IImmutableSet<Vorto> vortoj, IImmutableSet<VortaraKategorio> kategorioj) {
+         Indekso = vortoj.ToImmutableDictionary(v => v.PlenaVorto, v => v);
+         BazoIndekso = vortoj.ToImmutableDictionary(v => v.BazaVorto, v => v);
+         Kategorioj = kategorioj.ToImmutableDictionary(k => k.Nomo,
+            k => new Kategorio {
+               Vortoj = k.Vortoj.Select(v => Indekso[v]).ToImmutableList(),
+               Subkategorioj = k.Subkategorioj!.ToImmutableHashSet(),
+               Superkategorioj = kategorioj.Where(sk => sk.Subkategorioj!.Contains(k.Nomo))
+                  .Select(sk => sk.Nomo).ToImmutableHashSet(),
+            });
+      }
+      
       public VortoRespondo? Vorto(string vorto) {
          var respondo = Indekso.GetValueOrDefault(vorto, null);
          if (respondo == null) {
@@ -156,26 +169,15 @@ namespace KrestiaVortaro {
          return int.MaxValue;
       }
 
-      public static async Task<Vortaro> KreiVortaron() {
-         Console.WriteLine("KreiVortaron");
-         var jsonVortaro = await JsonVortaro.Alporti(VortaroUrl);
-         return KreiVortaronDe(jsonVortaro);
+      public static Vortaro KreiVortaronDe(JsonVortaro jsonVortaro) {
+         return new Vortaro(jsonVortaro.Vortoj!.ToImmutableHashSet(), jsonVortaro.Kategorioj.ToImmutableHashSet());
       }
 
-      public static Vortaro KreiVortaronDe(JsonVortaro jsonVortaro) {
-         var indekso = jsonVortaro.Vortoj.ToImmutableDictionary(v => v.PlenaVorto, v => v);
-         return new Vortaro {
-            Indekso = indekso,
-            BazoIndekso = jsonVortaro.Vortoj.ToImmutableDictionary(v => v.BazaVorto, v => v),
-            IdIndekso = jsonVortaro.Vortoj.Select((v, i) => (v, i)).ToImmutableDictionary(p => p.i, p => p.v),
-            Kategorioj = jsonVortaro.Kategorioj?.ToImmutableDictionary(k => k.Nomo,
-               k => new Kategorio {
-                  Vortoj = k.Vortoj!.Select(v => indekso[v]).ToImmutableList(),
-                  Subkategorioj = k.Subkategorioj!.ToImmutableHashSet(),
-                  Superkategorioj = jsonVortaro.Kategorioj!.Where(sk => sk.Subkategorioj!.Contains(k.Nomo))
-                     .Select(sk => sk.Nomo).ToImmutableHashSet(),
-               })!,
-         };
+      public static async Task<Vortaro> KreiVortaronDe(string vortojUrl, string kategoriojUrl) {
+         var httpClient = new HttpClient();
+         var vortoj = Agoj.KontroliVortojn((await httpClient.GetStringAsync(vortojUrl)).Split('\n'));
+         var kategorioj = Agoj.KontroliKategoriojn(vortoj, (await httpClient.GetStringAsync(kategoriojUrl)).Split('\n'));
+         return new Vortaro(vortoj, kategorioj);
       }
 
       public readonly struct VortoKunSignifo {

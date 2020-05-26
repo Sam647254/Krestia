@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FSharpx.Collections;
 using KrestiaVortilo;
 
 namespace KrestiaVortaro {
@@ -223,7 +221,7 @@ namespace KrestiaVortaro {
       }
 
       public static ImmutableSortedSet<Vorto> KontroliVortojn(IEnumerable<string> kv) {
-         var ĉiujPartoj = (from v in kv select v.Split('|')).ToImmutableList();
+         var ĉiujPartoj = (from v in kv where v.Length > 0 select v.Split('|')).ToImmutableList();
          var novajVortojGrupoj = ĉiujPartoj.Select(vico => vico[0]).GroupBy(Malinflektado.bazoDe).ToImmutableHashSet();
          var ĉiujVortoj = ĉiujPartoj.Select(vico => vico[0]).ToImmutableHashSet();
          var plurfojeAldonitajVortoj =
@@ -270,7 +268,7 @@ namespace KrestiaVortaro {
 
       public static ImmutableSortedSet<VortaraKategorio> KontroliKategoriojn(IImmutableSet<Vorto> vortoj,
          IEnumerable<string> kg) {
-         var kategorioj = kg.Select(vico => {
+         var kategorioj = kg.Where(v => v.Length > 0).Select(vico => {
             var partoj = vico.Split(':');
             var nomo = partoj[0];
             var vortojKajSubkategorioj = partoj[1].Split(',').GroupBy(v => v.StartsWith('#'))
