@@ -87,21 +87,21 @@ type Sintaksanalizilo() =
       let _ =
          let belise = praveMalinflekti "belise"
          let hem = praveMalinflekti "hem"
-         let prava = Predikato1(Verbo(belise), plenaArgumento (hem))
+         let prava = Predikato1(plenaVerbo(belise), plenaArgumento (hem))
          kontroliUnuFrazon "hem belise" prava
 
       let _ =
          let belitri = praveMalinflekti "belitre"
          let hes = praveMalinflekti "hes"
          let lipa = praveMalinflekti "lipa"
-         let prava = Predikato2(Verbo(belitri), plenaArgumento (hes), plenaArgumento (lipa))
+         let prava = Predikato2(plenaVerbo(belitri), plenaArgumento (hes), plenaArgumento (lipa))
          kontroliUnuFrazon "belitre hes lipa" prava
 
       let _ =
          let vortoj = [ "lipa"; "hem"; "het"; "belipro" ] |> List.map praveMalinflekti
          match vortoj with
          | [ lipa; hem; het; belipro ] ->
-            let prava = Predikato3(Verbo(belipro), plenaArgumento (lipa), plenaArgumento (hem), plenaArgumento (het))
+            let prava = Predikato3(plenaVerbo(belipro), plenaArgumento (lipa), plenaArgumento (hem), plenaArgumento (het))
             kontroliUnuFrazon "lipa hem het belipro" prava
          | _ -> Assert.Fail "Invalid state"
 
@@ -114,9 +114,9 @@ type Sintaksanalizilo() =
          match vortoj with
          | [ lipa; belisela; het; belitela; hime; belimio ] ->
             let prava =
-               [ Predikato1(Verbo(belisela), plenaArgumento (lipa))
-                 Predikato2(Verbo(belitela), plenaArgumento (het), plenaArgumento (hime))
-                 Predikato0(Verbo(belimio)) ]
+               [ Predikato1(plenaVerbo(belisela), plenaArgumento (lipa))
+                 Predikato2(plenaVerbo(belitela), plenaArgumento (het), plenaArgumento (hime))
+                 Predikato0(plenaVerbo(belimio)) ]
             kontroliPlurajnFrazojn "lipa belisela het belitela hime belimio" prava []
          | _ -> Assert.Fail "Invalid state"
       ()
@@ -194,5 +194,5 @@ type Sintaksanalizilo() =
          let vortoj = [ "hem"; "bese" ] |> List.map praveMalinflekti
          match vortoj with
          | [ hem; bese ] ->
-            kontroliUnuFrazon "hem bese nevil" (Predikato1(NevilVerbo bese, plenaArgumento hem))
+            kontroliUnuFrazon "hem bese nevil" (Predikato1(Verbo(bese, Set.singleton(Nevil)), plenaArgumento hem))
       ()

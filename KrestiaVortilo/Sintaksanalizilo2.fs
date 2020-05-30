@@ -4,14 +4,15 @@ open FSharpx.Collections
 open Malinflektado
 
 module Sintaksanalizilo2 =
-   type Verbo =
-      | Verbo of MalinflektitaVorto
-      | NevilVerbo of MalinflektitaVorto
+   type Verbo = Verbo of MalinflektitaVorto * Modifantoj: Set<PredikataVerboModifanto>
 
-   type ArgumentaModifanto =
+   and ArgumentaModifanto =
       | Pridiranto of MalinflektitaVorto
       | Mel of Argumento
       | Sonol of Argumento
+      | Nival
+
+   and PredikataVerboModifanto = | Nevil
 
    and Parvorto =
       | Vol
@@ -48,13 +49,18 @@ module Sintaksanalizilo2 =
         "del", Del
         "nal", Nal ]
       |> Map.ofList
-      
+
    let modifantoj1DeKlasoj =
       [ "mel", Mel
         "sonol", Sonol ]
       |> Map.ofList
 
+   let modifantojDePredikataVerboj =
+      [ "nevil", Nevil ] |> Map.ofList
+
    let plenaArgumento vorto = Argumento(vorto, Set.empty)
+
+   let plenaVerbo vorto = Verbo(vorto, Set.empty)
 
    let kreiSintaksanalizilon =
       { Argumentoj = Deque.empty
@@ -101,6 +107,16 @@ module Sintaksanalizilo2 =
    let anstataŭigiLastanArgumenton sintaksanalizilo argumento =
       { sintaksanalizilo with LastaArgumento = Some argumento }
 
+   let aldoniModifantonAlLastaVerbo sintaksanalizilo modifanto =
+      sintaksanalizilo.Verboj.TryLast
+      |> Option.map (fun lastaVerbo ->
+            let novaVerbo =
+               match lastaVerbo with
+               | Verbo (v, listo) -> Verbo(v, Set.add modifanto listo)
+            { sintaksanalizilo with Verboj = sintaksanalizilo.Verboj.Initial.Conj novaVerbo })
+      |> Option.map Ok
+      |> Option.defaultValue (Error(sprintf "Neniu verbo por la modifanto %A" modifanto))
+
    let forigiRepetajnVortojn vortoj =
       vortoj
       |> List.fold (fun ak sek ->
@@ -113,13 +129,12 @@ module Sintaksanalizilo2 =
             match sintaksanaliziloAk with
             | Ok (sintaksanalizilo) ->
                if ĉuPredikataVorto sekvaVorto then
-                  { sintaksanalizilo with Verboj = sintaksanalizilo.Verboj.Conj(Verbo sekvaVorto) } |> Ok
+                  { sintaksanalizilo with Verboj = sintaksanalizilo.Verboj.Conj(plenaVerbo sekvaVorto) } |> Ok
                elif ĉuArgumentaVorto sekvaVorto then
-                     match sintaksanalizilo.KonstruontajModifantoj with
-                     | sekva :: restantaj ->
-                        { sintaksanalizilo with KonstruontajModifantoj = restantaj }
-                        |> sekva (plenaArgumento sekvaVorto)
-                     | _ -> aldoniArgumenton sintaksanalizilo (Argumento(sekvaVorto, Set.empty)) |> Ok
+                  match sintaksanalizilo.KonstruontajModifantoj with
+                  | sekva :: restantaj ->
+                     { sintaksanalizilo with KonstruontajModifantoj = restantaj } |> sekva (plenaArgumento sekvaVorto)
+                  | _ -> aldoniArgumenton sintaksanalizilo (Argumento(sekvaVorto, Set.empty)) |> Ok
                elif ĉuMalantaŭModifantaVorto sekvaVorto then
                   lastaArgumentoDe sintaksanalizilo
                   |> Result.map (fun (lastaArgumento, sintaksanalizilo) ->
@@ -157,6 +172,9 @@ module Sintaksanalizilo2 =
                                       |> aldoniArgumenton novaSA))
                              :: sintaksanalizilo.KonstruontajModifantoj }
                      |> Ok
+                  | _ when modifantojDePredikataVerboj |> Map.containsKey sekvaVorto.BazaVorto ->
+                     aldoniModifantonAlLastaVerbo sintaksanalizilo
+                        (Map.find sekvaVorto.BazaVorto modifantojDePredikataVerboj)
                   | _ -> Error(sprintf "Ne povas kategorigi %s" sekvaVorto.BazaVorto)
             | Error (_) -> sintaksanaliziloAk) (Ok sintaksanalizilo)
       |> Result.map purigiLastanArgumenton
@@ -165,7 +183,7 @@ module Sintaksanalizilo2 =
       match Deque.tryHead sintaksanalizilo.Verboj with
       | Some sekvaVerbo ->
          match sekvaVerbo with
-         | Verbo (vorto) ->
+         | Verbo (vorto, _) ->
             valencoDe vorto
             |> Option.map (fun valenco ->
                   if sintaksanalizilo.Argumentoj.Length < valenco then

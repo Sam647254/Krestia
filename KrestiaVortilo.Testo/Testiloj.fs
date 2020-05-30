@@ -88,7 +88,7 @@ module Testiloj =
                         argumentoj
                         |> tuteMalinflektiĈiujn
                         |> Result.map (fun malinflektitaArgumentoj ->
-                              let verboj = malinflektitaVerboj |> List.map Sintaksanalizilo2.Verbo
+                              let verboj = malinflektitaVerboj |> List.map plenaVerbo
                               let argumentoj =
                                  malinflektitaArgumentoj
                                  |> List.map (fun a -> Sintaksanalizilo2.Argumento(a, Set.empty))
