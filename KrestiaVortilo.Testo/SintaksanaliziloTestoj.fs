@@ -178,3 +178,11 @@ type Sintaksanalizilo() =
          kontroliRestantajnVortojn "lipa lipa lipa" [ plenaArgumento vorto ]
 
       ()
+
+   [<TestMethod>]
+   member _.NevalidajFrazoj() =
+      [ "bet"
+        "lipa betre"
+        "sonol lipa hem" ]
+      |> List.map kontroliNevalidanFrazon
+      |> ignore
