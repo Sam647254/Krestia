@@ -14,6 +14,56 @@ type Sintaksanalizilo() =
       kontroliKategorigadon "hem belitre gremi" [ "belitre" ] [ "hem"; "gremi" ]
 
    [<TestMethod>]
+   member _.``vilka sinil vol Metilmo``() =
+      let _ =
+         let vortoj = [ "gremi"; "Metilmo" ] |> List.map praveMalinflekti
+         match vortoj with
+         | [ gremi; metilmo ] ->
+            kontroliRestantajnVortojn "gremi vol Metilmo"
+               [ Plurvorto(plenaArgumento gremi, plenaArgumento metilmo, Vol) ]
+         | _ -> failwith "Invalid state"
+
+      let _ =
+         let tlatira = praveMalinflekti "Tlatira"
+         kontroliRestantajnVortojn "Tlatira" [ plenaArgumento tlatira ]
+
+      let _ =
+         let alano = praveMalinflekti "Alano"
+         kontroliRestantajnVortojn "Alano" [ plenaArgumento alano ]
+
+      let _ =
+         let vortoj = [ "delta"; "krenodea"; "lite" ] |> List.map praveMalinflekti
+         match vortoj with
+         | [ delta; krenodea; lite ] ->
+            kontroliRestantajnVortojn "delta krenodea mel lite"
+               [ Argumento
+                  (delta,
+                   [ Modifanto(krenodea)
+                     Mel(plenaArgumento lite) ]) ]
+         | _ -> failwith "Invalid state"
+
+      let _ =
+         let vortoj = [ "rinome"; "seskoma" ] |> List.map praveMalinflekti
+         match vortoj with
+         | [ rinome; seskoma ] ->
+            kontroliRestantajnVortojn "rinome sonol seskoma" [ Argumento(rinome, [ Sonol(plenaArgumento seskoma) ]) ]
+         | _ -> failwith "Invalid state"
+
+      let _ =
+         let alanokonal = praveMalinflekti "Alanokonal"
+         kontroliRestantajnVortojn "Alanokonal" [ plenaArgumento alanokonal ]
+
+      let _ =
+         let vortoj = [ "rote"; "Nivernal" ] |> List.map praveMalinflekti
+         match vortoj with
+         | [ rote; nivernal ] ->
+            kontroliRestantajnVortojn "rote nal Nivernal"
+               [ Plurvorto(plenaArgumento rote, plenaArgumento nivernal, Nal) ]
+         | _ -> failwith "Invalid state"
+
+      ()
+
+   [<TestMethod>]
    member _.MalplenigitajFormoj() =
       [ "belim" ] |> kontroliMalplenigitajnFormojn "belim"
 
@@ -126,5 +176,5 @@ type Sintaksanalizilo() =
       let _ =
          let vorto = praveMalinflekti "lipa"
          kontroliRestantajnVortojn "lipa lipa lipa" [ plenaArgumento vorto ]
-      
+
       ()

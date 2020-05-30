@@ -6,14 +6,17 @@ open Malinflektado
 module Sintaksanalizilo2 =
    type Verbo = Verbo of MalinflektitaVorto
 
-   type Modifanto = Modifanto of MalinflektitaVorto
+   type Modifanto =
+      | Modifanto of MalinflektitaVorto
+      | Mel of Argumento
+      | Sonol of Argumento
 
-   type Parvorto =
+   and Parvorto =
       | Vol
       | Del
       | Nal
 
-   type Argumento =
+   and Argumento =
       | Argumento of MalinflektitaVorto * Modifanto list
       | Plurvorto of nukleo: Argumento * modifanto: Argumento * parvorto: Parvorto
 

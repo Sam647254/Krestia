@@ -7,6 +7,7 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7e755a89_002Dc667_002D4b77_002D9731_002Dbf5c3442cbe4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RepetitajVortoj #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;MSTest::51A4B98B-C381-4D26-8974-30BCDA505A2F::.NETCoreApp,Version=v3.0::KrestiaVortilo.Testo.Sintaksanalizilo.RepetitajVortoj&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::51A4B98B-C381-4D26-8974-30BCDA505A2F::.NETCoreApp,Version=v3.0::KrestiaVortilo.Testo.Sintaksanalizilo.vilka sinil vol Metilmo&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	
