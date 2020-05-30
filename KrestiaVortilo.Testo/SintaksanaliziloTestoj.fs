@@ -183,6 +183,16 @@ type Sintaksanalizilo() =
    member _.NevalidajFrazoj() =
       [ "bet"
         "lipa betre"
-        "sonol lipa hem" ]
+        "sonol lipa hem"
+        "sonol" ]
       |> List.map kontroliNevalidanFrazon
       |> ignore
+   
+   [<TestMethod>]
+   member _.Nevil() =
+      let _ =
+         let vortoj = [ "hem"; "bese" ] |> List.map praveMalinflekti
+         match vortoj with
+         | [ hem; bese ] ->
+            kontroliUnuFrazon "hem bese nevil" (Predikato1(NevilVerbo bese, plenaArgumento hem))
+      ()

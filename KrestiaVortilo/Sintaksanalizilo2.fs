@@ -4,7 +4,9 @@ open FSharpx.Collections
 open Malinflektado
 
 module Sintaksanalizilo2 =
-   type Verbo = Verbo of MalinflektitaVorto
+   type Verbo =
+      | Verbo of MalinflektitaVorto
+      | NevilVerbo of MalinflektitaVorto
 
    type ArgumentaModifanto =
       | Pridiranto of MalinflektitaVorto
