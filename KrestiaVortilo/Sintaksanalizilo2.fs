@@ -46,6 +46,11 @@ module Sintaksanalizilo2 =
         "del", Del
         "nal", Nal ]
       |> Map.ofList
+      
+   let modifantoj1DeKlasoj =
+      [ "mel", Mel
+        "sonol", Sonol ]
+      |> Map.ofList
 
    let plenaArgumento vorto = Argumento(vorto, Set.empty)
 
@@ -138,13 +143,14 @@ module Sintaksanalizilo2 =
                                 :: sintaksanalizilo.AtendantajFrazoj })
                else
                   match sekvaVorto.BazaVorto with
-                  | "mel" ->
+                  | _ when modifantoj1DeKlasoj |> Map.containsKey sekvaVorto.BazaVorto ->
+                     let modifanto = Map.find sekvaVorto.BazaVorto modifantoj1DeKlasoj
                      { sintaksanalizilo with
                           KonstruontajModifantoj =
                              (fun argumento novaSA ->
                                 lastaArgumentoDe novaSA
                                 |> Result.map (fun (lastaArgumento, novaSA) ->
-                                      Mel argumento
+                                      modifanto argumento
                                       |> aldoniModifanton lastaArgumento
                                       |> aldoniArgumenton novaSA))
                              :: sintaksanalizilo.KonstruontajModifantoj }

@@ -10,6 +10,12 @@
     &lt;TestId&gt;MSTest::51A4B98B-C381-4D26-8974-30BCDA505A2F::.NETCoreApp,Version=v3.0::KrestiaVortilo.Testo.Sintaksanalizilo.vilka sinil vol Metilmo&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c2f3dd71_002D71bc_002D4cc1_002D9aa7_002Dc6cb2322e66b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="RepetitajVortoj" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;MSTest::51A4B98B-C381-4D26-8974-30BCDA505A2F::.NETCoreApp,Version=v3.0::KrestiaVortilo.Testo.Sintaksanalizilo.RepetitajVortoj&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;MSTest::51A4B98B-C381-4D26-8974-30BCDA505A2F::.NETCoreApp,Version=v3.0::KrestiaVortilo.Testo.Sintaksanalizilo.vilka sinil vol Metilmo&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	
 	
 	
