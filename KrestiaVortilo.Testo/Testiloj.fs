@@ -84,7 +84,9 @@ module Testiloj =
                         |> tuteMalinflektiĈiujn
                         |> Result.map (fun malinflektitaArgumentoj ->
                               let verboj = malinflektitaVerboj |> List.map Sintaksanalizilo2.Verbo
-                              let argumentoj = malinflektitaArgumentoj |> List.map (fun a -> Sintaksanalizilo2.Argumento(a, []))
+                              let argumentoj =
+                                 malinflektitaArgumentoj
+                                 |> List.map (fun a -> Sintaksanalizilo2.Argumento(a, Set.empty))
                               Assert.AreEqual(Deque.ofList verboj, Deque.toSeq sintaksanalizilo.Verboj)
                               Assert.AreEqual(Deque.ofList argumentoj, sintaksanalizilo.Argumentoj)))))
       |> Result.mapError Assert.Fail
@@ -110,7 +112,7 @@ module Testiloj =
             Assert.AreEqual(prava, rezulto.Frazoj.Item 0))
       |> Result.mapError Assert.Fail
       |> ignore
-      
+
    let kontroliPlurajnFrazojn eniro (pravaj: Predikato list) (restantaj: Argumento list) =
       analizi eniro
       |> Result.map (fun rezulto ->
@@ -118,10 +120,9 @@ module Testiloj =
             Assert.AreEqual(restantaj, rezulto.RestantajVortoj))
       |> Result.mapError Assert.Fail
       |> ignore
-      
+
    let kontroliRestantajnVortojn eniro (pravajRestantaj: Argumento list) =
       analizi eniro
-      |> Result.map (fun rezulto ->
-            Assert.AreEqual(pravajRestantaj, rezulto.RestantajVortoj))
+      |> Result.map (fun rezulto -> Assert.AreEqual(pravajRestantaj, rezulto.RestantajVortoj))
       |> Result.mapError Assert.Fail
       |> ignore

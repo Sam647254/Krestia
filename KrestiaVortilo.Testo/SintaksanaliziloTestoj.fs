@@ -38,15 +38,15 @@ type Sintaksanalizilo() =
             kontroliRestantajnVortojn "delta krenodea mel lite"
                [ Argumento
                   (delta,
-                   [ Modifanto(krenodea)
-                     Mel(plenaArgumento lite) ]) ]
+                   [ Pridiranto(krenodea)
+                     Mel(plenaArgumento lite) ] |> Set.ofList) ]
          | _ -> failwith "Invalid state"
 
       let _ =
          let vortoj = [ "rinome"; "seskoma" ] |> List.map praveMalinflekti
          match vortoj with
          | [ rinome; seskoma ] ->
-            kontroliRestantajnVortojn "rinome sonol seskoma" [ Argumento(rinome, [ Sonol(plenaArgumento seskoma) ]) ]
+            kontroliRestantajnVortojn "rinome sonol seskoma" [ Argumento(rinome, [ Sonol(plenaArgumento seskoma) ] |> Set.ofList) ]
          | _ -> failwith "Invalid state"
 
       let _ =
@@ -140,14 +140,14 @@ type Sintaksanalizilo() =
          let vortoj = [ "lipa"; "lidea" ] |> List.map praveMalinflekti
          match vortoj with
          | [ lipa; lidea ] ->
-            kontroliRestantajnVortojn "lipa lidea" [ Argumento(lipa, [ Modifanto(lidea) ]) ]
+            kontroliRestantajnVortojn "lipa lidea" [ Argumento(lipa, Set.singleton(Pridiranto(lidea))) ]
          | _ -> failwith "Invalid state"
 
       let _ =
          let vortoj = [ "lidra"; "lipa" ] |> List.map praveMalinflekti
          match vortoj with
          | [ lidra; lipa ] ->
-            kontroliRestantajnVortojn "lidra lipa" [ Argumento(lipa, [ Modifanto(lidra) ]) ]
+            kontroliRestantajnVortojn "lidra lipa" [ Argumento(lipa, Set.singleton(Pridiranto(lidra))) ]
          | _ -> failwith "Invalid state"
 
       ()
