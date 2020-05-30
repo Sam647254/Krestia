@@ -120,3 +120,11 @@ type Sintaksanalizilo() =
          | _ -> failwith "Invalid state"
 
       ()
+
+   [<TestMethod>]
+   member _.RepetitajVortoj() =
+      let _ =
+         let vorto = praveMalinflekti "lipa"
+         kontroliRestantajnVortojn "lipa lipa lipa" [ plenaArgumento vorto ]
+      
+      ()

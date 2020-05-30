@@ -89,6 +89,12 @@ module Sintaksanalizilo2 =
 
    let anstataŭigiLastanArgumenton sintaksanalizilo argumento =
       { sintaksanalizilo with LastaArgumento = Some argumento }
+      
+   let forigiRepetajnVortojn vortoj =
+      vortoj
+      |> List.fold
+            (fun ak sek -> if List.isEmpty ak || sek <> List.head ak then sek :: ak else ak) []
+      |> List.rev
 
    let kategorigi sintaksanalizilo vortoj =
       vortoj
@@ -168,6 +174,7 @@ module Sintaksanalizilo2 =
    let analizi (eniro: string): Result<AnaziloRezulto, string> =
       eniro.Split(' ')
       |> List.ofArray
+      |> forigiRepetajnVortojn
       |> tuteMalinflektiĈiujn
       |> Result.bind (kategorigi kreiSintaksanalizilon)
       |> Result.bind (fun sintaksanalizilo ->
