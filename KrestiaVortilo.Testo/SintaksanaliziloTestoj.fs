@@ -196,3 +196,11 @@ type Sintaksanalizilo() =
          | [ hem; bese ] ->
             kontroliUnuFrazon "hem bese nevil" (Predikato1(Verbo(bese, Set.singleton(Nevil)), plenaArgumento hem))
       ()
+   
+   [<TestMethod>]
+   member _.``hem tatretowa``() =
+      let vortoj = [ "hem"; "tatretowa" ] |> List.map praveMalinflekti
+      match vortoj with
+      | [ hem; tatretowa ] ->
+         kontroliUnuFrazon "hem tatretowa" (Predikato1(plenaVerbo tatretowa, plenaArgumento hem))
+      ()

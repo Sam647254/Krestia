@@ -591,6 +591,8 @@ module Malinflektado =
       ĉuInfinitivo vorto
       |> Option.map (fun vorttipo ->
             match vorttipo with
+            | NombrigeblaKlaso
+            | NenombrigeblaKlaso
             | NetransitivaVerbo
             | OblikaNetransitivaVerbo
             | NedirektaNetransitivaVerbo -> 1
