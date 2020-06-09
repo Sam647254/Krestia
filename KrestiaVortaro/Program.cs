@@ -5,7 +5,27 @@ using System.Threading.Tasks;
 
 namespace KrestiaVortaro {
    internal static class Program {
+      private const string helpaTeksto = @"
+██  ████ ████████ ████████ ████████ ████████ ██████ ████████
+██████   ██    ██ ██       ██           ██     ██   ██    ██
+██  ██   ████████ ████           ██     ██     ██   ████████
+██  ████ ██  ██   ████████ ████████     ██   ██████ ██    ██
+
+██    ██ ████████ ████████ ████████ ████████ ████████ ████████
+██    ██ ██    ██ ██    ██     ██   ██    ██ ██    ██ ██    ██
+██    ██ ██    ██ ████████     ██   ████████ ████████ ██    ██
+  ████   ████████ ██  ██       ██   ██    ██ ██  ██   ████████
+
+Komandoj:
+kontroli <KV> <KG>
+timeran <KV> <eniro> <eliro>
+"; 
+      
       private static async Task Main(string[] args) {
+         if (args.Length == 0) {
+            Console.WriteLine(helpaTeksto);
+            return;
+         }
          try {
             switch (args[0]) {
                case "listi": {
