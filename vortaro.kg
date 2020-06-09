@@ -9,7 +9,7 @@ arts and craftsmanship:resip,dutup,meranip
 undesirable things:eradro,kiriku,soponu
 containers:nelpo
 helper modifiers:nival,sonal,#verb helpers,#predicate helpers,vol,konal,nal,mel,sonol
-common objects:dumbeto
+common objects:dumbeto,klitu,klutu,kresto,nonto,lipotu
 personal traits:kirid,ilesh,lumid,#common attributes
 locatives:vogro,trigro,nel,negro,ridro
 pronouns:awelmo,emikaa,awolmaa,esikaa,etikaa,awilmaa,#placeholders
@@ -18,7 +18,7 @@ raw materials:duleto,vomo
 placeholders:hite,hem,hes,wel,hime,hise,wol,wil,het
 emotions:grelet,polov,emelev,emodro,sered,leved,demed,bimid,mirabat,lirekutaa,serev,delegro,emonev,mirabut,levegro,bimigro,mirev,mirav,numod
 lifestyle:gelidro,melidro,melis
-life:boropo,runataa,bores,dunagro,#humans
+life:boropo,runataa,bores,dunagro,#humans,liveras
 movement:emalip,erash
 colours:linud
 physics:metaa,bet,lidro,leres,leredro,seskad,#locatives
@@ -33,3 +33,4 @@ common attributes:olud,sorod,olid,gromod,bomol,sirid,elid,olad,elad,vid,nolod,su
 tools:bilepo,moropaa,toseto,soku,besegro,repeto,tilto,enoto,vilipu
 dates:mogal,morgomo
 seasons:lunomo,venemo,nelito,rinomo,mesoto
+home:livetu,kresto,kreskaa,lipotu,boltaa,mebetaa,gelish,vosmu,domo,nonto,krentu,pulto,melmoto,emolkaa,beletaa,imiltaa,kresito,gresigro
