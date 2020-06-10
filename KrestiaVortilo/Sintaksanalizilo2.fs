@@ -4,6 +4,10 @@ open FSharpx.Collections
 open Malinflektado
 
 module Sintaksanalizilo2 =
+   type EniraVorto = int * int * string
+
+   type Eraro = EniraVorto * string
+
    type Verbo = Verbo of MalinflektitaVorto * Modifantoj: Set<PredikataVerboModifanto>
 
    and ArgumentaModifanto =
@@ -218,7 +222,24 @@ module Sintaksanalizilo2 =
               Frazoj = List.rev rezulto.Frazoj }
          |> Ok
 
+   let iĝiEnEnirajVortoj vortoj =
+      vortoj
+      |> List.mapi (fun vico vortojDeVico ->
+            vortojDeVico
+            |> List.fold (fun (pozo, ak) sekva -> (pozo + String.length sekva, EniraVorto(vico, pozo, sekva) :: ak))
+                  (0, [])
+            |> fun (_, listo) -> listo
+            |> List.rev)
+      |> List.concat
+
    let analizi (eniro: string): Result<AnaziloRezulto, string> =
+      let vicoj = eniro.Split('\n')
+
+      let vortoj =
+         vicoj
+         |> List.ofArray
+         |> List.map (fun vico -> vico.Split(' '))
+         |> List.map List.ofArray
       eniro.Split(' ')
       |> List.ofArray
       |> forigiRepetajnVortojn
