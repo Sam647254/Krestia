@@ -249,8 +249,11 @@ module Sintaksanalizilo2 =
               Frazoj = List.rev rezulto.Frazoj }
          |> Ok
 
-   let iĝiEnEnirajVortoj ĉuTesto vortoj =
-      vortoj
+   let iĝiEnEnirajVortoj ĉuTesto (eniro: string) =
+      eniro.Split('\n')
+      |> List.ofArray
+      |> List.map (fun vico -> vico.Split(' '))
+      |> List.map List.ofArray
       |> List.mapi (fun vico vortojDeVico ->
             vortojDeVico
             |> List.fold (fun (pozo, ak) sekva ->
@@ -266,10 +269,7 @@ module Sintaksanalizilo2 =
       |> List.concat
 
    let analizi (eniro: string) ĉuTesto: Result<AnaziloRezulto, Eraro> =
-      eniro.Split('\n')
-      |> List.ofArray
-      |> List.map (fun vico -> vico.Split(' '))
-      |> List.map List.ofArray
+      eniro
       |> iĝiEnEnirajVortoj ĉuTesto
       |> forigiRepetajnVortojn
       |> tuteMalinflektiĈiujn

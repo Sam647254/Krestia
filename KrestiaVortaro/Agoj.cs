@@ -110,9 +110,9 @@ namespace KrestiaVortaro {
          var vortaro = Vortaro.KreiVortaronDe(jsonVortaro);
          foreach (var vico in eniro) {
             var vortoj = vico.Split(' ').Select(vorto => {
-               var malinflektita = Malinflektado.tuteMalinflekti(vorto);
+               var malinflektita = Malinflektado.tuteMalinflekti(Malinflektado.testaVorto(vorto));
                if (malinflektita.IsError) {
-                  throw new InvalidOperationException(malinflektita.ErrorValue);
+                  throw new InvalidOperationException(malinflektita.ErrorValue.Item2);
                }
 
                var gramatikajLiteroj = malinflektita.ResultValue.InflekcioŜtupoj.Select(ŝtupo => {
@@ -142,12 +142,12 @@ namespace KrestiaVortaro {
 
       private static int KontroliVortonKajValencon(ICollection<string> ekzistantajVortoj, string novaVorto,
          IList<string> radikoj) {
-         var malinflektitaVorto = Malinflektado.malinflekti(novaVorto);
+         var malinflektitaVorto = Malinflektado.malinflekti(Malinflektado.testaVorto(novaVorto));
          var ĉuHavasValidajnRadikojn = radikoj.All(ekzistantajVortoj.Contains);
          var ĉuValidaVorto = Malinflektado.dividi(novaVorto, true);
          var malplenigitajVerboj = Malinflektado.malplenigitajFormojDe(novaVorto);
          var ĉuValidajMalplenigitajVerboj = malplenigitajVerboj.IsError || malplenigitajVerboj.ResultValue.All(m => {
-            var ŝtupoj = Malinflektado.malinflekti(m);
+            var ŝtupoj = Malinflektado.malinflekti(Malinflektado.testaVorto(m));
             return ŝtupoj.IsOk && ŝtupoj.ResultValue.IsBazo;
          });
 

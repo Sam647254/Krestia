@@ -18,15 +18,6 @@ namespace KrestiaVortaro.Testo {
       }
 
       [Test]
-      public void AldoniVortojn() {
-         const string eniro = @"lirano|night (peaceful)|night||
-mikaa|day|day||";
-         var vicoj = eniro.Split('\n');
-         var novajVortoj = Agoj.AldoniVortojn(_vortaro, vicoj).ToList();
-         Assert.AreEqual(3, novajVortoj.Count);
-      }
-
-      [Test]
       public void NevalideAldoniVorton() {
          foreach (var vico in new[] {
             "lirane|night (peaceful)|night||", // ne estas bazo

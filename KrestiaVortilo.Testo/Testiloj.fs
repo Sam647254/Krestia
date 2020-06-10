@@ -10,8 +10,6 @@ open KrestiaVortilo.Sintaksanalizilo2
 open KrestiaVortilo.Malinflektado
 
 module Testiloj =
-   let testaVorto vorto = { Vico = 0; Pozo = 0; Vorto = vorto }
-   
    let malsukcesi (_, eraro) = Assert.Fail eraro
    
    let plenaModifanto modifanto = { Modifanto = modifantojDePredikataVerboj.[modifanto]; Vorto = testaVorto modifanto }

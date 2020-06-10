@@ -44,7 +44,7 @@ namespace KrestiaVortaro {
                   .Select(sk => sk.Nomo).ToImmutableHashSet(),
             });
       }
-      
+
       public VortoRespondo? Vorto(string vorto) {
          var respondo = Indekso.GetValueOrDefault(vorto, null);
          if (respondo == null) {
@@ -75,7 +75,7 @@ namespace KrestiaVortaro {
       }
 
       public VortoRezulto TroviVortojn(string peto) {
-         var kvanto = peto.Split(' ');
+         var kvanto = Sintaksanalizilo2.iĝiEnEnirajVortoj(false, peto);
          if (kvanto.Length > 1) {
             var malinflektita = kvanto.Select(Malinflektado.tuteMalinflekti).ToList();
             try {
@@ -84,7 +84,7 @@ namespace KrestiaVortaro {
             catch (InvalidOperationException) { }
          }
 
-         var malinflekajŜtupoj = Malinflektado.tuteMalinflekti(peto);
+         var malinflekajŜtupoj = Malinflektado.tuteMalinflekti(Malinflektado.testaVorto(peto));
          string? malinflektitaVorto = null;
          Vorttipo.Vorttipo? malinflektitaTipo = null;
          string? bazo = null;
@@ -131,7 +131,8 @@ namespace KrestiaVortaro {
       }
 
       private VortoRezulto GlosaRezulto(
-         IReadOnlyCollection<FSharpResult<Malinflektado.MalinflektitaVorto, string>> vortoj) {
+         IReadOnlyCollection<FSharpResult<Malinflektado.MalinflektitaVorto, Tuple<Malinflektado.EniraVorto, string>>>
+            vortoj) {
          var bazoj = vortoj.Select(v => v.IsOk ? Malinflektado.bazoDe(v.ResultValue.BazaVorto) : "???");
          var rezultoj = bazoj.Select(b => BazoIndekso.GetValueOrDefault(b, null)).ToList();
 
@@ -176,7 +177,8 @@ namespace KrestiaVortaro {
       public static async Task<Vortaro> KreiVortaronDe(string vortojUrl, string kategoriojUrl) {
          var httpClient = new HttpClient();
          var vortoj = Agoj.KontroliVortojn((await httpClient.GetStringAsync(vortojUrl)).Split('\n'));
-         var kategorioj = Agoj.KontroliKategoriojn(vortoj, (await httpClient.GetStringAsync(kategoriojUrl)).Split('\n'));
+         var kategorioj =
+            Agoj.KontroliKategoriojn(vortoj, (await httpClient.GetStringAsync(kategoriojUrl)).Split('\n'));
          return new Vortaro(vortoj, kategorioj);
       }
 

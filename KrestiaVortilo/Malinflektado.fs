@@ -10,6 +10,8 @@ module Malinflektado =
         Pozo : int
         Vorto : string }
 
+   let testaVorto vorto = { Vico = 0; Pozo = 0; Vorto = vorto }
+
    type Eraro = EniraVorto * string
 
    type Finaĵo =
@@ -621,8 +623,8 @@ module Malinflektado =
       |> Option.bind (fun _ -> valencoDeInfinitivo vorto.BazaVorto |> Option.map (fun valenco -> valenco - 1))
       |> Option.orElseWith (fun () -> valencoDeInfinitivo vorto.BazaVorto)
 
-   let vortaraTipoDe vorto =
-      match malinflekti vorto with
+   let vortaraTipoDe (vorto: string) =
+      match vorto |> testaVorto |> malinflekti with
       | Ok (malinflektaŜtupo) ->
          match malinflektaŜtupo with
          | Bazo (vorttipo, _, _) ->
