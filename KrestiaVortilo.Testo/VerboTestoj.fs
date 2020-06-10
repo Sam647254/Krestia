@@ -31,7 +31,7 @@ type VerboTestoj() =
       |> List.map (fun rezulto ->
             match rezulto with
             | Ok(_) -> ()
-            | Error(eraro) -> Assert.Fail(eraro))
+            | Error((_, eraro)) -> Assert.Fail(eraro))
       |> ignore
 
       [ "morem"; "gelum"; "seskom"; "kirim" ]

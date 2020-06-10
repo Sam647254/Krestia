@@ -5,6 +5,13 @@ open Vorttipo
 open Sintaksanalizilo
 
 module Malinflektado =
+   type EniraVorto =
+      { Vico : int
+        Pozo : int
+        Vorto : string }
+
+   type Eraro = EniraVorto * string
+
    type Finaĵo =
       | InfinitivoFinaĵo of string * Inflekcio
       | DifinitoFinaĵo of string * Inflekcio
@@ -16,7 +23,8 @@ module Malinflektado =
 
    type MalinflektitaVorto =
       { BazaVorto: string
-        InflekcioŜtupoj: MalinflektaŜtupo list }
+        InflekcioŜtupoj: MalinflektaŜtupo list
+        OriginalaVorto: EniraVorto }
 
    let okazoFinaĵoj =
       [ InfinitivoFinaĵo("lo", Okazo)
@@ -281,7 +289,8 @@ module Malinflektado =
    let unuNombroFinaĵo = "si"
    let pluraNombroFinaĵo = "ve"
 
-   let rec malinflekti (ĉeno: string): Result<MalinflektaŜtupo, string> =
+   let rec malinflekti (vorto: EniraVorto): Result<MalinflektaŜtupo, Eraro> =
+      let ĉeno = vorto.Vorto
       match ĉeno with
       | _ when ĉuFremdaVorto ĉeno -> Bazo(FremdaVorto, SolaFormo, ĉeno) |> Ok
       | _ when ĉuLokokupilo ĉeno -> Bazo(Lokokupilo, SolaFormo, ĉeno) |> Ok
@@ -324,21 +333,22 @@ module Malinflektado =
          |> Option.orElseWith (fun () ->
                ĉuInfinitivo ĉeno |> Option.map (fun vorttipo -> Bazo(vorttipo, Infinitivo, ĉeno)))
          |> Option.map Ok
-         |> Option.defaultValue (Error(sprintf "%s estas nevalida" ĉeno))
+         |> Option.defaultValue ((vorto, (sprintf "%s estas nevalida" ĉeno)) |> Error)
 
-   and tuteMalinflekti (ĉeno: string) =
-      malinflekti ĉeno
+   and tuteMalinflekti (vorto: EniraVorto) =
+      malinflekti vorto
       |> Result.bind (fun malinflektita ->
             match malinflektita with
             | Bazo (_, _, bazaVorto) ->
                { BazaVorto = bazaVorto
-                 InflekcioŜtupoj = List.singleton malinflektita }
+                 InflekcioŜtupoj = List.singleton malinflektita
+                 OriginalaVorto = vorto }
                |> Ok
             | Nebazo (_, _, restanta) ->
-               tuteMalinflekti restanta
+               tuteMalinflekti { vorto with Vorto = restanta }
                |> Result.map (fun sekva -> { sekva with InflekcioŜtupoj = malinflektita :: sekva.InflekcioŜtupoj }))
 
-   and tuteMalinflektiĈiujn (ĉenoj: string list) =
+   and tuteMalinflektiĈiujn (ĉenoj: EniraVorto list) =
       ĉenoj
       |> List.fold (fun akListo sekva ->
             match akListo with
@@ -350,7 +360,7 @@ module Malinflektado =
       |> Result.map List.rev
 
    and ĉuVerbo (ĉeno: string) =
-      tuteMalinflekti ĉeno
+      tuteMalinflekti { Vico = 0; Pozo = 0; Vorto = ĉeno }
       |> Result.map (fun malinflektitaVorto ->
             match malinflektitaVorto.InflekcioŜtupoj with
             | unua :: _ ->
@@ -361,7 +371,7 @@ module Malinflektado =
             | [] -> failwith "ne valida ŝtupoj")
 
    and ĉuVerboInfinitivo (ĉeno: string) =
-      tuteMalinflekti ĉeno
+      tuteMalinflekti { Vico = 0; Pozo = 0; Vorto = ĉeno }
       |> Result.map (fun malinflektitaVorto ->
             match malinflektitaVorto.InflekcioŜtupoj with
             | [ solaŜtupo ] ->
@@ -395,18 +405,18 @@ module Malinflektado =
             else None)
       |> Option.defaultValue infinitivo
       |> bazoDe
-      
+
    and normaligiEnVortaranFormon (infinitivo: string) =
-      if Char.IsUpper(infinitivo.[0])
-      then infinitivo
+      if Char.IsUpper(infinitivo.[0]) then
+         infinitivo
       else
          [ "gru", "gro"
            "dru", "dro"
            "r", "l" ]
          |> List.tryPick (fun (alterativa, vortara) ->
-            if infinitivo.EndsWith(alterativa)
-            then infinitivo.Substring(0, infinitivo.Length - alterativa.Length) + vortara |> Some
-            else None)
+               if infinitivo.EndsWith(alterativa)
+               then infinitivo.Substring(0, infinitivo.Length - alterativa.Length) + vortara |> Some
+               else None)
          |> Option.defaultValue infinitivo
          |> bazoDe
 
@@ -544,10 +554,10 @@ module Malinflektado =
 
    let argumentajNebazajInflekcioj =
       [ Difinito; UnuNombro; PluraNombro ] |> Set.ofList
-      
+
    let malantaŭModifantajInflekcioj =
       [ AtributivoEstiMalantaŭ ] |> Set.ofList
-   
+
    let antaŭModifantajInflekcioj =
       [ AtributivoEstiAntaŭ ] |> Set.ofList
 
@@ -560,12 +570,12 @@ module Malinflektado =
       match vorto.InflekcioŜtupoj.Head with
       | Bazo (vorttipo, _, _) -> Set.contains vorttipo argumentajBazajTipoj
       | Nebazo (_, inflekcio, _) -> Set.contains inflekcio argumentajNebazajInflekcioj
-      
+
    let ĉuMalantaŭModifantaVorto (vorto: MalinflektitaVorto) =
       match vorto.InflekcioŜtupoj.Head with
       | Bazo (_, _, _) -> false
       | Nebazo (_, inflekcio, _) -> Set.contains inflekcio malantaŭModifantajInflekcioj
-   
+
    let ĉuAntaŭModifantaVorto (vorto: MalinflektitaVorto) =
       match vorto.InflekcioŜtupoj.Head with
       | Nebazo (_, inflekcio, _) -> Set.contains inflekcio antaŭModifantajInflekcioj
@@ -586,7 +596,7 @@ module Malinflektado =
                       (sprintf "%s, %s, %s" (difinito + sufikso) (difinito + unuNombroFinaĵo + sufikso)
                           (difinito + pluraNombroFinaĵo + sufikso))))
             |> Map.ofList)
-      
+
    let valencoDeInfinitivo vorto =
       ĉuInfinitivo vorto
       |> Option.map (fun vorttipo ->
@@ -605,12 +615,10 @@ module Malinflektado =
    let valencoDe vorto =
       vorto.InflekcioŜtupoj
       |> List.tryFind (fun ŝtupo ->
-         match ŝtupo with
-         | Nebazo(_, inflekcio, _) -> inflekcio = Imperativo
-         | _ -> false)
-      |> Option.bind (fun _ ->
-         valencoDeInfinitivo vorto.BazaVorto
-         |> Option.map (fun valenco -> valenco - 1))
+            match ŝtupo with
+            | Nebazo (_, inflekcio, _) -> inflekcio = Imperativo
+            | _ -> false)
+      |> Option.bind (fun _ -> valencoDeInfinitivo vorto.BazaVorto |> Option.map (fun valenco -> valenco - 1))
       |> Option.orElseWith (fun () -> valencoDeInfinitivo vorto.BazaVorto)
 
    let vortaraTipoDe vorto =
@@ -634,11 +642,12 @@ module Malinflektado =
             | MalantaŭNenombrieblaEco
             | AntaŭNombrigeblaEco
             | MalantaŭNombrigeblaEco -> "Associative class"
-            | AntaŭRekordo | MalantaŭRekordo -> "Record"
+            | AntaŭRekordo
+            | MalantaŭRekordo -> "Record"
             | MalantaŭModifanto
             | AntaŭModifanto -> "Modifier"
             | Lokokupilo -> "Placeholder"
             | FremdaVorto -> "Foreign word"
             | Makro -> "Macro"
          | Nebazo (_) -> failwith "Nevalida lasta malinflekta ŝtupo"
-      | Error (eraro) -> failwith eraro
+      | Error ((_, eraro)) -> failwith eraro
