@@ -4,7 +4,7 @@ open FSharpx.Collections
 open Malinflektado
 
 module Sintaksanalizilo2 =
-   type Verbo = Verbo of MalinflektitaVorto * Modifantoj: Set<PredikataVerboModifanto>
+   type Verbo = Verbo of MalinflektitaVorto * Modifantoj: Set<PredikataVerboModifantajVorto>
 
    and ArgumentaModifanto =
       | Pridiranto of MalinflektitaVorto
@@ -13,6 +13,10 @@ module Sintaksanalizilo2 =
       | Nival
 
    and PredikataVerboModifanto = | Nevil
+
+   and PredikataVerboModifantajVorto =
+      { Modifanto: PredikataVerboModifanto
+        Vorto: EniraVorto }
 
    and Parvorto =
       | Vol
@@ -115,7 +119,7 @@ module Sintaksanalizilo2 =
                | Verbo (v, listo) -> Verbo(v, Set.add modifanto listo)
             { sintaksanalizilo with Verboj = sintaksanalizilo.Verboj.Initial.Conj novaVerbo })
       |> Option.map Ok
-      |> Option.defaultValue (Error(sprintf "Neniu verbo por la modifanto %A" modifanto))
+      |> Option.defaultValue (Error((modifanto.Vorto, sprintf "Neniu verbo por la modifanto %A" modifanto)))
 
    let forigiRepetajnVortojn vortoj =
       vortoj
@@ -176,7 +180,8 @@ module Sintaksanalizilo2 =
                      |> Ok
                   | _ when modifantojDePredikataVerboj |> Map.containsKey sekvaVorto.BazaVorto ->
                      aldoniModifantonAlLastaVerbo sintaksanalizilo
-                        (Map.find sekvaVorto.BazaVorto modifantojDePredikataVerboj)
+                        { Modifanto = Map.find sekvaVorto.BazaVorto modifantojDePredikataVerboj
+                          Vorto = sekvaVorto.OriginalaVorto }
                   | _ -> Error((sekvaVorto.OriginalaVorto, sprintf "Ne povas kategorigi %s" sekvaVorto.BazaVorto))
             | Error (_) -> sintaksanaliziloAk) (Ok sintaksanalizilo)
       |> Result.map purigiLastanArgumenton
@@ -213,7 +218,8 @@ module Sintaksanalizilo2 =
                                    AtendantajFrazoj = sintaksanalizilo.AtendantajFrazoj
                                    LastaArgumento = sintaksanalizilo.LastaArgumento
                                    KonstruontajModifantoj = sintaksanalizilo.KonstruontajModifantoj }))
-            |> Option.defaultValue (Error(vorto.OriginalaVorto, (sprintf "Ne konas la valencon de %s" vorto.BazaVorto)))
+            |> Option.defaultValue
+                  (Error(vorto.OriginalaVorto, (sprintf "Ne konas la valencon de %s" vorto.BazaVorto)))
       | None ->
          { rezulto with
               RestantajVortoj = Deque.toSeq sintaksanalizilo.Argumentoj |> List.ofSeq
@@ -234,7 +240,7 @@ module Sintaksanalizilo2 =
             |> List.rev)
       |> List.concat
 
-   let analizi (eniro: string): Result<AnaziloRezulto, string> =
+   let analizi (eniro: string): Result<AnaziloRezulto, Eraro> =
       eniro.Split('\n')
       |> List.ofArray
       |> List.map (fun vico -> vico.Split(' '))
