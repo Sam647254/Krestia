@@ -14,6 +14,8 @@ module Testiloj =
    
    let malsukcesi (_, eraro) = Assert.Fail eraro
    
+   let plenaModifanto modifanto = { Modifanto = modifantojDePredikataVerboj.[modifanto]; Vorto = testaVorto modifanto }
+   
    let kontroliFormon (vorto: string) (pravaTipo: Vorttipo) (pravaInflekcio: Inflekcio) =
       kontroli vorto
       |> Option.map (fun (tipo, formo) ->
@@ -64,7 +66,7 @@ module Testiloj =
       |> ignore
       
    let kontroliNevalidanFrazon (eniro: string) =
-      analizi eniro
+      analizi eniro true
       |> Result.map (fun rezulto -> Assert.Fail(sprintf "%s estas nevalida frazo, sed legis %A" eniro rezulto))
       |> ignore
 
@@ -121,14 +123,14 @@ module Testiloj =
       |> ignore
 
    let praveMalinflekti ĉeno =
-      match tuteMalinflekti ĉeno with
+      match ĉeno |> testaVorto |> tuteMalinflekti with
       | Ok (rezulto) -> rezulto
       | Error (_, eraro) ->
          Assert.Fail(eraro)
          failwith eraro
 
    let kontroliUnuFrazon eniro (prava: Predikato) =
-      analizi eniro
+      analizi eniro true
       |> Result.map (fun rezulto ->
             Assert.AreEqual(1, rezulto.Frazoj.Length)
             Assert.AreEqual(prava, rezulto.Frazoj.Item 0))
@@ -136,7 +138,7 @@ module Testiloj =
       |> ignore
 
    let kontroliPlurajnFrazojn eniro (pravaj: Predikato list) (restantaj: Argumento list) =
-      analizi eniro
+      analizi eniro true
       |> Result.map (fun rezulto ->
             Assert.AreEqual(pravaj, rezulto.Frazoj)
             Assert.AreEqual(restantaj, rezulto.RestantajVortoj))
@@ -144,7 +146,7 @@ module Testiloj =
       |> ignore
 
    let kontroliRestantajnVortojn eniro (pravajRestantaj: Argumento list) =
-      analizi eniro
+      analizi eniro true
       |> Result.map (fun rezulto -> Assert.AreEqual(pravajRestantaj, rezulto.RestantajVortoj))
       |> Result.mapError malsukcesi
       |> ignore

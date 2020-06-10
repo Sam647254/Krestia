@@ -41,7 +41,7 @@ module Sintaksanalizilo2 =
       { Argumentoj: Deque<Argumento>
         Verboj: Deque<Verbo>
         AtendantajFrazoj: (Argumento -> Argumento) list
-        KonstruontajModifantoj: (Argumento -> Sintaksanalizilo -> Result<Sintaksanalizilo, Eraro>) list
+        KonstruontajModifantoj: (EniraVorto * (Argumento -> Sintaksanalizilo -> Result<Sintaksanalizilo, Eraro>)) list
         LastaArgumento: Argumento option }
 
    type AnaziloRezulto =
@@ -127,6 +127,13 @@ module Sintaksanalizilo2 =
             else ak) []
       |> List.rev
 
+   let finiKategorigadon (sintaksanalizilo: Sintaksanalizilo) =
+      if sintaksanalizilo.KonstruontajModifantoj.Length > 0 then
+         let (vorto, _) = sintaksanalizilo.KonstruontajModifantoj.Head
+         Error(vorto, sprintf "%s needs additional helping words" vorto.Vorto)
+      else
+         Ok sintaksanalizilo
+
    let kategorigi sintaksanalizilo vortoj: Result<Sintaksanalizilo, Eraro> =
       vortoj
       |> List.fold (fun sintaksanaliziloAk sekvaVorto ->
@@ -136,7 +143,7 @@ module Sintaksanalizilo2 =
                   { sintaksanalizilo with Verboj = sintaksanalizilo.Verboj.Conj(plenaVerbo sekvaVorto) } |> Ok
                elif ĉuArgumentaVorto sekvaVorto then
                   match sintaksanalizilo.KonstruontajModifantoj with
-                  | sekva :: restantaj ->
+                  | (_, sekva) :: restantaj ->
                      { sintaksanalizilo with KonstruontajModifantoj = restantaj } |> sekva (plenaArgumento sekvaVorto)
                   | _ -> aldoniArgumenton sintaksanalizilo (Argumento(sekvaVorto, Set.empty)) |> Ok
                elif ĉuMalantaŭModifantaVorto sekvaVorto then
@@ -176,17 +183,18 @@ module Sintaksanalizilo2 =
                      let modifanto = Map.find sekvaVorto.BazaVorto modifantoj1DeKlasoj
                      { sintaksanalizilo with
                           KonstruontajModifantoj =
-                             (fun argumento novaSA ->
-                                lastaArgumentoDe novaSA
-                                |> Option.map (fun (lastaArgumento, novaSA) ->
-                                      modifanto argumento
-                                      |> aldoniModifanton lastaArgumento
-                                      |> aldoniArgumenton novaSA)
-                                |> Option.map Ok
-                                |> Option.defaultValue
-                                      (Error
-                                         (sekvaVorto.OriginalaVorto,
-                                          sprintf "%s has nothing to modify" sekvaVorto.OriginalaVorto.Vorto)))
+                             (sekvaVorto.OriginalaVorto,
+                              (fun argumento novaSA ->
+                                 lastaArgumentoDe novaSA
+                                 |> Option.map (fun (lastaArgumento, novaSA) ->
+                                       modifanto argumento
+                                       |> aldoniModifanton lastaArgumento
+                                       |> aldoniArgumenton novaSA)
+                                 |> Option.map Ok
+                                 |> Option.defaultValue
+                                       (Error
+                                          (sekvaVorto.OriginalaVorto,
+                                           sprintf "%s has nothing to modify" sekvaVorto.OriginalaVorto.Vorto))))
                              :: sintaksanalizilo.KonstruontajModifantoj }
                      |> Ok
                   | _ when modifantojDePredikataVerboj |> Map.containsKey sekvaVorto.BazaVorto ->
@@ -196,6 +204,7 @@ module Sintaksanalizilo2 =
                   | _ -> Error((sekvaVorto.OriginalaVorto, sprintf "Ne povas kategorigi %s" sekvaVorto.BazaVorto))
             | Error (_) -> sintaksanaliziloAk) (Ok sintaksanalizilo)
       |> Result.map purigiLastanArgumenton
+      |> Result.bind finiKategorigadon
 
    let rec legiFrazojn (sintaksanalizilo: Sintaksanalizilo) (rezulto: AnaziloRezulto): Result<AnaziloRezulto, Eraro> =
       match Deque.tryHead sintaksanalizilo.Verboj with
@@ -240,26 +249,28 @@ module Sintaksanalizilo2 =
               Frazoj = List.rev rezulto.Frazoj }
          |> Ok
 
-   let iĝiEnEnirajVortoj vortoj =
+   let iĝiEnEnirajVortoj ĉuTesto vortoj =
       vortoj
       |> List.mapi (fun vico vortojDeVico ->
             vortojDeVico
             |> List.fold (fun (pozo, ak) sekva ->
                   (pozo + String.length sekva,
-                   { Vico = vico
-                     Pozo = pozo
+                   { Vico =
+                        if ĉuTesto then 0 else vico
+                     Pozo =
+                        if ĉuTesto then 0 else pozo
                      Vorto = sekva }
                    :: ak)) (0, [])
             |> fun (_, listo) -> listo
             |> List.rev)
       |> List.concat
 
-   let analizi (eniro: string): Result<AnaziloRezulto, Eraro> =
+   let analizi (eniro: string) ĉuTesto: Result<AnaziloRezulto, Eraro> =
       eniro.Split('\n')
       |> List.ofArray
       |> List.map (fun vico -> vico.Split(' '))
       |> List.map List.ofArray
-      |> iĝiEnEnirajVortoj
+      |> iĝiEnEnirajVortoj ĉuTesto
       |> forigiRepetajnVortojn
       |> tuteMalinflektiĈiujn
       |> Result.bind (kategorigi kreiSintaksanalizilon)
