@@ -148,3 +148,11 @@ module Testiloj =
       |> Result.map (fun rezulto -> Assert.AreEqual(pravajRestantaj, rezulto.RestantajVortoj))
       |> Result.mapError malsukcesi
       |> ignore
+
+   let kontroliPozonDeEraro eniro vico pozo =
+      analizi eniro false
+      |> Result.map (fun _ -> Assert.Fail(sprintf "%s estas nevalida, sed estas sukcese legita" eniro))
+      |> Result.mapError (fun (vorto, _) ->
+         Assert.AreEqual(vico, vorto.Vico)
+         Assert.AreEqual(pozo, vorto.Pozo))
+      |> ignore

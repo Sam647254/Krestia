@@ -257,7 +257,7 @@ module Sintaksanalizilo2 =
       |> List.mapi (fun vico vortojDeVico ->
             vortojDeVico
             |> List.fold (fun (pozo, ak) sekva ->
-                  (pozo + String.length sekva,
+                  (pozo + String.length sekva + 1,
                    { Vico =
                         if ĉuTesto then 0 else vico
                      Pozo =

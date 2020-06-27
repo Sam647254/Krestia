@@ -211,6 +211,7 @@
       <e p="KrestiaVortilo.Testo" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="EcoTestoj.fs" t="Include" />
+        <e p="EraroTestoj.fs" t="Include" />
         <e p="KlasoTestoj.fs" t="Include" />
         <e p="KrestiaVortilo.Testo.fsproj" t="IncludeRecursive" />
         <e p="LearnTheseWordsFirstTestoj.fs" t="Include" />
