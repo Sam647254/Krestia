@@ -20,7 +20,7 @@ Public MustInherit Class Desegnilo
    Private ReadOnly _elirejo As String
    Private ReadOnly _spacoInterSilaboj As Boolean
    
-   Protected ReadOnly Property Spaceto As Integer
+   Protected Overridable ReadOnly Property Spaceto As Integer
       Get
          Return Spaco/2
       End Get

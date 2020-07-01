@@ -246,8 +246,8 @@ Public Class BlissSvgDesegnilo
       Return String.Format("m {0} 0 l -{0} {1} l {0} {1}", DuonaLarĝeco, DufojaAlteco\2)
    End Function
 
-   Public Sub New(elirejo As String, radio As Integer, Optional spaco As Integer = 30)
-      MyBase.New(elirejo, DufojaAlteco - spaco\2, Larĝeco, radio, radio, spaco, True)
+   Public Sub New(elirejo As String, radio As Integer, Optional spaco As Integer = 22)
+      MyBase.New(elirejo, DufojaAlteco - spaco\2 - 5, Larĝeco, radio, radio, spaco, True)
       _elirejo = elirejo
       _blissimboloj = New List(Of XElement)
       _awsAlirilo = New AmazonS3Client(RegionEndpoint.USWest2)
@@ -305,13 +305,20 @@ Public Class BlissSvgDesegnilo
    End Function
 
    Private Shadows Const DufojaAlteco = 258 - 130
-   Private Shadows Const Larĝeco = DufojaAlteco\2
+   Private Shadows Const Larĝeco = DufojaAlteco * 2 / 5
 
    Private Shadows ReadOnly Property Alteco As Integer
       Get
-         Return DufojaAlteco\2 - Spaceto\2
+         Return DufojaAlteco\2 - Spaceto\2 - 5
       End Get
    End Property
+   
+   Protected Overrides ReadOnly Property Spaceto As Integer
+      Get
+         Return Dx\2 + 10
+      End Get
+   End Property
+
 
    Private Const Bucket = "blissimboloj"
 End Class
