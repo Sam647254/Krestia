@@ -22,6 +22,11 @@ Public Class BlissSvgDesegnilo
          {"t", Function(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
             Return String.Format("h {1} m -{2} 0 v {0}", aktualaAlteco, aktualaLarĝeco, aktualaLarĝeco\2)
          End Function},
+         {"d", Function(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
+            Return _
+               String.Format("h {1} m -{2} 0 v {0} m {3} -{0} v {0}", aktualaAlteco, aktualaLarĝeco, aktualaLarĝeco*2\3,
+                             aktualaLarĝeco\3)
+         End Function},
          {"n", Function(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
             Return String.Format("m 0 {0} h {1} m -{2} -{0} v {0}", aktualaAlteco, aktualaLarĝeco, aktualaLarĝeco\2)
          End Function},
@@ -41,6 +46,11 @@ Public Class BlissSvgDesegnilo
          {"k", Addressof K},
          {"h", function(aktualaLarĝeco, aktualaAlteco) 
             Return String.Format("h {0} m -{0} {1} h {0}", aktualaLarĝeco, aktualaAlteco)
+         End function},
+         {"tl", function(aktualaLarĝeco, aktualaAlteco) 
+            Return _
+               String.Format("h {0} m -{1} 0 v {3} h {2} v -{3}", aktualaLarĝeco, aktualaLarĝeco*2\3, aktualaLarĝeco\3,
+                             aktualaAlteco)
          End function},
          {"tr", function(aktualaLarĝeco, aktualaAlteco) 
             Return _
@@ -259,7 +269,7 @@ Public Class BlissSvgDesegnilo
          .brush0 { fill: rgb(255,255,255); }
          .pen0 { stroke: rgb(0,0,0); stroke-width: 1; stroke-linejoin: round; }
          .font0 { font-size: 11px; font-family: "MS Sans Serif"; }
-         .pen1 { stroke: rgb(0,0,0); stroke-width: 7; stroke-linejoin: round; }
+         .pen1 { stroke: rgb(0,0,0); stroke-width: <%= Dx %>; stroke-linejoin: round; }
          .brush1 { fill: none; }
          .font1 { font-weight: bold; font-size: 16px; font-family: System, sans-serif; }
          </style>

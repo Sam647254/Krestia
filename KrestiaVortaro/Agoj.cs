@@ -84,27 +84,6 @@ namespace KrestiaVortaro {
          return vortaro.Vortoj.ToImmutableSortedSet().Union(novajVicoj);
       }
 
-      [Obsolete("Ne plu uzas Blissimbolojn")]
-      public static IEnumerable<string> KreiListiPorKreiBlissimbolojn(JsonVortaro vortaro) {
-         return vortaro.Vortoj!.Where(v => v.Blissimbolo == null).Select(v => $"{v.PlenaVorto}|{v.Signifo}|");
-      }
-
-      [Obsolete("Ne plu uzas Blissimbolojn")]
-      public static void AldoniBlissimbolojnAlVortaro(JsonVortaro vortaro, IEnumerable<string> eniro) {
-         var vortoj = vortaro.Vortoj!.ToDictionary(v => v.PlenaVorto, v => v);
-         foreach (var vico in eniro) {
-            var partoj = vico.Split('|');
-            var vorto = partoj[0];
-            var blissIds = partoj[2].Split(',').Select(id => {
-               var ĉuEkzistas = int.TryParse(id, out var blissId);
-               return ĉuEkzistas ? blissId : (int?) null;
-            }).ToImmutableList();
-            if (blissIds.All(id => id != null)) {
-               vortoj[vorto].Blissimbolo = blissIds.Select(id => (long) id!.Value).ToList();
-            }
-         }
-      }
-
       public static IEnumerable<string> KonvertiEnTimeranTxt(JsonVortaro jsonVortaro, IEnumerable<string> eniro,
          bool uziBliss = true) {
          var vortaro = Vortaro.KreiVortaronDe(jsonVortaro);
