@@ -185,26 +185,11 @@
       </e>
       <e p="KrestiaVortilo" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
-        <e p="EcoTraktiloj.fs" t="Include" />
-        <e p="FremdaVortoTraktiloj.fs" t="Include" />
         <e p="KrestiaVortilo.fsproj" t="IncludeRecursive" />
-        <e p="Legiloj.fs" t="Include" />
-        <e p="LiberordajLegiloj.fs" t="Include" />
-        <e p="LokokupiloTraktiloj.fs" t="Include" />
         <e p="Malinflektado.fs" t="Include" />
-        <e p="MalplenaVerboTraktiloj.fs" t="Include" />
-        <e p="NenombrigeblaKlasoTraktiloj.fs" t="Include" />
-        <e p="NetransitivaVerboTraktiloj.fs" t="Include" />
-        <e p="NombrigeblaKlasoTraktiloj.fs" t="Include" />
         <e p="obj" t="ExcludeRecursive" />
-        <e p="PartaNetransitivaVerboTraktiloj.fs" t="Include" />
-        <e p="PridirantoTraktiloj.fs" t="Include" />
         <e p="Sintaksanalizilo.fs" t="Include" />
         <e p="Sintaksanalizilo2.fs" t="Include" />
-        <e p="SpecialajTraktiloj.fs" t="Include" />
-        <e p="Strukturo.fs" t="Include" />
-        <e p="Traktilaro.fs" t="Include" />
-        <e p="TransitivaVerboTraktiloj.fs" t="Include" />
         <e p="Valenco.fs" t="Include" />
         <e p="Vortlisto.fs" t="Include" />
         <e p="Vorttipo.fs" t="Include" />

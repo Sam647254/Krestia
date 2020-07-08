@@ -222,7 +222,7 @@ module Malinflektado =
         InfinitivoFinaĵo("et", Igo)
         InfinitivoFinaĵo("od", Etigo) ]
 
-   let inflekciojPerVorttipoj =
+   let private inflekciojPerVorttipoj =
       [ NombrigeblaKlaso, nombrigeblaKlasoInflekcioj
         NenombrigeblaKlaso, nenombrigeblaKlasoInflekcioj
         AntaŭNombrigeblaEco, nombrigeblaKlasoInflekcioj

@@ -7,25 +7,10 @@
   <ItemGroup>
     <Compile Include="Vortlisto.fs" />
     <Compile Include="Vorttipo.fs" />
-    <Compile Include="NombrigeblaKlasoTraktiloj.fs" />
-    <Compile Include="NenombrigeblaKlasoTraktiloj.fs" />
-    <Compile Include="EcoTraktiloj.fs" />
-    <Compile Include="TransitivaVerboTraktiloj.fs" />
-    <Compile Include="NetransitivaVerboTraktiloj.fs" />
-    <Compile Include="PartaNetransitivaVerboTraktiloj.fs" />
-    <Compile Include="MalplenaVerboTraktiloj.fs" />
-    <Compile Include="PridirantoTraktiloj.fs" />
-    <Compile Include="LokokupiloTraktiloj.fs" />
-    <Compile Include="FremdaVortoTraktiloj.fs" />
-    <Compile Include="SpecialajTraktiloj.fs" />
-    <Compile Include="Traktilaro.fs" />
-    <Compile Include="Strukturo.fs" />
-    <Compile Include="Legiloj.fs" />
     <Compile Include="Sintaksanalizilo.fs" />
     <Compile Include="Malinflektado.fs" />
     <Compile Include="Valenco.fs" />
     <Compile Include="Sintaksanalizilo2.fs" />
-    <Compile Include="LiberordajLegiloj.fs" />
   </ItemGroup>
 
   <ItemGroup>
