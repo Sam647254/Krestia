@@ -33,6 +33,20 @@ type KlasoTestoj() =
       predikatoj2
       |> List.map (kontroliInflekcion NenombrigeblaKlaso PredikativoEsti)
       |> ignore
+      
+   [<TestMethod>]
+   member _.UnuNombro() =
+      difinitoj
+      |> List.map (fun vorto -> vorto + "si")
+      |> List.map (kontroliInflekcion NombrigeblaKlaso UnuNombro)
+      |> ignore
+      
+   [<TestMethod>]
+   member _.PluraNombro() =
+      difinitoj
+      |> List.map (fun vorto -> vorto + "ve")
+      |> List.map (kontroliInflekcion NombrigeblaKlaso PluraNombro)
+      |> ignore
 
    [<TestMethod>]
    member _.Substantivoj() =
