@@ -15,8 +15,9 @@ module Malinflektado =
    type Eraro = EniraVorto * string
 
    type Finaĵo =
-      | InfinitivoFinaĵo of string * Inflekcio
+      | BazaFinaĵo of string * Inflekcio
       | DifinitoFinaĵo of string * Inflekcio
+      | PredikativoEstiFinaĵo of string * Inflekcio
       | DUPFinaĵo of string * Definito: Inflekcio * UnuNombro: Inflekcio * PluraNombro: Inflekcio
 
    type ĈuAkceptiNenombrigeblan =
@@ -29,16 +30,17 @@ module Malinflektado =
         OriginalaVorto: EniraVorto }
 
    let okazoFinaĵoj =
-      [ InfinitivoFinaĵo("lo", Okazo)
-        InfinitivoFinaĵo("laa", AktualaOkazo)
-        InfinitivoFinaĵo("lu", FinitaOkazo) ]
+      [ BazaFinaĵo("lo", Okazo)
+        BazaFinaĵo("laa", AktualaOkazo)
+        BazaFinaĵo("lu", FinitaOkazo) ]
 
    let nombrigeblaKlasoInflekcioj =
       [ DUPFinaĵo("", Difinito, UnuNombro, PluraNombro)
+        PredikativoEstiFinaĵo("", PredikativoEsti)
         DUPFinaĵo("nsa", Havaĵo, UnuHavaĵo, PluraHavaĵo)
-        InfinitivoFinaĵo("wa", PredikativoEsti)
-        InfinitivoFinaĵo("ga", AtributivoEstiMalantaŭ)
-        InfinitivoFinaĵo("va", AtributivoEstiAntaŭ)
+        BazaFinaĵo("wa", PredikativoEsti)
+        BazaFinaĵo("ga", AtributivoEstiMalantaŭ)
+        BazaFinaĵo("va", AtributivoEstiAntaŭ)
         DUPFinaĵo("ra", Sola, UnuSola, PluraSola)
         DUPFinaĵo("rem", Havado, UnuHavado, PluraHavado)
         DUPFinaĵo("reg", Havado, UnuHavado, PluraHavado)
@@ -50,10 +52,11 @@ module Malinflektado =
 
    let nenombrigeblaKlasoInflekcioj =
       [ DifinitoFinaĵo("", Difinito)
+        PredikativoEstiFinaĵo("", PredikativoEsti)
         DifinitoFinaĵo("nsa", Havaĵo)
-        InfinitivoFinaĵo("wa", PredikativoEsti)
-        InfinitivoFinaĵo("ga", AtributivoEstiMalantaŭ)
-        InfinitivoFinaĵo("va", AtributivoEstiAntaŭ)
+        BazaFinaĵo("wa", PredikativoEsti)
+        BazaFinaĵo("ga", AtributivoEstiMalantaŭ)
+        BazaFinaĵo("va", AtributivoEstiAntaŭ)
         DifinitoFinaĵo("ra", Sola)
         DifinitoFinaĵo("rem", Havado)
         DifinitoFinaĵo("reg", Havado)
@@ -64,163 +67,163 @@ module Malinflektado =
         DifinitoFinaĵo("va", SpecifaĜerundo) ]
 
    let malplenaVerboInflekcioj =
-      [ InfinitivoFinaĵo("ia", Progresivo)
-        InfinitivoFinaĵo("io", Perfekto)
-        InfinitivoFinaĵo("ela", Estonteco)
-        InfinitivoFinaĵo("elim", Translativo)
-        InfinitivoFinaĵo("ea", Ĝerundo) ]
+      [ BazaFinaĵo("ia", Progresivo)
+        BazaFinaĵo("io", Perfekto)
+        BazaFinaĵo("ela", Estonteco)
+        BazaFinaĵo("elim", Translativo)
+        BazaFinaĵo("ea", Ĝerundo) ]
       @ okazoFinaĵoj
 
    let netransitivaVerboInflekcioj =
-      [ InfinitivoFinaĵo("e", Progresivo)
-        InfinitivoFinaĵo("o", Perfekto)
-        InfinitivoFinaĵo("ela", Estonteco)
-        InfinitivoFinaĵo("ora", Ujo1Volo)
-        InfinitivoFinaĵo("ie", AtributivoEstiMalantaŭ)
-        InfinitivoFinaĵo("ia", AtributivoEstiAntaŭ)
-        InfinitivoFinaĵo("ea", Imperativo)
-        InfinitivoFinaĵo("a", Invito)
-        InfinitivoFinaĵo("etio", Argumento1)
-        InfinitivoFinaĵo("elis", Translativo)
-        InfinitivoFinaĵo("mea", Ĝerundo)
-        InfinitivoFinaĵo("em", PartaUjo1) ]
+      [ BazaFinaĵo("e", Progresivo)
+        BazaFinaĵo("o", Perfekto)
+        BazaFinaĵo("ela", Estonteco)
+        BazaFinaĵo("ora", Ujo1Volo)
+        BazaFinaĵo("ie", AtributivoEstiMalantaŭ)
+        BazaFinaĵo("ia", AtributivoEstiAntaŭ)
+        BazaFinaĵo("ea", Imperativo)
+        BazaFinaĵo("a", Invito)
+        BazaFinaĵo("etio", Argumento1)
+        BazaFinaĵo("elis", Translativo)
+        BazaFinaĵo("mea", Ĝerundo)
+        BazaFinaĵo("em", PartaUjo1) ]
       @ okazoFinaĵoj
 
    let transitivaVerboInflekcioj =
-      [ InfinitivoFinaĵo("re", Progresivo)
-        InfinitivoFinaĵo("ro", Perfekto)
-        InfinitivoFinaĵo("ela", Estonteco)
-        InfinitivoFinaĵo("ora", Ujo1Volo)
-        InfinitivoFinaĵo("ore", Ujo2Volo)
-        InfinitivoFinaĵo("rie", AtributivoEstiMalantaŭ)
-        InfinitivoFinaĵo("ria", AtributivoEstiAntaŭ)
-        InfinitivoFinaĵo("ri", Imperativo)
-        InfinitivoFinaĵo("ia", Invito)
-        InfinitivoFinaĵo("etio", Argumento1)
-        InfinitivoFinaĵo("oniaa", Argumento2)
-        InfinitivoFinaĵo("elit", Translativo)
-        InfinitivoFinaĵo("ea", Ĝerundo)
-        InfinitivoFinaĵo("im", PartaUjo1)
-        InfinitivoFinaĵo("ig", PartaUjo1)
-        InfinitivoFinaĵo("em", PartaUjo2)
-        InfinitivoFinaĵo("es", PartaUjo2)
-        InfinitivoFinaĵo("rim", Reflekcio)
-        InfinitivoFinaĵo("ris", Reflekcio)
-        InfinitivoFinaĵo("res", UnueUjo2) ]
+      [ BazaFinaĵo("re", Progresivo)
+        BazaFinaĵo("ro", Perfekto)
+        BazaFinaĵo("ela", Estonteco)
+        BazaFinaĵo("ora", Ujo1Volo)
+        BazaFinaĵo("ore", Ujo2Volo)
+        BazaFinaĵo("rie", AtributivoEstiMalantaŭ)
+        BazaFinaĵo("ria", AtributivoEstiAntaŭ)
+        BazaFinaĵo("ri", Imperativo)
+        BazaFinaĵo("ia", Invito)
+        BazaFinaĵo("etio", Argumento1)
+        BazaFinaĵo("oniaa", Argumento2)
+        BazaFinaĵo("elit", Translativo)
+        BazaFinaĵo("ea", Ĝerundo)
+        BazaFinaĵo("im", PartaUjo1)
+        BazaFinaĵo("ig", PartaUjo1)
+        BazaFinaĵo("em", PartaUjo2)
+        BazaFinaĵo("es", PartaUjo2)
+        BazaFinaĵo("rim", Reflekcio)
+        BazaFinaĵo("ris", Reflekcio)
+        BazaFinaĵo("res", UnueUjo2) ]
       @ okazoFinaĵoj
 
    let dutransitivaVerboInflekcioj =
-      [ InfinitivoFinaĵo("re", Progresivo)
-        InfinitivoFinaĵo("ro", Perfekto)
-        InfinitivoFinaĵo("ela", Estonteco)
-        InfinitivoFinaĵo("ora", Ujo1Volo)
-        InfinitivoFinaĵo("ore", Ujo2Volo)
-        InfinitivoFinaĵo("eri", Ujo3Volo)
-        InfinitivoFinaĵo("rie", AtributivoEstiMalantaŭ)
-        InfinitivoFinaĵo("ria", AtributivoEstiAntaŭ)
-        InfinitivoFinaĵo("ri", Imperativo)
-        InfinitivoFinaĵo("ia", Invito)
-        InfinitivoFinaĵo("etio", Argumento1)
-        InfinitivoFinaĵo("oniaa", Argumento2)
-        InfinitivoFinaĵo("elip", Translativo)
-        InfinitivoFinaĵo("ea", Ĝerundo)
-        InfinitivoFinaĵo("eg", PartaUjo1)
-        InfinitivoFinaĵo("en", PartaUjo1)
-        InfinitivoFinaĵo("em", PartaUjo1)
-        InfinitivoFinaĵo("ev", PartaUjo1)
-        InfinitivoFinaĵo("os", PartaUjo2)
-        InfinitivoFinaĵo("on", PartaUjo2)
-        InfinitivoFinaĵo("om", PartaUjo2)
-        InfinitivoFinaĵo("osh", PartaUjo2)
-        InfinitivoFinaĵo("us", PartaUjo3)
-        InfinitivoFinaĵo("ug", PartaUjo3)
-        InfinitivoFinaĵo("um", PartaUjo3)
-        InfinitivoFinaĵo("ut", PartaUjo3)
-        InfinitivoFinaĵo("im", Reflekcio)
-        InfinitivoFinaĵo("ish", Reflekcio)
-        InfinitivoFinaĵo("rosh", UnueUjo2)
-        InfinitivoFinaĵo("rut", UnueUjo3) ]
+      [ BazaFinaĵo("re", Progresivo)
+        BazaFinaĵo("ro", Perfekto)
+        BazaFinaĵo("ela", Estonteco)
+        BazaFinaĵo("ora", Ujo1Volo)
+        BazaFinaĵo("ore", Ujo2Volo)
+        BazaFinaĵo("eri", Ujo3Volo)
+        BazaFinaĵo("rie", AtributivoEstiMalantaŭ)
+        BazaFinaĵo("ria", AtributivoEstiAntaŭ)
+        BazaFinaĵo("ri", Imperativo)
+        BazaFinaĵo("ia", Invito)
+        BazaFinaĵo("etio", Argumento1)
+        BazaFinaĵo("oniaa", Argumento2)
+        BazaFinaĵo("elip", Translativo)
+        BazaFinaĵo("ea", Ĝerundo)
+        BazaFinaĵo("eg", PartaUjo1)
+        BazaFinaĵo("en", PartaUjo1)
+        BazaFinaĵo("em", PartaUjo1)
+        BazaFinaĵo("ev", PartaUjo1)
+        BazaFinaĵo("os", PartaUjo2)
+        BazaFinaĵo("on", PartaUjo2)
+        BazaFinaĵo("om", PartaUjo2)
+        BazaFinaĵo("osh", PartaUjo2)
+        BazaFinaĵo("us", PartaUjo3)
+        BazaFinaĵo("ug", PartaUjo3)
+        BazaFinaĵo("um", PartaUjo3)
+        BazaFinaĵo("ut", PartaUjo3)
+        BazaFinaĵo("im", Reflekcio)
+        BazaFinaĵo("ish", Reflekcio)
+        BazaFinaĵo("rosh", UnueUjo2)
+        BazaFinaĵo("rut", UnueUjo3) ]
       @ okazoFinaĵoj
 
    let nedirektaTransitivaVerboInflekcioj =
-      [ InfinitivoFinaĵo("e", Progresivo)
-        InfinitivoFinaĵo("o", Perfekto)
-        InfinitivoFinaĵo("ela", Estonteco)
-        InfinitivoFinaĵo("ora", Ujo1Volo)
-        InfinitivoFinaĵo("eri", Ujo3Volo)
-        InfinitivoFinaĵo("ie", AtributivoEstiMalantaŭ)
-        InfinitivoFinaĵo("ia", AtributivoEstiAntaŭ)
-        InfinitivoFinaĵo("ea", Imperativo)
-        InfinitivoFinaĵo("a", Invito)
-        InfinitivoFinaĵo("etio", Argumento1)
-        InfinitivoFinaĵo("elish", Translativo)
-        InfinitivoFinaĵo("mea", Ĝerundo)
-        InfinitivoFinaĵo("am", PartaUjo1)
-        InfinitivoFinaĵo("an", PartaUjo1)
-        InfinitivoFinaĵo("om", PartaUjo3)
-        InfinitivoFinaĵo("os", PartaUjo3)
-        InfinitivoFinaĵo("ros", UnueUjo3)
-        InfinitivoFinaĵo("es", Reflekcio) ]
+      [ BazaFinaĵo("e", Progresivo)
+        BazaFinaĵo("o", Perfekto)
+        BazaFinaĵo("ela", Estonteco)
+        BazaFinaĵo("ora", Ujo1Volo)
+        BazaFinaĵo("eri", Ujo3Volo)
+        BazaFinaĵo("ie", AtributivoEstiMalantaŭ)
+        BazaFinaĵo("ia", AtributivoEstiAntaŭ)
+        BazaFinaĵo("ea", Imperativo)
+        BazaFinaĵo("a", Invito)
+        BazaFinaĵo("etio", Argumento1)
+        BazaFinaĵo("elish", Translativo)
+        BazaFinaĵo("mea", Ĝerundo)
+        BazaFinaĵo("am", PartaUjo1)
+        BazaFinaĵo("an", PartaUjo1)
+        BazaFinaĵo("om", PartaUjo3)
+        BazaFinaĵo("os", PartaUjo3)
+        BazaFinaĵo("ros", UnueUjo3)
+        BazaFinaĵo("es", Reflekcio) ]
       @ okazoFinaĵoj
 
    let oblikaNetransitivaVerboInflekcioj =
-      [ InfinitivoFinaĵo("ia", Progresivo)
-        InfinitivoFinaĵo("e", Perfekto)
-        InfinitivoFinaĵo("ela", Estonteco)
-        InfinitivoFinaĵo("ore", Ujo2Volo)
-        InfinitivoFinaĵo("ra", AtributivoEstiMalantaŭ)
-        InfinitivoFinaĵo("re", AtributivoEstiAntaŭ)
-        InfinitivoFinaĵo("ea", Ĝerundo)
-        InfinitivoFinaĵo("oniaa", Argumento2)
-        InfinitivoFinaĵo("am", PartaUjo2) ]
+      [ BazaFinaĵo("ia", Progresivo)
+        BazaFinaĵo("e", Perfekto)
+        BazaFinaĵo("ela", Estonteco)
+        BazaFinaĵo("ore", Ujo2Volo)
+        BazaFinaĵo("ra", AtributivoEstiMalantaŭ)
+        BazaFinaĵo("re", AtributivoEstiAntaŭ)
+        BazaFinaĵo("ea", Ĝerundo)
+        BazaFinaĵo("oniaa", Argumento2)
+        BazaFinaĵo("am", PartaUjo2) ]
       @ okazoFinaĵoj
 
    let oblikaTransitivaVerboInflekcioj =
-      [ InfinitivoFinaĵo("ia", Progresivo)
-        InfinitivoFinaĵo("i", Perfekto)
-        InfinitivoFinaĵo("ela", Estonteco)
-        InfinitivoFinaĵo("ore", Ujo2Volo)
-        InfinitivoFinaĵo("eri", Ujo3Volo)
-        InfinitivoFinaĵo("ri", AtributivoEstiMalantaŭ)
-        InfinitivoFinaĵo("re", AtributivoEstiAntaŭ)
-        InfinitivoFinaĵo("ea", Ĝerundo)
-        InfinitivoFinaĵo("oniaa", Argumento2)
-        InfinitivoFinaĵo("eru", Argumento3)
-        InfinitivoFinaĵo("om", PartaUjo2)
-        InfinitivoFinaĵo("on", PartaUjo2)
-        InfinitivoFinaĵo("im", PartaUjo3)
-        InfinitivoFinaĵo("ig", PartaUjo3)
-        InfinitivoFinaĵo("rig", UnueUjo3)
-        InfinitivoFinaĵo("eg", Reflekcio) ]
+      [ BazaFinaĵo("ia", Progresivo)
+        BazaFinaĵo("i", Perfekto)
+        BazaFinaĵo("ela", Estonteco)
+        BazaFinaĵo("ore", Ujo2Volo)
+        BazaFinaĵo("eri", Ujo3Volo)
+        BazaFinaĵo("ri", AtributivoEstiMalantaŭ)
+        BazaFinaĵo("re", AtributivoEstiAntaŭ)
+        BazaFinaĵo("ea", Ĝerundo)
+        BazaFinaĵo("oniaa", Argumento2)
+        BazaFinaĵo("eru", Argumento3)
+        BazaFinaĵo("om", PartaUjo2)
+        BazaFinaĵo("on", PartaUjo2)
+        BazaFinaĵo("im", PartaUjo3)
+        BazaFinaĵo("ig", PartaUjo3)
+        BazaFinaĵo("rig", UnueUjo3)
+        BazaFinaĵo("eg", Reflekcio) ]
       @ okazoFinaĵoj
 
    let nedirektaNetransitivaVerboInflekcioj =
-      [ InfinitivoFinaĵo("ia", Progresivo)
-        InfinitivoFinaĵo("io", Perfekto)
-        InfinitivoFinaĵo("ela", Estonteco)
-        InfinitivoFinaĵo("eri", Ujo3Volo)
-        InfinitivoFinaĵo("ea", Ĝerundo)
-        InfinitivoFinaĵo("oniaa", Argumento2)
-        InfinitivoFinaĵo("om", PartaUjo3) ]
+      [ BazaFinaĵo("ia", Progresivo)
+        BazaFinaĵo("io", Perfekto)
+        BazaFinaĵo("ela", Estonteco)
+        BazaFinaĵo("eri", Ujo3Volo)
+        BazaFinaĵo("ea", Ĝerundo)
+        BazaFinaĵo("oniaa", Argumento2)
+        BazaFinaĵo("om", PartaUjo3) ]
       @ okazoFinaĵoj
 
    let pridirantoInflekcioj =
-      [ InfinitivoFinaĵo("e", Difinito)
-        InfinitivoFinaĵo("a", UnuNombro)
-        InfinitivoFinaĵo("ie", PluraNombro)
-        InfinitivoFinaĵo("u", Havaĵo)
-        InfinitivoFinaĵo("ia", PredikativoEsti)
-        InfinitivoFinaĵo("ea", AtributivoEstiMalantaŭ)
-        InfinitivoFinaĵo("ra", AtributivoEstiAntaŭ)
-        InfinitivoFinaĵo("io", Sola)
-        InfinitivoFinaĵo("im", Translativo)
-        InfinitivoFinaĵo("is", Translativo)
-        InfinitivoFinaĵo("i", Ĝerundo)
-        InfinitivoFinaĵo("em", Igo)
-        InfinitivoFinaĵo("eg", Igo)
-        InfinitivoFinaĵo("es", Igo)
-        InfinitivoFinaĵo("et", Igo)
-        InfinitivoFinaĵo("od", Etigo) ]
+      [ BazaFinaĵo("e", Difinito)
+        BazaFinaĵo("a", UnuNombro)
+        BazaFinaĵo("ie", PluraNombro)
+        BazaFinaĵo("u", Havaĵo)
+        BazaFinaĵo("ia", PredikativoEsti)
+        BazaFinaĵo("ea", AtributivoEstiMalantaŭ)
+        BazaFinaĵo("ra", AtributivoEstiAntaŭ)
+        BazaFinaĵo("io", Sola)
+        BazaFinaĵo("im", Translativo)
+        BazaFinaĵo("is", Translativo)
+        BazaFinaĵo("i", Ĝerundo)
+        BazaFinaĵo("em", Igo)
+        BazaFinaĵo("eg", Igo)
+        BazaFinaĵo("es", Igo)
+        BazaFinaĵo("et", Igo)
+        BazaFinaĵo("od", Etigo) ]
 
    let private inflekciojPerVorttipoj =
       [ NombrigeblaKlaso, nombrigeblaKlasoInflekcioj
@@ -251,6 +254,10 @@ module Malinflektado =
    let difinitoFinaĵoj =
       nombrigeblaDifinitoFinaĵoj
       @ (nenombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> (finaĵo, NenombrigeblaKlaso)))
+   
+   let predikativoEstiFinaĵoj =
+      (nombrigeblaPredikativoEstiFinaĵoj |> List.map (fun finaĵo -> (finaĵo, NombrigeblaKlaso)))
+      @ (nenombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> (finaĵo, NenombrigeblaKlaso)))
 
    let difinitivoAlInfinitivoTabelo =
       [ ('a', "aa")
@@ -283,10 +290,19 @@ module Malinflektado =
             if vorto.EndsWith(finaĵo) && vorto.Length > finaĵo.Length
             then Some vorttipo
             else None)
+   
+   let ĉuPredikativoEsti (vorto: string) =
+      predikativoEstiFinaĵoj
+      |> List.tryPick (fun (finaĵo, vorttipo) ->
+         if vorto.EndsWith(finaĵo) then Some vorttipo else None)
 
    let malinflektiSeDifinito (vorto: string) inflekcio akceptiNenombrigeblan =
       ĉuDifinito vorto akceptiNenombrigeblan
       |> Option.map (fun vorttipo -> Nebazo(vorttipo, inflekcio, difinitoAlInfinitivo vorto))
+   
+   let malinflektiSePredikativoInfinito vorto inflekcio =
+      ĉuPredikativoEsti vorto
+      |> Option.map (fun vorttipo -> Nebazo(vorttipo, inflekcio, infinitivoAlDifinito vorto))
 
    let unuNombroFinaĵo = "si"
    let pluraNombroFinaĵo = "ve"
@@ -300,8 +316,8 @@ module Malinflektado =
          ĉiujInflekcioj
          |> List.tryPick (fun (vorttipo, finaĵo) ->
                match finaĵo with
-               | InfinitivoFinaĵo (finaĵo, inflekcio) ->
-                  infinitivoFinaĵoj
+               | BazaFinaĵo (finaĵo, inflekcio) ->
+                  bazajFinaĵoj
                   |> Map.tryPick (fun infinitivoFinaĵo infinitivoTipo ->
                         if ĉeno.EndsWith(infinitivoFinaĵo + finaĵo) && infinitivoTipo = vorttipo
                         then Some()
@@ -313,6 +329,12 @@ module Malinflektado =
                               | Ok (_) -> true
                               | Error (_) -> false)
                         |> Option.map (fun malinflektita -> Nebazo(vorttipo, inflekcio, malinflektita)))
+               | PredikativoEstiFinaĵo (finaĵo, inflekcio) ->
+                  if ĉeno.EndsWith(finaĵo) then
+                     let radiko = ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)
+                     malinflektiSePredikativoInfinito radiko inflekcio
+                  else
+                     None
                | DifinitoFinaĵo (finaĵo, inflekcio) ->
                   if ĉeno.EndsWith(finaĵo) then
                      let difinito = ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)
@@ -590,7 +612,7 @@ module Malinflektado =
             finaĵoj
             |> List.map (fun finaĵo ->
                   match finaĵo with
-                  | InfinitivoFinaĵo (sufikso, inflekcio) -> (inflekcio, vorto + sufikso)
+                  | BazaFinaĵo (sufikso, inflekcio) -> (inflekcio, vorto + sufikso)
                   | DifinitoFinaĵo (sufikso, inflekcio) -> (inflekcio, (infinitivoAlDifinito vorto) + sufikso)
                   | DUPFinaĵo (sufikso, inflekcio, _, _) ->
                      let difinito = infinitivoAlDifinito vorto

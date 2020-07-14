@@ -24,7 +24,7 @@ module Sintaksanalizilo =
         NedirektaNetransitivaVerbo, "n" ]
       |> Map.ofList
 
-   let nombrigeblaInfinitivoFinaĵoj =
+   let nombrigeblaPredikativoEstiFinaĵoj =
       [ "pu"
         "po"
         "paa"
@@ -124,8 +124,8 @@ module Sintaksanalizilo =
       |> List.map (fun (originala, malplenigitaj) -> originala, malplenigitaj |> Set.ofList)
       |> Map.ofList
 
-   let infinitivoFinaĵoj =
-      (nombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo, NombrigeblaKlaso))
+   let bazajFinaĵoj =
+      (nombrigeblaPredikativoEstiFinaĵoj |> List.map (fun finaĵo -> finaĵo, NombrigeblaKlaso))
       @ (nenombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo, NenombrigeblaKlaso))
         @ [ "lu", MalantaŭRekordo
             "li", AntaŭRekordo
@@ -157,7 +157,7 @@ module Sintaksanalizilo =
       elif ĉuLokokupilo ĉeno then
          Some Lokokupilo
       else
-         infinitivoFinaĵoj
+         bazajFinaĵoj
          |> Map.tryPick (fun finaĵo tipo ->
                if ĉeno.EndsWith(finaĵo) && ĉeno.Length > finaĵo.Length
                then Some tipo

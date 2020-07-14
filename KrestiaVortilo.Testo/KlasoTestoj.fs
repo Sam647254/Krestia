@@ -9,14 +9,29 @@ open Testiloj
 
 [<TestClass>]
 type KlasoTestoj() =
+   let difinitoj = [ "vilipi"; "brepe"; "moropa"; "kluti"; "tote"; "revita"; "meki"; "grike"; "lurika" ]
+   let difinitoj2 = [ "gremi"; "rinome"; "luvema"; "lini"; "kresne"; "duna" ]
+   let predikatoj = [ "vilipu"; "brepo"; "moropaa"; "klutu"; "toto"; "revitaa"; "meku"; "griko"; "lurikaa" ]
+   let predikatoj2 = [ "gremu"; "rinomo"; "luvemaa"; "linu"; "kresno"; "dunaa" ]
+   
    [<TestMethod>]
    member _.Difinito() =
-      [ "vilipi"; "brepe"; "moropa"; "kluti"; "tote"; "revita"; "meki"; "grike"; "lurika" ]
+      difinitoj
       |> List.map (kontroliInflekcion NombrigeblaKlaso Difinito)
       |> ignore
       
-      [ "gremi"; "rinome"; "luvema"; "lini"; "kresne"; "duna" ]
+      difinitoj2
       |> List.map (kontroliInflekcion NenombrigeblaKlaso Difinito)
+      |> ignore
+   
+   [<TestMethod>]
+   member _.PredikativoEsti() =
+      predikatoj
+      |> List.map (kontroliInflekcion NombrigeblaKlaso PredikativoEsti)
+      |> ignore
+      
+      predikatoj2
+      |> List.map (kontroliInflekcion NenombrigeblaKlaso PredikativoEsti)
       |> ignore
 
    [<TestMethod>]
