@@ -21,9 +21,8 @@ type TransitivaVerboTestoj () =
         ("buvitotoniaa", Argumento2)
         ("buvitotetio", Argumento1)
         ("buvitotelit", Translativo)
-        ("buvitotema", Ĝerundo)
+        ("buvitotea", Ĝerundo)
         ("buvitotig", PartaUjo1)
-        ("buvitotes", PartaUjo2)
-        ("buvitotos", Pasivigo) ]
+        ("buvitotes", PartaUjo2) ]
       |> List.map (fun (vorto, inflekcio) -> kontroliInflekcion TransitivaVerbo inflekcio vorto)
       |> ignore

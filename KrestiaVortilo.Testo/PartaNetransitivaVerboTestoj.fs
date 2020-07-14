@@ -15,7 +15,7 @@ type PartaNetransitivaVerboTestoj () =
         ("omonio", Perfekto)
         ("omonela", Estonteco)
         ("omoneri", Ujo3Volo)
-        ("omonema", Ĝerundo)
+        ("omonea", Ĝerundo)
         ("omonom", PartaUjo3) ]
       |> List.map (fun (vorto, inflekcio) -> kontroliInflekcion NedirektaNetransitivaVerbo inflekcio vorto)
       |> ignore

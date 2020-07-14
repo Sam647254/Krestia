@@ -16,12 +16,10 @@ type PridirantoTestoj () =
         ("peridu", Havaĵo)
         ("peridie", PluraNombro)
         ("peridia", PredikativoEsti)
-        ("perido", Perfekto)
         ("peridea", AtributivoEstiMalantaŭ)
         ("peridis", Translativo)
         ("peridi", Ĝerundo)
         ("peridet", Igo)
-        ("peridrid", Egigo)
-        ("peridrod", Etigo) ]
+        ("peridod", Etigo) ]
       |> List.map (fun (vorto, inflekcio) -> kontroliInflekcion Pridiranto inflekcio vorto)
       |> ignore
