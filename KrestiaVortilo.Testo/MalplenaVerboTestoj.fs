@@ -16,5 +16,5 @@ type MalplenaVerboTestoj () =
         ("meratremela", Estonteco)
         ("meratremelim", Translativo)
         ("meratremena", Ĝerundo) ]
-      |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto MalplenaVerbo inflekcio)
+      |> List.map (fun (vorto, inflekcio) -> kontroliInflekcion MalplenaVerbo inflekcio vorto)
       |> ignore

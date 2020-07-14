@@ -26,5 +26,5 @@ type NombrigeblaKlasoTestoj () =
         ("kreskiverim", NombrigeblaKlaso, PluraEkzistado)
         ("kreskiva", NombrigeblaKlaso, SpecifaĜerundo)
         ("kreskivra", NombrigeblaKlaso, Ĝerundo) ]
-      |> List.map (fun (vorto, tipo, inflekcio) -> kontroliFormon vorto tipo inflekcio)
+      |> List.map (fun (vorto, tipo, inflekcio) -> kontroliInflekcion tipo inflekcio vorto)
       |> ignore

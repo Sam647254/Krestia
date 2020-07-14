@@ -25,5 +25,5 @@ type TransitivaVerboTestoj () =
         ("buvitotig", PartaUjo1)
         ("buvitotes", PartaUjo2)
         ("buvitotos", Pasivigo) ]
-      |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto TransitivaVerbo inflekcio)
+      |> List.map (fun (vorto, inflekcio) -> kontroliInflekcion TransitivaVerbo inflekcio vorto)
       |> ignore

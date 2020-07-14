@@ -18,8 +18,6 @@
     <Compile Include="PartaNetransitivaVerboTestoj.fs" />
     <Compile Include="PridirantoTestoj.fs" />
     <Compile Include="LokokupiloTestoj.fs" />
-    <Compile Include="StrukturoTestoj.fs" />
-    <Compile Include="LearnTheseWordsFirstTestoj.fs" />
     <Compile Include="KlasoTestoj.fs" />
     <Compile Include="VerboTestoj.fs" />
     <Compile Include="SilaboTestoj.fs" />

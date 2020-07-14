@@ -2,16 +2,11 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\Sam\.nuget\packages\fsharp.core\4.7.0\lib\netstandard2.0\FSharp.Core.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0f4d4489_002D9ce7_002D4c66_002Da32d_002Da64e32a2042a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Testo1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;MSTest::51A4B98B-C381-4D26-8974-30BCDA505A2F::.NETCoreApp,Version=v3.0::KrestiaVortilo.Testo.EraroTestoj.Testo1&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=66b375c4_002D856a_002D406b_002Dbb95_002D2b4f800741cf/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cd992951_002Da6b4_002D4593_002Da4a8_002D8559392bc879/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="EraroTestoj" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;MSTest::51A4B98B-C381-4D26-8974-30BCDA505A2F::.NETCoreApp,Version=v3.0::KrestiaVortilo.Testo.EraroTestoj&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
+	
+	
 	
 	
 	

@@ -26,5 +26,5 @@ type LokokupiloTestoj () =
         "hemse"
         "wen"
         "won" ]
-      |> List.map (fun vorto -> kontroliFormon vorto Lokokupilo SolaFormo)
+      |> List.map (fun vorto -> kontroliInflekcion Lokokupilo SolaFormo vorto)
       |> ignore

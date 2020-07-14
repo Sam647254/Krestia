@@ -21,5 +21,5 @@ type NetransitivaVerboTestoj () =
         ("dulaviselis", Translativo)
         ("dulavisema", Ĝerundo)
         ("dulavisem", PartaUjo1) ]
-      |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto NetransitivaVerbo inflekcio)
+      |> List.map (fun (vorto, inflekcio) -> kontroliInflekcion NetransitivaVerbo inflekcio vorto)
       |> ignore

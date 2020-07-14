@@ -17,5 +17,5 @@ type PartaNetransitivaVerboTestoj () =
         ("omoneri", Ujo3Volo)
         ("omonema", Ĝerundo)
         ("omonom", PartaUjo3) ]
-      |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto NedirektaNetransitivaVerbo inflekcio)
+      |> List.map (fun (vorto, inflekcio) -> kontroliInflekcion NedirektaNetransitivaVerbo inflekcio vorto)
       |> ignore

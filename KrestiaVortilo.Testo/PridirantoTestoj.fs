@@ -23,5 +23,5 @@ type PridirantoTestoj () =
         ("peridet", Igo)
         ("peridrid", Egigo)
         ("peridrod", Etigo) ]
-      |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto Pridiranto inflekcio)
+      |> List.map (fun (vorto, inflekcio) -> kontroliInflekcion Pridiranto inflekcio vorto)
       |> ignore

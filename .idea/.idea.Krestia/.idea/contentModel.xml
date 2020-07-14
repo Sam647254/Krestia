@@ -200,7 +200,6 @@
         <e p="EraroTestoj.fs" t="Include" />
         <e p="KlasoTestoj.fs" t="Include" />
         <e p="KrestiaVortilo.Testo.fsproj" t="IncludeRecursive" />
-        <e p="LearnTheseWordsFirstTestoj.fs" t="Include" />
         <e p="LokokupiloTestoj.fs" t="Include" />
         <e p="MalplenaVerboTestoj.fs" t="Include" />
         <e p="NenombrigeblaKlasoTestoj.fs" t="Include" />
@@ -213,7 +212,6 @@
         <e p="Program.fs" t="Include" />
         <e p="SilaboTestoj.fs" t="Include" />
         <e p="SintaksanaliziloTestoj.fs" t="Include" />
-        <e p="StrukturoTestoj.fs" t="Include" />
         <e p="Testiloj.fs" t="Include" />
         <e p="TransitivaVerboTestoj.fs" t="Include" />
         <e p="VerboTestoj.fs" t="Include" />

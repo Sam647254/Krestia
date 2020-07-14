@@ -2,9 +2,7 @@
 
 open FSharpx.Collections
 open KrestiaVortilo
-open KrestiaVortilo.Strukturo
 open Microsoft.VisualStudio.TestTools.UnitTesting
-open KrestiaVortilo.Traktilaro
 open KrestiaVortilo.Vorttipo
 open KrestiaVortilo.Sintaksanalizilo2
 open KrestiaVortilo.Malinflektado
@@ -13,23 +11,6 @@ module Testiloj =
    let malsukcesi (_, eraro) = Assert.Fail eraro
    
    let plenaModifanto modifanto = { Modifanto = modifantojDePredikataVerboj.[modifanto]; Vorto = testaVorto modifanto }
-   
-   let kontroliFormon (vorto: string) (pravaTipo: Vorttipo) (pravaInflekcio: Inflekcio) =
-      kontroli vorto
-      |> Option.map (fun (tipo, formo) ->
-            Assert.AreEqual(pravaTipo, tipo)
-            Assert.AreEqual(pravaInflekcio, formo))
-      |> Option.defaultWith (fun () -> Assert.Fail(sprintf "%s estas nevalida" vorto))
-
-   let kontroliFrazon (prava: Frazo) (frazo: string) =
-      [ "evilel" ]
-      |> set
-      |> Legiloj.legiFrazon (frazo.Split(' ') |> List.ofArray) None
-      |> Result.map (fun (rezulto, restantaj, _) ->
-            Assert.AreEqual(prava, rezulto)
-            Assert.AreEqual(0, restantaj.Length))
-      |> Result.mapError Assert.Fail
-      |> ignore
 
    let kontroliInflekcion (pravaTipo: Vorttipo) (pravaInflekcio: Inflekcio) (vorto: string) =
       vorto

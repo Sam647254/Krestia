@@ -17,7 +17,7 @@ type EcoTestoj () =
         ("kitigroga", AtributivoEstiMalantaŭ)
         ("kitigrelas", Translativo)
         ("kitigreva", Ĝerundo) ]
-      |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto AntaŭNenombrigeblaEco inflekcio)
+      |> List.map (fun (vorto, inflekcio) -> kontroliInflekcion AntaŭNenombrigeblaEco inflekcio vorto)
       |> ignore
 
    [<TestMethod>]
@@ -36,5 +36,5 @@ type EcoTestoj () =
         ("edresirim", UnuEkzistado)
         ("edreverim", PluraEkzistado)
         ("edreva", Ĝerundo) ]
-      |> List.map (fun (vorto, inflekcio) -> kontroliFormon vorto AntaŭNombrigeblaEco inflekcio)
+      |> List.map (fun (vorto, inflekcio) -> kontroliInflekcion AntaŭNombrigeblaEco inflekcio vorto)
       |> ignore
