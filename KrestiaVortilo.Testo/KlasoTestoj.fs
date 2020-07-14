@@ -9,23 +9,14 @@ open Testiloj
 
 [<TestClass>]
 type KlasoTestoj() =
-
    [<TestMethod>]
-   member _.Infinitivoj() =
-      [ "tatreto"; "ilitu"; "lustaa"; "geluko"; "kresku"; "trupaa"; "gremu"; "kunaa"; "verimaa"; "salumu"; "molomo"; "posmu" ]
-      |> List.map (fun klaso ->
-            Malinflektado.ĉuVerboInfinitivo klaso
-            |> Result.map (fun rezulto ->
-                  if rezulto then Assert.Fail(sprintf "%s ne estas verbo" klaso)
-                  else ()))
+   member _.Difinito() =
+      [ "vilipi"; "brepe"; "moropa"; "kluti"; "tote"; "revita"; "meki"; "grike"; "lurika" ]
+      |> List.map (kontroliInflekcion NombrigeblaKlaso Difinito)
       |> ignore
-
-      [ "tatreto"; "ilitu"; "lustaa"; "geluko"; "kresku"; "trupaa" ]
-      |> List.map (kontroliInflekcion NombrigeblaKlaso Infinitivo)
-      |> ignore
-
-      [ "gremu"; "kunaa"; "verimaa"; "salumu"; "molomo"; "posmu" ]
-      |> List.map (kontroliInflekcion NenombrigeblaKlaso Infinitivo)
+      
+      [ "gremi"; "rinome"; "luvema"; "lini"; "kresne"; "duna" ]
+      |> List.map (kontroliInflekcion NenombrigeblaKlaso Difinito)
       |> ignore
 
    [<TestMethod>]
