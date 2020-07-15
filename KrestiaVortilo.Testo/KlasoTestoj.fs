@@ -16,37 +16,21 @@ type KlasoTestoj() =
    
    [<TestMethod>]
    member _.Difinito() =
-      difinitoj
-      |> List.map (kontroliInflekcion NombrigeblaKlaso Difinito)
-      |> ignore
-      
-      difinitoj2
-      |> List.map (kontroliInflekcion NenombrigeblaKlaso Difinito)
-      |> ignore
+      kontroliInflekciojn difinitoj2 "" NenombrigeblaKlaso Difinito
+      kontroliInflekciojn difinitoj2 "" NenombrigeblaKlaso Difinito
    
    [<TestMethod>]
    member _.PredikativoEsti() =
-      predikatoj
-      |> List.map (kontroliInflekcion NombrigeblaKlaso PredikativoEsti)
-      |> ignore
-      
-      predikatoj2
-      |> List.map (kontroliInflekcion NenombrigeblaKlaso PredikativoEsti)
-      |> ignore
+      kontroliInflekciojn predikatoj "" NombrigeblaKlaso PredikativoEsti
+      kontroliInflekciojn predikatoj2 "" NenombrigeblaKlaso PredikativoEsti
       
    [<TestMethod>]
    member _.UnuNombro() =
-      difinitoj
-      |> List.map (aldoniFinaĵon "si")
-      |> List.map (kontroliInflekcion NombrigeblaKlaso UnuNombro)
-      |> ignore
+      kontroliInflekciojn difinitoj "si" NombrigeblaKlaso UnuNombro
       
    [<TestMethod>]
    member _.PluraNombro() =
-      difinitoj
-      |> List.map (aldoniFinaĵon "ve")
-      |> List.map (kontroliInflekcion NombrigeblaKlaso PluraNombro)
-      |> ignore
+      kontroliInflekciojn difinitoj "ve" NombrigeblaKlaso PluraNombro
    
    [<TestMethod>]
    member _.Havaĵo() =
