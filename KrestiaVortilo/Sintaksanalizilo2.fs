@@ -7,6 +7,7 @@ module Sintaksanalizilo2 =
    type Verbo = Verbo of MalinflektitaVorto * Modifantoj: Set<PredikataVerboModifantajVorto>
 
    and ArgumentaModifanto =
+      | AtributivoEsti of MalinflektitaVorto
       | Pridiranto of MalinflektitaVorto
       | Mel of Argumento
       | Sonol of Argumento

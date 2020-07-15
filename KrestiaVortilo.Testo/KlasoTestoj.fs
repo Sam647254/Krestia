@@ -1,5 +1,7 @@
 ﻿namespace KrestiaVortilo.Testo
 
+open KrestiaVortilo.Sintaksanalizilo2
+open KrestiaVortilo.Sintaksanalizilo2
 open Microsoft.VisualStudio.TestTools.UnitTesting
 
 open KrestiaVortilo
@@ -56,9 +58,28 @@ type KlasoTestoj() =
    
    [<TestMethod>]
    member _.AtributivoEstiAntaŭ() =
-      kontroliInflekciojn difinitoj "va" NenombrigeblaKlaso AtributivoEstiAntaŭ
+      kontroliInflekciojn difinitoj "va" NombrigeblaKlaso AtributivoEstiAntaŭ
       
       kontroliInflekciojn difinitoj2 "va" NenombrigeblaKlaso AtributivoEstiAntaŭ
+  
+   [<TestMethod>]
+   member _.AtributivoEstiLegado() =
+      let _ =
+         let vortoj = List.map praveMalinflekti [ "imilta"; "kunataga" ]
+         match vortoj with
+         | [ imilta; kunataga ] ->
+            kontroliRestantajnVortojn "imilta kunataga"
+               [ Argumento(imilta, Set.singleton (AtributivoEsti kunataga)) ]
+         | _ -> Assert.Fail()
+         
+      let _ =
+         let vortoj = List.map praveMalinflekti [ "kunatava"; "imilta" ]
+         match vortoj with
+         | [ kunatava; imilta ] ->
+            kontroliRestantajnVortojn "kunatava imilta"
+               [ Argumento(imilta, Set.singleton (AtributivoEsti kunatava)) ]
+         | _ -> Assert.Fail()
+      ()
 
    [<TestMethod>]
    member _.Estado() =

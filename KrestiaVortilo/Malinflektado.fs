@@ -39,17 +39,16 @@ module Malinflektado =
         PredikativoEstiFinaĵo("", PredikativoEsti)
         DUPFinaĵo("nsa", Havaĵo, UnuHavaĵo, PluraHavaĵo)
         DUPFinaĵo("la", Fokuso, UnuFokuso, PluraFokuso)
-        BazaFinaĵo("wa", PredikativoEsti)
-        BazaFinaĵo("ga", AtributivoEstiMalantaŭ)
-        BazaFinaĵo("va", AtributivoEstiAntaŭ)
+        DifinitoFinaĵo("ga", AtributivoEstiMalantaŭ)
+        DifinitoFinaĵo("va", AtributivoEstiAntaŭ)
         DUPFinaĵo("ra", Sola, UnuSola, PluraSola)
         DUPFinaĵo("rem", Havado, UnuHavado, PluraHavado)
         DUPFinaĵo("reg", Havado, UnuHavado, PluraHavado)
         DUPFinaĵo("rim", Ekzistado, UnuEkzistado, PluraEkzistado)
         DifinitoFinaĵo("lam", Translativo)
         DifinitoFinaĵo("las", Translativo)
-        DifinitoFinaĵo("vra", Ĝerundo)
-        DifinitoFinaĵo("va", SpecifaĜerundo) ]
+        PredikativoEstiFinaĵo("vra", Ĝerundo)
+        DifinitoFinaĵo("vra", SpecifaĜerundo) ]
 
    let nenombrigeblaKlasoInflekcioj =
       [ DifinitoFinaĵo("", Difinito)
