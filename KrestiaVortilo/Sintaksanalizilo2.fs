@@ -44,6 +44,11 @@ module Sintaksanalizilo2 =
         AtendantajFrazoj: (Argumento -> Argumento) list
         KonstruontajModifantoj: (EniraVorto * (Argumento -> Sintaksanalizilo -> Result<Sintaksanalizilo, Eraro>)) list
         LastaArgumento: Argumento option }
+      
+   type Analizejo =
+      { Argumentoj: Deque<Argumento>
+        Frazoj: Predikato list
+        RestantajVortoj: MalinflektitaVorto list }
 
    type AnaziloRezulto =
       { Frazoj: Predikato list
@@ -278,3 +283,22 @@ module Sintaksanalizilo2 =
       |> Result.bind (fun sintaksanalizilo ->
             let rezulto = kreiRezulton
             legiFrazojn sintaksanalizilo rezulto)
+   
+   let legiSekvan (analizejo: Analizejo) =
+      match analizejo.RestantajVortoj with
+      | sekva :: restantaj -> failwith ""
+      | [] -> Ok analizejo
+      
+   let legiPerAnalizejo (vortoj: MalinflektitaVorto list) =
+      let analizejo =
+         { RestantajVortoj = vortoj
+           Frazoj = []
+           Argumentoj = Deque.empty }
+      legiSekvan analizejo
+
+   let legi (eniro: string) ĉuTesto: Result<Analizejo, Eraro> =
+      eniro
+      |> iĝiEnEnirajVortoj ĉuTesto
+      |> forigiRepetajnVortojn
+      |> tuteMalinflektiĈiujn
+      |> Result.bind legiPerAnalizejo
