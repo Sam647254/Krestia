@@ -38,6 +38,7 @@ module Malinflektado =
       [ DUPFinaĵo("", Difinito, UnuNombro, PluraNombro)
         PredikativoEstiFinaĵo("", PredikativoEsti)
         DUPFinaĵo("nsa", Havaĵo, UnuHavaĵo, PluraHavaĵo)
+        DUPFinaĵo("la", Fokuso, UnuFokuso, PluraFokuso)
         BazaFinaĵo("wa", PredikativoEsti)
         BazaFinaĵo("ga", AtributivoEstiMalantaŭ)
         BazaFinaĵo("va", AtributivoEstiAntaŭ)

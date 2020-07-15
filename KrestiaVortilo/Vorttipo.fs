@@ -9,6 +9,9 @@ module Vorttipo =
    | UnuHavaĵo
    | PluraHavaĵo
    | PluraNombro
+   | Fokuso
+   | UnuFokuso
+   | PluraFokuso
    | Progresivo
    | Perfekto
    | Estonteco

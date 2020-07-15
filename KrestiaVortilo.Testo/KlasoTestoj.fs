@@ -37,22 +37,16 @@ type KlasoTestoj() =
       kontroliInflekciojn difinitoj "nsa" NombrigeblaKlaso Havaĵo
       kontroliInflekciojn difinitoj "sinsa" NombrigeblaKlaso UnuHavaĵo
       kontroliInflekciojn difinitoj "vensa" NombrigeblaKlaso PluraHavaĵo
+      
+      kontroliInflekciojn difinitoj2 "nsa" NenombrigeblaKlaso Havaĵo
 
    [<TestMethod>]
-   member _.Substantivoj() =
-      [ ("kreski", NombrigeblaKlaso)
-        ("tatrete", NombrigeblaKlaso)
-        ("duta", NombrigeblaKlaso)
-        ("luna", NenombrigeblaKlaso)
-        ("risme", NenombrigeblaKlaso) ]
-      |> List.map (fun (vorto, pravaTipo) -> kontroliInflekcion pravaTipo Difinito vorto)
-      |> ignore
-
-      [ ("trupa", Difinito)
-        ("trupasi", UnuNombro)
-        ("trupave", PluraNombro) ]
-      |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion NombrigeblaKlaso pravaInflekcio vorto)
-      |> ignore
+   member _.Fokuso() =
+      kontroliInflekciojn difinitoj "la" NombrigeblaKlaso Fokuso
+      kontroliInflekciojn difinitoj "sila" NombrigeblaKlaso UnuFokuso
+      kontroliInflekciojn difinitoj "vela" NombrigeblaKlaso PluraFokuso
+      
+      kontroliInflekciojn difinitoj2 "la" NenombrigeblaKlaso Fokuso
 
    [<TestMethod>]
    member _.Estado() =
