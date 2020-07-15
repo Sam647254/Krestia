@@ -37,16 +37,22 @@ type KlasoTestoj() =
    [<TestMethod>]
    member _.UnuNombro() =
       difinitoj
-      |> List.map (fun vorto -> vorto + "si")
+      |> List.map (aldoniFinaĵon "si")
       |> List.map (kontroliInflekcion NombrigeblaKlaso UnuNombro)
       |> ignore
       
    [<TestMethod>]
    member _.PluraNombro() =
       difinitoj
-      |> List.map (fun vorto -> vorto + "ve")
+      |> List.map (aldoniFinaĵon "ve")
       |> List.map (kontroliInflekcion NombrigeblaKlaso PluraNombro)
       |> ignore
+   
+   [<TestMethod>]
+   member _.Havaĵo() =
+      kontroliInflekciojn difinitoj "nsa" NombrigeblaKlaso Havaĵo
+      kontroliInflekciojn difinitoj "sinsa" NombrigeblaKlaso UnuHavaĵo
+      kontroliInflekciojn difinitoj "vensa" NombrigeblaKlaso PluraHavaĵo
 
    [<TestMethod>]
    member _.Substantivoj() =
@@ -62,15 +68,6 @@ type KlasoTestoj() =
         ("trupasi", UnuNombro)
         ("trupave", PluraNombro) ]
       |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion NombrigeblaKlaso pravaInflekcio vorto)
-      |> ignore
-
-   [<TestMethod>]
-   member _.Havaĵo() =
-      [ ("trupansa", NombrigeblaKlaso, Havaĵo)
-        ("trupasinsa", NombrigeblaKlaso, UnuHavaĵo)
-        ("trupavensa", NombrigeblaKlaso, PluraHavaĵo)
-        ("kunansa", NenombrigeblaKlaso, Havaĵo) ]
-      |> List.map (fun (vorto, pravaTipo, pravaInflekcio) -> kontroliInflekcion pravaTipo pravaInflekcio vorto)
       |> ignore
 
    [<TestMethod>]

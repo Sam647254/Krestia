@@ -26,6 +26,14 @@ module Testiloj =
                Assert.AreEqual(pravaInflekcio, inflekcio))
       |> Result.mapError malsukcesi
       |> ignore
+      
+   let aldoniFinaĵon (finaĵo: string) vorto = vorto + finaĵo
+   
+   let kontroliInflekciojn vortoj komunaFinaĵo pravaTipo pravaInflekcio =
+      vortoj
+      |> List.map (aldoniFinaĵon komunaFinaĵo)
+      |> List.map (kontroliInflekcion pravaTipo pravaInflekcio)
+      |> ignore
 
    let kontroliĈiujnInfleckiojn (ŝtupoj: Sintaksanalizilo.MalinflektaŜtupo list) (vorto: string) =
       vorto
