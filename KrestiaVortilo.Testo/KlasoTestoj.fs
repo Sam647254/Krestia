@@ -47,6 +47,18 @@ type KlasoTestoj() =
       kontroliInflekciojn difinitoj "vela" NombrigeblaKlaso PluraFokuso
       
       kontroliInflekciojn difinitoj2 "la" NenombrigeblaKlaso Fokuso
+      
+   [<TestMethod>]
+   member _.AtributivoEstiMalantaŭ() =
+      kontroliInflekciojn difinitoj "ga" NombrigeblaKlaso AtributivoEstiMalantaŭ
+      
+      kontroliInflekciojn difinitoj2 "ga" NenombrigeblaKlaso AtributivoEstiMalantaŭ
+   
+   [<TestMethod>]
+   member _.AtributivoEstiAntaŭ() =
+      kontroliInflekciojn difinitoj "va" NenombrigeblaKlaso AtributivoEstiAntaŭ
+      
+      kontroliInflekciojn difinitoj2 "va" NenombrigeblaKlaso AtributivoEstiAntaŭ
 
    [<TestMethod>]
    member _.Estado() =
