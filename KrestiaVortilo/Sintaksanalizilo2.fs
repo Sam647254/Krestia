@@ -323,8 +323,14 @@ module Sintaksanalizilo2 =
    let proviLegiPridirantajnModifantojn (restantajVortoj: MalinflektitaVorto list) =
       [], restantajVortoj
       
-   let proviLegiAntaŭanModifanton analizejo =
-      failwith "???"
+   let proviLegiAntaŭanModifanton (analizejo: Analizejo) =
+      match analizejo.RestantajVortoj with
+      | sekva :: restanta ->
+         if ĉuAntaŭModifantaVorto sekva then
+            (Pridiranto sekva, { analizejo with RestantajVortoj = restanta }) |> Some
+         else
+            None
+      | [] -> None
    
    let rec legiSekvanArgumenton (analizejo: Analizejo): Result<Argumento * Analizejo, Eraro> =
       proviLegiAntaŭanModifanton analizejo
