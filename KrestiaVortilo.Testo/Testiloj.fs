@@ -145,7 +145,7 @@ module Testiloj =
    let kontroliFrazojn eniro pravajFrazoj =
       legi eniro true
       |> Result.map (fun rezulto ->
-            Assert.AreEqual(rezulto.Frazoj, pravajFrazoj))
+            Assert.AreEqual(pravajFrazoj, rezulto.Frazoj))
       |> Result.mapError malsukcesi
       |> ignore
 

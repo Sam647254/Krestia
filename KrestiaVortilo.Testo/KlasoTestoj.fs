@@ -101,9 +101,7 @@ type KlasoTestoj() =
 
          match vortoj with
          | [ imilta; kunataga ] ->
-            kontroliArgumentojn
-               "imilta kunataga"
-               [ Argumento(imilta, Set.singleton (Modifanto.Pridiranto kunataga)) ]
+            kontroliArgumentojn "imilta kunataga" [ Argumento(imilta, Set.singleton (Modifanto.Pridiranto kunataga)) ]
          | _ -> Assert.Fail()
 
       let _ =
@@ -112,9 +110,7 @@ type KlasoTestoj() =
 
          match vortoj with
          | [ kunatava; imilta ] ->
-            kontroliArgumentojn
-               "kunatava imilta"
-               [ Argumento(imilta, Set.singleton (Modifanto.Pridiranto kunatava)) ]
+            kontroliArgumentojn "kunatava imilta" [ Argumento(imilta, Set.singleton (Modifanto.Pridiranto kunatava)) ]
          | _ -> Assert.Fail()
 
       let _ =
@@ -130,7 +126,7 @@ type KlasoTestoj() =
                    Set.ofList [ Modifanto.Pridiranto kunatava
                                 Modifanto.Pridiranto rimaga ]) ]
          | _ -> Assert.Fail()
-         
+
       let _ =
          let vortoj =
             List.map praveMalinflekti [ "kunatava"; "rimava"; "imilta" ]
@@ -146,18 +142,35 @@ type KlasoTestoj() =
          | _ -> Assert.Fail()
 
       ()
-   
+
    [<TestMethod>]
    member _.Sola() =
       kontroliInflekciojn difinitoj "ra" NombrigeblaKlaso Sola
       kontroliInflekciojn difinitoj "sira" NombrigeblaKlaso UnuSola
       kontroliInflekciojn difinitoj "vera" NombrigeblaKlaso PluraSola
-      
+
       kontroliInflekciojn difinitoj2 "ra" NenombrigeblaKlaso Sola
-      
+
       let _ =
          let imiltara = praveMalinflekti "imiltara"
          kontroliFrazojn "imiltara" [ Predikato0(plenaVerbo imiltara) ]
+
+      let _ =
+         match List.map praveMalinflekti [ "imiltara"; "kunataga" ] with
+         | [ imiltara; kunataga ] ->
+            kontroliFrazojn
+               "imiltara kunataga"
+               [ Predikato0(Verbo(imiltara, Set.singleton (Modifanto.Pridiranto(kunataga)))) ]
+         | _ -> Assert.Fail()
+      
+      let _ =
+         match List.map praveMalinflekti [ "kunatava"; "imiltara" ] with
+         | [ kunatava; imiltara ] ->
+            kontroliFrazojn
+               "kunatava imiltara"
+               [ Predikato0(Verbo(imiltara, Set.singleton (Modifanto.Pridiranto(kunatava)))) ]
+         | _ -> Assert.Fail()
+
       ()
 
    [<TestMethod>]

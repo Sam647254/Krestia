@@ -6,6 +6,10 @@ open Malinflektado
 module Sintaksanalizilo2 =
    type Verbo = Verbo of MalinflektitaVorto * Modifantoj: Set<Modifanto>
 
+   and AntaŭeModifitaVorto =
+      | PredikataVorto of Verbo
+      | ArgumentaVorto of Argumento
+
    and Modifanto =
       | Pridiranto of MalinflektitaVorto
       | Mel of Argumento
@@ -355,21 +359,83 @@ module Sintaksanalizilo2 =
             { restanta with
                  Argumentoj = restanta.Argumentoj.Conj(argumento) })
 
-   let legiSolanKlason (analizejo: Analizejo): Result<Analizejo, Eraro> =
+   let legiSekvanSolanKlason (analizejo: Analizejo): Result<Predikato * Analizejo, Eraro> =
       match analizejo.RestantajVortoj with
       | klaso :: _ ->
          let malantaŭajModifantoj, restantaj =
             proviLegiArgumentajnModifantojn analizejo.RestantajVortoj.Tail
 
-         { analizejo with
-              Frazoj =
-                 Predikato0(Verbo(klaso, malantaŭajModifantoj))
-                 :: analizejo.Frazoj
-              RestantajVortoj = restantaj }
+         (Predikato0(Verbo(klaso, malantaŭajModifantoj)),
+          { analizejo with
+               RestantajVortoj = restantaj })
          |> Ok
       | [] -> failwith "Word expected"
+   
+   let legiSolanKlason (analizejo: Analizejo): Result<Analizejo, Eraro> =
+      legiSekvanSolanKlason analizejo
+      |> Result.map (fun (klaso, restanta) ->
+         { restanta with Frazoj = klaso :: restanta.Frazoj })
 
-   let legiAntaŭeModifitanVorton (analizejo: Analizejo): Result<Analizejo, Eraro> = failwith "???"
+   // TODO: Bezonas purigadon
+   let rec legiAntaŭeModifitanVortonAk (analizejo: Analizejo): Result<AntaŭeModifitaVorto * Analizejo, Eraro> =
+      match analizejo.RestantajVortoj with
+      | pridiranto :: sekva :: restantaj ->
+         let restanta =
+            { analizejo with
+                 RestantajVortoj = sekva :: restantaj }
+         let novaPridiranto = Pridiranto(pridiranto)
+
+         if ĉuArgumentaVorto sekva then
+            legiSekvanArgumenton restanta
+            |> Result.map (fun (argumento, restantaAnalizejo) ->
+               let novaArgumento =
+                  match argumento with
+                  | Argumento(vorto, modifantoj) -> Argumento(vorto, modifantoj.Add(novaPridiranto))
+               ArgumentaVorto(novaArgumento), restantaAnalizejo)
+         elif ĉuSolaArgumento sekva then
+            legiSekvanSolanKlason restanta
+            |> Result.map (fun (klaso, restantaAnalizejo) ->
+               let novaKlaso =
+                  match klaso with
+                  | Predikato0(verbo) ->
+                     match verbo with
+                     | Verbo(verbo, modifantoj) -> Verbo(verbo, modifantoj.Add(novaPridiranto))
+               PredikataVorto(novaKlaso), restantaAnalizejo)
+         elif ĉuAntaŭModifantaVorto sekva then
+            legiAntaŭeModifitanVortonAk restanta
+            |> Result.map (fun (vorto, restantaAnalizejo) ->
+               let novaVorto = 
+                  match vorto with
+                  | ArgumentaVorto(argumento) ->
+                     match argumento with
+                     | Argumento(vorto, modifantoj) -> Argumento(vorto, modifantoj.Add(novaPridiranto))
+                     |> ArgumentaVorto
+                  | PredikataVorto(verbo) ->
+                     match verbo with
+                     | Verbo(verbo, modifantoj) -> Verbo(verbo, modifantoj.Add(novaPridiranto))
+                     |> PredikataVorto
+               novaVorto, restantaAnalizejo)
+         else
+            Error
+               (Eraro
+                  (pridiranto.OriginalaVorto,
+                   (sprintf "%s cannot modify %s" pridiranto.OriginalaVorto.Vorto sekva.OriginalaVorto.Vorto)))
+      | pridiranto :: [] ->
+         Error(Eraro(pridiranto.OriginalaVorto, (sprintf "%s has nothing to modify" pridiranto.OriginalaVorto.Vorto)))
+      | [] -> failwith "Descriptor expected"
+   
+   let legiArgumentojnPor verbo restanta = [], restanta
+
+   let legiAntaŭeModifitanVorton (analizejo: Analizejo): Result<Analizejo, Eraro> =
+      legiAntaŭeModifitanVortonAk analizejo
+      |> Result.map (fun (vorto, restanta) ->
+            match vorto with
+            | PredikataVorto (verbo) ->
+               { restanta with
+                    Frazoj = Predikato0(verbo) :: analizejo.Frazoj }
+            | ArgumentaVorto (argumento) ->
+               { restanta with
+                    Argumentoj = analizejo.Argumentoj.Conj(argumento) })
 
    let rec legiSekvan (analizejo: Analizejo) =
       match analizejo.RestantajVortoj with
@@ -383,7 +449,7 @@ module Sintaksanalizilo2 =
          else
             Eraro(sekva.OriginalaVorto, sprintf "Can't parse %s" sekva.OriginalaVorto.Vorto)
             |> Error
-            |> Result.bind (fun restanta -> legiSekvan restanta)
+         |> Result.bind (fun restanta -> legiSekvan restanta)
       | [] -> Ok analizejo
 
    let legiPerAnalizejo (vortoj: MalinflektitaVorto list) =
