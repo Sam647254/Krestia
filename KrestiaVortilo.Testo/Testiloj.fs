@@ -1,5 +1,6 @@
 ﻿namespace KrestiaVortilo.Testo
 
+open System
 open FSharpx.Collections
 open KrestiaVortilo
 open Microsoft.VisualStudio.TestTools.UnitTesting
@@ -10,9 +11,8 @@ open KrestiaVortilo.Malinflektado
 module Testiloj =
    let malsukcesi (_, eraro) = Assert.Fail eraro
 
-   let plenaModifanto modifanto =
-      { Modifanto = modifantojDePredikataVerboj.[modifanto]
-        Vorto = testaVorto modifanto }
+   [<Obsolete>]
+   let plenaModifanto modifanto = failwith "clean up"
 
    let kontroliInflekcion (pravaTipo: Vorttipo) (pravaInflekcio: Inflekcio) (vorto: string) =
       vorto
@@ -139,6 +139,13 @@ module Testiloj =
    let kontroliArgumentojn eniro pravajArgumentoj =
       legi eniro true
       |> Result.map (fun rezulto -> Assert.AreEqual(pravajArgumentoj, rezulto.Argumentoj |> Deque.toSeq |> List.ofSeq))
+      |> Result.mapError malsukcesi
+      |> ignore
+   
+   let kontroliFrazojn eniro pravajFrazoj =
+      legi eniro true
+      |> Result.map (fun rezulto ->
+            Assert.AreEqual(rezulto.Frazoj, pravajFrazoj))
       |> Result.mapError malsukcesi
       |> ignore
 

@@ -103,7 +103,7 @@ type KlasoTestoj() =
          | [ imilta; kunataga ] ->
             kontroliArgumentojn
                "imilta kunataga"
-               [ Argumento(imilta, Set.singleton (ArgumentaModifanto.Pridiranto kunataga)) ]
+               [ Argumento(imilta, Set.singleton (Modifanto.Pridiranto kunataga)) ]
          | _ -> Assert.Fail()
 
       let _ =
@@ -114,7 +114,7 @@ type KlasoTestoj() =
          | [ kunatava; imilta ] ->
             kontroliArgumentojn
                "kunatava imilta"
-               [ Argumento(imilta, Set.singleton (ArgumentaModifanto.Pridiranto kunatava)) ]
+               [ Argumento(imilta, Set.singleton (Modifanto.Pridiranto kunatava)) ]
          | _ -> Assert.Fail()
 
       let _ =
@@ -127,10 +127,37 @@ type KlasoTestoj() =
                "kunatava imilta rimaga"
                [ Argumento
                   (imilta,
-                   Set.ofList [ ArgumentaModifanto.Pridiranto kunatava
-                                ArgumentaModifanto.Pridiranto rimaga ]) ]
+                   Set.ofList [ Modifanto.Pridiranto kunatava
+                                Modifanto.Pridiranto rimaga ]) ]
+         | _ -> Assert.Fail()
+         
+      let _ =
+         let vortoj =
+            List.map praveMalinflekti [ "kunatava"; "rimava"; "imilta" ]
+
+         match vortoj with
+         | [ kunatava; rimava; imilta ] ->
+            kontroliArgumentojn
+               "kunatava rimava imilta"
+               [ Argumento
+                  (imilta,
+                   Set.ofList [ Modifanto.Pridiranto kunatava
+                                Modifanto.Pridiranto rimava ]) ]
          | _ -> Assert.Fail()
 
+      ()
+   
+   [<TestMethod>]
+   member _.Sola() =
+      kontroliInflekciojn difinitoj "ra" NombrigeblaKlaso Sola
+      kontroliInflekciojn difinitoj "sira" NombrigeblaKlaso UnuSola
+      kontroliInflekciojn difinitoj "vera" NombrigeblaKlaso PluraSola
+      
+      kontroliInflekciojn difinitoj2 "ra" NenombrigeblaKlaso Sola
+      
+      let _ =
+         let imiltara = praveMalinflekti "imiltara"
+         kontroliFrazojn "imiltara" [ Predikato0(plenaVerbo imiltara) ]
       ()
 
    [<TestMethod>]
@@ -138,13 +165,6 @@ type KlasoTestoj() =
       [ ("verikowa", PredikativoEsti)
         ("voritoga", AtributivoEstiMalantaŭ)
         ("voritova", AtributivoEstiAntaŭ) ]
-      |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion NombrigeblaKlaso pravaInflekcio vorto)
-      |> ignore
-
-   [<TestMethod>]
-   member _.Sola() =
-      [ ("ilitivera", PluraSola)
-        ("pospira", Sola) ]
       |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion NombrigeblaKlaso pravaInflekcio vorto)
       |> ignore
 
