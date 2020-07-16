@@ -296,9 +296,9 @@ module Malinflektado =
       |> List.tryPick (fun (finaĵo, vorttipo) ->
          if vorto.EndsWith(finaĵo) then Some vorttipo else None)
 
-   let malinflektiSeDifinito (vorto: string) inflekcio akceptiNenombrigeblan =
+   let malinflektiSeDifinito (vorto: string) inflekcio akceptiNenombrigeblan ĉuBazo =
       ĉuDifinito vorto akceptiNenombrigeblan
-      |> Option.map (fun vorttipo -> Nebazo(vorttipo, inflekcio, difinitoAlInfinitivo vorto))
+      |> Option.map (fun vorttipo -> (if ĉuBazo then Bazo else Nebazo)(vorttipo, inflekcio, difinitoAlInfinitivo vorto))
    
    let malinflektiSePredikativoInfinito vorto inflekcio =
       ĉuPredikativoEsti vorto
@@ -338,20 +338,21 @@ module Malinflektado =
                | DifinitoFinaĵo (finaĵo, inflekcio) ->
                   if ĉeno.EndsWith(finaĵo) then
                      let difinito = ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)
-                     malinflektiSeDifinito difinito inflekcio AkceptiNenombrigeblan
+                     malinflektiSeDifinito difinito inflekcio AkceptiNenombrigeblan (finaĵo.Length = 0)
                   else
                      None
                | DUPFinaĵo (finaĵo, difinito, unuNombro, pluraNombro) ->
                   if ĉeno.EndsWith(finaĵo) then
                      let restantaj = ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)
+                     let ĉuBazo = finaĵo.Length = 0
                      if restantaj.EndsWith(unuNombroFinaĵo) then
                         let difinito = ĉeno.Substring(0, restantaj.Length - unuNombroFinaĵo.Length)
-                        malinflektiSeDifinito difinito unuNombro NeAkceptiNenombrigeblan
+                        malinflektiSeDifinito difinito unuNombro NeAkceptiNenombrigeblan ĉuBazo
                      elif restantaj.EndsWith(pluraNombroFinaĵo) then
                         let difinito = ĉeno.Substring(0, restantaj.Length - pluraNombroFinaĵo.Length)
-                        malinflektiSeDifinito difinito pluraNombro NeAkceptiNenombrigeblan
+                        malinflektiSeDifinito difinito pluraNombro NeAkceptiNenombrigeblan ĉuBazo
                      else
-                        malinflektiSeDifinito restantaj difinito AkceptiNenombrigeblan
+                        malinflektiSeDifinito restantaj difinito AkceptiNenombrigeblan ĉuBazo
                   else
                      None)
          |> Option.orElseWith (fun () ->
@@ -576,8 +577,8 @@ module Malinflektado =
    let argumentajBazajTipoj =
       [ FremdaVorto; Lokokupilo ] |> Set.ofList
 
-   let argumentajNebazajInflekcioj =
-      [ Difinito; UnuNombro; PluraNombro ] |> Set.ofList
+   let argumentajInflekcioj =
+      [ Difinito; UnuNombro; PluraNombro; SolaFormo ] |> Set.ofList
 
    let malantaŭModifantajInflekcioj =
       [ AtributivoEstiMalantaŭ ] |> Set.ofList
@@ -592,8 +593,8 @@ module Malinflektado =
 
    let ĉuArgumentaVorto (vorto: MalinflektitaVorto) =
       match vorto.InflekcioŜtupoj.Head with
-      | Bazo (vorttipo, _, _) -> Set.contains vorttipo argumentajBazajTipoj
-      | Nebazo (_, inflekcio, _) -> Set.contains inflekcio argumentajNebazajInflekcioj
+      | Bazo (_, inflekcio, _) -> Set.contains inflekcio argumentajInflekcioj
+      | Nebazo (_, inflekcio, _) -> Set.contains inflekcio argumentajInflekcioj
 
    let ĉuMalantaŭModifantaVorto (vorto: MalinflektitaVorto) =
       match vorto.InflekcioŜtupoj.Head with

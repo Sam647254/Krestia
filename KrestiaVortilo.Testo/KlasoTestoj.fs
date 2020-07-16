@@ -66,7 +66,7 @@ type KlasoTestoj() =
          let vortoj = List.map praveMalinflekti [ "imilta"; "kunataga" ]
          match vortoj with
          | [ imilta; kunataga ] ->
-            kontroliRestantajnVortojn "imilta kunataga"
+            kontroliArgumentojn "imilta kunataga"
                [ Argumento(imilta, Set.singleton (ArgumentaModifanto.Pridiranto kunataga)) ]
          | _ -> Assert.Fail()
          
@@ -74,7 +74,7 @@ type KlasoTestoj() =
          let vortoj = List.map praveMalinflekti [ "kunatava"; "imilta" ]
          match vortoj with
          | [ kunatava; imilta ] ->
-            kontroliRestantajnVortojn "kunatava imilta"
+            kontroliArgumentojn "kunatava imilta"
                [ Argumento(imilta, Set.singleton (ArgumentaModifanto.Pridiranto kunatava)) ]
          | _ -> Assert.Fail()
       ()

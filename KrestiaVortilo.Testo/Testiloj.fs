@@ -138,7 +138,7 @@ module Testiloj =
 
    let kontroliArgumentojn eniro pravajArgumentoj =
       legi eniro true
-      |> Result.map (fun rezulto -> Assert.AreEqual(Deque.toSeq rezulto.Argumentoj, Seq.ofList pravajArgumentoj))
+      |> Result.map (fun rezulto -> Assert.AreEqual(pravajArgumentoj, rezulto.Argumentoj |> Deque.toSeq |> List.ofSeq))
       |> Result.mapError malsukcesi
       |> ignore
 
