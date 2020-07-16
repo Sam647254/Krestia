@@ -308,26 +308,43 @@ module Sintaksanalizilo2 =
             let rezulto = kreiRezulton
             legiFrazojn sintaksanalizilo rezulto)
 
+   let legiPridiranton (analizejo: Analizejo) = failwith "???"
+
+   let proviLegiArgumentajnModifantojn (restantajVortoj: MalinflektitaVorto list) =
+      let modifantoj =
+         restantajVortoj
+         |> List.takeWhile ĉuMalantaŭModifantaVorto
+
+      let restantaj =
+         restantajVortoj |> List.skip modifantoj.Length
+
+      (modifantoj |> List.map Pridiranto |> Set.ofList, restantaj)
+
    let legiArgumenton (analizejo: Analizejo) =
       let argumento = analizejo.RestantajVortoj.Head
-      let restantaj = analizejo.RestantajVortoj.Tail
+
+      let modifantoj, restantaj =
+         proviLegiArgumentajnModifantojn analizejo.RestantajVortoj.Tail
+
       { analizejo with
-           RestantajVortoj = restantaj
-           Argumentoj = analizejo.Argumentoj.Conj(plenaArgumento argumento) } |> Ok
-   
+           Argumentoj = analizejo.Argumentoj.Conj(Argumento(argumento, modifantoj))
+           RestantajVortoj = restantaj } |> Ok
+
    let aldoniMalantaŭanModifanton (analizejo: Analizejo) =
       let modifanto = analizejo.RestantajVortoj.Head
       let lastaArgumento = analizejo.Argumentoj.Last
       let restantaj = analizejo.RestantajVortoj.Tail
+
       let novaArgumento =
          match lastaArgumento with
-         | Argumento(argumento, modifantoj) ->
-            Argumento(argumento, modifantoj.Add(Pridiranto modifanto))
+         | Argumento (argumento, modifantoj) -> Argumento(argumento, modifantoj.Add(Pridiranto modifanto))
          | _ -> failwith "WIP"
+
       { analizejo with
            RestantajVortoj = restantaj
-           Argumentoj = analizejo.Argumentoj.Initial.Conj(novaArgumento) } |> Ok
-      
+           Argumentoj = analizejo.Argumentoj.Initial.Conj(novaArgumento) }
+      |> Ok
+
    let legiSekvan (analizejo: Analizejo) =
       match analizejo.RestantajVortoj with
       | sekva :: _ ->

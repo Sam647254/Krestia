@@ -9,8 +9,10 @@ open KrestiaVortilo.Malinflektado
 
 module Testiloj =
    let malsukcesi (_, eraro) = Assert.Fail eraro
-   
-   let plenaModifanto modifanto = { Modifanto = modifantojDePredikataVerboj.[modifanto]; Vorto = testaVorto modifanto }
+
+   let plenaModifanto modifanto =
+      { Modifanto = modifantojDePredikataVerboj.[modifanto]
+        Vorto = testaVorto modifanto }
 
    let kontroliInflekcion (pravaTipo: Vorttipo) (pravaInflekcio: Inflekcio) (vorto: string) =
       vorto
@@ -26,9 +28,9 @@ module Testiloj =
                Assert.AreEqual(pravaInflekcio, inflekcio))
       |> Result.mapError malsukcesi
       |> ignore
-      
+
    let aldoniFinaĵon (finaĵo: string) vorto = vorto + finaĵo
-   
+
    let kontroliInflekciojn vortoj komunaFinaĵo pravaTipo pravaInflekcio =
       vortoj
       |> List.map (aldoniFinaĵon komunaFinaĵo)
@@ -47,11 +49,10 @@ module Testiloj =
       vorto
       |> testaVorto
       |> malinflekti
-      |> Result.map
-            (fun malinflektaŜtupo ->
-               Assert.Fail(sprintf "%s estas nevalida vorto, sed malinflektiĝis: %A" vorto malinflektaŜtupo))
+      |> Result.map (fun malinflektaŜtupo ->
+            Assert.Fail(sprintf "%s estas nevalida vorto, sed malinflektiĝis: %A" vorto malinflektaŜtupo))
       |> ignore
-      
+
    let kontroliNevalidanFrazon (eniro: string) =
       analizi eniro true
       |> Result.map (fun rezulto -> Assert.Fail(sprintf "%s estas nevalida frazo, sed legis %A" eniro rezulto))
@@ -76,7 +77,7 @@ module Testiloj =
       |> tuteMalinflekti
       |> Result.map ĉuArgumentaVorto
       |> Result.mapError malsukcesi
-      
+
    let kontroliKategorigadon (frazo: string) (verboj: string list) (argumentoj: string list) =
       frazo.Split(' ')
       |> List.ofArray
@@ -94,10 +95,13 @@ module Testiloj =
                         |> List.map testaVorto
                         |> tuteMalinflektiĈiujn
                         |> Result.map (fun malinflektitaArgumentoj ->
-                              let verboj = malinflektitaVerboj |> List.map plenaVerbo
+                              let verboj =
+                                 malinflektitaVerboj |> List.map plenaVerbo
+
                               let argumentoj =
                                  malinflektitaArgumentoj
                                  |> List.map (fun a -> Sintaksanalizilo2.Argumento(a, Set.empty))
+
                               Assert.AreEqual(Deque.ofList verboj, Deque.toSeq sintaksanalizilo.Verboj)
                               Assert.AreEqual(Deque.ofList argumentoj, sintaksanalizilo.Argumentoj)))))
       |> Result.mapError malsukcesi
@@ -132,6 +136,12 @@ module Testiloj =
       |> Result.mapError malsukcesi
       |> ignore
 
+   let kontroliArgumentojn eniro pravajArgumentoj =
+      legi eniro true
+      |> Result.map (fun rezulto -> Assert.AreEqual(Deque.toSeq rezulto.Argumentoj, Seq.ofList pravajArgumentoj))
+      |> Result.mapError malsukcesi
+      |> ignore
+
    let kontroliRestantajnVortojn eniro (pravajRestantaj: Argumento list) =
       analizi eniro true
       |> Result.map (fun rezulto -> Assert.AreEqual(pravajRestantaj, rezulto.RestantajVortoj))
@@ -142,6 +152,6 @@ module Testiloj =
       analizi eniro false
       |> Result.map (fun _ -> Assert.Fail(sprintf "%s estas nevalida, sed estas sukcese legita" eniro))
       |> Result.mapError (fun (vorto, _) ->
-         Assert.AreEqual(vico, vorto.Vico)
-         Assert.AreEqual(pozo, vorto.Pozo))
+            Assert.AreEqual(vico, vorto.Vico)
+            Assert.AreEqual(pozo, vorto.Pozo))
       |> ignore

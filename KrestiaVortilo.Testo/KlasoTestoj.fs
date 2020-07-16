@@ -1,10 +1,8 @@
 ﻿namespace KrestiaVortilo.Testo
 
 open KrestiaVortilo.Sintaksanalizilo2
-open KrestiaVortilo.Sintaksanalizilo2
 open Microsoft.VisualStudio.TestTools.UnitTesting
 
-open KrestiaVortilo
 open KrestiaVortilo.Vorttipo
 open KrestiaVortilo.Sintaksanalizilo
 open Testiloj
@@ -69,7 +67,7 @@ type KlasoTestoj() =
          match vortoj with
          | [ imilta; kunataga ] ->
             kontroliRestantajnVortojn "imilta kunataga"
-               [ Argumento(imilta, Set.singleton (AtributivoEsti kunataga)) ]
+               [ Argumento(imilta, Set.singleton (ArgumentaModifanto.Pridiranto kunataga)) ]
          | _ -> Assert.Fail()
          
       let _ =
@@ -77,7 +75,7 @@ type KlasoTestoj() =
          match vortoj with
          | [ kunatava; imilta ] ->
             kontroliRestantajnVortojn "kunatava imilta"
-               [ Argumento(imilta, Set.singleton (AtributivoEsti kunatava)) ]
+               [ Argumento(imilta, Set.singleton (ArgumentaModifanto.Pridiranto kunatava)) ]
          | _ -> Assert.Fail()
       ()
 
