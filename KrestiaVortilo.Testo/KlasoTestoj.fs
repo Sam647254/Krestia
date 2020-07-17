@@ -206,10 +206,8 @@ type KlasoTestoj() =
 
    [<TestMethod>]
    member _.Ĝerundo() =
-      [ ("verikevra", Ĝerundo)
-        ("verikeva", SpecifaĜerundo) ]
-      |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion NombrigeblaKlaso pravaInflekcio vorto)
-      |> ignore
+      kontroliInflekciojn predikatoj "vra" NombrigeblaKlaso Ĝerundo
+      kontroliInflekciojn predikatoj2 "vra" NenombrigeblaKlaso Ĝerundo
 
    [<TestMethod>]
    member _.NevalidajVortoj() =
