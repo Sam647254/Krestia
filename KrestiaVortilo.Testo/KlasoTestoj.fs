@@ -216,17 +216,20 @@ type KlasoTestoj() =
 
    [<TestMethod>]
    member _.NevalidajVortoj() =
-      [ "kunasi"
-        "kunasira"
-        "mo"
-        "ko"
-        "tu"
-        "ti"
-        "tira" ]
-      |> List.map kontroliNevalidanVorton
+      difinitoj2
+      |> List.map ((fun vorto -> vorto + "si") >> kontroliNevalidanVorton)
       |> ignore
-
-      kontroliInflekcion NetransitivaVerbo Infinitivo "kunaveris"
+      
+      difinitoj2
+      |> List.map ((fun vorto -> vorto + "ve") >> kontroliNevalidanVorton)
+      |> ignore
+      
+      predikatoj
+      |> List.map ((fun vorto -> vorto + "si") >> kontroliNevalidanVorton)
+      |> ignore
+      
+      predikatoj
+      |> List.map ((fun vorto -> vorto + "ve") >> kontroliNevalidanVorton)
       |> ignore
 
    [<TestMethod>]
