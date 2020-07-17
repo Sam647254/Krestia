@@ -208,6 +208,11 @@ type KlasoTestoj() =
    member _.Ĝerundo() =
       kontroliInflekciojn predikatoj "vra" NombrigeblaKlaso Ĝerundo
       kontroliInflekciojn predikatoj2 "vra" NenombrigeblaKlaso Ĝerundo
+      
+   [<TestMethod>]
+   member _.SpecifaĜerundo() =
+      kontroliInflekciojn difinitoj "vra" NombrigeblaKlaso SpecifaĜerundo
+      kontroliInflekciojn difinitoj2 "vra" NenombrigeblaKlaso SpecifaĜerundo
 
    [<TestMethod>]
    member _.NevalidajVortoj() =
