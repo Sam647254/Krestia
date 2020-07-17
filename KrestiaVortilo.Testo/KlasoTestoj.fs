@@ -172,6 +172,22 @@ type KlasoTestoj() =
          | _ -> Assert.Fail()
 
       ()
+      
+         
+   [<TestMethod>]
+   member _.Havado() =
+      [ "res", Havado
+        "rem", Havado
+        "sires", UnuHavado
+        "sirem", UnuHavado
+        "veres", PluraHavado
+        "verem", PluraHavado ]
+      |> List.map (fun (finaĵo, inflekcio) -> kontroliInflekciojn difinitoj finaĵo NombrigeblaKlaso inflekcio)
+      |> ignore
+      
+      kontroliInflekciojn difinitoj2 "res" NenombrigeblaKlaso Havado
+      kontroliInflekciojn difinitoj2 "rem" NenombrigeblaKlaso Havado
+      ()
 
    [<TestMethod>]
    member _.Estado() =
@@ -189,14 +205,6 @@ type KlasoTestoj() =
         ("kentalas", NombrigeblaKlaso)
         ("kunalas", NenombrigeblaKlaso) ]
       |> List.map (fun (vorto, pravaTipo) -> kontroliInflekcion pravaTipo Translativo vorto)
-      |> ignore
-
-   [<TestMethod>]
-   member _.Havado() =
-      [ ("lekereg", Havado)
-        ("lepasireg", UnuHavado)
-        ("trupavereg", PluraHavado) ]
-      |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion NombrigeblaKlaso pravaInflekcio vorto)
       |> ignore
 
    [<TestMethod>]
