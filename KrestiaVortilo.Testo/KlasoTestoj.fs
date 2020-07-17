@@ -188,14 +188,16 @@ type KlasoTestoj() =
       kontroliInflekciojn difinitoj2 "res" NenombrigeblaKlaso Havado
       kontroliInflekciojn difinitoj2 "rem" NenombrigeblaKlaso Havado
       ()
-
+      
    [<TestMethod>]
-   member _.Estado() =
-      [ ("verikowa", PredikativoEsti)
-        ("voritoga", AtributivoEstiMalantaŭ)
-        ("voritova", AtributivoEstiAntaŭ) ]
-      |> List.map (fun (vorto, pravaInflekcio) -> kontroliInflekcion NombrigeblaKlaso pravaInflekcio vorto)
+   member _.Ekzistado() =
+      [ "rim", Ekzistado
+        "sirim", UnuEkzistado
+        "verim", PluraEkzistado ]
+      |> List.map (fun (finaĵo, inflekcio) -> kontroliInflekciojn difinitoj finaĵo NombrigeblaKlaso inflekcio)
       |> ignore
+      
+      kontroliInflekciojn difinitoj2 "rim" NenombrigeblaKlaso Ekzistado
 
    [<TestMethod>]
    member _.Translativo() =
