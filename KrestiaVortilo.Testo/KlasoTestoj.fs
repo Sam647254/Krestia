@@ -231,6 +231,22 @@ type KlasoTestoj() =
       predikatoj
       |> List.map ((fun vorto -> vorto + "ve") >> kontroliNevalidanVorton)
       |> ignore
+      
+      predikatoj2
+      |> List.map ((fun vorto -> vorto + "si") >> kontroliNevalidanVorton)
+      |> ignore
+      
+      predikatoj2
+      |> List.map ((fun vorto -> vorto + "ve") >> kontroliNevalidanVorton)
+      |> ignore
+      
+      predikatoj
+      |> List.map ((fun vorto -> vorto + "ga") >> kontroliNevalidanVorton)
+      |> ignore
+      
+      predikatoj
+      |> List.map ((fun vorto -> vorto + "va") >> kontroliNevalidanVorton)
+      |> ignore
 
    [<TestMethod>]
    member _.PlurajInflekcioj() =
