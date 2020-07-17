@@ -201,13 +201,8 @@ type KlasoTestoj() =
 
    [<TestMethod>]
    member _.Translativo() =
-      [ ("ritmalas", NenombrigeblaKlaso)
-        ("tretalas", NombrigeblaKlaso)
-        ("tetalas", NombrigeblaKlaso)
-        ("kentalas", NombrigeblaKlaso)
-        ("kunalas", NenombrigeblaKlaso) ]
-      |> List.map (fun (vorto, pravaTipo) -> kontroliInflekcion pravaTipo Translativo vorto)
-      |> ignore
+      kontroliInflekciojn predikatoj "las" NombrigeblaKlaso Translativo
+      kontroliInflekciojn predikatoj2 "las" NenombrigeblaKlaso Translativo
 
    [<TestMethod>]
    member _.Ĝerundo() =

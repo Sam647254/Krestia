@@ -43,7 +43,7 @@ module Malinflektado =
         DUPFinaĵo("rem", Havado, UnuHavado, PluraHavado)
         DUPFinaĵo("rim", Ekzistado, UnuEkzistado, PluraEkzistado)
         DifinitoFinaĵo("lam", Translativo)
-        DifinitoFinaĵo("las", Translativo)
+        PredikativoEstiFinaĵo("las", Translativo)
         PredikativoEstiFinaĵo("vra", Ĝerundo)
         DifinitoFinaĵo("vra", SpecifaĜerundo) ]
 
@@ -59,7 +59,7 @@ module Malinflektado =
         DifinitoFinaĵo("reg", Havado)
         DifinitoFinaĵo("rim", Ekzistado)
         DifinitoFinaĵo("lam", Translativo)
-        DifinitoFinaĵo("las", Translativo)
+        PredikativoEstiFinaĵo("las", Translativo)
         DifinitoFinaĵo("vra", Ĝerundo)
         DifinitoFinaĵo("va", SpecifaĜerundo) ]
 
