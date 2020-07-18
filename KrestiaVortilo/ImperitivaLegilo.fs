@@ -6,8 +6,9 @@ open KrestiaVortilo.Sintaksanalizilo2
 
 module Imperativa =
    type Vorto() =
-      class end
-   
+      class
+      end
+
    type ModifeblaVorto() =
       inherit Vorto()
       member private _.modifantoj = HashSet<Modifanto>()
@@ -15,10 +16,10 @@ module Imperativa =
    [<AbstractClass>]
    type Argumento() =
       inherit ModifeblaVorto()
-      
+
    type PlenaArgumento(vorto: MalinflektitaVorto) =
       inherit Argumento()
-      
+
    type Eco(eco: Argumento, de: Argumento) =
       inherit Argumento()
 
@@ -35,25 +36,26 @@ module Imperativa =
             let sekva = enira.Peek()
             if ĉuArgumentaVorto sekva then
                this.LegiArgumenton()
-               this.LegiSekvan()
+               |> Result.bind (fun argumento ->
+                     argumentoj.AddLast(argumento) |> ignore
+                     this.LegiSekvan())
             elif ĉuAntaŭEco sekva then
-               let eco = this.LegiArgumenton()
-               let de = this.LegiArgumenton()
-               argumentoj.AddLast(Eco(eco, de))
-               this.LegiSekvan()
+               this.LegiArgumenton()
+               |> Result.bind (fun eco ->
+                     this.LegiArgumenton()
+                     |> Result.bind (fun de ->
+                           argumentoj.AddLast(Eco(eco, de)) |> ignore
+                           this.LegiSekvan()))
             else
                Eraro(sekva.OriginalaVorto, sprintf "Can't parse %s" sekva.OriginalaVorto.Vorto)
                |> Error
          else
             Ok()
 
-      member private this.LegiArgumenton() =
-         match restantajVortoj with
-         | argumento :: restantaj ->
-            if not (ĉuArgumentaVorto argumento)
-            then Error
-                    (Eraro
-                       (argumento.OriginalaVorto, sprintf "%s is not a valid argument" argumento.OriginalaVorto.Vorto))
-            elif ĉuAntaŭEco argumento then
-               let ecoDe = this.LegiArgumenton(restantaj)
-         | [] -> failwith "Argument expected"
+      member private this.LegiArgumenton(): Result<Argumento, Eraro> =
+         let argumento = enira.Dequeue()
+         if not (ĉuArgumentaVorto argumento)
+         then Error
+                 (Eraro
+                    (argumento.OriginalaVorto, sprintf "%s is not a valid argument" argumento.OriginalaVorto.Vorto))
+         else failwith "???"
