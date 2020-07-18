@@ -345,15 +345,20 @@ module Sintaksanalizilo2 =
       |> Option.defaultWith (fun () ->
             match analizejo.RestantajVortoj with
             | argumento :: _ ->
-               if ĉuAntaŭEco argumento then
-                  { analizejo with RestantajVortoj = analizejo.RestantajVortoj.Tail }
-                  |> legiSekvanArgumenton
-                  |> Result.map (fun (ecoDe, restanta2) -> ecoDe, restanta2)
-               else
-                  Ok(Set.empty, analizejo)
+               let rezulto =
+                  if ĉuAntaŭEco argumento then
+                     { analizejo with RestantajVortoj = analizejo.RestantajVortoj.Tail }
+                     |> legiSekvanArgumenton
+                     |> Result.map (fun (ecoDe, restanta2) -> Set.singleton(EcoDe(ecoDe)), restanta2)
+                  else
+                     Ok(Set.empty, analizejo)
+               rezulto
                |> Result.map (fun (bazaModifanto, restantaAnalizejo) ->
                      let modifantoj, restantaj =
-                        proviLegiArgumentajnModifantojn restantaAnalizejo.RestantajVortoj.Tail
+                        if restantaAnalizejo.RestantajVortoj.IsEmpty then
+                           Set.empty, List.empty
+                        else
+                           proviLegiArgumentajnModifantojn restantaAnalizejo.RestantajVortoj.Tail
 
                      (Argumento(argumento, Set.union bazaModifanto modifantoj),
                       { analizejo with
