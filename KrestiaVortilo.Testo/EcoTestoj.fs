@@ -22,7 +22,7 @@ type EcoTestoj () =
       
       let _ =
          let [ krena; dedri ] = [ "krena"; "dedri" ] |> List.map praveMalinflekti
-         kontroliArgumentojn "dedre krena" [ Argumento(dedri, Set.singleton(EcoDe(plenaArgumento krena))) ]
+         kontroliArgumentojn "krena dedri" [ Argumento(dedri, Set.singleton(EcoDe(plenaArgumento krena))) ]
       ()
 
    [<TestMethod>]
