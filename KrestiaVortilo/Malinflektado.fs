@@ -228,7 +228,7 @@ module Malinflektado =
         AntaŭNombrigeblaEco, nombrigeblaKlasoInflekcioj
         AntaŭNenombrigeblaEco, nenombrigeblaKlasoInflekcioj
         MalantaŭNombrigeblaEco, nombrigeblaKlasoInflekcioj
-        MalantaŭNenombrieblaEco, nenombrigeblaKlasoInflekcioj
+        MalantaŭNenombrigeblaEco, nenombrigeblaKlasoInflekcioj
         MalplenaVerbo, malplenaVerboInflekcioj
         NetransitivaVerbo, netransitivaVerboInflekcioj
         TransitivaVerbo, transitivaVerboInflekcioj
@@ -256,6 +256,11 @@ module Malinflektado =
       nombrigeblaDifinitoFinaĵoj
       @ (nenombrigeblaDifinitoFinaĵoj
          |> List.map (fun finaĵo -> (finaĵo, NenombrigeblaKlaso)))
+      |> List.append
+            [ "dre", AntaŭNombrigeblaEco
+              "dri", MalantaŭNombrigeblaEco
+              "gre", AntaŭNenombrigeblaEco
+              "gri", MalantaŭNenombrigeblaEco ]
 
    let predikativoEstiFinaĵoj =
       (nombrigeblaPredikativoEstiFinaĵoj
@@ -603,7 +608,7 @@ module Malinflektado =
         NenombrigeblaKlaso
         MalantaŭNombrigeblaEco
         AntaŭNombrigeblaEco
-        MalantaŭNenombrieblaEco
+        MalantaŭNenombrigeblaEco
         AntaŭNenombrigeblaEco ]
       |> Set.ofList
 
@@ -730,7 +735,7 @@ module Malinflektado =
             | NedirektaNetransitivaVerbo -> "Verb"
             | Pridiranto -> "Descriptor"
             | AntaŭNenombrigeblaEco
-            | MalantaŭNenombrieblaEco
+            | MalantaŭNenombrigeblaEco
             | AntaŭNombrigeblaEco
             | MalantaŭNombrigeblaEco -> "Associative class"
             | AntaŭRekordo

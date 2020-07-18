@@ -1,5 +1,6 @@
 ﻿namespace KrestiaVortilo.Testo
 
+open KrestiaVortilo.Sintaksanalizilo2
 open Microsoft.VisualStudio.TestTools.UnitTesting
 
 open KrestiaVortilo.Vorttipo
@@ -7,6 +8,22 @@ open Testiloj
 
 [<TestClass>]
 type EcoTestoj () =
+   
+   [<TestMethod>]
+   member _.Difinito() =
+      kontroliInflekcion AntaŭNombrigeblaEco Difinito "dedre"
+      kontroliInflekcion AntaŭNenombrigeblaEco Difinito "amegre"
+      kontroliInflekcion MalantaŭNombrigeblaEco Difinito "dedri"
+      kontroliInflekcion MalantaŭNenombrigeblaEco Difinito "amegri"
+      
+      let _ =
+         let [ dedre; krena ] = [ "dedre"; "krena" ] |> List.map praveMalinflekti
+         kontroliArgumentojn "dedre krena" [ Argumento(dedre, Set.singleton(EcoDe(plenaArgumento krena))) ]
+      
+      let _ =
+         let [ krena; dedri ] = [ "krena"; "dedri" ] |> List.map praveMalinflekti
+         kontroliArgumentojn "dedre krena" [ Argumento(dedri, Set.singleton(EcoDe(plenaArgumento krena))) ]
+      ()
 
    [<TestMethod>]
    member _.NenombrigeblaKontroliTesto() =

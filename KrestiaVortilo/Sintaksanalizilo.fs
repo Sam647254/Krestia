@@ -71,10 +71,7 @@ module Sintaksanalizilo =
         "tetie"
         "petie"
         "setie"
-        "shetie"
-        // Eco
-        "dre"
-        "dri" ] @ (verboFinaĵoj
+        "shetie" ] @ (verboFinaĵoj
                    |> Map.values
                    |> Seq.map (fun sufikso ->
                          [ sufikso + "le"
@@ -86,8 +83,8 @@ module Sintaksanalizilo =
    let nombrigeblaUnuNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "si")
    let nombrigeblaPluraNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ve")
 
-   let nenombrigeblaInfinitivoFinaĵoj = [ "mu"; "mo"; "maa"; "nu"; "no"; "naa"; "gro"; "gru" ]
-   let nenombrigeblaDifinitoFinaĵoj = [ "mi"; "me"; "ma"; "ni"; "ne"; "na"; "gre"; "gri" ]
+   let nenombrigeblaInfinitivoFinaĵoj = [ "mu"; "mo"; "maa"; "nu"; "no"; "naa" ]
+   let nenombrigeblaDifinitoFinaĵoj = [ "mi"; "me"; "ma"; "ni"; "ne"; "na" ]
 
    let finajLiteroj finaĵoj tipo inflekcio =
       finaĵoj
@@ -131,7 +128,7 @@ module Sintaksanalizilo =
             "li", AntaŭRekordo
             "dru", MalantaŭNombrigeblaEco
             "dro", AntaŭNombrigeblaEco
-            "gru", MalantaŭNenombrieblaEco
+            "gru", MalantaŭNenombrigeblaEco
             "gro", AntaŭNenombrigeblaEco
             "m", MalplenaVerbo
             "s", NetransitivaVerbo
@@ -181,7 +178,7 @@ module Sintaksanalizilo =
                | AntaŭRekordo -> "Record (prefix)"
                | MalantaŭNombrigeblaEco -> "Countable associative class (postfix)"
                | AntaŭNombrigeblaEco -> "Countable associative class (prefix)"
-               | MalantaŭNenombrieblaEco -> "Uncountable associative class (postfix)"
+               | MalantaŭNenombrigeblaEco -> "Uncountable associative class (postfix)"
                | AntaŭNenombrigeblaEco -> "Uncountable associative class (prefix)"
                | TransitivaVerbo -> "Transitive verb"
                | DutransitivaVerbo -> "Ditransitive verb"

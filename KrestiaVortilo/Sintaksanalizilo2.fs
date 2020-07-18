@@ -12,6 +12,7 @@ module Sintaksanalizilo2 =
 
    and Modifanto =
       | Pridiranto of MalinflektitaVorto
+      | EcoDe of Argumento
       | Mel of Argumento
       | Sonol of Argumento
       | Nival

@@ -17,7 +17,7 @@ module Valenco =
          | AtributivoEstiAntaŭ -> multaVorto 0 1
          | AtributivoEstiMalantaŭ -> multaVorto 1 0
          | _ -> multaVorto 0 0
-      | MalantaŭNombrigeblaEco | MalantaŭNenombrieblaEco ->
+      | MalantaŭNombrigeblaEco | MalantaŭNenombrigeblaEco ->
          match inflekcio with
          | Havaĵo | UnuHavaĵo | PluraHavaĵo -> multaVorto 0 0
          | _ -> multaVorto 1 0
