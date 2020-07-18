@@ -256,11 +256,10 @@ module Malinflektado =
       nombrigeblaDifinitoFinaĵoj
       @ (nenombrigeblaDifinitoFinaĵoj
          |> List.map (fun finaĵo -> (finaĵo, NenombrigeblaKlaso)))
-      |> List.append
-            [ "dre", AntaŭNombrigeblaEco
-              "dri", MalantaŭNombrigeblaEco
-              "gre", AntaŭNenombrigeblaEco
-              "gri", MalantaŭNenombrigeblaEco ]
+      |> List.append [ "dre", AntaŭNombrigeblaEco
+                       "dri", MalantaŭNombrigeblaEco
+                       "gre", AntaŭNenombrigeblaEco
+                       "gri", MalantaŭNenombrigeblaEco ]
 
    let predikativoEstiFinaĵoj =
       (nombrigeblaPredikativoEstiFinaĵoj
@@ -666,10 +665,25 @@ module Malinflektado =
       match vorto.InflekcioŜtupoj.Head with
       | Nebazo (_, inflekcio, _) -> Set.contains inflekcio antaŭModifantajInflekcioj
       | _ -> false
-   
+
    let ĉuSolaArgumento (vorto: MalinflektitaVorto) =
       match vorto.InflekcioŜtupoj.Head with
-      | Nebazo (_, inflekcio, _) -> inflekcio = Sola || inflekcio = UnuSola || inflekcio = PluraSola
+      | Nebazo (_, inflekcio, _) ->
+         inflekcio = Sola
+         || inflekcio = UnuSola
+         || inflekcio = PluraSola
+      | _ -> false
+
+   let ĉuAntaŭEco (vorto: MalinflektitaVorto) =
+      let unuaInflekcio = List.last vorto.InflekcioŜtupoj
+      match unuaInflekcio with
+      | Bazo (vorttipo, inflekcio, _) ->
+         (vorttipo = AntaŭNombrigeblaEco
+          && (inflekcio = Difinito
+              || inflekcio = UnuNombro
+              || inflekcio = PluraNombro))
+         || (vorttipo = AntaŭNenombrigeblaEco
+             && inflekcio = Difinito)
       | _ -> false
 
    let ĉiujInflekciojDe vorto =

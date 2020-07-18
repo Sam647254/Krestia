@@ -345,13 +345,19 @@ module Sintaksanalizilo2 =
       |> Option.defaultWith (fun () ->
             match analizejo.RestantajVortoj with
             | argumento :: _ ->
-               let modifantoj, restantaj =
-                  proviLegiArgumentajnModifantojn analizejo.RestantajVortoj.Tail
+               if ĉuAntaŭEco argumento then
+                  { analizejo with RestantajVortoj = analizejo.RestantajVortoj.Tail }
+                  |> legiSekvanArgumenton
+                  |> Result.map (fun (ecoDe, restanta2) -> ecoDe, restanta2)
+               else
+                  Ok(Set.empty, analizejo)
+               |> Result.map (fun (bazaModifanto, restantaAnalizejo) ->
+                     let modifantoj, restantaj =
+                        proviLegiArgumentajnModifantojn restantaAnalizejo.RestantajVortoj.Tail
 
-               (Argumento(argumento, modifantoj),
-                { analizejo with
-                     RestantajVortoj = restantaj })
-               |> Ok
+                     (Argumento(argumento, Set.union bazaModifanto modifantoj),
+                      { analizejo with
+                           RestantajVortoj = restantaj }))
             | [] -> failwith "Argument expected")
 
    let legiArgumenton (analizejo: Analizejo): Result<Analizejo, Eraro> =
