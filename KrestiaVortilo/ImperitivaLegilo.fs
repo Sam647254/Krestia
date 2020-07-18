@@ -4,7 +4,7 @@ open System.Collections.Generic
 open KrestiaVortilo.Malinflektado
 open KrestiaVortilo.Sintaksanalizilo2
 
-module Imperativa =
+module Imperativa =   
    type Vorto() =
       class
       end
@@ -22,14 +22,20 @@ module Imperativa =
 
    type Eco(eco: Argumento, de: Argumento) =
       inherit Argumento()
+   
+   type Rezulto =
+      { Frazoj : Predikato list
+        Argumentoj: Argumento list }
 
    type ImperitivaLegilo(enira: Queue<MalinflektitaVorto>) =
       let argumentoj = LinkedList<Argumento>()
       let frazoj = List<Predikato>()
 
-      member this.Legi(): Result<Analizejo, Eraro> =
+      member this.Legi(): Result<Rezulto, Eraro> =
          this.LegiSekvan()
-         |> Result.map (fun () -> failwith "???")
+         |> Result.map (fun () ->
+            { Frazoj = frazoj |> List.ofSeq
+              Argumentoj = argumentoj |> List.ofSeq })
 
       member this.LegiSekvan(): Result<unit, Eraro> =
          if enira.Count > 0 then
@@ -52,10 +58,11 @@ module Imperativa =
          else
             Ok()
 
-      member private this.LegiArgumenton(): Result<Argumento, Eraro> =
+      member private this.LegiArgumenton(): Result<PlenaArgumento, Eraro> =
          let argumento = enira.Dequeue()
          if not (ĉuArgumentaVorto argumento)
          then Error
                  (Eraro
                     (argumento.OriginalaVorto, sprintf "%s is not a valid argument" argumento.OriginalaVorto.Vorto))
-         else failwith "???"
+         else
+            Ok(PlenaArgumento(argumento))
