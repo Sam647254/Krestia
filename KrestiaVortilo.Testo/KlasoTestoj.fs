@@ -104,7 +104,7 @@ type KlasoTestoj() =
          | [ imilta; kunataga ] ->
             kontroliArgumentojn
                "imilta kunataga"
-               [ plenaModifitaArgumento imilta (Set.singleton (Modifanto.Pridiranto kunataga)) ]
+               [ plenaModifitaArgumento imilta (List.singleton (Modifanto.Pridiranto kunataga)) ]
          | _ -> Assert.Fail()
 
       let _ =
@@ -115,7 +115,7 @@ type KlasoTestoj() =
          | [ kunatava; imilta ] ->
             kontroliArgumentojn
                "kunatava imilta"
-               [ plenaModifitaArgumento imilta (Set.singleton (Modifanto.Pridiranto kunatava)) ]
+               [ plenaModifitaArgumento imilta (List.singleton (Modifanto.Pridiranto kunatava)) ]
          | _ -> Assert.Fail()
 
       let _ =
@@ -128,8 +128,8 @@ type KlasoTestoj() =
                "kunatava imilta rimaga"
                [ plenaModifitaArgumento
                   imilta
-                    (Set.ofList [ Modifanto.Pridiranto kunatava
-                                  Modifanto.Pridiranto rimaga ]) ]
+                     [ Modifanto.Pridiranto kunatava
+                       Modifanto.Pridiranto rimaga ] ]
          | _ -> Assert.Fail()
 
       let _ =
@@ -142,8 +142,8 @@ type KlasoTestoj() =
                "kunatava rimava imilta"
                [ plenaModifitaArgumento
                   imilta
-                    (Set.ofList [ Modifanto.Pridiranto kunatava
-                                  Modifanto.Pridiranto rimava ]) ]
+                    [ Modifanto.Pridiranto kunatava
+                      Modifanto.Pridiranto rimava ] ]
          | _ -> Assert.Fail()
 
       ()
@@ -158,14 +158,14 @@ type KlasoTestoj() =
 
       let _ =
          let imiltara = praveMalinflekti "imiltara"
-         kontroliFrazojn "imiltara" [ Predikato0(plenaVerbo imiltara) ]
+         kontroliFrazojn "imiltara" [ Predikato0(verbo imiltara []) ]
 
       let _ =
          match List.map praveMalinflekti [ "imiltara"; "kunataga" ] with
          | [ imiltara; kunataga ] ->
             kontroliFrazojn
                "imiltara kunataga"
-               [ Predikato0(Verbo(imiltara, Set.singleton (Modifanto.Pridiranto(kunataga)))) ]
+               [ Predikato0(verbo imiltara (List.singleton (Modifanto.Pridiranto(kunataga)))) ]
          | _ -> Assert.Fail()
 
       let _ =
@@ -173,7 +173,7 @@ type KlasoTestoj() =
          | [ kunatava; imiltara ] ->
             kontroliFrazojn
                "kunatava imiltara"
-               [ Predikato0(Verbo(imiltara, Set.singleton (Modifanto.Pridiranto(kunatava)))) ]
+               [ Predikato0(verbo imiltara (List.singleton (Modifanto.Pridiranto(kunatava)))) ]
          | _ -> Assert.Fail()
 
       ()

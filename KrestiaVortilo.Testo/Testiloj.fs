@@ -81,33 +81,7 @@ module Testiloj =
       |> Result.mapError malsukcesi
 
    let kontroliKategorigadon (frazo: string) (verboj: string list) (argumentoj: string list) =
-      frazo.Split(' ')
-      |> List.ofArray
-      |> List.map testaVorto
-      |> tuteMalinflektiĈiujn
-      |> Result.bind (fun malinflektitaVortoj ->
-            malinflektitaVortoj
-            |> Sintaksanalizilo2.kategorigi Sintaksanalizilo2.kreiSintaksanalizilon
-            |> Result.bind (fun sintaksanalizilo ->
-                  verboj
-                  |> List.map testaVorto
-                  |> tuteMalinflektiĈiujn
-                  |> Result.bind (fun malinflektitaVerboj ->
-                        argumentoj
-                        |> List.map testaVorto
-                        |> tuteMalinflektiĈiujn
-                        |> Result.map (fun malinflektitaArgumentoj ->
-                              let verboj =
-                                 malinflektitaVerboj |> List.map plenaVerbo
-
-                              let argumentoj =
-                                 malinflektitaArgumentoj
-                                 |> List.map (fun a -> Sintaksanalizilo2.Argumento(a, Set.empty))
-
-                              Assert.AreEqual(Deque.ofList verboj, Deque.toSeq sintaksanalizilo.Verboj)
-                              Assert.AreEqual(Deque.ofList argumentoj, sintaksanalizilo.Argumentoj)))))
-      |> Result.mapError malsukcesi
-      |> ignore
+      failwith "forigi"
 
    let kontroliMalplenigitajnFormojn (vorto: string) (pravajFormoj: string list) =
       malplenigitajFormojDe vorto
@@ -138,7 +112,7 @@ module Testiloj =
       |> Result.mapError malsukcesi
       |> ignore
 
-   let kontroliArgumentojn eniro (pravajArgumentoj: Imperativa.Argumento list) =
+   let kontroliArgumentojn eniro (pravajArgumentoj: Argumento list) =
       prepariEniron eniro true
       |> Result.bind (fun vortoj ->
             let legilo = ImperitivaLegilo(Queue(vortoj))

@@ -691,6 +691,8 @@ module Malinflektado =
          || (vorttipo = AntaŭNenombrigeblaEco
              && inflekcio = Difinito)
       | _ -> false
+      
+   let ĉuMalantaŭEco (vorto: MalinflektitaVorto) = failwith "???"
 
    let ĉiujInflekciojDe vorto =
       ĉuInfinitivo vorto
