@@ -79,6 +79,10 @@ module Sintaksanalizilo2 =
 
    let plenaVerbo vorto = failwith "forigi"
    
+   let argumento vorto (modifantoj: Modifanto list): Argumento =
+      { Vorto = { Kapo = vorto
+                  Modifantoj = HashSet(modifantoj) } }
+   
    let verbo vorto (modifantoj: Modifanto list): Verbo =
       { Vorto = { Kapo = vorto
                   Modifantoj = HashSet(modifantoj) } }

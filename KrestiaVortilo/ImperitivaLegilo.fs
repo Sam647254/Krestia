@@ -79,13 +79,15 @@ module Imperativa =
             this.LegiArgumenton()
             |> Result.map (fun de -> eco.Vorto.Modifantoj.Add(EcoDe de) |> ignore; eco)
          elif ĉuMalantaŭModifantaVorto sekva then
-            failwith "???"
+            failwith "TODO"
             this.LegiArgumenton()
          elif ĉuMalantaŭEco sekva then
+            let argumento = argumento sekva []
             match lastaLegitaArgumento with
             | Some (a) ->
-               a.Vorto.Modifantoj.Add(Pridiranto(sekva))
+               a.Vorto.Modifantoj.Add(EcoDe(argumento))
                |> ignore
+               lastaLegitaArgumento <- Some argumento
             | None -> failwith "No argument to associate with"
             this.LegiArgumenton()
          else
