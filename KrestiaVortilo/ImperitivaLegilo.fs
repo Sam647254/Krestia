@@ -12,20 +12,19 @@ module Imperativa =
    type ModifeblaVorto() =
       inherit Vorto()
       member private _.modifantoj = HashSet<Modifanto>()
+      
+      member this.AldoniModifanton(modifanto: Modifanto) =
+         this.modifantoj.Add(modifanto) |> ignore
 
-   [<AbstractClass>]
-   type Argumento() =
+   and Argumento(kapo: MalinflektitaVorto) =
       inherit ModifeblaVorto()
-
-   type PlenaArgumento(vorto: MalinflektitaVorto) =
-      inherit Argumento()
-
-   type Eco(eco: Argumento, de: Argumento) =
-      inherit Argumento()
    
-   type Rezulto =
+   and Rezulto =
       { Frazoj : Predikato list
         Argumentoj: Argumento list }
+   
+   and Modifanto =
+      | EcoDe of Argumento
 
    type ImperitivaLegilo(enira: Queue<MalinflektitaVorto>) =
       let argumentoj = LinkedList<Argumento>()
@@ -50,19 +49,28 @@ module Imperativa =
                |> Result.bind (fun eco ->
                      this.LegiArgumenton()
                      |> Result.bind (fun de ->
-                           argumentoj.AddLast(Eco(eco, de)) |> ignore
+                           eco.AldoniModifanton(EcoDe(de))
+                           argumentoj.AddLast(eco) |> ignore
                            this.LegiSekvan()))
             else
                Eraro(sekva.OriginalaVorto, sprintf "Can't parse %s" sekva.OriginalaVorto.Vorto)
                |> Error
          else
             Ok()
+            
+      member private this.PostuliArgumenton(): Result<Argumento, Eraro> =
+         if argumentoj.Count > 0 then
+            let argumento = argumentoj.First.Value
+            argumentoj.RemoveFirst()
+            Ok(argumento)
+         else
+            this.LegiArgumenton()
 
-      member private this.LegiArgumenton(): Result<PlenaArgumento, Eraro> =
+      member private this.LegiArgumenton(): Result<Argumento, Eraro> =
          let argumento = enira.Dequeue()
          if not (ĉuArgumentaVorto argumento)
          then Error
                  (Eraro
                     (argumento.OriginalaVorto, sprintf "%s is not a valid argument" argumento.OriginalaVorto.Vorto))
          else
-            Ok(PlenaArgumento(argumento))
+            Ok(Argumento(argumento))
