@@ -33,7 +33,7 @@ module Imperativa =
          { Kapo = argumento
            Modifantoj = HashSet() }
          
-   let plenaModifitaArgumento argumento (modifantoj: Set<Modifanto>) =
+   let plenaModifitaArgumento argumento (modifantoj: Modifanto seq) =
       PlenaArgumento
          { Kapo = argumento
            Modifantoj = HashSet(modifantoj) }
@@ -55,12 +55,12 @@ module Imperativa =
          if enira.Count > 0 then
             let sekva = enira.Peek()
             if ĉuArgumentaVorto sekva then
-               this.LegiPlenaArgumenton()
+               this.LegiArgumenton()
                |> Result.bind (fun argumento ->
                      argumentoj.AddLast(argumento) |> ignore
                      this.LegiSekvan())
             elif ĉuAntaŭEco sekva then
-               this.LegiPlenaArgumenton()
+               this.LegiArgumenton()
                |> Result.bind (fun eco ->
                      match eco with
                      | PlenaArgumento (argumento) ->
@@ -89,18 +89,50 @@ module Imperativa =
          else
             Ok()
 
-      member private this.LegiPlenaArgumenton(): Result<Argumento, Eraro> =
-         let argumento = enira.Dequeue()
-         if not (ĉuArgumentaVorto argumento) then
-            Error(Eraro(argumento.OriginalaVorto, sprintf "%s is not a valid argument" argumento.OriginalaVorto.Vorto))
+      member private this.LegiArgumenton(): Result<Argumento, Eraro> =
+         let sekva = enira.Dequeue()
+         if ĉuDifinitaKlaso sekva then
+            this.LegiPlenanArgumenton(sekva) |> Ok
+         elif ĉuAntaŭModifantaVorto sekva then
+            atendantajPridirantoj.Enqueue(Pridiranto(sekva))
+            this.LegiArgumenton()
+         elif ĉuAntaŭEco sekva then
+            let eco = plenaModifitaArgumento sekva atendantajPridirantoj
+            lastaLegitaArgumento <- Some eco
+            this.LegiArgumenton()
+            |> Result.map (fun de -> Eco(eco, de))
+         elif ĉuMalantaŭModifantaVorto sekva then
+            failwith "???"
+            this.LegiArgumenton()
+         elif ĉuMalantaŭEco sekva then
+            match lastaLegitaArgumento with
+            | Some(a) ->
+               match a with
+               | PlenaArgumento(argumento) -> argumento.Modifantoj.Add(Pridiranto(sekva)) |> ignore
+               | Eco(eco, de) ->
+                  let novaArgumento = this.LegiPlenanArgumenton(sekva)
+                  
+            | None -> failwith "No argument to associate with"
+            this.LegiArgumenton()
          else
-            let novaArgumento =
-               { Kapo = argumento
-                 Modifantoj = HashSet(atendantajPridirantoj) }
-               |> PlenaArgumento
-
-            atendantajPridirantoj.Clear()
-            lastaLegitaArgumento <- Some novaArgumento
-            novaArgumento |> Ok
+            failwith "Unexpected input"
+      
+      member private this.LegiPlenanArgumenton(sekva) =
+         let novaArgumento =
+            let argumento = PlenaArgumento { Kapo = sekva; Modifantoj = HashSet(atendantajPridirantoj) }
+            lastaLegitaArgumento <- Some argumento
+            atendantajAntaŭajEcoj
+            |> Seq.reduce (fun ak sek -> Eco(ak, sek))
+            |> (fun ĉiujEcoj -> Eco(argumento, ĉiujEcoj))
+         atendantajPridirantoj.Clear()
+         atendantajAntaŭajEcoj.Clear()
+         novaArgumento
 
       member private this.LegiPridiranton() = enira.Dequeue() |> Pridiranto
+      
+      member private this.LegiĈiujnMalantaŭajnModifantojn() =
+         let modifantoj = HashSet()
+         while enira.Count > 0 && ĉuMalantaŭModifantaVorto (enira.Peek()) do
+            let sekva = enira.Dequeue()
+            modifantoj.Add(Pridiranto(sekva)) |> ignore
+         modifantoj

@@ -655,6 +655,12 @@ module Malinflektado =
       match vorto.InflekcioŜtupoj.Head with
       | Bazo (_, inflekcio, _) -> Set.contains inflekcio argumentajInflekcioj
       | Nebazo (_, inflekcio, _) -> Set.contains inflekcio argumentajInflekcioj
+      
+   let ĉuDifinitaKlaso (vorto: MalinflektitaVorto) =
+      ĉuArgumentaVorto vorto &&
+         match List.last vorto.InflekcioŜtupoj with
+         | Bazo(vorttipo, _, _) -> vorttipo = NombrigeblaKlaso || vorttipo = NenombrigeblaKlaso
+         | _ -> false
 
    let ĉuMalantaŭModifantaVorto (vorto: MalinflektitaVorto) =
       match vorto.InflekcioŜtupoj.Head with
