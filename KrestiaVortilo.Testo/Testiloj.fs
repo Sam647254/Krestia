@@ -1,8 +1,10 @@
 ﻿namespace KrestiaVortilo.Testo
 
 open System
+open System.Collections.Generic
 open FSharpx.Collections
 open KrestiaVortilo
+open KrestiaVortilo.Imperativa
 open Microsoft.VisualStudio.TestTools.UnitTesting
 open KrestiaVortilo.Vorttipo
 open KrestiaVortilo.Sintaksanalizilo2
@@ -136,16 +138,21 @@ module Testiloj =
       |> Result.mapError malsukcesi
       |> ignore
 
-   let kontroliArgumentojn eniro pravajArgumentoj =
-      legi eniro true
-      |> Result.map (fun rezulto -> Assert.AreEqual(pravajArgumentoj, rezulto.Argumentoj |> Deque.toSeq |> List.ofSeq))
+   let kontroliArgumentojn eniro (pravajArgumentoj: Imperativa.Argumento list) =
+      prepariEniron eniro true
+      |> Result.bind (fun vortoj ->
+            let legilo = ImperitivaLegilo(Queue(vortoj))
+            legilo.Legi()
+            |> Result.map (fun rezulto -> Assert.AreEqual(pravajArgumentoj, rezulto.Argumentoj)))
       |> Result.mapError malsukcesi
       |> ignore
-   
+
    let kontroliFrazojn eniro pravajFrazoj =
-      legi eniro true
-      |> Result.map (fun rezulto ->
-            Assert.AreEqual(pravajFrazoj, rezulto.Frazoj))
+      prepariEniron eniro true
+      |> Result.bind (fun vortoj ->
+            let legilo = vortoj |> Queue |> ImperitivaLegilo
+            legilo.Legi()
+            |> Result.map (fun rezulto -> Assert.AreEqual(pravajFrazoj, rezulto.Frazoj)))
       |> Result.mapError malsukcesi
       |> ignore
 

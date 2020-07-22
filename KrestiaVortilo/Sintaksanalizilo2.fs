@@ -472,9 +472,8 @@ module Sintaksanalizilo2 =
 
       legiSekvan analizejo
 
-   let legi (eniro: string) ĉuTesto: Result<Analizejo, Eraro> =
+   let prepariEniron (eniro: string) ĉuTesto =
       eniro
       |> iĝiEnEnirajVortoj ĉuTesto
       |> forigiRepetajnVortojn
       |> tuteMalinflektiĈiujn
-      |> Result.bind legiPerAnalizejo
