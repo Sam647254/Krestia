@@ -35,6 +35,14 @@ type EcoTestoj() =
             [ plenaModifitaArgumento dedri (List.singleton (EcoDe(argumento krena []))) ]
 
       ()
+      
+   [<TestMethod>]
+   member _.PredikativoEsti() =
+      kontroliInflekcion AntaŭNombrigeblaEco PredikativoEsti "dedro"
+      kontroliInflekcion AntaŭNenombrigeblaEco PredikativoEsti "amegro"
+      kontroliInflekcion MalantaŭNombrigeblaEco PredikativoEsti "dedru"
+      kontroliInflekcion MalantaŭNenombrigeblaEco PredikativoEsti "amegru"
+      ()
 
    [<TestMethod>]
    member _.NenombrigeblaKontroliTesto() =

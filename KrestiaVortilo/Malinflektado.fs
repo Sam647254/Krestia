@@ -266,6 +266,10 @@ module Malinflektado =
        |> List.map (fun finaĵo -> (finaĵo, NombrigeblaKlaso)))
       @ (nenombrigeblaInfinitivoFinaĵoj
          |> List.map (fun finaĵo -> (finaĵo, NenombrigeblaKlaso)))
+      |> List.append [ "dro", AntaŭNombrigeblaEco
+                       "dru", MalantaŭNombrigeblaEco
+                       "gro", AntaŭNenombrigeblaEco
+                       "gru", MalantaŭNenombrigeblaEco ]
 
    let difinitivoAlInfinitivoTabelo =
       [ ('a', "aa"); ('e', "o"); ('i', "u") ]

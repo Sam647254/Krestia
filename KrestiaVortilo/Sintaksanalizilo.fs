@@ -42,10 +42,7 @@ module Sintaksanalizilo =
         "tetio"
         "petio"
         "setio"
-        "shetio"
-        // Eco
-        "dro"
-        "dru" ] @ (verboFinaĵoj
+        "shetio" ] @ (verboFinaĵoj
                    |> Map.values
                    |> Seq.map (fun sufikso ->
                          [ sufikso + "lo"
