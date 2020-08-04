@@ -728,17 +728,6 @@ module Malinflektado =
             | DutransitivaVerbo -> 3
             | _ -> 0)
 
-   let valencoDe vorto =
-      vorto.InflekcioŜtupoj
-      |> List.tryFind (fun ŝtupo ->
-            match ŝtupo with
-            | Nebazo (_, inflekcio, _) -> inflekcio = Imperativo
-            | _ -> false)
-      |> Option.bind (fun _ ->
-            valencoDeInfinitivo vorto.BazaVorto
-            |> Option.map (fun valenco -> valenco - 1))
-      |> Option.orElseWith (fun () -> valencoDeInfinitivo vorto.BazaVorto)
-
    let vortaraTipoDe (vorto: string) =
       match vorto |> testaVorto |> malinflekti with
       | Ok (malinflektaŜtupo) ->

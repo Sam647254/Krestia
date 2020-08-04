@@ -2,7 +2,10 @@
 
 open System.Collections.Generic
 open FSharpx.Collections
+
+open Vorttipo
 open Malinflektado
+open Sintaksanalizilo
 
 module Sintaksanalizilo2 =
    [<CustomEquality; NoComparison>]
@@ -41,10 +44,8 @@ module Sintaksanalizilo2 =
       | Nal
       
    type Predikato =
-      | Predikato0 of predikatoVorto: Verbo
-      | Predikato1 of predikataVorto: Verbo * argumento1: Argumento
-      | Predikato2 of predikataVorto: Verbo * argumento1: Argumento * argumento2: Argumento
-      | Predikato3 of predikataVorto: Verbo * argumento1: Argumento * argumento2: Argumento * argumento3: Argumento
+      { Kapo: Verbo
+        Argumentoj: Argumento list }
 
    type AtendantaPlurvorto =
       | AtendantaParvorto of argumento: Argumento * parvorto: Parvorto
@@ -86,6 +87,23 @@ module Sintaksanalizilo2 =
    let verbo vorto (modifantoj: Modifanto list): Verbo =
       { Vorto = { Kapo = vorto
                   Modifantoj = HashSet(modifantoj) } }
+      
+   let valencoDe (vorto: MalinflektitaVorto) =
+      vorto.InflekcioŜtupoj
+      |> List.fold (fun ak sek ->
+         match sek with
+         | Nebazo(_, inflekcio, _) ->
+            match inflekcio with
+            | PredikativoEsti -> ak + 1
+            | PartaUjo1 | PartaUjo2 | PartaUjo3 -> ak - 1
+            | _ -> 0
+         | Bazo(vorttipo, _, _) ->
+            match vorttipo with
+            | MalplenaVerbo -> 0
+            | NetransitivaVerbo -> 1
+            | TransitivaVerbo -> 2
+            | DutransitivaVerbo -> 3
+            | _ -> 0) 0
 
    let kreiSintaksanalizilon =
       { Argumentoj = Deque.empty
@@ -236,7 +254,7 @@ module Sintaksanalizilo2 =
             match vorto with
             | PredikataVorto (verbo) ->
                { restanta with
-                    Frazoj = Predikato0(verbo) :: analizejo.Frazoj }
+                    Frazoj = { Kapo = verbo; Argumentoj = [] } :: analizejo.Frazoj }
             | ArgumentaVorto (argumento) ->
                { restanta with
                     Argumentoj = analizejo.Argumentoj.Conj(argumento) })

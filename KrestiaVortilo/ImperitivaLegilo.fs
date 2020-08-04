@@ -1,5 +1,6 @@
 ﻿namespace KrestiaVortilo
 
+open System.Collections
 open System.Collections.Generic
 open KrestiaVortilo.Malinflektado
 open KrestiaVortilo.Sintaksanalizilo2
@@ -19,11 +20,17 @@ module Imperativa =
            { Kapo = argumento
              Modifantoj = HashSet(modifantoj) } }
 
+   type private AtendantaVerbo =
+      { Verbo: Verbo
+        Valenco: int
+        AktualajArgumentoj: LinkedList<Argumento> }
+
    type ImperitivaLegilo(enira: Queue<MalinflektitaVorto>) =
       let argumentoj = LinkedList<Argumento>()
-      let frazoj = List<Predikato>()
+      let frazoj = LinkedList<Predikato>()
       let atendantajPridirantoj = Queue<Modifanto>()
       let atendantajAntaŭajEcoj = Queue<Argumento>()
+      let atendantajPredikatoj = Queue<AtendantaVerbo>()
       let mutable lastaLegitaArgumento: Argumento option = None
 
       member this.Legi(): Result<Rezulto, Eraro> =
@@ -58,6 +65,31 @@ module Imperativa =
                | Some (a) -> a.Vorto.Modifantoj.Add(pridiranto) |> ignore
                | None -> failwith "No argument to modify"
                this.LegiSekvan()
+            elif ĉuPredikataVorto sekva then
+               let verbo = verbo sekva []
+               let valenco = valencoDe sekva
+
+               if argumentoj.Count >= valenco then
+                  let argumentoj =
+                     seq { 1 .. valenco }
+                     |> Seq.fold (fun ak _ ->
+                           let sekvaArgumento = argumentoj.First.Value
+                           argumentoj.RemoveFirst()
+                           sekvaArgumento :: ak) []
+
+                  frazoj.AddLast
+                     ({ Kapo = verbo
+                        Argumentoj = argumentoj })
+                  |> ignore
+                  this.LegiSekvan()
+               else
+                  atendantajPredikatoj.Enqueue
+                     ({ Verbo = verbo
+                        Valenco = valenco
+                        AktualajArgumentoj = LinkedList(argumentoj) })
+                  |> ignore
+                  argumentoj.Clear()
+                  this.LegiSekvan()
             else
                Eraro(sekva.OriginalaVorto, sprintf "Can't parse %s" sekva.OriginalaVorto.Vorto)
                |> Error
@@ -77,7 +109,9 @@ module Imperativa =
 
             lastaLegitaArgumento <- Some eco
             this.LegiArgumenton()
-            |> Result.map (fun de -> eco.Vorto.Modifantoj.Add(EcoDe de) |> ignore; eco)
+            |> Result.map (fun de ->
+                  eco.Vorto.Modifantoj.Add(EcoDe de) |> ignore
+                  eco)
          elif ĉuMalantaŭModifantaVorto sekva then
             failwith "TODO"
             this.LegiArgumenton()
@@ -85,13 +119,20 @@ module Imperativa =
             let argumento = argumento sekva []
             match lastaLegitaArgumento with
             | Some (a) ->
-               a.Vorto.Modifantoj.Add(EcoDe(argumento))
-               |> ignore
+               a.Vorto.Modifantoj.Add(EcoDe(argumento)) |> ignore
                lastaLegitaArgumento <- Some argumento
             | None -> failwith "No argument to associate with"
             this.LegiArgumenton()
          else
             failwith "Unexpected input"
+
+      member private this.PostuliArgumenton() =
+         if argumentoj.Count > 0 then
+            let rezulto = argumentoj.First.Value
+            argumentoj.RemoveFirst()
+            Ok rezulto
+         else
+            this.LegiArgumenton()
 
       member private this.LegiPlenanArgumenton(sekva) =
          let novaArgumento =
