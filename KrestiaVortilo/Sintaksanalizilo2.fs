@@ -109,13 +109,13 @@ module Sintaksanalizilo2 =
       vorto.InflekcioŜtupoj
       |> List.fold (fun ak sek ->
          match sek with
-         | Nebazo(_, _, _) -> failwith "TODO"
+         | Nebazo(_, _, _) -> 0
          | Bazo(vorttipo, _, _) ->
             match vorttipo with
             | AntaŭNenombrigeblaEco
-            | AntaŭNombrigeblaEco
+            | AntaŭNombrigeblaEco -> 1
             | MalantaŭNenombrigeblaEco
-            | MalantaŭNombrigeblaEco -> 1
+            | MalantaŭNombrigeblaEco -> -1
             | _ -> 0) 0
 
    let kreiSintaksanalizilon =

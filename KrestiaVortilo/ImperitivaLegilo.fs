@@ -31,7 +31,6 @@ module Imperativa =
 
    type ImperitivaLegilo(enira: Queue<MalinflektitaVorto>) =
       let argumentoj = LinkedList<Argumento>()
-      let frazoj = Queue<Predikato>()
       let atendantajPridirantoj = LinkedList<Modifanto>()
       let atendantajAntaŭajEcoj = LinkedList<Argumento>()
       let atendantajPredikatoj = LinkedList<AtendantaPredikato>()
@@ -40,9 +39,32 @@ module Imperativa =
 
       member this.Legi(): Result<Rezulto, Eraro> =
          this.LegiSekvan()
-         |> Result.map (fun () ->
-               { Frazoj = frazoj |> List.ofSeq
-                 Argumentoj = argumentoj |> List.ofSeq })
+         |> Result.bind this.LegiFrazojn
+      
+      member this.LegiFrazojn(): Result<Rezulto, Eraro> =
+         atendantajPredikatoj
+         |> Seq.fold (fun listo sekva ->
+            listo
+            |> Result.bind (fun listo ->
+               seq { 1..sekva.Valenco }
+               |> Seq.fold (fun ak _ ->
+                  ak
+                  |> Result.bind (fun ak ->
+                     if argumentoj.Count = 0 then
+                        Error(Eraro(sekva.Verbo.Vorto.Kapo.OriginalaVorto, sprintf "Not enough arguments"))
+                     else
+                        let argumento = argumentoj.First.Value
+                        argumentoj.RemoveFirst()
+                        Ok(argumento :: ak))
+                  ) (Ok [])
+               |> Result.map List.rev
+               |> Result.map (fun argumentoj -> { Kapo = sekva.Verbo; Argumentoj = argumentoj } :: listo))) (Ok [])
+         |> Result.map List.rev
+         |> Result.map (fun frazoj ->
+            { Frazoj = frazoj
+              Argumentoj = argumentoj |> List.ofSeq })
+         
+      member this.LegiLokalanFrazon(): Result<Predikato, Eraro> = failwith "TODO"
 
       member private this.LegiSekvan(): Result<unit, Eraro> =
          if enira.Count > 0 then
