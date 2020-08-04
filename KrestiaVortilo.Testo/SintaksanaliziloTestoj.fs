@@ -31,45 +31,7 @@ type Sintaksanalizilo() =
       [ "beliv"; "belig"; "belin"; "belim" ] |> kontroliMalplenigitajnFormojn "beliv"
 
       [ "belin"; "belim" ] |> kontroliMalplenigitajnFormojn "belin"
-
-   [<TestMethod>]
-   member _.PredikatoTestoj() =
-      let _ =
-         let belise = praveMalinflekti "belise"
-         let hem = praveMalinflekti "hem"
-         let prava = Predikato1(plenaVerbo (belise), plenaArgumento (hem))
-         kontroliUnuFrazon "hem belise" prava
-
-      let _ =
-         let belitri = praveMalinflekti "belitre"
-         let hes = praveMalinflekti "hes"
-         let lipa = praveMalinflekti "lipa"
-         let prava = Predikato2(plenaVerbo (belitri), plenaArgumento (hes), plenaArgumento (lipa))
-         kontroliUnuFrazon "belitre hes lipa" prava
-
-      let _ =
-         let vortoj = [ "lipa"; "hem"; "het"; "belipro" ] |> List.map praveMalinflekti
-         match vortoj with
-         | [ lipa; hem; het; belipro ] ->
-            let prava =
-               Predikato3(plenaVerbo (belipro), plenaArgumento (lipa), plenaArgumento (hem), plenaArgumento (het))
-            kontroliUnuFrazon "lipa hem het belipro" prava
-         | _ -> Assert.Fail "Invalid state"
-
-      ()
-
-   [<TestMethod>]
-   member _.PlurajFrazojTestoj() =
-      let _ =
-         let vortoj = [ "lipa"; "belisela"; "het"; "belitela"; "hime"; "belimio" ] |> List.map praveMalinflekti
-         match vortoj with
-         | [ lipa; belisela; het; belitela; hime; belimio ] ->
-            let prava =
-               [ Predikato1(plenaVerbo (belisela), plenaArgumento (lipa))
-                 Predikato2(plenaVerbo (belitela), plenaArgumento (het), plenaArgumento (hime))
-                 Predikato0(plenaVerbo (belimio)) ]
-            kontroliPlurajnFrazojn "lipa belisela het belitela hime belimio" prava []
-         | _ -> Assert.Fail "Invalid state"
+      
       ()
 
    [<TestMethod>]
@@ -98,11 +60,3 @@ type Sintaksanalizilo() =
       [ "bet"; "lipa betre"; "sonol lipa hem"; "sonol" ]
       |> List.map kontroliNevalidanFrazon
       |> ignore
-
-   [<TestMethod>]
-   member _.``hem tatretowa``() =
-      let vortoj = [ "hem"; "tatretowa" ] |> List.map praveMalinflekti
-      match vortoj with
-      | [ hem; tatretowa ] ->
-         kontroliUnuFrazon "hem tatretowa" (Predikato1(plenaVerbo tatretowa, plenaArgumento hem))
-      ()

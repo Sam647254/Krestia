@@ -26,11 +26,11 @@ module Imperativa =
         AktualajArgumentoj: LinkedList<Argumento> }
 
    type ImperitivaLegilo(enira: Queue<MalinflektitaVorto>) =
-      let argumentoj = LinkedList<Argumento>()
-      let frazoj = LinkedList<Predikato>()
-      let atendantajPridirantoj = Queue<Modifanto>()
-      let atendantajAntaŭajEcoj = Queue<Argumento>()
-      let atendantajPredikatoj = Queue<AtendantaVerbo>()
+      let argumentoj = Queue<Argumento>()
+      let frazoj = Queue<Predikato>()
+      let atendantajPridirantoj = LinkedList<Modifanto>()
+      let atendantajAntaŭajEcoj = LinkedList<Argumento>()
+      let atendantajPredikatoj = LinkedList<AtendantaVerbo>()
       let mutable lastaLegitaArgumento: Argumento option = None
 
       member this.Legi(): Result<Rezulto, Eraro> =
@@ -45,19 +45,29 @@ module Imperativa =
             if ĉuArgumentaVorto sekva then
                this.LegiArgumenton()
                |> Result.bind (fun argumento ->
-                     argumentoj.AddLast(argumento) |> ignore
+                     if atendantajPredikatoj.Count > 0 then
+                        let sekvaPredikato = atendantajPredikatoj.First.Value
+                        sekvaPredikato.AktualajArgumentoj.AddLast(argumento)
+                        |> ignore
+                        if sekvaPredikato.AktualajArgumentoj.Count = sekvaPredikato.Valenco then
+                           frazoj.Enqueue
+                              ({ Kapo = sekvaPredikato.Verbo
+                                 Argumentoj = List.ofSeq sekvaPredikato.AktualajArgumentoj })
+                           atendantajPredikatoj.RemoveFirst()
+                     else
+                        argumentoj.Enqueue(argumento)
                      this.LegiSekvan())
             elif ĉuAntaŭEco sekva then
                this.LegiArgumenton()
                |> Result.bind (fun eco ->
                      eco.Vorto.Modifantoj.UnionWith(atendantajPridirantoj :> IEnumerable<Modifanto>)
                      atendantajPridirantoj.Clear()
-                     atendantajAntaŭajEcoj.Enqueue(eco)
+                     atendantajAntaŭajEcoj.AddLast(eco) |> ignore
                      lastaLegitaArgumento <- Some eco
                      this.LegiSekvan())
             elif ĉuAntaŭModifantaVorto sekva then
                let pridiranto = this.LegiPridiranton()
-               atendantajPridirantoj.Enqueue(pridiranto)
+               atendantajPridirantoj.AddLast(pridiranto) |> ignore
                this.LegiSekvan()
             elif ĉuMalantaŭModifantaVorto sekva then
                let pridiranto = this.LegiPridiranton()
@@ -66,28 +76,26 @@ module Imperativa =
                | None -> failwith "No argument to modify"
                this.LegiSekvan()
             elif ĉuPredikataVorto sekva then
-               let verbo = verbo sekva []
+               let verbo = this.LegiPredikaton()
                let valenco = valencoDe sekva
 
                if argumentoj.Count >= valenco then
                   let argumentoj =
                      seq { 1 .. valenco }
                      |> Seq.fold (fun ak _ ->
-                           let sekvaArgumento = argumentoj.First.Value
-                           argumentoj.RemoveFirst()
+                           let sekvaArgumento = argumentoj.Dequeue()
                            sekvaArgumento :: ak) []
 
-                  frazoj.AddLast
+                  frazoj.Enqueue
                      ({ Kapo = verbo
                         Argumentoj = argumentoj })
                   |> ignore
                   this.LegiSekvan()
                else
-                  atendantajPredikatoj.Enqueue
+                  atendantajPredikatoj.AddLast
                      ({ Verbo = verbo
                         Valenco = valenco
-                        AktualajArgumentoj = LinkedList(argumentoj) })
-                  |> ignore
+                        AktualajArgumentoj = LinkedList(argumentoj) }) |> ignore
                   argumentoj.Clear()
                   this.LegiSekvan()
             else
@@ -101,7 +109,7 @@ module Imperativa =
          if ĉuDifinitaKlaso sekva then
             this.LegiPlenanArgumenton(sekva) |> Ok
          elif ĉuAntaŭModifantaVorto sekva then
-            atendantajPridirantoj.Enqueue(Pridiranto(sekva))
+            atendantajPridirantoj.AddLast(Pridiranto(sekva)) |> ignore
             this.LegiArgumenton()
          elif ĉuAntaŭEco sekva then
             let eco =
@@ -126,14 +134,6 @@ module Imperativa =
          else
             failwith "Unexpected input"
 
-      member private this.PostuliArgumenton() =
-         if argumentoj.Count > 0 then
-            let rezulto = argumentoj.First.Value
-            argumentoj.RemoveFirst()
-            Ok rezulto
-         else
-            this.LegiArgumenton()
-
       member private this.LegiPlenanArgumenton(sekva) =
          let novaArgumento =
             let argumento =
@@ -155,8 +155,20 @@ module Imperativa =
          atendantajPridirantoj.Clear()
          atendantajAntaŭajEcoj.Clear()
          novaArgumento
+         
+      member private this.AldoniPridiranton(pridiranto) =
+         if atendantajAntaŭajEcoj.Count > 0 then
+            atendantajAntaŭajEcoj.Last.Value.Vorto.Modifantoj.Add(pridiranto) |> ignore
+         elif atendantajPredikatoj.Count > 0 then
+            atendantajPredikatoj.Last.Value.Verbo.Vorto.Modifantoj.Add(pridiranto) |> ignore
+         else
+            match lastaLegitaArgumento with
+            | Some (argumento) -> argumento.Vorto.Modifantoj.Add(pridiranto) |> ignore
+            | None -> failwith "Nothing to modify"
+         
+      member private this.LegiPredikaton() = verbo (enira.Dequeue()) []
 
-      member private this.LegiPridiranton() = enira.Dequeue() |> Pridiranto
+      member private this.LegiPridiranton(): Modifanto = enira.Dequeue() |> Pridiranto
 
       member private this.LegiĈiujnMalantaŭajnModifantojn() =
          let modifantoj = HashSet()

@@ -158,14 +158,18 @@ type KlasoTestoj() =
 
       let _ =
          let imiltara = praveMalinflekti "imiltara"
-         kontroliFrazojn "imiltara" [ Predikato0(verbo imiltara []) ]
+         kontroliFrazojn
+            "imiltara"
+            [ { Kapo = verbo imiltara []
+                Argumentoj = [] } ]
 
       let _ =
          match List.map praveMalinflekti [ "imiltara"; "kunataga" ] with
          | [ imiltara; kunataga ] ->
             kontroliFrazojn
                "imiltara kunataga"
-               [ Predikato0(verbo imiltara (List.singleton (Modifanto.Pridiranto(kunataga)))) ]
+               [ { Kapo = verbo imiltara [ Modifanto.Pridiranto(kunataga) ]
+                   Argumentoj = [] } ]
          | _ -> Assert.Fail()
 
       let _ =
@@ -173,7 +177,8 @@ type KlasoTestoj() =
          | [ kunatava; imiltara ] ->
             kontroliFrazojn
                "kunatava imiltara"
-               [ Predikato0(verbo imiltara (List.singleton (Modifanto.Pridiranto(kunatava)))) ]
+               [ { Kapo = verbo imiltara [ Modifanto.Pridiranto(kunatava) ]
+                   Argumentoj = [] } ]
          | _ -> Assert.Fail()
 
       ()

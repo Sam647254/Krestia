@@ -121,7 +121,7 @@ module Testiloj =
       |> Result.mapError malsukcesi
       |> ignore
 
-   let kontroliFrazojn eniro pravajFrazoj =
+   let kontroliFrazojn eniro (pravajFrazoj: Predikato list) =
       prepariEniron eniro true
       |> Result.bind (fun vortoj ->
             let legilo = vortoj |> Queue |> ImperitivaLegilo
