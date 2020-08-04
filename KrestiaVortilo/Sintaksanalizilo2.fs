@@ -104,6 +104,19 @@ module Sintaksanalizilo2 =
             | TransitivaVerbo -> 2
             | DutransitivaVerbo -> 3
             | _ -> 0) 0
+      
+   let bezonitaArgumentoKvantode (vorto: MalinflektitaVorto) =
+      vorto.InflekcioŜtupoj
+      |> List.fold (fun ak sek ->
+         match sek with
+         | Nebazo(_, _, _) -> failwith "TODO"
+         | Bazo(vorttipo, _, _) ->
+            match vorttipo with
+            | AntaŭNenombrigeblaEco
+            | AntaŭNombrigeblaEco
+            | MalantaŭNenombrigeblaEco
+            | MalantaŭNombrigeblaEco -> 1
+            | _ -> 0) 0
 
    let kreiSintaksanalizilon =
       { Argumentoj = Deque.empty

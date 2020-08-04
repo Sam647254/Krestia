@@ -20,10 +20,10 @@ module Imperativa =
            { Kapo = argumento
              Modifantoj = HashSet(modifantoj) } }
 
-   type private AtendantaVerbo =
+   type private AtendantaPredikato =
       { Verbo: Verbo
         Valenco: int
-        AktualajArgumentoj: LinkedList<Argumento> }
+        VerbajArgumentoj: Argumento list }
 
    type private LastaLegitaModifeblaVorto =
       | ModifeblaVerbo of Verbo
@@ -34,7 +34,7 @@ module Imperativa =
       let frazoj = Queue<Predikato>()
       let atendantajPridirantoj = LinkedList<Modifanto>()
       let atendantajAntaŭajEcoj = LinkedList<Argumento>()
-      let atendantajPredikatoj = LinkedList<AtendantaVerbo>()
+      let atendantajPredikatoj = LinkedList<AtendantaPredikato>()
       let mutable lastaModifeblaVorto: LastaLegitaModifeblaVorto option = None
       let mutable lastaArgumento: Argumento option = None
 
@@ -60,17 +60,7 @@ module Imperativa =
             elif ĉuArgumentaVorto sekva then
                this.LegiArgumenton()
                |> Result.bind (fun argumento ->
-                     if atendantajPredikatoj.Count > 0 then
-                        let sekvaPredikato = atendantajPredikatoj.First.Value
-                        sekvaPredikato.AktualajArgumentoj.AddLast(argumento)
-                        |> ignore
-                        if sekvaPredikato.AktualajArgumentoj.Count = sekvaPredikato.Valenco then
-                           frazoj.Enqueue
-                              ({ Kapo = sekvaPredikato.Verbo
-                                 Argumentoj = List.ofSeq sekvaPredikato.AktualajArgumentoj })
-                           atendantajPredikatoj.RemoveFirst()
-                     else
-                        argumentoj.AddLast(argumento) |> ignore
+                     argumentoj.AddLast(argumento) |> ignore
                      this.LegiSekvan())
             elif ĉuAntaŭEco sekva then
                this.LegiArgumenton()
@@ -92,28 +82,30 @@ module Imperativa =
             elif ĉuPredikataVorto sekva then
                let verbo = this.LegiPredikaton()
                let valenco = valencoDe sekva
-
-               if argumentoj.Count >= valenco then
-                  let argumentoj =
-                     seq { 1 .. valenco }
-                     |> Seq.fold (fun ak _ ->
-                           let sekvaArgumento = argumentoj.Last.Value
-                           argumentoj.RemoveLast()
-                           sekvaArgumento :: ak) []
-
-                  frazoj.Enqueue
-                     ({ Kapo = verbo
-                        Argumentoj = argumentoj })
-                  |> ignore
-                  this.LegiSekvan()
-               else
+               let bezonitajArgumentojKvanto = bezonitaArgumentoKvantode sekva
+               let bezonitajArgumentoj = 
+                  if bezonitajArgumentojKvanto > 0 then
+                     seq { 1..bezonitajArgumentojKvanto }
+                     |> Seq.fold (fun listo _ ->
+                        this.LegiArgumenton()
+                        |> Result.bind (fun argumento ->
+                           listo
+                           |> Result.map (fun l -> argumento :: l))) (Ok [])
+                     |> Result.map List.rev
+                  elif bezonitajArgumentojKvanto = -1 then
+                     let argumento = argumentoj.Last.Value
+                     argumentoj.RemoveLast()
+                     Ok [argumento]
+                  else
+                     Ok []
+               bezonitajArgumentoj
+               |> Result.bind (fun argumentoj ->
                   atendantajPredikatoj.AddLast
                      ({ Verbo = verbo
                         Valenco = valenco
-                        AktualajArgumentoj = LinkedList(argumentoj) })
+                        VerbajArgumentoj = argumentoj })
                   |> ignore
-                  argumentoj.Clear()
-                  this.LegiSekvan()
+                  this.LegiSekvan())
             else
                Eraro(sekva.OriginalaVorto, sprintf "Can't parse %s" sekva.OriginalaVorto.Vorto)
                |> Error
@@ -139,7 +131,7 @@ module Imperativa =
                   eco.Vorto.Modifantoj.Add(EcoDe de) |> ignore
                   eco)
          elif ĉuMalantaŭModifantaVorto sekva then
-            failwith "TODO"
+            this.AldoniPridiranton(Pridiranto(sekva))
             this.LegiArgumenton()
          else
             failwith "Unexpected input"
