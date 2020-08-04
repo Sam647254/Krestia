@@ -692,7 +692,17 @@ module Malinflektado =
              && inflekcio = Difinito)
       | _ -> false
       
-   let ĉuMalantaŭEco (vorto: MalinflektitaVorto) = failwith "???"
+   let ĉuMalantaŭEco (vorto: MalinflektitaVorto) =
+      let unuaInflekcio = List.last vorto.InflekcioŜtupoj
+      match unuaInflekcio with
+      | Bazo (vorttipo, inflekcio, _) ->
+         (vorttipo = MalantaŭNombrigeblaEco
+          && (inflekcio = Difinito
+              || inflekcio = UnuNombro
+              || inflekcio = PluraNombro))
+         || (vorttipo = MalantaŭNenombrigeblaEco
+             && inflekcio = Difinito)
+      | _ -> false
 
    let ĉiujInflekciojDe vorto =
       ĉuInfinitivo vorto

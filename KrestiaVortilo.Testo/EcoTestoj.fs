@@ -24,7 +24,7 @@ type EcoTestoj() =
 
          kontroliArgumentojn
             "dedre krena"
-            [ plenaModifitaArgumento dedre (List.singleton (EcoDe(Sintaksanalizilo2.plenaArgumento krena))) ]
+            [ plenaModifitaArgumento dedre (List.singleton (EcoDe(argumento krena []))) ]
 
       let _ =
          let [ krena; dedri ] =
@@ -32,7 +32,7 @@ type EcoTestoj() =
 
          kontroliArgumentojn
             "krena dedri"
-            [ plenaModifitaArgumento dedri (List.singleton (EcoDe(Sintaksanalizilo2.plenaArgumento krena))) ]
+            [ plenaModifitaArgumento dedri (List.singleton (EcoDe(argumento krena []))) ]
 
       ()
 

@@ -20,7 +20,7 @@ module Sintaksanalizilo2 =
          | _ -> false
          
       override this.GetHashCode() =
-         hash this.Kapo + 17 * this.Modifantoj.GetHashCode()
+         hash this.Kapo
    and Argumento = { Vorto: ModifeblaVorto }
       
    and Verbo = { Vorto: ModifeblaVorto }

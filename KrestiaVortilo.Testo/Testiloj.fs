@@ -80,8 +80,7 @@ module Testiloj =
       |> Result.map ĉuArgumentaVorto
       |> Result.mapError malsukcesi
 
-   let kontroliKategorigadon (frazo: string) (verboj: string list) (argumentoj: string list) =
-      failwith "forigi"
+   let kontroliKategorigadon (frazo: string) (verboj: string list) (argumentoj: string list) = failwith "forigi"
 
    let kontroliMalplenigitajnFormojn (vorto: string) (pravajFormoj: string list) =
       malplenigitajFormojDe vorto
@@ -117,7 +116,14 @@ module Testiloj =
       |> Result.bind (fun vortoj ->
             let legilo = ImperitivaLegilo(Queue(vortoj))
             legilo.Legi()
-            |> Result.map (fun rezulto -> Assert.AreEqual(pravajArgumentoj, rezulto.Argumentoj)))
+            |> Result.map (fun rezulto ->
+                  Assert.AreEqual(pravajArgumentoj.Length, rezulto.Argumentoj.Length)
+                  pravajArgumentoj
+                  |> Seq.zip rezulto.Argumentoj
+                  |> Seq.forall (fun (prava, aktuala) ->
+                        Assert.AreEqual(prava.Vorto.Kapo, aktuala.Vorto.Kapo)
+                        Assert.IsTrue(prava.Vorto.Modifantoj.SetEquals(aktuala.Vorto.Modifantoj))
+                        true)))
       |> Result.mapError malsukcesi
       |> ignore
 
