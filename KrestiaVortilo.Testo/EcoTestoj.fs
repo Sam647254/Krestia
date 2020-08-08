@@ -56,3 +56,21 @@ type EcoTestoj() =
    member _.UnuNombro() =
       kontroliInflekcion AntaŭNombrigeblaEco UnuNombro "dedresi"
       kontroliInflekcion MalantaŭNombrigeblaEco UnuNombro "dedrisi"
+      
+   [<TestMethod>]
+   member _.PluraNombro() =
+      kontroliInflekcion AntaŭNombrigeblaEco PluraNombro "dedreve"
+      kontroliInflekcion MalantaŭNombrigeblaEco PluraNombro "dedrive"
+   
+   [<TestMethod>]
+   member _.Havaĵo() =
+      [ "nsa", Havaĵo
+        "sinsa", UnuHavaĵo
+        "vensa", PluraHavaĵo ]
+      |> List.map (fun (finaĵo, inflekcio) ->
+         kontroliInflekcion AntaŭNombrigeblaEco inflekcio ("dedre" + finaĵo)
+         kontroliInflekcion MalantaŭNombrigeblaEco inflekcio ("dedri" + finaĵo))
+      |> ignore
+      
+      kontroliInflekcion AntaŭNenombrigeblaEco Havaĵo "amegrensa"
+      kontroliInflekcion MalantaŭNenombrigeblaEco Havaĵo "amegrinsa"
