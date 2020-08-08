@@ -251,14 +251,14 @@ module Malinflektado =
    let nombrigeblaDifinitoFinaĵoj =
       nombrigeblaDifinitoFinaĵoj
       |> List.map (fun finaĵo -> (finaĵo, NombrigeblaKlaso))
+      |> List.append [ "dre", AntaŭNombrigeblaEco
+                       "dri", MalantaŭNombrigeblaEco ]
 
    let difinitoFinaĵoj =
       nombrigeblaDifinitoFinaĵoj
       @ (nenombrigeblaDifinitoFinaĵoj
          |> List.map (fun finaĵo -> (finaĵo, NenombrigeblaKlaso)))
-      |> List.append [ "dre", AntaŭNombrigeblaEco
-                       "dri", MalantaŭNombrigeblaEco
-                       "gre", AntaŭNenombrigeblaEco
+      |> List.append [ "gre", AntaŭNenombrigeblaEco
                        "gri", MalantaŭNenombrigeblaEco ]
 
    let predikativoEstiFinaĵoj =
@@ -525,20 +525,20 @@ module Malinflektado =
             if ĉuKomenca then
                dividiAk false (Konsonanto(kk2) :: restantaj)
                |> Result.map (fun restantajSilaboj ->
-                     System.String.Concat([ k1; k2; v; kf ])
+                     String.Concat([ k1; k2; v; kf ])
                      :: restantajSilaboj)
             else
                Error "Vorto ne rajtas komenci per du konsonantoj"
          | [ Konsonanto (k1); Konsonanto (k2); Vokalo (v); Konsonanto (kf) ] ->
             if ĉuKomenca
-            then [ System.String.Concat([ k1; k2; v; kf ]) ] |> Ok
+            then [ String.Concat([ k1; k2; v; kf ]) ] |> Ok
             else Error "Vorto ne rajtas komenci per du konsonantoj"
          // CCV
          | Konsonanto (k1) :: Konsonanto (k2) :: Vokalo (v) :: Konsonanto (kf) :: Vokalo (v2) :: restantaj ->
             if ĉuKomenca then
                dividiAk false (Konsonanto(kf) :: Vokalo(v2) :: restantaj)
                |> Result.map (fun restantajSilaboj ->
-                     System.String.Concat([ k1; k2; v ])
+                     String.Concat([ k1; k2; v ])
                      :: restantajSilaboj)
             else
                Error "Vorto ne rajtas komenci per du konsonantoj"
@@ -546,40 +546,40 @@ module Malinflektado =
             if ĉuKomenca then
                dividiAk false (Vokalo(v2) :: restantaj)
                |> Result.map (fun restantajSilaboj ->
-                     System.String.Concat([ k1; k2; v ])
+                     String.Concat([ k1; k2; v ])
                      :: restantajSilaboj)
             else
                Error "Vorto ne rajtas komenci per du konsonantoj"
          | [ Konsonanto (k1); Konsonanto (k2); Vokalo (v) ] ->
             if ĉuKomenca
-            then [ System.String.Concat([ k1; k2; v ]) ] |> Ok
+            then [ String.Concat([ k1; k2; v ]) ] |> Ok
             else Error "Vorto ne rajtas komenci per du konsonantoj"
          // CVC
          | Konsonanto (k1) :: Vokalo (v) :: Konsonanto (kf) :: Konsonanto (kk2) :: restantaj ->
             dividiAk false (Konsonanto(kk2) :: restantaj)
             |> Result.map (fun restantajSilaboj ->
-                  System.String.Concat([ k1; v; kf ])
+                  String.Concat([ k1; v; kf ])
                   :: restantajSilaboj)
-         | [ Konsonanto (k1); Vokalo (v); Konsonanto (kf) ] -> [ System.String.Concat([ k1; v; kf ]) ] |> Ok
+         | [ Konsonanto (k1); Vokalo (v); Konsonanto (kf) ] -> [ String.Concat([ k1; v; kf ]) ] |> Ok
          // CV
          | Konsonanto (k1) :: Vokalo (v) :: Konsonanto (kk2) :: Vokalo (v2) :: restantaj ->
             dividiAk false (Konsonanto(kk2) :: Vokalo(v2) :: restantaj)
             |> Result.map (fun restantajSilaboj ->
-                  System.String.Concat([ k1; v ])
+                  String.Concat([ k1; v ])
                   :: restantajSilaboj)
          | Konsonanto (k1) :: Vokalo (v) :: Vokalo (v2) :: restantaj ->
             dividiAk false (Vokalo(v2) :: restantaj)
             |> Result.map (fun restantajSilaboj ->
-                  System.String.Concat([ k1; v ])
+                  String.Concat([ k1; v ])
                   :: restantajSilaboj)
-         | [ Konsonanto (k1); Vokalo (v) ] -> [ System.String.Concat([ k1; v ]) ] |> Ok
+         | [ Konsonanto (k1); Vokalo (v) ] -> [ String.Concat([ k1; v ]) ] |> Ok
          // VC
          | Vokalo (v) :: Konsonanto (kf) :: Konsonanto (kk2) :: restantaj ->
             dividiAk false (Konsonanto(kk2) :: restantaj)
             |> Result.map (fun restantajSilaboj ->
-                  System.String.Concat([ v; kf ])
+                  String.Concat([ v; kf ])
                   :: restantajSilaboj)
-         | [ Vokalo (v); Konsonanto (kf) ] -> [ System.String.Concat([ v; kf ]) ] |> Ok
+         | [ Vokalo (v); Konsonanto (kf) ] -> [ String.Concat([ v; kf ]) ] |> Ok
          // V
          | Vokalo (v) :: Konsonanto (kf) :: Vokalo (v2) :: restantaj ->
             dividiAk false (Konsonanto(kf) :: Vokalo(v2) :: restantaj)

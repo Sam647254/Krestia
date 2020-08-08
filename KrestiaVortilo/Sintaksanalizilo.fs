@@ -123,10 +123,10 @@ module Sintaksanalizilo =
       @ (nenombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo, NenombrigeblaKlaso))
         @ [ "lu", MalantaŭRekordo
             "li", AntaŭRekordo
-            "dru", MalantaŭNombrigeblaEco
-            "dro", AntaŭNombrigeblaEco
-            "gru", MalantaŭNenombrigeblaEco
-            "gro", AntaŭNenombrigeblaEco
+            "dri", MalantaŭNombrigeblaEco
+            "dre", AntaŭNombrigeblaEco
+            "gri", MalantaŭNenombrigeblaEco
+            "gre", AntaŭNenombrigeblaEco
             "m", MalplenaVerbo
             "s", NetransitivaVerbo
             "g", OblikaNetransitivaVerbo

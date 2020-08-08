@@ -51,3 +51,8 @@ type EcoTestoj() =
             [ { Kapo = verbo dedru [ EcoDe (argumento krena []) ]
                 Argumentoj = [ argumento dedri [ EcoDe (argumento krena []) ] ] } ]
       ()
+   
+   [<TestMethod>]
+   member _.UnuNombro() =
+      kontroliInflekcion AntaŭNombrigeblaEco UnuNombro "dedresi"
+      kontroliInflekcion MalantaŭNombrigeblaEco UnuNombro "dedrisi"
