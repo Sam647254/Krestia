@@ -34,7 +34,7 @@ module Imperativa =
       let argumentoj = LinkedList<Argumento>()
       let atendantajPridirantoj = LinkedList<Modifanto>()
       let atendantajPredikatoj = LinkedList<AtendantaPredikato>()
-      let mutable lastaModifeblaVorto: LastaLegitaModifeblaVorto option = None
+      let lastaModifeblaVorto = Stack<LastaLegitaModifeblaVorto>()   
       let mutable lastaArgumento: Argumento option = None
 
       member this.Legi(): Result<Rezulto, Eraro> =
@@ -124,8 +124,9 @@ module Imperativa =
             |> Result.map (fun pliajModifantoj ->
                let argumento =
                   plenaModifitaArgumento sekva (Seq.append pliajModifantoj atendantajPridirantoj)
-
-               lastaModifeblaVorto <- Some(ModifeblaArgumento argumento)
+               if lastaModifeblaVorto.Count > 0 then
+                  lastaModifeblaVorto.Pop() |> ignore
+               lastaModifeblaVorto.Push(ModifeblaArgumento argumento)
                lastaArgumento <- Some argumento
                argumento)
          atendantajPridirantoj.Clear()
@@ -136,13 +137,10 @@ module Imperativa =
             atendantajPredikatoj.Last.Value.Verbo.Vorto.Modifantoj.Add(pridiranto)
             |> ignore
          else
-            match lastaModifeblaVorto with
-            | Some (vorto) ->
-               match vorto with
-               | ModifeblaVerbo (verbo) -> verbo.Vorto.Modifantoj.Add(pridiranto)
-               | ModifeblaArgumento (argumento) -> argumento.Vorto.Modifantoj.Add(pridiranto)
-               |> ignore
-            | None -> failwith "No argument to modify"
+            match lastaModifeblaVorto.Peek() with
+            | ModifeblaVerbo (verbo) -> verbo.Vorto.Modifantoj.Add(pridiranto)
+            | ModifeblaArgumento (argumento) -> argumento.Vorto.Modifantoj.Add(pridiranto)
+            |> ignore
 
       member private this.LegiPredikaton() =
          let sekva = enira.Dequeue()
@@ -150,7 +148,9 @@ module Imperativa =
          |> Result.map (fun modifantoj ->
             let novaVerbo = verbo sekva (Seq.append modifantoj atendantajPridirantoj |> List.ofSeq)
             atendantajPridirantoj.Clear()
-            lastaModifeblaVorto <- Some <| ModifeblaVerbo novaVerbo
+            if lastaModifeblaVorto.Count > 0 then
+               lastaModifeblaVorto.Pop() |> ignore
+            lastaModifeblaVorto.Push(ModifeblaVerbo novaVerbo)
             novaVerbo)
 
       member private this.LegiPridiranton(): Result<Modifanto, Eraro> =
@@ -172,9 +172,11 @@ module Imperativa =
                      match vorttipo with
                      | AntaŭNombrigeblaEco
                      | AntaŭNenombrigeblaEco ->
-                        this.LegiArgumenton()
-                        |> Result.map (fun argumento ->
-                           Some(EcoDe(argumento)))
+                        let rezulto =
+                           this.LegiArgumenton()
+                           |> Result.map (fun argumento ->
+                              Some(EcoDe(argumento)))
+                        rezulto
                      | MalantaŭNombrigeblaEco
                      | MalantaŭNenombrigeblaEco ->
                         if argumentoj.Count = 0 then
