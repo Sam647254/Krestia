@@ -120,7 +120,7 @@ module Testiloj =
                   Assert.AreEqual(pravajArgumentoj.Length, rezulto.Argumentoj.Length)
                   pravajArgumentoj
                   |> Seq.zip rezulto.Argumentoj
-                  |> Seq.forall (fun (prava, aktuala) ->
+                  |> Seq.forall (fun (aktuala, prava) ->
                         Assert.AreEqual(prava.Vorto.Kapo, aktuala.Vorto.Kapo)
                         Assert.IsTrue(prava.Vorto.Modifantoj.SetEquals(aktuala.Vorto.Modifantoj))
                         true)))

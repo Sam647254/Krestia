@@ -104,7 +104,7 @@ type KlasoTestoj() =
          | [ imilta; kunataga ] ->
             kontroliArgumentojn
                "imilta kunataga"
-               [ plenaModifitaArgumento imilta (List.singleton (Modifanto.Pridiranto kunataga)) ]
+               [ plenaModifitaArgumento imilta (List.singleton (Modifanto.Pridiranto <| argumento kunataga [])) ]
          | _ -> Assert.Fail()
 
       let _ =
@@ -115,7 +115,7 @@ type KlasoTestoj() =
          | [ kunatava; imilta ] ->
             kontroliArgumentojn
                "kunatava imilta"
-               [ plenaModifitaArgumento imilta (List.singleton (Modifanto.Pridiranto kunatava)) ]
+               [ plenaModifitaArgumento imilta (List.singleton (Modifanto.Pridiranto <| argumento kunatava [])) ]
          | _ -> Assert.Fail()
 
       let _ =
@@ -128,8 +128,8 @@ type KlasoTestoj() =
                "kunatava imilta rimaga"
                [ plenaModifitaArgumento
                   imilta
-                     [ Modifanto.Pridiranto kunatava
-                       Modifanto.Pridiranto rimaga ] ]
+                     [ Modifanto.Pridiranto <| argumento kunatava []
+                       Modifanto.Pridiranto <| argumento kunatava [] ] ]
          | _ -> Assert.Fail()
 
       let _ =
@@ -142,8 +142,8 @@ type KlasoTestoj() =
                "kunatava rimava imilta"
                [ plenaModifitaArgumento
                   imilta
-                    [ Modifanto.Pridiranto kunatava
-                      Modifanto.Pridiranto rimava ] ]
+                    [ Modifanto.Pridiranto <| argumento kunatava []
+                      Modifanto.Pridiranto <| argumento rimava [] ] ]
          | _ -> Assert.Fail()
 
       ()
@@ -168,7 +168,7 @@ type KlasoTestoj() =
          | [ imiltara; kunataga ] ->
             kontroliFrazojn
                "imiltara kunataga"
-               [ { Kapo = verbo imiltara [ Modifanto.Pridiranto(kunataga) ]
+               [ { Kapo = verbo imiltara [ Modifanto.Pridiranto <| argumento kunataga [] ]
                    Argumentoj = [] } ]
          | _ -> Assert.Fail()
 
@@ -177,7 +177,7 @@ type KlasoTestoj() =
          | [ kunatava; imiltara ] ->
             kontroliFrazojn
                "kunatava imiltara"
-               [ { Kapo = verbo imiltara [ Modifanto.Pridiranto(kunatava) ]
+               [ { Kapo = verbo imiltara [ Modifanto.Pridiranto <| argumento kunatava [] ]
                    Argumentoj = [] } ]
          | _ -> Assert.Fail()
 

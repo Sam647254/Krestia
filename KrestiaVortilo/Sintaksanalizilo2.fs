@@ -30,7 +30,7 @@ module Sintaksanalizilo2 =
       | ArgumentaVorto of Argumento
 
    and Modifanto =
-      | Pridiranto of MalinflektitaVorto
+      | Pridiranto of Argumento
       | EcoDe of Argumento
       | Mel of Argumento
       | Sonol of Argumento
@@ -222,16 +222,7 @@ module Sintaksanalizilo2 =
    let proviLegiPridirantajnModifantojn (restantajVortoj: MalinflektitaVorto list) = [], restantajVortoj
 
    let proviLegiAntaŭanModifanton (analizejo: Analizejo) =
-      match analizejo.RestantajVortoj with
-      | sekva :: restanta ->
-         if ĉuAntaŭModifantaVorto sekva then
-            (Pridiranto sekva,
-             { analizejo with
-                  RestantajVortoj = restanta })
-            |> Some
-         else
-            None
-      | [] -> None
+      failwith "forigi"
 
    let rec legiSekvanArgumenton (analizejo: Analizejo): Result<Argumento * Analizejo, Eraro> =
       failwith "???"
