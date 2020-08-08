@@ -94,15 +94,23 @@ module Sintaksanalizilo2 =
          match sek with
          | Nebazo(_, inflekcio, _) ->
             match inflekcio with
-            | PredikativoEsti -> ak + 1
             | PartaUjo1 | PartaUjo2 | PartaUjo3 -> ak - 1
-            | _ -> 0
-         | Bazo(vorttipo, _, _) ->
+            | _ -> ak
+         | Bazo(vorttipo, inflekcio, _) ->
             match vorttipo with
-            | MalplenaVerbo -> 0
-            | NetransitivaVerbo -> 1
-            | TransitivaVerbo -> 2
-            | DutransitivaVerbo -> 3
+            | MalplenaVerbo -> ak
+            | NetransitivaVerbo -> ak + 1
+            | TransitivaVerbo -> ak + 2
+            | DutransitivaVerbo -> ak + 3
+            | NombrigeblaKlaso
+            | NenombrigeblaKlaso
+            | AntaŭNombrigeblaEco
+            | AntaŭNenombrigeblaEco
+            | MalantaŭNombrigeblaEco
+            | MalantaŭNenombrigeblaEco ->
+                match inflekcio with
+                | PredikativoEsti -> ak + 1
+                | _ -> 0
             | _ -> 0) 0
       
    let bezonitaArgumentoKvantode (vorto: MalinflektitaVorto) =

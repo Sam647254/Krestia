@@ -42,6 +42,14 @@ type EcoTestoj() =
       kontroliInflekcion AntaŭNenombrigeblaEco PredikativoEsti "amegro"
       kontroliInflekcion MalantaŭNombrigeblaEco PredikativoEsti "dedru"
       kontroliInflekcion MalantaŭNenombrigeblaEco PredikativoEsti "amegru"
+      
+      let _ =
+         let [ krena; dedri; dedru ] =
+            [ "krena"; "dedri"; "dedru" ] |> List.map praveMalinflekti
+         
+         kontroliFrazojn "krena dedri krena dedru"
+            [ { Kapo = verbo dedru [ EcoDe (argumento krena []) ]
+                Argumentoj = [ argumento dedri [ EcoDe (argumento krena []) ] ] } ]
       ()
 
    [<TestMethod>]

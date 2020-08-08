@@ -659,11 +659,17 @@ module Malinflektado =
       match vorto.InflekcioŜtupoj.Head with
       | Bazo (_, inflekcio, _) -> Set.contains inflekcio argumentajInflekcioj
       | Nebazo (_, inflekcio, _) -> Set.contains inflekcio argumentajInflekcioj
-      
-   let ĉuDifinitaKlaso (vorto: MalinflektitaVorto) =
-      ĉuArgumentaVorto vorto &&
-         match List.last vorto.InflekcioŜtupoj with
-         | Bazo(vorttipo, _, _) -> vorttipo = NombrigeblaKlaso || vorttipo = NenombrigeblaKlaso
+
+   let ĉuDifinita (vorto: MalinflektitaVorto) =
+      ĉuArgumentaVorto vorto
+      && match List.last vorto.InflekcioŜtupoj with
+         | Bazo (vorttipo, _, _) ->
+            vorttipo = NombrigeblaKlaso
+            || vorttipo = NenombrigeblaKlaso
+            || vorttipo = AntaŭNenombrigeblaEco
+            || vorttipo = AntaŭNombrigeblaEco
+            || vorttipo = MalantaŭNombrigeblaEco
+            || vorttipo = MalantaŭNenombrigeblaEco
          | _ -> false
 
    let ĉuMalantaŭModifantaVorto (vorto: MalinflektitaVorto) =
@@ -695,7 +701,7 @@ module Malinflektado =
          || (vorttipo = AntaŭNenombrigeblaEco
              && inflekcio = Difinito)
       | _ -> false
-      
+
    let ĉuMalantaŭEco (vorto: MalinflektitaVorto) =
       let unuaInflekcio = List.last vorto.InflekcioŜtupoj
       match unuaInflekcio with
