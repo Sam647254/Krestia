@@ -103,7 +103,7 @@ module Imperativa =
       member private this.LegiArgumenton(): Result<Argumento, Eraro> =
          let sekva = enira.Peek()
          if ĉuDifinita sekva then
-            this.LegiPlenanArgumenton(enira.Dequeue())
+            this.LegiPlenanArgumenton (enira.Dequeue())
          elif ĉuAntaŭModifantaVorto sekva then
             this.LegiPridiranton()
             |> Result.bind (fun pridiranto ->
@@ -118,14 +118,12 @@ module Imperativa =
          else
             failwith "Unexpected input"
 
-      member private this.LegiPlenanArgumenton(sekva) =
+      member private this.LegiPlenanArgumenton sekva =
          let novaArgumento =
             this.LegiModifantojnPor sekva
             |> Result.map (fun pliajModifantoj ->
                let argumento =
                   plenaModifitaArgumento sekva (Seq.append pliajModifantoj atendantajPridirantoj)
-               if lastaModifeblaVorto.Count > 0 then
-                  lastaModifeblaVorto.Pop() |> ignore
                lastaModifeblaVorto.Push(ModifeblaArgumento argumento)
                lastaArgumento <- Some argumento
                argumento)
@@ -148,8 +146,6 @@ module Imperativa =
          |> Result.map (fun modifantoj ->
             let novaVerbo = verbo sekva (Seq.append modifantoj atendantajPridirantoj |> List.ofSeq)
             atendantajPridirantoj.Clear()
-            if lastaModifeblaVorto.Count > 0 then
-               lastaModifeblaVorto.Pop() |> ignore
             lastaModifeblaVorto.Push(ModifeblaVerbo novaVerbo)
             novaVerbo)
 
@@ -176,6 +172,7 @@ module Imperativa =
                            this.LegiArgumenton()
                            |> Result.map (fun argumento ->
                               Some(EcoDe(argumento)))
+                        lastaModifeblaVorto.Pop() |> ignore
                         rezulto
                      | MalantaŭNombrigeblaEco
                      | MalantaŭNenombrigeblaEco ->
@@ -184,6 +181,7 @@ module Imperativa =
                         else
                            let argumento = argumentoj.Last.Value
                            argumentoj.RemoveLast()
+                           lastaModifeblaVorto.Pop() |> ignore
                            Ok(Some(EcoDe argumento))
                      | _ -> Ok None
                modifanto

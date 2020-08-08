@@ -102,11 +102,35 @@ type EcoTestoj() =
 
       let _ =
          let [ kuna; seskoma; amegriga ] =
-            [ "kuna"; "seskoma"; "amegriga" ] |> List.map praveMalinflekti
-         
+            [ "kuna"; "seskoma"; "amegriga" ]
+            |> List.map praveMalinflekti
+
          kontroliArgumentojn
             "kuna seskoma amegriga"
             [ argumento kuna [ Pridiranto(argumento amegriga [ EcoDe(argumento seskoma []) ]) ] ]
+
+      let _ =
+         let [ kuna; gremiva; seskoma; kunaga; amegriga ] =
+            [ "kuna"
+              "gremiva"
+              "seskoma"
+              "kunaga"
+              "amegriga" ]
+            |> List.map praveMalinflekti
+
+         kontroliArgumentojn
+            "kuna gremiva seskoma kunaga amegriga"
+            [ argumento
+               kuna
+                 [ Pridiranto
+                    (argumento
+                       amegriga
+                        [ EcoDe
+                           (argumento
+                              seskoma
+                               [ Pridiranto(argumento gremiva [])
+                                 Pridiranto(argumento kunaga []) ]) ]) ] ]
+
       ()
 
    member private _.TestiFinaĵon finaĵo inflekcio =
