@@ -41,7 +41,7 @@ module Imperativa =
          this.LegiSekvan()
          |> Result.bind this.LegiFrazojn
       
-      member this.LegiFrazojn(): Result<Rezulto, Eraro> =
+      member private this.LegiFrazojn(): Result<Rezulto, Eraro> =
          atendantajPredikatoj
          |> Seq.fold (fun listo sekva ->
             listo
@@ -64,22 +64,12 @@ module Imperativa =
             { Frazoj = frazoj
               Argumentoj = argumentoj |> List.ofSeq })
          
-      member this.LegiLokalanFrazon(): Result<Predikato, Eraro> = failwith "TODO"
+      member private this.LegiLokalanFrazon(): Result<Predikato, Eraro> = failwith "TODO"
 
       member private this.LegiSekvan(): Result<unit, Eraro> =
          if enira.Count > 0 then
             let sekva = enira.Peek()
-            if ĉuMalantaŭEco sekva then
-               let eco = this.LegiMalantaŭanEcon()
-               if argumentoj.Count = 0 then
-                  Error(Eraro(sekva.OriginalaVorto, sprintf "%s has nothing to associate with" sekva.OriginalaVorto.Vorto))
-               else
-                  let lasta = argumentoj.Last.Value
-                  eco.Vorto.Modifantoj.Add(EcoDe(lasta)) |> ignore
-                  argumentoj.RemoveLast()
-                  argumentoj.AddLast(eco) |> ignore
-                  this.LegiSekvan()
-            elif ĉuArgumentaVorto sekva then
+            if ĉuArgumentaVorto sekva then
                this.LegiArgumenton()
                |> Result.bind (fun argumento ->
                      argumentoj.AddLast(argumento) |> ignore
@@ -94,26 +84,9 @@ module Imperativa =
                this.AldoniPridiranton(pridiranto)
                this.LegiSekvan()
             elif ĉuPredikataVorto sekva then
-               let verbo = this.LegiPredikaton()
-               let valenco = valencoDe sekva
-               let bezonitajArgumentojKvanto = bezonitaArgumentoKvantode sekva
-               let bezonitajArgumentoj = 
-                  if bezonitajArgumentojKvanto > 0 then
-                     seq { 1..bezonitajArgumentojKvanto }
-                     |> Seq.fold (fun listo _ ->
-                        this.LegiArgumenton()
-                        |> Result.bind (fun argumento ->
-                           listo
-                           |> Result.map (fun l -> argumento :: l))) (Ok [])
-                     |> Result.map List.rev
-                  elif bezonitajArgumentojKvanto = -1 then
-                     let argumento = argumentoj.Last.Value
-                     argumentoj.RemoveLast()
-                     Ok [argumento]
-                  else
-                     Ok []
-               bezonitajArgumentoj
-               |> Result.bind (fun argumentoj ->
+               this.LegiPredikaton()
+               |> Result.bind (fun verbo ->
+                  let valenco = valencoDe sekva
                   atendantajPredikatoj.AddLast
                      ({ Verbo = verbo
                         Valenco = valenco })
@@ -176,10 +149,13 @@ module Imperativa =
             | None -> failwith "No argument to modify"
 
       member private this.LegiPredikaton() =
-         let novaVerbo = verbo (enira.Dequeue()) (List.ofSeq atendantajPridirantoj)
-         atendantajPridirantoj.Clear()
-         lastaModifeblaVorto <- Some <| ModifeblaVerbo novaVerbo
-         novaVerbo
+         let sekva = enira.Dequeue()
+         this.LegiModifantojnPor sekva
+         |> Result.map (fun modifantoj ->
+            let novaVerbo = verbo sekva (Seq.append modifantoj atendantajPridirantoj |> List.ofSeq)
+            atendantajPridirantoj.Clear()
+            lastaModifeblaVorto <- Some <| ModifeblaVerbo novaVerbo
+            novaVerbo)
 
       member private this.LegiPridiranton(): Modifanto = enira.Dequeue() |> Pridiranto
       
@@ -208,6 +184,14 @@ module Imperativa =
                         this.LegiArgumenton()
                         |> Result.map (fun argumento ->
                            Some(EcoDe(argumento)))
+                     | MalantaŭNombrigeblaEco
+                     | MalantaŭNenombrigeblaEco ->
+                        if argumentoj.Count = 0 then
+                           Error(Eraro(vorto.OriginalaVorto, "No precedent argument to associate with"))
+                        else
+                           let argumento = argumentoj.Last.Value
+                           argumentoj.RemoveLast()
+                           Ok(Some(EcoDe argumento))
                      | _ -> Ok None
                modifanto
                |> Result.map (fun modifanto ->
