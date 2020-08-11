@@ -6,6 +6,7 @@ open Microsoft.VisualStudio.TestTools.UnitTesting
 open KrestiaVortilo.Vorttipo
 open KrestiaVortilo.Sintaksanalizilo2
 open KrestiaVortilo.Imperativa
+open Microsoft.VisualStudio.TestTools.UnitTesting
 open Testiloj
 
 [<TestClass>]
@@ -145,6 +146,37 @@ type EcoTestoj() =
                                [ Pridiranto(argumento gremiva [])
                                  Pridiranto(argumento kunaga []) ]) ]) ] ]
 
+      ()
+   
+   [<TestMethod>]
+   member this.AtributivoEstiAntaŭ() =
+      this.TestiFinaĵon "va" AtributivoEstiAntaŭ
+      
+   [<TestMethod>]
+   member _.AtributivoEstiLegado() =
+      let _ =
+        let [ amegreva; seskoma; kuna ] =
+           [ "amegreva"; "seskoma"; "kuna" ]
+           |> List.map praveMalinflekti
+
+        kontroliArgumentojn
+           "amegreva seskoma kuna"
+           [ argumento kuna [ Pridiranto(argumento amegreva [ EcoDe(argumento seskoma []) ]) ] ]
+
+      let _ =
+         let [ amegre; seskoma; kunaga; kuna ] =
+            [ "amegreva"
+              "seskoma"
+              "kunaga"
+              "kuna" ]
+            |> List.map praveMalinflekti
+
+         kontroliArgumentojn
+            "amegreva seskoma kunaga kuna"
+            [ argumento
+               kuna
+                 [ Pridiranto(argumento amegre [ EcoDe(argumento seskoma [ Pridiranto(argumento kunaga []) ]) ]) ] ]
+      
       ()
 
    member private _.TestiFinaĵon finaĵo inflekcio =
