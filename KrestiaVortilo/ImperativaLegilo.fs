@@ -80,9 +80,14 @@ module Imperativa =
                   |> ignore
                   this.LegiSekvan())
             elif ĉuMalantaŭModifantaVorto sekva then
-               let modifotaVorto = lastaModifeblaVorto.Peek()
+               let lastaVorto = lastaModifeblaVorto.Peek()
                this.LegiPridiranton()
                |> Result.bind (fun pridiranto ->
+                  let modifotaVorto =
+                     if ĉuAntaŭEco sekva then
+                        lastaVorto
+                     else
+                        lastaModifeblaVorto.Peek()
                   this.AldoniPridiranton pridiranto modifotaVorto
                   this.LegiSekvan())
             elif ĉuPredikataVorto sekva then
@@ -174,6 +179,9 @@ module Imperativa =
                         else
                            let argumento = argumentoj.Last.Value
                            argumentoj.RemoveLast()
+                           match lastaModifeblaVorto.Peek() with
+                           | ModifeblaArgumento(_) -> lastaModifeblaVorto.Pop() |> ignore
+                           | _ -> ()
                            Ok(Some(EcoDe argumento))
                      | _ -> Ok None
                modifanto
