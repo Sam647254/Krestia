@@ -15,7 +15,7 @@ type TransitivaVerboTestoj () =
         ("buvitotro", Perfekto)
         ("buvitotrie", AtributivoEstiMalantaŭ)
         ("buvitotela", Estonteco)
-        ("buvitotora", Ujo1Volo)
+        ("buvitotora", Desiderativo)
         ("buvitotore", Ujo2Volo)
         ("buvitotri", Imperativo)
         ("buvitotoniaa", Argumento2)

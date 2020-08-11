@@ -75,7 +75,7 @@ module Malinflektado =
       [ BazaFinaĵo("e", Progresivo)
         BazaFinaĵo("o", Perfekto)
         BazaFinaĵo("ela", Estonteco)
-        BazaFinaĵo("ora", Ujo1Volo)
+        BazaFinaĵo("ora", Desiderativo)
         BazaFinaĵo("ie", AtributivoEstiMalantaŭ)
         BazaFinaĵo("ia", AtributivoEstiAntaŭ)
         BazaFinaĵo("ea", Imperativo)
@@ -90,7 +90,7 @@ module Malinflektado =
       [ BazaFinaĵo("re", Progresivo)
         BazaFinaĵo("ro", Perfekto)
         BazaFinaĵo("ela", Estonteco)
-        BazaFinaĵo("ora", Ujo1Volo)
+        BazaFinaĵo("ora", Desiderativo)
         BazaFinaĵo("ore", Ujo2Volo)
         BazaFinaĵo("rie", AtributivoEstiMalantaŭ)
         BazaFinaĵo("ria", AtributivoEstiAntaŭ)
@@ -113,7 +113,7 @@ module Malinflektado =
       [ BazaFinaĵo("re", Progresivo)
         BazaFinaĵo("ro", Perfekto)
         BazaFinaĵo("ela", Estonteco)
-        BazaFinaĵo("ora", Ujo1Volo)
+        BazaFinaĵo("ora", Desiderativo)
         BazaFinaĵo("ore", Ujo2Volo)
         BazaFinaĵo("eri", Ujo3Volo)
         BazaFinaĵo("rie", AtributivoEstiMalantaŭ)
@@ -146,7 +146,7 @@ module Malinflektado =
       [ BazaFinaĵo("e", Progresivo)
         BazaFinaĵo("o", Perfekto)
         BazaFinaĵo("ela", Estonteco)
-        BazaFinaĵo("ora", Ujo1Volo)
+        BazaFinaĵo("ora", Desiderativo)
         BazaFinaĵo("eri", Ujo3Volo)
         BazaFinaĵo("ie", AtributivoEstiMalantaŭ)
         BazaFinaĵo("ia", AtributivoEstiAntaŭ)
@@ -619,7 +619,7 @@ module Malinflektado =
       [ Progresivo
         Perfekto
         Estonteco
-        Ujo1Volo
+        Desiderativo
         Ujo2Volo
         Ujo3Volo
         PredikativoEsti

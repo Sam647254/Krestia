@@ -15,7 +15,7 @@ module Vorttipo =
    | Progresivo
    | Perfekto
    | Estonteco
-   | Ujo1Volo
+   | Desiderativo
    | Ujo2Volo
    | Ujo3Volo
    | PredikativoEsti
@@ -53,7 +53,8 @@ module Vorttipo =
    | FinitaOkazo
    | UnueUjo2
    | UnueUjo3
-   | Subklaŭzo
+   | Optativo
+   | Kvalito
 
    type Vorttipo =
    | NombrigeblaKlaso
