@@ -101,6 +101,20 @@ type EcoTestoj() =
             [ argumento kuna [ Pridiranto(argumento amegre [ EcoDe(argumento seskoma []) ]) ] ]
 
       let _ =
+         let [ kuna; amegre; seskoma; kunaga ] =
+            [ "kuna"
+              "amegrega"
+              "seskoma"
+              "kunaga" ]
+            |> List.map praveMalinflekti
+
+         kontroliArgumentojn
+            "kuna amegrega seskoma kunaga"
+            [ argumento
+               kuna
+                 [ Pridiranto(argumento amegre [ EcoDe(argumento seskoma [ Pridiranto(argumento kunaga []) ]) ]) ] ]
+
+      let _ =
          let [ kuna; seskoma; amegriga ] =
             [ "kuna"; "seskoma"; "amegriga" ]
             |> List.map praveMalinflekti

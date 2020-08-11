@@ -10,7 +10,7 @@
     <Compile Include="Malinflektado.fs" />
     <Compile Include="Valenco.fs" />
     <Compile Include="Sintaksanalizilo2.fs" />
-    <Compile Include="ImperitivaLegilo.fs" />
+    <Compile Include="ImperativaLegilo.fs" />
   </ItemGroup>
 
   <ItemGroup>

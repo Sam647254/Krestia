@@ -1,6 +1,5 @@
 ﻿namespace KrestiaVortilo
 
-open System.Collections
 open System.Collections.Generic
 open KrestiaVortilo.Vorttipo
 open KrestiaVortilo.Malinflektado
@@ -30,7 +29,7 @@ module Imperativa =
       | ModifeblaVerbo of Verbo
       | ModifeblaArgumento of Argumento
 
-   type ImperitivaLegilo(enira: Queue<MalinflektitaVorto>) =
+   type ImperativaLegilo(enira: Queue<MalinflektitaVorto>) =
       let argumentoj = LinkedList<Argumento>()
       let atendantajPridirantoj = LinkedList<Modifanto>()
       let atendantajPredikatoj = LinkedList<AtendantaPredikato>()
@@ -81,9 +80,10 @@ module Imperativa =
                   |> ignore
                   this.LegiSekvan())
             elif ĉuMalantaŭModifantaVorto sekva then
+               let modifotaVorto = lastaModifeblaVorto.Peek()
                this.LegiPridiranton()
                |> Result.bind (fun pridiranto ->
-                  this.AldoniPridiranton(pridiranto)
+                  this.AldoniPridiranton pridiranto modifotaVorto
                   this.LegiSekvan())
             elif ĉuPredikataVorto sekva then
                this.LegiPredikaton()
@@ -113,7 +113,7 @@ module Imperativa =
          elif ĉuMalantaŭModifantaVorto sekva then
             this.LegiPridiranton()
             |> Result.bind (fun pridiranto ->
-               this.AldoniPridiranton(pridiranto)
+               this.AldoniPridiranton pridiranto (lastaModifeblaVorto.Peek())
                this.LegiArgumenton())
          else
             failwith "Unexpected input"
@@ -130,15 +130,11 @@ module Imperativa =
          atendantajPridirantoj.Clear()
          novaArgumento
 
-      member private this.AldoniPridiranton(pridiranto: Modifanto) =
-         if atendantajPredikatoj.Count > 0 then
-            atendantajPredikatoj.Last.Value.Verbo.Vorto.Modifantoj.Add(pridiranto)
-            |> ignore
-         else
-            match lastaModifeblaVorto.Peek() with
-            | ModifeblaVerbo (verbo) -> verbo.Vorto.Modifantoj.Add(pridiranto)
-            | ModifeblaArgumento (argumento) -> argumento.Vorto.Modifantoj.Add(pridiranto)
-            |> ignore
+      member private this.AldoniPridiranton (pridiranto: Modifanto) vorto =
+         match vorto with
+         | ModifeblaVerbo (verbo) -> verbo.Vorto.Modifantoj.Add(pridiranto)
+         | ModifeblaArgumento (argumento) -> argumento.Vorto.Modifantoj.Add(pridiranto)
+         |> ignore
 
       member private this.LegiPredikaton() =
          let sekva = enira.Dequeue()
@@ -153,8 +149,6 @@ module Imperativa =
          let sekva = enira.Dequeue()
          this.LegiModifantojnPor sekva
          |> Result.map (fun modifantoj -> Pridiranto <| argumento sekva modifantoj)
-      
-      member private this.LegiMalantaŭanEcon(): Argumento = argumento (enira.Dequeue()) []
 
       member private this.LegiModifantojnPor(vorto: MalinflektitaVorto): Result<Modifanto list, Eraro> =
          vorto.InflekcioŜtupoj
@@ -172,7 +166,6 @@ module Imperativa =
                            this.LegiArgumenton()
                            |> Result.map (fun argumento ->
                               Some(EcoDe(argumento)))
-                        lastaModifeblaVorto.Pop() |> ignore
                         rezulto
                      | MalantaŭNombrigeblaEco
                      | MalantaŭNenombrigeblaEco ->
@@ -181,7 +174,6 @@ module Imperativa =
                         else
                            let argumento = argumentoj.Last.Value
                            argumentoj.RemoveLast()
-                           lastaModifeblaVorto.Pop() |> ignore
                            Ok(Some(EcoDe argumento))
                      | _ -> Ok None
                modifanto
@@ -190,3 +182,7 @@ module Imperativa =
                   |> Option.map (fun modifanto -> modifanto :: listo)
                   |> Option.defaultValue listo))
             ) (Ok [])
+   
+   let legiImperative (eniro: string) =
+      prepariEniron eniro false
+      |> Result.bind (fun vortoj -> ImperativaLegilo(Queue(vortoj)).Legi())

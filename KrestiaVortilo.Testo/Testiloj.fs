@@ -114,7 +114,7 @@ module Testiloj =
    let kontroliArgumentojn eniro (pravajArgumentoj: Argumento list) =
       prepariEniron eniro true
       |> Result.bind (fun vortoj ->
-            let legilo = ImperitivaLegilo(Queue(vortoj))
+            let legilo = ImperativaLegilo(Queue(vortoj))
             legilo.Legi()
             |> Result.map (fun rezulto ->
                   Assert.AreEqual(pravajArgumentoj.Length, rezulto.Argumentoj.Length)
@@ -130,7 +130,7 @@ module Testiloj =
    let kontroliFrazojn eniro (pravajFrazoj: Predikato list) =
       prepariEniron eniro true
       |> Result.bind (fun vortoj ->
-            let legilo = vortoj |> Queue |> ImperitivaLegilo
+            let legilo = vortoj |> Queue |> ImperativaLegilo
             legilo.Legi()
             |> Result.map (fun rezulto -> Assert.AreEqual(pravajFrazoj, rezulto.Frazoj)))
       |> Result.mapError malsukcesi

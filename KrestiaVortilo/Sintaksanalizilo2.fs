@@ -273,14 +273,6 @@ module Sintaksanalizilo2 =
          |> Result.bind (fun restanta -> legiSekvan restanta)
       | [] -> Ok analizejo
 
-   let legiPerAnalizejo (vortoj: MalinflektitaVorto list) =
-      let analizejo =
-         { RestantajVortoj = vortoj
-           Frazoj = []
-           Argumentoj = Deque.empty }
-
-      legiSekvan analizejo
-
    let prepariEniron (eniro: string) ĉuTesto =
       eniro
       |> iĝiEnEnirajVortoj ĉuTesto

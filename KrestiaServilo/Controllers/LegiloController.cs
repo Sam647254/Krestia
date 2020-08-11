@@ -7,9 +7,9 @@ namespace KrestiaServilo.Controllers {
    public class LegiloController : ControllerBase {
       [HttpPost("legi")]
       public IActionResult Legi([FromBody] Peto peto) {
-         var rezulto = Sintaksanalizilo2.analizi(peto.Eniro, false);
+         var rezulto = Imperativa.legiImperative(peto.Eniro);
          if (rezulto.IsOk) {
-            return Ok(rezulto.ResultValue);
+            return Ok(rezulto.ResultValue.ToString());
          }
 
          return UnprocessableEntity(rezulto.ErrorValue);
