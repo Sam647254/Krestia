@@ -15,7 +15,9 @@ namespace KrestiaServilo {
 
       // This method gets called by the runtime. Use this method to add services to the container.
       public void ConfigureServices(IServiceCollection services) {
-         services.AddControllers();
+         services.AddControllers().AddJsonOptions(options => {
+            options.JsonSerializerOptions.Converters.Add(new ModifantoJsonConverter());
+         });
          services.AddSingleton<IVortaroService>(provider => new VortaroService());
          services.AddSingleton<IBlissFonto>(provider => new AwsBlissimbolaro());
       }
@@ -35,7 +37,7 @@ namespace KrestiaServilo {
          app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
          app.UseDefaultFiles();
-         
+
          app.UseStaticFiles();
 
          app.UseSpa(builder => { });

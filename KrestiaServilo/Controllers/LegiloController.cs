@@ -9,7 +9,7 @@ namespace KrestiaServilo.Controllers {
       public IActionResult Legi([FromBody] Peto peto) {
          var rezulto = Imperativa.legiImperative(peto.Eniro);
          if (rezulto.IsOk) {
-            return Ok(rezulto.ResultValue.ToString());
+            return Ok(rezulto.ResultValue);
          }
 
          return UnprocessableEntity(rezulto.ErrorValue);
