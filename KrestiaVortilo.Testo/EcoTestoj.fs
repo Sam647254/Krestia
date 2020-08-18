@@ -162,6 +162,18 @@ type EcoTestoj() =
       this.TestiFinaĵon "va" AtributivoEstiAntaŭ
       
    [<TestMethod>]
+   member this.Havado() =
+      this.TestiFinaĵon "res" Havado
+      
+   [<TestMethod>]
+   member this.Ekzistado() =
+      this.TestiFinaĵon "rim" Ekzistado
+      
+   [<TestMethod>]
+   member this.Translativo() =
+      this.TestiFinaĵon2 "las" Translativo
+            
+   [<TestMethod>]
    member _.AtributivoEstiLegado() =
       let _ =
         let [ amegreva; seskoma; kuna ] =
@@ -193,3 +205,9 @@ type EcoTestoj() =
       kontroliInflekcion AntaŭNenombrigeblaEco inflekcio ("amegre" + finaĵo)
       kontroliInflekcion MalantaŭNombrigeblaEco inflekcio ("dedri" + finaĵo)
       kontroliInflekcion MalantaŭNenombrigeblaEco inflekcio ("amegri" + finaĵo)
+
+   member private _.TestiFinaĵon2 finaĵo inflekcio =
+      kontroliInflekcion AntaŭNombrigeblaEco inflekcio ("dedro" + finaĵo)
+      kontroliInflekcion AntaŭNenombrigeblaEco inflekcio ("amegro" + finaĵo)
+      kontroliInflekcion MalantaŭNombrigeblaEco inflekcio ("dedru" + finaĵo)
+      kontroliInflekcion MalantaŭNenombrigeblaEco inflekcio ("amegru" + finaĵo)
