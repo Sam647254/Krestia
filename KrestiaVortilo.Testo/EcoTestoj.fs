@@ -172,6 +172,14 @@ type EcoTestoj() =
    [<TestMethod>]
    member this.Translativo() =
       this.TestiFinaĵon2 "las" Translativo
+      
+   [<TestMethod>]
+   member this.Ĝerundo() =
+      this.TestiFinaĵon2 "vra" Ĝerundo
+      
+   [<TestMethod>]
+   member this.SpecifaĜerundo() =
+      this.TestiFinaĵon "vra" SpecifaĜerundo
             
    [<TestMethod>]
    member _.AtributivoEstiLegado() =
