@@ -162,16 +162,19 @@ module Imperativa =
             |> Result.bind (fun listo ->
                let modifanto =
                   match sek with
-                  | Nebazo(_, inflekcio, _) -> Ok None
+                  | Nebazo(vorttipo, inflekcio, _) -> Ok None
                   | Bazo(vorttipo, _, _) ->
                      match vorttipo with
                      | AntaŭNombrigeblaEco
                      | AntaŭNenombrigeblaEco ->
-                        let rezulto =
-                           this.LegiArgumenton()
-                           |> Result.map (fun argumento ->
-                              Some(EcoDe(argumento)))
-                        rezulto
+                        if ĉuEcoHavaĵo vorto then
+                           Ok None
+                        else
+                           let rezulto =
+                              this.LegiArgumenton()
+                              |> Result.map (fun argumento ->
+                                 Some(EcoDe(argumento)))
+                           rezulto
                      | MalantaŭNombrigeblaEco
                      | MalantaŭNenombrigeblaEco ->
                         if argumentoj.Count = 0 then

@@ -537,17 +537,13 @@ module Malinflektado =
          | Konsonanto (k1) :: Konsonanto (k2) :: Vokalo (v) :: Konsonanto (kf) :: Vokalo (v2) :: restantaj ->
             if ĉuKomenca then
                dividiAk false (Konsonanto(kf) :: Vokalo(v2) :: restantaj)
-               |> Result.map (fun restantajSilaboj ->
-                     String.Concat([ k1; k2; v ])
-                     :: restantajSilaboj)
+               |> Result.map (fun restantajSilaboj -> String.Concat([ k1; k2; v ]) :: restantajSilaboj)
             else
                Error "Vorto ne rajtas komenci per du konsonantoj"
          | Konsonanto (k1) :: Konsonanto (k2) :: Vokalo (v) :: Vokalo (v2) :: restantaj ->
             if ĉuKomenca then
                dividiAk false (Vokalo(v2) :: restantaj)
-               |> Result.map (fun restantajSilaboj ->
-                     String.Concat([ k1; k2; v ])
-                     :: restantajSilaboj)
+               |> Result.map (fun restantajSilaboj -> String.Concat([ k1; k2; v ]) :: restantajSilaboj)
             else
                Error "Vorto ne rajtas komenci per du konsonantoj"
          | [ Konsonanto (k1); Konsonanto (k2); Vokalo (v) ] ->
@@ -557,28 +553,20 @@ module Malinflektado =
          // CVC
          | Konsonanto (k1) :: Vokalo (v) :: Konsonanto (kf) :: Konsonanto (kk2) :: restantaj ->
             dividiAk false (Konsonanto(kk2) :: restantaj)
-            |> Result.map (fun restantajSilaboj ->
-                  String.Concat([ k1; v; kf ])
-                  :: restantajSilaboj)
+            |> Result.map (fun restantajSilaboj -> String.Concat([ k1; v; kf ]) :: restantajSilaboj)
          | [ Konsonanto (k1); Vokalo (v); Konsonanto (kf) ] -> [ String.Concat([ k1; v; kf ]) ] |> Ok
          // CV
          | Konsonanto (k1) :: Vokalo (v) :: Konsonanto (kk2) :: Vokalo (v2) :: restantaj ->
             dividiAk false (Konsonanto(kk2) :: Vokalo(v2) :: restantaj)
-            |> Result.map (fun restantajSilaboj ->
-                  String.Concat([ k1; v ])
-                  :: restantajSilaboj)
+            |> Result.map (fun restantajSilaboj -> String.Concat([ k1; v ]) :: restantajSilaboj)
          | Konsonanto (k1) :: Vokalo (v) :: Vokalo (v2) :: restantaj ->
             dividiAk false (Vokalo(v2) :: restantaj)
-            |> Result.map (fun restantajSilaboj ->
-                  String.Concat([ k1; v ])
-                  :: restantajSilaboj)
+            |> Result.map (fun restantajSilaboj -> String.Concat([ k1; v ]) :: restantajSilaboj)
          | [ Konsonanto (k1); Vokalo (v) ] -> [ String.Concat([ k1; v ]) ] |> Ok
          // VC
          | Vokalo (v) :: Konsonanto (kf) :: Konsonanto (kk2) :: restantaj ->
             dividiAk false (Konsonanto(kk2) :: restantaj)
-            |> Result.map (fun restantajSilaboj ->
-                  String.Concat([ v; kf ])
-                  :: restantajSilaboj)
+            |> Result.map (fun restantajSilaboj -> String.Concat([ v; kf ]) :: restantajSilaboj)
          | [ Vokalo (v); Konsonanto (kf) ] -> [ String.Concat([ v; kf ]) ] |> Ok
          // V
          | Vokalo (v) :: Konsonanto (kf) :: Vokalo (v2) :: restantaj ->
@@ -643,7 +631,10 @@ module Malinflektado =
       [ Difinito
         UnuNombro
         PluraNombro
-        SolaFormo ]
+        SolaFormo
+        Havaĵo
+        UnuHavaĵo
+        PluraHavaĵo ]
       |> Set.ofList
 
    let malantaŭModifantajInflekcioj = [ AtributivoEstiMalantaŭ ] |> Set.ofList
@@ -713,6 +704,20 @@ module Malinflektado =
          || (vorttipo = MalantaŭNenombrigeblaEco
              && inflekcio = Difinito)
       | _ -> false
+
+   let ĉuEcoHavaĵo vorto =
+      vorto.InflekcioŜtupoj
+      |> List.exists (fun ŝtupo ->
+            match ŝtupo with
+            | Nebazo (vorttipo, inflekcio, _) ->
+               (vorttipo = AntaŭNombrigeblaEco
+                || vorttipo = AntaŭNenombrigeblaEco
+                || vorttipo = MalantaŭNombrigeblaEco
+                || vorttipo = MalantaŭNenombrigeblaEco)
+               && (inflekcio = Havaĵo
+                   || inflekcio = UnuHavaĵo
+                   || inflekcio = PluraHavaĵo)
+            | Bazo (_, _, _) -> false)
 
    let ĉiujInflekciojDe vorto =
       ĉuInfinitivo vorto

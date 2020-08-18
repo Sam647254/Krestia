@@ -74,6 +74,15 @@ type EcoTestoj() =
 
       kontroliInflekcion AntaŭNenombrigeblaEco Havaĵo "amegrensa"
       kontroliInflekcion MalantaŭNenombrigeblaEco Havaĵo "amegrinsa"
+      
+      let _ =
+         let [ amegrensa; gremu ] = [ "amegrensa"; "gremu" ] |> List.map praveMalinflekti
+         kontroliFrazojn
+            "amegrensa gremu"
+            [ { Kapo = verbo gremu []
+                Argumentoj = [ argumento amegrensa [] ] } ]
+      
+      ()
 
    [<TestMethod>]
    member _.Fokuso() =
