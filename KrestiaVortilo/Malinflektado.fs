@@ -51,7 +51,6 @@ module Malinflektado =
       [ DifinitoFinaĵo("", Difinito)
         PredikativoEstiFinaĵo("", PredikativoEsti)
         DifinitoFinaĵo("nsa", Havaĵo)
-        BazaFinaĵo("wa", PredikativoEsti)
         BazaFinaĵo("ga", AtributivoEstiMalantaŭ)
         BazaFinaĵo("va", AtributivoEstiAntaŭ)
         DifinitoFinaĵo("ra", Sola)
@@ -60,8 +59,8 @@ module Malinflektado =
         DifinitoFinaĵo("rim", Ekzistado)
         DifinitoFinaĵo("lam", Translativo)
         PredikativoEstiFinaĵo("las", Translativo)
-        DifinitoFinaĵo("vra", Ĝerundo)
-        DifinitoFinaĵo("va", SpecifaĜerundo) ]
+        PredikativoEstiFinaĵo("vra", Ĝerundo)
+        DifinitoFinaĵo("vra", SpecifaĜerundo) ]
 
    let malplenaVerboInflekcioj =
       [ BazaFinaĵo("ia", Progresivo)
@@ -386,7 +385,7 @@ module Malinflektado =
                   else
                      None)
          |> Option.orElseWith (fun () ->
-               ĉuInfinitivo ĉeno
+               ĉuBazo ĉeno
                |> Option.map (fun vorttipo -> Bazo(vorttipo, Infinitivo, ĉeno)))
          |> Option.map Ok
          |> Option.defaultValue
@@ -443,7 +442,7 @@ module Malinflektado =
                | _ -> false
             | _ -> false)
 
-   and ĉuInfinitivoB (ĉeno: string) = ĉuInfinitivo ĉeno |> Option.isSome
+   and ĉuInfinitivoB (ĉeno: string) = ĉuBazo ĉeno |> Option.isSome
 
    and ĉuVerboInfinitivoB (ĉeno: string) =
       match ĉuVerboInfinitivo ĉeno with
@@ -492,14 +491,14 @@ module Malinflektado =
          |> bazoDe
 
    and ĉuMalplenigita (malplenigita: Vorttipo) (originala: string) =
-      ĉuInfinitivo originala
+      ĉuBazo originala
       |> Option.filter (fun originalaTipo -> Set.contains originalaTipo verboTipoj)
       |> Option.bind (fun originalaTipo -> Map.tryFind originalaTipo malplenigeblaVerboTipoj)
       |> Option.map (fun malplenigeblaTipoj -> Set.contains malplenigita malplenigeblaTipoj)
       |> Option.defaultValue false
 
    and malplenigitajFormojDe (ĉeno: string) =
-      ĉuInfinitivo ĉeno
+      ĉuBazo ĉeno
       |> Option.filter (fun tipo -> Set.contains tipo verboTipoj)
       |> Option.bind (fun verboTipo -> Map.tryFind verboTipo malplenigeblaVerboTipoj)
       |> Option.map (fun tipoj ->
@@ -589,7 +588,7 @@ module Malinflektado =
    and dividiKunFinaĵo (vorto: string) =
       dividi vorto false
       |> Result.bind (fun silaboj ->
-            ĉuInfinitivo vorto
+            ĉuBazo vorto
             |> Option.map (fun vorttipo -> silaboj @ [ vorttipo.ToString() ])
             |> Option.map Ok
             |> Option.defaultValue (Error(sprintf "%s ne estas infinitivo" vorto)))
@@ -720,26 +719,26 @@ module Malinflektado =
             | Bazo (_, _, _) -> false)
 
    let ĉiujInflekciojDe vorto =
-      ĉuInfinitivo vorto
+      ĉuBazo vorto
       |> Option.bind (fun vorttipo -> Map.tryFind vorttipo inflekciojPerVorttipoj)
       |> Option.map (fun finaĵoj ->
             finaĵoj
             |> List.map (fun finaĵo ->
                   match finaĵo with
                   | BazaFinaĵo (sufikso, inflekcio) -> (inflekcio, vorto + sufikso)
-                  | DifinitoFinaĵo (sufikso, inflekcio) -> (inflekcio, (infinitivoAlDifinito vorto) + sufikso)
+                  | DifinitoFinaĵo (sufikso, inflekcio) -> (inflekcio, vorto + sufikso)
                   | DUPFinaĵo (sufikso, inflekcio, _, _) ->
-                     let difinito = infinitivoAlDifinito vorto
                      (inflekcio,
                       (sprintf
                          "%s, %s, %s"
-                          (difinito + sufikso)
-                          (difinito + unuNombroFinaĵo + sufikso)
-                          (difinito + pluraNombroFinaĵo + sufikso))))
+                          (vorto + sufikso)
+                          (vorto + unuNombroFinaĵo + sufikso)
+                          (vorto + pluraNombroFinaĵo + sufikso)))
+                  | PredikativoEstiFinaĵo (sufikso, inflekcio) -> (inflekcio, (difinitoAlInfinitivo vorto) + sufikso))
             |> Map.ofList)
 
    let valencoDeInfinitivo vorto =
-      ĉuInfinitivo vorto
+      ĉuBazo vorto
       |> Option.map (fun vorttipo ->
             match vorttipo with
             | NombrigeblaKlaso

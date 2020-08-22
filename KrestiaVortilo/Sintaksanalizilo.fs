@@ -119,8 +119,8 @@ module Sintaksanalizilo =
       |> Map.ofList
 
    let bazajFinaĵoj =
-      (nombrigeblaPredikativoEstiFinaĵoj |> List.map (fun finaĵo -> finaĵo, NombrigeblaKlaso))
-      @ (nenombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> finaĵo, NenombrigeblaKlaso))
+      (nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo, NombrigeblaKlaso))
+      @ (nenombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo, NenombrigeblaKlaso))
         @ [ "lu", MalantaŭRekordo
             "li", AntaŭRekordo
             "dri", MalantaŭNombrigeblaEco
@@ -145,7 +145,7 @@ module Sintaksanalizilo =
 
    let ĉuLokokupilo (ĉeno: string) = ĉeno.StartsWith("w") || ĉeno.StartsWith("h")
 
-   let ĉuInfinitivo (ĉeno: string): Vorttipo option =
+   let ĉuBazo (ĉeno: string): Vorttipo option =
       if ĉuFremdaVorto ĉeno then
          Some FremdaVorto
       elif ĉuLokokupilo ĉeno then
@@ -166,7 +166,7 @@ module Sintaksanalizilo =
       elif ĉuLokokupilo ĉeno then
          Some "Placeholder"
       else
-         ĉuInfinitivo ĉeno
+         ĉuBazo ĉeno
          |> Option.map (fun tipo ->
                match tipo with
                | NombrigeblaKlaso -> "Countable class"
