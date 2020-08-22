@@ -6,9 +6,19 @@ open KrestiaVortilo.Sintaksanalizilo2
 
 module Imperativa =
 
+   [<CustomEquality; NoComparison>]
    type ModifeblaVorto =
       { Kapo: MalinflektitaVorto
         Modifantoj: HashSet<Modifanto> }
+      
+      override this.Equals(alia) =
+         match alia with
+         | :? ModifeblaVorto as aliaVorto ->
+            aliaVorto.Kapo = this.Kapo && aliaVorto.Modifantoj.SetEquals(this.Modifantoj)
+         | _ -> false
+         
+      override this.GetHashCode() =
+         hash this.Kapo + 17 * this.Modifantoj.GetHashCode()
 
    type Argumento =
       | PlenaArgumento of ModifeblaVorto
@@ -17,6 +27,16 @@ module Imperativa =
    and Rezulto =
       { Frazoj: Predikato list
         Argumentoj: Argumento list }
+      
+   let plenaArgumento argumento =
+      PlenaArgumento
+         { Kapo = argumento
+           Modifantoj = HashSet() }
+         
+   let plenaModifitaArgumento argumento (modifantoj: Set<Modifanto>) =
+      PlenaArgumento
+         { Kapo = argumento
+           Modifantoj = HashSet(modifantoj) }
 
    type ImperitivaLegilo(enira: Queue<MalinflektitaVorto>) =
       let argumentoj = LinkedList<Argumento>()
@@ -51,18 +71,17 @@ module Imperativa =
                      lastaLegitaArgumento <- Some eco
                      this.LegiSekvan())
             elif ĉuAntaŭModifantaVorto sekva then
-               failwith "???"
+               let pridiranto = this.LegiPridiranton()
+               atendantajPridirantoj.Enqueue(pridiranto)
+               this.LegiSekvan()
             elif ĉuMalantaŭModifantaVorto sekva then
-               let pridiranto = this.LegiMalantaŭanPridiranton()
+               let pridiranto = this.LegiPridiranton()
                match lastaLegitaArgumento with
                | Some(a) ->
                   match a with
                   | PlenaArgumento(argumento) -> argumento.Modifantoj.Add(pridiranto) |> ignore
                   | _ -> failwith "Nur povas aldoni modifanton al PlenaArgumento"
-               | None ->
-                  match argumentoj.Last.Value with
-                  | PlenaArgumento(argumento) -> argumento.Modifantoj.Add(pridiranto) |> ignore
-                  | _ -> failwith "Nur povas aldoni modifanton al PlenaArgumento"
+               | None -> failwith "No argument to modify"
                this.LegiSekvan()
             else
                Eraro(sekva.OriginalaVorto, sprintf "Can't parse %s" sekva.OriginalaVorto.Vorto)
@@ -84,4 +103,4 @@ module Imperativa =
             lastaLegitaArgumento <- Some novaArgumento
             novaArgumento |> Ok
 
-      member private this.LegiMalantaŭanPridiranton() = enira.Dequeue() |> Pridiranto
+      member private this.LegiPridiranton() = enira.Dequeue() |> Pridiranto

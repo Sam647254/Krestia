@@ -1,5 +1,6 @@
 ﻿namespace KrestiaVortilo.Testo
 
+open KrestiaVortilo.Imperativa
 open KrestiaVortilo.Sintaksanalizilo2
 open Microsoft.VisualStudio.TestTools.UnitTesting
 
@@ -101,7 +102,9 @@ type KlasoTestoj() =
 
          match vortoj with
          | [ imilta; kunataga ] ->
-            kontroliArgumentojn "imilta kunataga" [ Argumento(imilta, Set.singleton (Modifanto.Pridiranto kunataga)) ]
+            kontroliArgumentojn
+               "imilta kunataga"
+               [ plenaModifitaArgumento imilta (Set.singleton (Modifanto.Pridiranto kunataga)) ]
          | _ -> Assert.Fail()
 
       let _ =
@@ -110,7 +113,9 @@ type KlasoTestoj() =
 
          match vortoj with
          | [ kunatava; imilta ] ->
-            kontroliArgumentojn "kunatava imilta" [ Argumento(imilta, Set.singleton (Modifanto.Pridiranto kunatava)) ]
+            kontroliArgumentojn
+               "kunatava imilta"
+               [ plenaModifitaArgumento imilta (Set.singleton (Modifanto.Pridiranto kunatava)) ]
          | _ -> Assert.Fail()
 
       let _ =
@@ -121,10 +126,10 @@ type KlasoTestoj() =
          | [ kunatava; imilta; rimaga ] ->
             kontroliArgumentojn
                "kunatava imilta rimaga"
-               [ Argumento
-                  (imilta,
-                   Set.ofList [ Modifanto.Pridiranto kunatava
-                                Modifanto.Pridiranto rimaga ]) ]
+               [ plenaModifitaArgumento
+                  imilta
+                    (Set.ofList [ Modifanto.Pridiranto kunatava
+                                  Modifanto.Pridiranto rimaga ]) ]
          | _ -> Assert.Fail()
 
       let _ =
@@ -135,10 +140,10 @@ type KlasoTestoj() =
          | [ kunatava; rimava; imilta ] ->
             kontroliArgumentojn
                "kunatava rimava imilta"
-               [ Argumento
-                  (imilta,
-                   Set.ofList [ Modifanto.Pridiranto kunatava
-                                Modifanto.Pridiranto rimava ]) ]
+               [ plenaModifitaArgumento
+                  imilta
+                    (Set.ofList [ Modifanto.Pridiranto kunatava
+                                  Modifanto.Pridiranto rimava ]) ]
          | _ -> Assert.Fail()
 
       ()
@@ -162,7 +167,7 @@ type KlasoTestoj() =
                "imiltara kunataga"
                [ Predikato0(Verbo(imiltara, Set.singleton (Modifanto.Pridiranto(kunataga)))) ]
          | _ -> Assert.Fail()
-      
+
       let _ =
          match List.map praveMalinflekti [ "kunatava"; "imiltara" ] with
          | [ kunatava; imiltara ] ->
@@ -172,8 +177,8 @@ type KlasoTestoj() =
          | _ -> Assert.Fail()
 
       ()
-      
-         
+
+
    [<TestMethod>]
    member _.Havado() =
       [ "res", Havado
@@ -184,11 +189,11 @@ type KlasoTestoj() =
         "verem", PluraHavado ]
       |> List.map (fun (finaĵo, inflekcio) -> kontroliInflekciojn difinitoj finaĵo NombrigeblaKlaso inflekcio)
       |> ignore
-      
+
       kontroliInflekciojn difinitoj2 "res" NenombrigeblaKlaso Havado
       kontroliInflekciojn difinitoj2 "rem" NenombrigeblaKlaso Havado
       ()
-      
+
    [<TestMethod>]
    member _.Ekzistado() =
       [ "rim", Ekzistado
@@ -196,7 +201,7 @@ type KlasoTestoj() =
         "verim", PluraEkzistado ]
       |> List.map (fun (finaĵo, inflekcio) -> kontroliInflekciojn difinitoj finaĵo NombrigeblaKlaso inflekcio)
       |> ignore
-      
+
       kontroliInflekciojn difinitoj2 "rim" NenombrigeblaKlaso Ekzistado
 
    [<TestMethod>]
@@ -208,7 +213,7 @@ type KlasoTestoj() =
    member _.Ĝerundo() =
       kontroliInflekciojn predikatoj "vra" NombrigeblaKlaso Ĝerundo
       kontroliInflekciojn predikatoj2 "vra" NenombrigeblaKlaso Ĝerundo
-      
+
    [<TestMethod>]
    member _.SpecifaĜerundo() =
       kontroliInflekciojn difinitoj "vra" NombrigeblaKlaso SpecifaĜerundo
@@ -217,35 +222,51 @@ type KlasoTestoj() =
    [<TestMethod>]
    member _.NevalidajVortoj() =
       difinitoj2
-      |> List.map ((fun vorto -> vorto + "si") >> kontroliNevalidanVorton)
+      |> List.map
+            ((fun vorto -> vorto + "si")
+             >> kontroliNevalidanVorton)
       |> ignore
-      
+
       difinitoj2
-      |> List.map ((fun vorto -> vorto + "ve") >> kontroliNevalidanVorton)
+      |> List.map
+            ((fun vorto -> vorto + "ve")
+             >> kontroliNevalidanVorton)
       |> ignore
-      
+
       predikatoj
-      |> List.map ((fun vorto -> vorto + "si") >> kontroliNevalidanVorton)
+      |> List.map
+            ((fun vorto -> vorto + "si")
+             >> kontroliNevalidanVorton)
       |> ignore
-      
+
       predikatoj
-      |> List.map ((fun vorto -> vorto + "ve") >> kontroliNevalidanVorton)
+      |> List.map
+            ((fun vorto -> vorto + "ve")
+             >> kontroliNevalidanVorton)
       |> ignore
-      
+
       predikatoj2
-      |> List.map ((fun vorto -> vorto + "si") >> kontroliNevalidanVorton)
+      |> List.map
+            ((fun vorto -> vorto + "si")
+             >> kontroliNevalidanVorton)
       |> ignore
-      
+
       predikatoj2
-      |> List.map ((fun vorto -> vorto + "ve") >> kontroliNevalidanVorton)
+      |> List.map
+            ((fun vorto -> vorto + "ve")
+             >> kontroliNevalidanVorton)
       |> ignore
-      
+
       predikatoj
-      |> List.map ((fun vorto -> vorto + "ga") >> kontroliNevalidanVorton)
+      |> List.map
+            ((fun vorto -> vorto + "ga")
+             >> kontroliNevalidanVorton)
       |> ignore
-      
+
       predikatoj
-      |> List.map ((fun vorto -> vorto + "va") >> kontroliNevalidanVorton)
+      |> List.map
+            ((fun vorto -> vorto + "va")
+             >> kontroliNevalidanVorton)
       |> ignore
 
    [<TestMethod>]
