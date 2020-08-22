@@ -80,8 +80,15 @@ module Sintaksanalizilo =
    let nombrigeblaUnuNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "si")
    let nombrigeblaPluraNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ve")
 
-   let nenombrigeblaInfinitivoFinaĵoj = [ "mu"; "mo"; "maa"; "nu"; "no"; "naa" ]
-   let nenombrigeblaDifinitoFinaĵoj = [ "mi"; "me"; "ma"; "ni"; "ne"; "na" ]
+   let nenombrigeblaInfinitivoFinaĵoj =
+      let klasajFinaĵoj = [ "mu"; "mo"; "maa"; "nu"; "no"; "naa" ]
+      klasajFinaĵoj
+      @ ((nombrigeblaDifinitoFinaĵoj @ klasajFinaĵoj |> List.map (fun finaĵo -> finaĵo + "re")))
+   
+   let nenombrigeblaDifinitoFinaĵoj =
+      let klasajFinaĵoj = [ "mi"; "me"; "ma"; "ni"; "ne"; "na" ]
+      klasajFinaĵoj
+      @ ((nombrigeblaDifinitoFinaĵoj @ klasajFinaĵoj |> List.map (fun finaĵo -> finaĵo + "re")))
 
    let finajLiteroj finaĵoj tipo inflekcio =
       finaĵoj

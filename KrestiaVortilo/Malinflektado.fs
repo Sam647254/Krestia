@@ -45,7 +45,8 @@ module Malinflektado =
         DifinitoFinaĵo("lam", Translativo)
         PredikativoEstiFinaĵo("las", Translativo)
         PredikativoEstiFinaĵo("vra", Ĝerundo)
-        DifinitoFinaĵo("vra", SpecifaĜerundo) ]
+        DifinitoFinaĵo("vra", SpecifaĜerundo)
+        PredikativoEstiFinaĵo("re", Kvalito) ]
 
    let nenombrigeblaKlasoInflekcioj =
       [ DifinitoFinaĵo("", Difinito)
@@ -60,7 +61,8 @@ module Malinflektado =
         DifinitoFinaĵo("lam", Translativo)
         PredikativoEstiFinaĵo("las", Translativo)
         PredikativoEstiFinaĵo("vra", Ĝerundo)
-        DifinitoFinaĵo("vra", SpecifaĜerundo) ]
+        DifinitoFinaĵo("vra", SpecifaĜerundo)
+        PredikativoEstiFinaĵo("re", Kvalito) ]
 
    let malplenaVerboInflekcioj =
       [ BazaFinaĵo("ia", Progresivo)
