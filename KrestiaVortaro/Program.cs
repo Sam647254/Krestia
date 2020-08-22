@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
 namespace KrestiaVortaro {
@@ -19,13 +20,14 @@ namespace KrestiaVortaro {
 Komandoj:
 kontroli <KV> <KG>
 timeran <KV> <eniro> <eliro>
-"; 
-      
+";
+
       private static async Task Main(string[] args) {
          if (args.Length == 0) {
             Console.WriteLine(helpaTeksto);
             return;
          }
+
          try {
             switch (args[0]) {
                case "listi": {
@@ -78,7 +80,8 @@ timeran <KV> <eniro> <eliro>
                   var novajVortoj = Agoj.ĜisdatigiVortojn(vortoj);
                   var novajKategorioj = Agoj.ĜistatigiKategoriojn(kategorioj);
                   var novaKv = Agoj.AlKv(novajVortoj);
-                  var novaKg = Agoj.AlKg(kategorioj);
+                  var novaKg = Agoj.AlKg(novajKategorioj);
+                  Task.WaitAll(File.WriteAllLinesAsync(args[3], novaKv), File.WriteAllLinesAsync(args[4], novaKg));
                   break;
                }
             }

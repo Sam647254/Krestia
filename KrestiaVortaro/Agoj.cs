@@ -147,7 +147,7 @@ namespace KrestiaVortaro {
             throw new InvalidOperationException($"{novaVorto} ne havas validajn malplenigitajn formojn");
          }
 
-         return Malinflektado.valencoDeInfinitivo(novaVorto).Value;
+         return Malinflektado.valencoDeInfinitivo(novaVorto);
       }
 
       public static void Repari(JsonVortaro vortaro) {
@@ -244,6 +244,7 @@ namespace KrestiaVortaro {
             catch (Exception e) {
                Console.WriteLine($"La vico {string.Join('|', partoj)} ne estas nevalida");
                Console.WriteLine(e.Message);
+               Console.WriteLine(e.StackTrace);
                if (e is IndexOutOfRangeException) {
                   throw new InvalidOperationException(null, e);
                }
@@ -327,9 +328,9 @@ namespace KrestiaVortaro {
       }
 
       private static string IgiEnNovaBazo(string v) {
-         var novaFinaĵo = _novajFinaĵoj.FirstOrDefault(f => v.EndsWith(f.Value));
-         return novaFinaĵo.Equals(default(KeyValuePair<string, string>))
-            ? v.Substring(0, v.Length - novaFinaĵo.Value.Length) + novaFinaĵo.Value
+         var novaFinaĵo = _novajFinaĵoj.FirstOrDefault(f => v.EndsWith(f.Key));
+         return !novaFinaĵo.Equals(default(KeyValuePair<string, string>))
+            ? v.Substring(0, v.Length - novaFinaĵo.Key.Length) + novaFinaĵo.Value
             : v;
       }
    }

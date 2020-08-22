@@ -1,36 +1,36 @@
-body:bevidro,veredro,edro,buvidro,liredro
-activities:narish,kivat,porip,nitrosh,demis
-nature:lukreno,krenaa,kuvostaa,kuleto,lunataa,meku,metaa,temitaa,rimataa,vilmo,gremaa,gelumo,rimaa,posku,vosrimaa,kresku,dunaa,seskunaa,ritmaa,lunaa,kanedro,gremu,rismo,vosmaa,memu,kunapaa,pomupaa,vosnataa,belimo,lurikaa,krelnu,#weather
-forceful actions:vosip,borop,kebot,sebot,rebot,tesip,delit,enet,poskit,sinip,lisip,sirit,vilot,tot,tilit,sokit,morot,posip,vulot
-verb helpers:dal,kanel
-predicate helpers:meral,mogal
-abstract:revitaa,meromo,runataa,meropo,gremegro
-arts and craftsmanship:resip,dutup,meranip
-undesirable things:eradro,kiriku,soponu
-containers:nelpo
-helper modifiers:nival,sonal,#verb helpers,#predicate helpers,vol,konal,nal,mel,sonol
-common objects:dumbeto,klitu,klutu,kresto,nonto,lipotu
-personal traits:kirid,ilesh,lumid,#common attributes
-locatives:vogro,trigro,nel,negro,ridro
-pronouns:awelmo,emikaa,awolmaa,esikaa,etikaa,awilmaa,#placeholders
-weather:luvemaa,seskom,gremuno,luvem,kresnod,kresno,gremuto,kreskeno,seskomaa
-raw materials:duleto,vomo
-placeholders:hite,hem,hes,wel,hime,hise,wol,wil,het
-emotions:grelet,polov,emelev,emodro,sered,leved,demed,bimid,mirabat,lirekutaa,serev,delegro,emonev,mirabut,levegro,bimigro,mirev,mirav,numod
-lifestyle:gelidro,melidro,melis
-life:boropo,runataa,bores,dunagro,#humans,liveras
-movement:emalip,erash
+abstract:gremegre,merome,merope,revita,runata
+actions:trelot,trolot,mesip,sibed,binip,bevat,trelit,sibit,meves,beselet,buvlit,kitrot,bulit,tregre,lirish,liresh,veresh,bup,tenip,vososit,prelig,tenet,rilep
+activities:nitrosh,demis,narish,porip,kivat
+arts and craftsmanship:dutup,resip,meranip
+body:liredre,buvidre,bevidre,veredre,edre
 colours:linud
-physics:metaa,bet,lidro,leres,leredro,seskad,#locatives
+common attributes:sorod,sud,popid,nolod,bomol,sirid,gromod,olud,olad,elad,olid,vid,elid
+common objects:nonte,kreste,lipoti,kliti,kluti,dumbete
+containers:nelpe
+date:rimpe,kumome,semali,nelegre,rimogre,nelelte,sempa,memome,semagre,nelite,neleli
+dates:mogal,morgome
+emotions:mirev,delegre,mirav,lirekuta,bimid,leved,emonev,levegre,numod,grelet,mirabut,polov,sered,mirabat,emelev,bimigre,emodre,serev,demed
+expressions:nolop,balag,set,nerig,lomov,goriv,kirish,lemiv,lemid
+forceful actions:sokit,vilot,sebot,enet,tesip,lisip,vulot,delit,poskit,rebot,kebot,posip,sinip,tot,borop,vosip,morot,tilit,sirit
+helper modifiers:nival,mel,sonol,sonal,nal,konal,vol
+home:mebeta,nonte,gresigre,kreste,liveti,bolta,lipoti,emolka,kreska,krenti,domote,imilta,beleta,gelish,vosmi,pulte,kresite,melmote
+humans:grite,grike,tote,bred,brepe,tate,grid,tatrete,brete
+kinship:venedre,besedre,gritodre,moromi,marodre,todre,gedre,nemite,miradre,bretodre,bodre
+life:liveras,dunagre,bores,borope,runata
+lifestyle:gelidre,melidre,melis
+locatives:trigre,negre,nel,ridre,vogre
+movement:emalip,erash
+nature:kanedre,vosnata,belime,seskuna,krena,rimata,kuvosta,vosrima,pomupa,poski,rima,temita,kreski,vosma,duna,krelni,kunapa,gelume,vilme,kulete,grema,luna,meta,memi,risme,gremi,meki,lurika,ritma,lunata,lukrene
 object attributes:biled
-humans:griko,grid,tato,bred,grito,breto,tatreto,brepo,toto,#kinship
-expressions:lemid,kirish,set,nolop,goriv,nerig,lomov,balag,lemiv,#emotions
-date:sempaa,rimpo,kumomo,nelelto,neleli,nelito,semali,semagro,nelegro,memomo,rimogro
-kinship:marodro,gritodro,bretodro,venedro,besedro,todro,miradro,bodro,gedro,nemito,moromu
-actions:sibit,sibed,prelig,mesip,meves,buvlit,bevat,tenip,tenet,bup,bulit,veresh,trolot,lirish,liresh,trelit,trelot,tregro,rilep,beselet,kitrot,binip,vososit,#forceful actions,#arts and craftsmanship
-time:merko,voluno,tomol,merli,volino,relito,tokol,remikaa,tomop,mikali,regel,lito,dedro,mevemo,renel,nomal,lukreno,renod,minakaa,dunagro,dumbeto,mikaa,krenaa,dunamo,tenil,#dates,#seasons
-common attributes:olud,sorod,olid,gromod,bomol,sirid,elid,olad,elad,vid,nolod,sud,popid
-tools:bilepo,moropaa,toseto,soku,besegro,repeto,tilto,enoto,vilipu
-dates:mogal,morgomo
-seasons:lunomo,venemo,nelito,rinomo,mesoto
-home:livetu,kresto,kreskaa,lipotu,boltaa,mebetaa,gelish,vosmu,domoto,nonto,krentu,pulto,melmoto,emolkaa,beletaa,imiltaa,kresito,gresigro
+personal traits:lumid,ilesh,kirid
+physics:seskad,leredre,lidre,leres,bet,meta
+placeholders:wil,wol,hes,het,hite,hem,wel,hise,hime
+predicate helpers:mogal,meral
+pronouns:emika,awelme,awilma,awolma,esika,etika
+raw materials:dulete,vome
+seasons:rinome,mesote,lunome,nelite,veneme
+time:merke,lite,mikali,dedre,tenil,volune,voline,mika,tokol,krena,dunagre,renod,relite,duname,regel,remika,merli,tomop,meveme,tomol,nomal,renel,minaka,dumbete,lukrene
+tools:bilepe,repete,vilipi,besegre,moropa,tosete,tilte,enote,soki
+undesirable things:soponi,eradre,kiriki
+verb helpers:dal,kanel
+weather:luvem,seskoma,kresne,gremute,kreskene,kresnod,seskom,luvema,gremune

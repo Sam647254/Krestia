@@ -743,7 +743,7 @@ module Malinflektado =
       |> Option.map (fun vorttipo ->
             match vorttipo with
             | NombrigeblaKlaso
-            | NenombrigeblaKlaso
+            | NenombrigeblaKlaso -> 0
             | NetransitivaVerbo
             | OblikaNetransitivaVerbo
             | NedirektaNetransitivaVerbo -> 1
@@ -752,6 +752,7 @@ module Malinflektado =
             | OblikaTransitivaVerbo -> 2
             | DutransitivaVerbo -> 3
             | _ -> 0)
+      |> Option.defaultValue 0
 
    let vortaraTipoDe (vorto: string) =
       match vorto |> testaVorto |> malinflekti with
