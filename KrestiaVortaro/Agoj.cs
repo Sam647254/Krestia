@@ -163,7 +163,11 @@ namespace KrestiaVortaro {
       }
 
       public static IEnumerable<string> AlKv(JsonVortaro vortaro) {
-         foreach (var vorto in vortaro.Vortoj!) {
+         return AlKv(vortaro.Vortoj!);
+      }
+
+      public static IEnumerable<string> AlKv(IEnumerable<Vorto> vortaro) {
+         foreach (var vorto in vortaro) {
             var vico = new StringBuilder();
             vico.Append(vorto.PlenaVorto);
             vico.Append('|');
@@ -185,7 +189,11 @@ namespace KrestiaVortaro {
       }
 
       public static IEnumerable<string> AlKg(JsonVortaro vortaro) {
-         foreach (var kategorio in vortaro.Kategorioj) {
+         return AlKg(vortaro.Kategorioj);
+      }
+      
+      public static IEnumerable<string> AlKg(IEnumerable<VortaraKategorio> kategorioj) {
+         foreach (var kategorio in kategorioj) {
             var vico = new StringBuilder();
             vico.Append(kategorio.Nomo);
             vico.Append(':');

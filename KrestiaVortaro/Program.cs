@@ -77,6 +77,8 @@ timeran <KV> <eniro> <eliro>
                   var kategorioj = Agoj.KontroliKategoriojn(vortoj, kg);
                   var novajVortoj = Agoj.ĜisdatigiVortojn(vortoj);
                   var novajKategorioj = Agoj.ĜistatigiKategoriojn(kategorioj);
+                  var novaKv = Agoj.AlKv(novajVortoj);
+                  var novaKg = Agoj.AlKg(kategorioj);
                   break;
                }
             }
