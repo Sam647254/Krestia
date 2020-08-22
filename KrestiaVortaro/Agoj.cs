@@ -279,5 +279,50 @@ namespace KrestiaVortaro {
 
          return kategorioj;
       }
+
+      private static Dictionary<string, string> _novajFinaĵoj = new Dictionary<string, string>() {
+         {"maa", "ma"},
+         {"mo", "me"},
+         {"mu", "mi"},
+         {"naa", "na"},
+         {"no", "ne"},
+         {"nu", "ni"},
+         {"paa", "pa"},
+         {"po", "pe"},
+         {"pu", "pi"},
+         {"taa", "ta"},
+         {"to", "te"},
+         {"tu", "ti"},
+         {"kaa", "ka"},
+         {"ko", "ke"},
+         {"ku", "ki"},
+         {"gro", "gre"},
+         {"gru", "gri"},
+         {"dro", "dre"},
+         {"dru", "dri"},
+      };
+
+      public static ImmutableSortedSet<Vorto> ĜisdatigiVortojn(IImmutableSet<Vorto> vortoj) {
+         return vortoj.Select(v => {
+            var novaVorto = IgiEnNovaBazo(v.PlenaVorto);
+            return new Vorto(novaVorto, Malinflektado.bazoDe(novaVorto), v.Radikoj.Select(IgiEnNovaBazo), v.Signifo,
+               v.GlosaSignifo, v.Ujo1,
+               v.Ujo2, v.Ujo3, v.Noto);
+         }).ToImmutableSortedSet();
+      }
+
+      public static ImmutableSortedSet<VortaraKategorio> ĜistatigiKategoriojn(
+         ImmutableSortedSet<VortaraKategorio> kategorioj) {
+         return kategorioj
+            .Select(k => new VortaraKategorio(k.Nomo, k.Vortoj.Select(IgiEnNovaBazo).ToImmutableHashSet()))
+            .ToImmutableSortedSet();
+      }
+
+      private static string IgiEnNovaBazo(string v) {
+         var novaFinaĵo = _novajFinaĵoj.FirstOrDefault(f => v.EndsWith(f.Value));
+         return novaFinaĵo.Equals(default(KeyValuePair<string, string>))
+            ? v.Substring(0, v.Length - novaFinaĵo.Value.Length) + novaFinaĵo.Value
+            : v;
+      }
    }
 }

@@ -70,6 +70,15 @@ timeran <KV> <eniro> <eliro>
                   Agoj.KontroliKategoriojn(vortoj, kg);
                   break;
                }
+               case "ĝisdatigi": {
+                  var kv = File.ReadLines(args[1]);
+                  var kg = File.ReadLines(args[2]);
+                  var vortoj = Agoj.KontroliVortojn(kv);
+                  var kategorioj = Agoj.KontroliKategoriojn(vortoj, kg);
+                  var novajVortoj = Agoj.ĜisdatigiVortojn(vortoj);
+                  var novajKategorioj = Agoj.ĜistatigiKategoriojn(kategorioj);
+                  break;
+               }
             }
          }
          catch (InvalidOperationException e) {
