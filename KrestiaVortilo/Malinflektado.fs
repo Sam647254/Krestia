@@ -65,22 +65,22 @@ module Malinflektado =
         PredikativoEstiFinaĵo("", PredikativoEsti) ]
 
    let malplenaVerboInflekcioj =
-      [ BazaFinaĵo("ia", Progresivo)
+      [ BazaFinaĵo("ia", Hipoteza)
         BazaFinaĵo("io", Perfekto)
-        BazaFinaĵo("ela", Estonteco)
+        BazaFinaĵo("ela", Intenco)
         BazaFinaĵo("elim", Translativo)
         BazaFinaĵo("ea", Ĝerundo) ]
       @ okazoFinaĵoj
 
    let netransitivaVerboInflekcioj =
-      [ BazaFinaĵo("e", Progresivo)
+      [ BazaFinaĵo("e", Hipoteza)
         BazaFinaĵo("o", Perfekto)
-        BazaFinaĵo("ela", Estonteco)
+        BazaFinaĵo("ela", Intenco)
         BazaFinaĵo("ora", Desiderativo)
-        BazaFinaĵo("ie", AtributivoEstiMalantaŭ)
+        BazaFinaĵo("ie", Optativo)
         BazaFinaĵo("ia", AtributivoEstiAntaŭ)
         BazaFinaĵo("ea", Imperativo)
-        BazaFinaĵo("a", Invito)
+        BazaFinaĵo("a", Hortativo)
         BazaFinaĵo("etio", Argumento1)
         BazaFinaĵo("elis", Translativo)
         BazaFinaĵo("mea", Ĝerundo)
@@ -88,15 +88,14 @@ module Malinflektado =
       @ okazoFinaĵoj
 
    let transitivaVerboInflekcioj =
-      [ BazaFinaĵo("re", Progresivo)
+      [ BazaFinaĵo("re", Hipoteza)
         BazaFinaĵo("ro", Perfekto)
-        BazaFinaĵo("ela", Estonteco)
+        BazaFinaĵo("ela", Intenco)
         BazaFinaĵo("ora", Desiderativo)
-        BazaFinaĵo("ore", Ujo2Volo)
-        BazaFinaĵo("rie", AtributivoEstiMalantaŭ)
+        BazaFinaĵo("rie", Optativo)
         BazaFinaĵo("ria", AtributivoEstiAntaŭ)
         BazaFinaĵo("ri", Imperativo)
-        BazaFinaĵo("ia", Invito)
+        BazaFinaĵo("ia", Hortativo)
         BazaFinaĵo("etio", Argumento1)
         BazaFinaĵo("oniaa", Argumento2)
         BazaFinaĵo("elit", Translativo)
@@ -111,16 +110,14 @@ module Malinflektado =
       @ okazoFinaĵoj
 
    let dutransitivaVerboInflekcioj =
-      [ BazaFinaĵo("re", Progresivo)
+      [ BazaFinaĵo("re", Hipoteza)
         BazaFinaĵo("ro", Perfekto)
-        BazaFinaĵo("ela", Estonteco)
+        BazaFinaĵo("ela", Intenco)
         BazaFinaĵo("ora", Desiderativo)
-        BazaFinaĵo("ore", Ujo2Volo)
-        BazaFinaĵo("eri", Ujo3Volo)
-        BazaFinaĵo("rie", AtributivoEstiMalantaŭ)
+        BazaFinaĵo("rie", Optativo)
         BazaFinaĵo("ria", AtributivoEstiAntaŭ)
         BazaFinaĵo("ri", Imperativo)
-        BazaFinaĵo("ia", Invito)
+        BazaFinaĵo("ia", Hortativo)
         BazaFinaĵo("etio", Argumento1)
         BazaFinaĵo("oniaa", Argumento2)
         BazaFinaĵo("elip", Translativo)
@@ -144,15 +141,14 @@ module Malinflektado =
       @ okazoFinaĵoj
 
    let nedirektaTransitivaVerboInflekcioj =
-      [ BazaFinaĵo("e", Progresivo)
+      [ BazaFinaĵo("e", Hipoteza)
         BazaFinaĵo("o", Perfekto)
-        BazaFinaĵo("ela", Estonteco)
+        BazaFinaĵo("ela", Intenco)
         BazaFinaĵo("ora", Desiderativo)
-        BazaFinaĵo("eri", Ujo3Volo)
-        BazaFinaĵo("ie", AtributivoEstiMalantaŭ)
+        BazaFinaĵo("ie", Optativo)
         BazaFinaĵo("ia", AtributivoEstiAntaŭ)
         BazaFinaĵo("ea", Imperativo)
-        BazaFinaĵo("a", Invito)
+        BazaFinaĵo("a", Hortativo)
         BazaFinaĵo("etio", Argumento1)
         BazaFinaĵo("elish", Translativo)
         BazaFinaĵo("mea", Ĝerundo)
@@ -165,11 +161,10 @@ module Malinflektado =
       @ okazoFinaĵoj
 
    let oblikaNetransitivaVerboInflekcioj =
-      [ BazaFinaĵo("ia", Progresivo)
+      [ BazaFinaĵo("ia", Hipoteza)
         BazaFinaĵo("e", Perfekto)
-        BazaFinaĵo("ela", Estonteco)
-        BazaFinaĵo("ore", Ujo2Volo)
-        BazaFinaĵo("ra", AtributivoEstiMalantaŭ)
+        BazaFinaĵo("ela", Intenco)
+        BazaFinaĵo("ra", Optativo)
         BazaFinaĵo("re", AtributivoEstiAntaŭ)
         BazaFinaĵo("ea", Ĝerundo)
         BazaFinaĵo("oniaa", Argumento2)
@@ -177,12 +172,10 @@ module Malinflektado =
       @ okazoFinaĵoj
 
    let oblikaTransitivaVerboInflekcioj =
-      [ BazaFinaĵo("ia", Progresivo)
+      [ BazaFinaĵo("ia", Hipoteza)
         BazaFinaĵo("i", Perfekto)
-        BazaFinaĵo("ela", Estonteco)
-        BazaFinaĵo("ore", Ujo2Volo)
-        BazaFinaĵo("eri", Ujo3Volo)
-        BazaFinaĵo("ri", AtributivoEstiMalantaŭ)
+        BazaFinaĵo("ela", Intenco)
+        BazaFinaĵo("ri", Optativo)
         BazaFinaĵo("re", AtributivoEstiAntaŭ)
         BazaFinaĵo("ea", Ĝerundo)
         BazaFinaĵo("oniaa", Argumento2)
@@ -198,30 +191,12 @@ module Malinflektado =
    let nedirektaNetransitivaVerboInflekcioj =
       [ BazaFinaĵo("ia", Progresivo)
         BazaFinaĵo("io", Perfekto)
-        BazaFinaĵo("ela", Estonteco)
+        BazaFinaĵo("ela", Intenco)
         BazaFinaĵo("eri", Ujo3Volo)
         BazaFinaĵo("ea", Ĝerundo)
         BazaFinaĵo("oniaa", Argumento2)
         BazaFinaĵo("om", PartaUjo3) ]
       @ okazoFinaĵoj
-
-   let pridirantoInflekcioj =
-      [ BazaFinaĵo("e", Difinito)
-        BazaFinaĵo("a", UnuNombro)
-        BazaFinaĵo("ie", PluraNombro)
-        BazaFinaĵo("u", Havaĵo)
-        BazaFinaĵo("ia", PredikativoEsti)
-        BazaFinaĵo("ea", AtributivoEstiMalantaŭ)
-        BazaFinaĵo("ra", AtributivoEstiAntaŭ)
-        BazaFinaĵo("io", Sola)
-        BazaFinaĵo("im", Translativo)
-        BazaFinaĵo("is", Translativo)
-        BazaFinaĵo("i", Ĝerundo)
-        BazaFinaĵo("em", Igo)
-        BazaFinaĵo("eg", Igo)
-        BazaFinaĵo("es", Igo)
-        BazaFinaĵo("et", Igo)
-        BazaFinaĵo("od", Etigo) ]
 
    let private inflekciojPerVorttipoj =
       [ NombrigeblaKlaso, nombrigeblaKlasoInflekcioj
@@ -237,8 +212,7 @@ module Malinflektado =
         DutransitivaVerbo, dutransitivaVerboInflekcioj
         OblikaNetransitivaVerbo, oblikaNetransitivaVerboInflekcioj
         OblikaTransitivaVerbo, oblikaTransitivaVerboInflekcioj
-        NedirektaNetransitivaVerbo, nedirektaNetransitivaVerboInflekcioj
-        Pridiranto, pridirantoInflekcioj ]
+        NedirektaNetransitivaVerbo, nedirektaNetransitivaVerboInflekcioj ]
       |> Map.ofList
 
    let ĉiujInflekcioj =
@@ -623,13 +597,13 @@ module Malinflektado =
    let predikatajNebazajInflekcioj =
       [ Progresivo
         Perfekto
-        Estonteco
+        Intenco
         Desiderativo
         Ujo2Volo
         Ujo3Volo
         PredikativoEsti
         Imperativo
-        Invito
+        Hortativo
         Havado
         UnuHavado
         PluraHavado

@@ -14,7 +14,7 @@ module Vorttipo =
    | PluraFokuso
    | Progresivo
    | Perfekto
-   | Estonteco
+   | Intenco
    | Desiderativo
    | Ujo2Volo
    | Ujo3Volo
@@ -32,7 +32,7 @@ module Vorttipo =
    | Ekzistado
    | UnuEkzistado
    | PluraEkzistado
-   | Invito
+   | Hortativo
    | Translativo
    | Ĝerundo
    | SpecifaĜerundo
@@ -55,6 +55,7 @@ module Vorttipo =
    | UnueUjo3
    | Optativo
    | Kvalito
+   | Hipoteza
 
    type Vorttipo =
    | NombrigeblaKlaso

@@ -13,7 +13,7 @@ type PartaNetransitivaVerboTestoj () =
       [ ("omon", Infinitivo)
         ("omonia", Progresivo)
         ("omonio", Perfekto)
-        ("omonela", Estonteco)
+        ("omonela", Intenco)
         ("omoneri", Ujo3Volo)
         ("omonea", Ĝerundo)
         ("omonom", PartaUjo3) ]

@@ -60,7 +60,7 @@ type VerboTestoj() =
    member _.PlurajInflekcioj() =
       "meratonialasela"
       |> kontroliĈiujnInfleckiojn
-            [ Nebazo(NetransitivaVerbo, Estonteco, "meratonialas")
+            [ Nebazo(NetransitivaVerbo, Intenco, "meratonialas")
               Nebazo(NombrigeblaKlaso, Translativo, "meratoniaa")
               Nebazo(TransitivaVerbo, Argumento2, "merat")
               Bazo(TransitivaVerbo, Infinitivo, "merat") ]

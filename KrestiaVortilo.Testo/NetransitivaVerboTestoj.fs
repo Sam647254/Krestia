@@ -13,7 +13,7 @@ type NetransitivaVerboTestoj () =
       [ ("dulavis", Infinitivo)
         ("dulavise", Progresivo)
         ("dulaviso", Perfekto)
-        ("dulavisela", Estonteco)
+        ("dulavisela", Intenco)
         ("dulavisora", Desiderativo)
         ("dulavisie", AtributivoEstiMalantaŭ)
         ("dulavisea", Imperativo)
