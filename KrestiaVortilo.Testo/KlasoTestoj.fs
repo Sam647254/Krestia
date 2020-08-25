@@ -228,6 +228,15 @@ type KlasoTestoj() =
    member _.Kvalito() =
       kontroliInflekciojn predikatoj "re" NombrigeblaKlaso Kvalito
       kontroliInflekciojn predikatoj2 "re" NenombrigeblaKlaso Kvalito
+      
+      let _ =
+         let [ gremure; gremuro ] = [ "gremure"; "gremuro" ] |> List.map praveMalinflekti
+         
+         kontroliFrazojn
+            "gremure gremuro"
+            [ { Kapo = verbo gremuro []
+                Argumentoj = [ argumento gremure [] ] } ]
+      ()
 
    [<TestMethod>]
    member _.NevalidajVortoj() =

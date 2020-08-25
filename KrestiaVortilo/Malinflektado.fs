@@ -32,9 +32,7 @@ module Malinflektado =
         BazaFinaĵo("lu", FinitaOkazo) ]
 
    let nombrigeblaKlasoInflekcioj =
-      [ DUPFinaĵo("", Difinito, UnuNombro, PluraNombro)
-        PredikativoEstiFinaĵo("", PredikativoEsti)
-        DUPFinaĵo("nsa", Havaĵo, UnuHavaĵo, PluraHavaĵo)
+      [ DUPFinaĵo("nsa", Havaĵo, UnuHavaĵo, PluraHavaĵo)
         DUPFinaĵo("la", Fokuso, UnuFokuso, PluraFokuso)
         DifinitoFinaĵo("ga", AtributivoEstiMalantaŭ)
         DifinitoFinaĵo("va", AtributivoEstiAntaŭ)
@@ -46,12 +44,12 @@ module Malinflektado =
         PredikativoEstiFinaĵo("las", Translativo)
         PredikativoEstiFinaĵo("vra", Ĝerundo)
         DifinitoFinaĵo("vra", SpecifaĜerundo)
-        PredikativoEstiFinaĵo("re", Kvalito) ]
+        PredikativoEstiFinaĵo("re", Kvalito)
+        DUPFinaĵo("", Difinito, UnuNombro, PluraNombro)
+        PredikativoEstiFinaĵo("", PredikativoEsti) ]
 
    let nenombrigeblaKlasoInflekcioj =
-      [ DifinitoFinaĵo("", Difinito)
-        PredikativoEstiFinaĵo("", PredikativoEsti)
-        DifinitoFinaĵo("nsa", Havaĵo)
+      [ DifinitoFinaĵo("nsa", Havaĵo)
         BazaFinaĵo("ga", AtributivoEstiMalantaŭ)
         BazaFinaĵo("va", AtributivoEstiAntaŭ)
         DifinitoFinaĵo("ra", Sola)
@@ -62,7 +60,9 @@ module Malinflektado =
         PredikativoEstiFinaĵo("las", Translativo)
         PredikativoEstiFinaĵo("vra", Ĝerundo)
         DifinitoFinaĵo("vra", SpecifaĜerundo)
-        PredikativoEstiFinaĵo("re", Kvalito) ]
+        PredikativoEstiFinaĵo("re", Kvalito)
+        DifinitoFinaĵo("", Difinito)
+        PredikativoEstiFinaĵo("", PredikativoEsti) ]
 
    let malplenaVerboInflekcioj =
       [ BazaFinaĵo("ia", Progresivo)
@@ -271,6 +271,10 @@ module Malinflektado =
                        "dru", MalantaŭNombrigeblaEco
                        "gro", AntaŭNenombrigeblaEco
                        "gru", MalantaŭNenombrigeblaEco ]
+   
+   let nebazajDifinitoFinaĵoj =
+      predikativoEstiFinaĵoj
+      |> List.map (fun (finaĵo, vorttipo) -> (finaĵo + "re", "re", vorttipo, Kvalito))
 
    let difinitivoAlInfinitivoTabelo =
       [ ('a', "aa"); ('e', "o"); ('i', "u") ]
@@ -315,12 +319,21 @@ module Malinflektado =
       |> List.tryPick (fun (finaĵo, vorttipo) -> if vorto.EndsWith(finaĵo) then Some vorttipo else None)
 
    let malinflektiSeDifinito (vorto: string) inflekcio akceptiNenombrigeblan ĉuBazo =
-      ĉuDifinito vorto akceptiNenombrigeblan
-      |> Option.map (fun vorttipo -> (if ĉuBazo then Bazo else Nebazo) (vorttipo, inflekcio, vorto))
+      let bazoŜtupo =
+         ĉuDifinito vorto akceptiNenombrigeblan
+         |> Option.map (fun vorttipo -> (if ĉuBazo then Bazo else Nebazo) (vorttipo, inflekcio, vorto))
+      if Option.isNone bazoŜtupo then
+         nebazajDifinitoFinaĵoj
+         |> List.tryPick (fun (finaĵo, _, vorttipo, _) ->
+            if vorto.EndsWith(finaĵo) && vorto.Length > finaĵo.Length then
+               Some(Nebazo(vorttipo, inflekcio, vorto))
+            else
+               None)
+      else bazoŜtupo
 
-   let malinflektiSePredikativoInfinito vorto inflekcio ĉuBazo =
+   let malinflektiSePredikativoInfinito vorto inflekcio =
       ĉuPredikativoEsti vorto
-      |> Option.map (fun vorttipo -> (if ĉuBazo then Bazo else Nebazo) (vorttipo, inflekcio, vorto))
+      |> Option.map (fun vorttipo -> Nebazo(vorttipo, inflekcio, infinitivoAlDifinito vorto))
 
    let unuNombroFinaĵo = "si"
    let pluraNombroFinaĵo = "ve"
@@ -354,8 +367,7 @@ module Malinflektado =
                      let radiko =
                         ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)
 
-                     let ĉuBazo = finaĵo.Length = 0
-                     malinflektiSePredikativoInfinito radiko inflekcio ĉuBazo
+                     malinflektiSePredikativoInfinito radiko inflekcio
                   else
                      None
                | DifinitoFinaĵo (finaĵo, inflekcio) ->
@@ -635,7 +647,8 @@ module Malinflektado =
         SolaFormo
         Havaĵo
         UnuHavaĵo
-        PluraHavaĵo ]
+        PluraHavaĵo
+        Kvalito ]
       |> Set.ofList
 
    let malantaŭModifantajInflekcioj = [ AtributivoEstiMalantaŭ ] |> Set.ofList
