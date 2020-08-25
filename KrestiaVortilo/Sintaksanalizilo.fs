@@ -83,7 +83,7 @@ module Sintaksanalizilo =
    let nenombrigeblaInfinitivoFinaĵoj =
       let klasajFinaĵoj = [ "mu"; "mo"; "maa"; "nu"; "no"; "naa" ]
       klasajFinaĵoj
-      @ ((nombrigeblaDifinitoFinaĵoj @ klasajFinaĵoj |> List.map (fun finaĵo -> finaĵo + "re")))
+      @ ((nombrigeblaDifinitoFinaĵoj @ klasajFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ro")))
    
    let nenombrigeblaDifinitoFinaĵoj =
       let klasajFinaĵoj = [ "mi"; "me"; "ma"; "ni"; "ne"; "na" ]

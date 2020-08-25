@@ -223,6 +223,11 @@ type KlasoTestoj() =
    member _.SpecifaĜerundo() =
       kontroliInflekciojn difinitoj "vra" NombrigeblaKlaso SpecifaĜerundo
       kontroliInflekciojn difinitoj2 "vra" NenombrigeblaKlaso SpecifaĜerundo
+   
+   [<TestMethod>]
+   member _.Kvalito() =
+      kontroliInflekciojn predikatoj "re" NombrigeblaKlaso Kvalito
+      kontroliInflekciojn predikatoj2 "re" NenombrigeblaKlaso Kvalito
 
    [<TestMethod>]
    member _.NevalidajVortoj() =
