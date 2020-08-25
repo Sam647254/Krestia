@@ -95,6 +95,7 @@ module Sintaksanalizilo2 =
          | Nebazo(_, inflekcio, _) ->
             match inflekcio with
             | PartaUjo1 | PartaUjo2 | PartaUjo3 -> ak - 1
+            | PredikativoEsti -> ak + 1
             | _ -> ak
          | Bazo(vorttipo, inflekcio, _) ->
             match vorttipo with
@@ -110,7 +111,7 @@ module Sintaksanalizilo2 =
             | MalantaŭNenombrigeblaEco ->
                 match inflekcio with
                 | PredikativoEsti -> ak + 1
-                | _ -> 0
+                | _ -> ak
             | _ -> 0) 0
 
    let kreiSintaksanalizilon =

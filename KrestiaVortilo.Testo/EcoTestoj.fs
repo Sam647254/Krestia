@@ -74,14 +74,17 @@ type EcoTestoj() =
 
       kontroliInflekcion AntaŭNenombrigeblaEco Havaĵo "amegrensa"
       kontroliInflekcion MalantaŭNenombrigeblaEco Havaĵo "amegrinsa"
-      
+
       let _ =
-         let [ amegrensa; gremu ] = [ "amegrensa"; "gremu" ] |> List.map praveMalinflekti
+         let [ amegrensa; gremu ] =
+            [ "amegrensa"; "gremu" ]
+            |> List.map praveMalinflekti
+
          kontroliFrazojn
             "amegrensa gremu"
             [ { Kapo = verbo gremu []
                 Argumentoj = [ argumento amegrensa [] ] } ]
-      
+
       ()
 
    [<TestMethod>]
@@ -156,41 +159,39 @@ type EcoTestoj() =
                                  Pridiranto(argumento kunaga []) ]) ]) ] ]
 
       ()
-   
+
    [<TestMethod>]
    member this.AtributivoEstiAntaŭ() =
       this.TestiFinaĵon "va" AtributivoEstiAntaŭ
-      
+
    [<TestMethod>]
-   member this.Havado() =
-      this.TestiFinaĵon "res" Havado
-      
+   member this.Havado() = this.TestiFinaĵon "res" Havado
+
    [<TestMethod>]
-   member this.Ekzistado() =
-      this.TestiFinaĵon "rim" Ekzistado
-      
+   member this.Ekzistado() = this.TestiFinaĵon "rim" Ekzistado
+
    [<TestMethod>]
-   member this.Translativo() =
-      this.TestiFinaĵon2 "las" Translativo
-      
+   member this.Translativo() = this.TestiFinaĵon2 "las" Translativo
+
    [<TestMethod>]
-   member this.Ĝerundo() =
-      this.TestiFinaĵon2 "vra" Ĝerundo
-      
+   member this.Ĝerundo() = this.TestiFinaĵon2 "vra" Ĝerundo
+
    [<TestMethod>]
-   member this.SpecifaĜerundo() =
-      this.TestiFinaĵon "vra" SpecifaĜerundo
-            
+   member this.SpecifaĜerundo() = this.TestiFinaĵon "vra" SpecifaĜerundo
+
+   [<TestMethod>]
+   member this.Kvalito() = this.TestiFinaĵon2 "re" Kvalito
+
    [<TestMethod>]
    member _.AtributivoEstiLegado() =
       let _ =
-        let [ amegreva; seskoma; kuna ] =
-           [ "amegreva"; "seskoma"; "kuna" ]
-           |> List.map praveMalinflekti
+         let [ amegreva; seskoma; kuna ] =
+            [ "amegreva"; "seskoma"; "kuna" ]
+            |> List.map praveMalinflekti
 
-        kontroliArgumentojn
-           "amegreva seskoma kuna"
-           [ argumento kuna [ Pridiranto(argumento amegreva [ EcoDe(argumento seskoma []) ]) ] ]
+         kontroliArgumentojn
+            "amegreva seskoma kuna"
+            [ argumento kuna [ Pridiranto(argumento amegreva [ EcoDe(argumento seskoma []) ]) ] ]
 
       let _ =
          let [ amegre; seskoma; kunaga; kuna ] =
@@ -205,7 +206,7 @@ type EcoTestoj() =
             [ argumento
                kuna
                  [ Pridiranto(argumento amegre [ EcoDe(argumento seskoma [ Pridiranto(argumento kunaga []) ]) ]) ] ]
-      
+
       ()
 
    member private _.TestiFinaĵon finaĵo inflekcio =

@@ -129,7 +129,7 @@ type KlasoTestoj() =
                [ plenaModifitaArgumento
                   imilta
                      [ Modifanto.Pridiranto <| argumento kunatava []
-                       Modifanto.Pridiranto <| argumento kunatava [] ] ]
+                       Modifanto.Pridiranto <| argumento rimaga [] ] ]
          | _ -> Assert.Fail()
 
       let _ =
