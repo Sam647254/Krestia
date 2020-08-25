@@ -262,7 +262,7 @@ module Malinflektado =
       |> List.append [ "gre", AntaŭNenombrigeblaEco
                        "gri", MalantaŭNenombrigeblaEco ]
 
-   let predikativoEstiFinaĵoj =
+   let bazajPredikativoEstiFinaĵoj =
       (nombrigeblaPredikativoEstiFinaĵoj
        |> List.map (fun finaĵo -> (finaĵo, NombrigeblaKlaso)))
       @ (nenombrigeblaInfinitivoFinaĵoj
@@ -272,8 +272,12 @@ module Malinflektado =
                        "gro", AntaŭNenombrigeblaEco
                        "gru", MalantaŭNenombrigeblaEco ]
    
+   let predikativoEstiFinaĵoj =
+      bazajPredikativoEstiFinaĵoj
+      @ (nebazajNenombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> (finaĵo, NenombrigeblaKlaso)))
+   
    let nebazajDifinitoFinaĵoj =
-      predikativoEstiFinaĵoj
+      bazajPredikativoEstiFinaĵoj
       |> List.map (fun (finaĵo, vorttipo) -> (finaĵo + "re", "re", vorttipo, Kvalito))
 
    let difinitivoAlInfinitivoTabelo =
