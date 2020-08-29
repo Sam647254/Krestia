@@ -89,6 +89,9 @@ timeran <KV> <eniro> <eliro>
                   var kg = File.ReadLines(args[2]);
                   var vortoj = Agoj.KontroliVortojn(kv);
                   var kategorioj = Agoj.KontroliKategoriojn(vortoj, kg);
+                  var (novajVortoj, novajKategorioj) = Agoj.Ĝisdatigi2(vortoj, kategorioj);
+                  Task.WaitAll(File.WriteAllLinesAsync(args[3], Agoj.AlKv(novajVortoj)),
+                     File.WriteAllLinesAsync(args[4], Agoj.AlKg(novajKategorioj)));
                   break;
                }
             }
