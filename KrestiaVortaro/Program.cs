@@ -84,6 +84,13 @@ timeran <KV> <eniro> <eliro>
                   Task.WaitAll(File.WriteAllLinesAsync(args[3], novaKv), File.WriteAllLinesAsync(args[4], novaKg));
                   break;
                }
+               case "ĝisdatigi2": {
+                  var kv = File.ReadLines(args[1]);
+                  var kg = File.ReadLines(args[2]);
+                  var vortoj = Agoj.KontroliVortojn(kv);
+                  var kategorioj = Agoj.KontroliKategoriojn(vortoj, kg);
+                  break;
+               }
             }
          }
          catch (InvalidOperationException e) {

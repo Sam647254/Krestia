@@ -191,7 +191,7 @@ namespace KrestiaVortaro {
       public static IEnumerable<string> AlKg(JsonVortaro vortaro) {
          return AlKg(vortaro.Kategorioj);
       }
-      
+
       public static IEnumerable<string> AlKg(IEnumerable<VortaraKategorio> kategorioj) {
          foreach (var kategorio in kategorioj) {
             var vico = new StringBuilder();
@@ -332,6 +332,45 @@ namespace KrestiaVortaro {
          return !novaFinaĵo.Equals(default(KeyValuePair<string, string>))
             ? v.Substring(0, v.Length - novaFinaĵo.Key.Length) + novaFinaĵo.Value
             : v;
+      }
+
+      public static Tuple<IImmutableSet<Vorto>, IImmutableSet<VortaraKategorio>> Ĝisdatigi2(IEnumerable<Vorto> vortoj,
+         IEnumerable<VortaraKategorio> kategorioj) { }
+
+      private static IEnumerable<VortaraKategorio> AnstataŭigiEnKategorio(IEnumerable<VortaraKategorio> kategorioj,
+         IDictionary<string, string> anstataŭaĵoj) {
+         return kategorioj.Select(
+            k => new VortaraKategorio(k.Nomo,
+               k.Vortoj.Select(v => anstataŭaĵoj.ContainsKey(v) ? anstataŭaĵoj[v] : v).ToImmutableHashSet(),
+               k.Subkategorioj));
+      }
+
+      private static IEnumerable<Vorto> AnstataŭigiEnRadikoj(IEnumerable<Vorto> vortoj,
+         IDictionary<string, string> anstataŭaĵoj) {
+         return vortoj.Select(v => {
+            var novaPlenaVorto = anstataŭaĵoj.ContainsKey(v.PlenaVorto) ? anstataŭaĵoj[v.PlenaVorto] : v.PlenaVorto;
+            return new Vorto(novaPlenaVorto, Malinflektado.bazoDe(novaPlenaVorto),
+               v.Radikoj.Select(r => anstataŭaĵoj.ContainsKey(r) ? anstataŭaĵoj[r] : r), v.Signifo, v.GlosaSignifo,
+               v.Ujo1, v.Ujo2, v.Ujo3, v.Noto, v.Blissimbolo);
+         });
+      }
+
+      private static IDictionary<string, string> TroviAnstataŭaĵojn(IEnumerable<Vorto> vortoj) {
+         var anstataŭaĵoj = new Dictionary<string, string>();
+         foreach (var vorto in vortoj) {
+            if (vorto.PlenaVorto.EndsWith('d')) { }
+            else if (vorto.PlenaVorto.EndsWith('g') || vorto.PlenaVorto.EndsWith('n')) {
+               anstataŭaĵoj.Add(vorto.PlenaVorto, vorto.PlenaVorto.Substring(0, vorto.PlenaVorto.Length - 1) + 's');
+            }
+            else if (vorto.PlenaVorto.EndsWith('v')) {
+               anstataŭaĵoj.Add(vorto.PlenaVorto, vorto.PlenaVorto.Substring(0, vorto.PlenaVorto.Length - 1) + 't');
+            }
+            else if (vorto.PlenaVorto.EndsWith("sh")) {
+               anstataŭaĵoj.Add(vorto.PlenaVorto, vorto.PlenaVorto.Substring(0, vorto.PlenaVorto.Length - 2) + 't');
+            }
+         }
+
+         return anstataŭaĵoj;
       }
    }
 }
