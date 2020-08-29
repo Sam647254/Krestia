@@ -1,36 +1,36 @@
-abstract:gremegre,merome,merope,revita,runata
-actions:trelot,trolot,mesip,sibed,binip,bevat,trelit,sibit,meves,beselet,buvlit,kitrot,bulit,tregre,lirish,liresh,veresh,bup,tenip,vososit,prelig,tenet,rilep
-activities:nitrosh,demis,narish,porip,kivat
-arts and craftsmanship:dutup,resip,meranip
-body:liredre,buvidre,bevidre,veredre,edre
-colours:linud
-common attributes:sorod,sud,popid,nolod,bomol,sirid,gromod,olud,olad,elad,olid,vid,elid
-common objects:nonte,kreste,lipoti,kliti,kluti,dumbete
+abstract:gremegre,merome,runata,merope,revita
+actions:tenip,tenet,prelis,trolot,meves,lirit,bup,beselet,bevat,sibit,liret,mesip,trelit,rilep,kitrot,buvlit,tregre,vososit,bulit,veret,binip,trelot,sibepe
+activities:kivat,narit,porip,demis,nitrot
+arts and craftsmanship:resip,dutup,meranip
+body:buvidre,bevidre,edre,veredre,liredre
+colours:linupi
+common attributes:oluki,elate,nolote,supe,gromoka,soroke,elita,popiki,olape,oliti,sirita,bomol,vita
+common objects:nonte,kluti,lipoti,dumbete,kliti,kreste
 containers:nelpe
-date:rimpe,kumome,semali,nelegre,rimogre,nelelte,sempa,memome,semagre,nelite,neleli
+date:semali,nelelte,nelite,kumome,neleli,rimpe,nelegre,sempa,semagre,rimogre,memome
 dates:mogal,morgome
-emotions:mirev,delegre,mirav,lirekuta,bimid,leved,emonev,levegre,numod,grelet,mirabut,polov,sered,mirabat,emelev,bimigre,emodre,serev,demed
-expressions:nolop,balas,set,nerig,lomov,goriv,kirish,lemiv,lemid
-forceful actions:sokut,vilot,sebot,enet,tesip,lisip,vulot,delit,poskut,rebot,kebot,posip,sinip,tot,borop,vosip,morot,tilit,sirit
-helper modifiers:nival,mel,sonol,sonal,nal,konal,vol
-home:mebeta,nonte,gresigre,kreste,liveti,bolta,lipoti,emolka,kreska,krenti,domote,imilta,beleta,gelish,vosmi,pulte,kresite,melmote
-humans:grite,grike,tote,bred,brepe,tate,grid,tatrete,brete
-kinship:venedre,besedre,gritodre,moromi,marodre,todre,gedre,nemite,miradre,bretodre,bodre
-life:liveras,dunagre,bores,borope,runata
-lifestyle:gelidre,melidre,melis
-locatives:trigre,negre,nel,ridre,vogre
-movement:emalip,erash
-nature:kanedre,vosnata,belime,seskuna,krena,rimata,kuvosta,vosrima,pomupa,poski,rima,temita,kreski,vosma,duna,krelni,kunapa,gelume,vilme,kulete,grema,luna,meta,memi,risme,gremi,meki,lurika,ritma,lunata,lukrene
-object attributes:biled
-personal traits:lumid,ilesh,kirid
-physics:seskad,leredre,lidre,leres,bet,meta
-placeholders:wil,wol,hes,het,hite,hem,wel,hise,hime
+emotions:emodre,delegre,bimiti,emonet,emelet,miret,seret,numope,demepa,serepi,mirabut,mirabat,grelet,mirat,polot,levegre,leveka,bimigre,lirekuta
+expressions:nolop,set,lomot,lemipa,kirit,neris,gorit,balas,lemit
+forceful actions:tot,poskut,sokut,tesip,tilit,lisip,kebot,morot,sinip,sirit,vosip,vilot,posip,enet,sebot,vulot,borop,rebot,delit
+helper modifiers:sonol,nal,mel,vol,nival,konal,sonal
+home:beleta,nonte,domote,krenti,lipoti,liveti,kresite,gelit,kreste,gresigre,pulte,emolka,vosmi,mebeta,bolta,kreska,melmote,imilta
+humans:grike,brete,tate,tote,grite,brepe,tatrete,breka
+kinship:bodre,bretodre,venedre,gedre,nemite,gritodre,miradre,moromi,todre,marodre,besedre
+life:dunagre,runata,bores,borope,liveras
+lifestyle:melidre,melis,gelidre
+locatives:nel,vogre,trigre,ridre,negre
+movement:emalip,erat
+nature:rimata,kuvosta,temita,gremi,krena,krelni,kanedre,rima,lurika,vilme,meki,grema,risme,belime,duna,vosnata,vosma,meta,lunata,lukrene,kreski,vosrima,ritma,luna,kunapa,kulete,memi,gelume,pomupa,poski,seskuna
+object attributes:bileka
+personal traits:lumite,kirika,ilet
+physics:leredre,leres,seskake,bet,meta,lidre
+placeholders:hime,het,wel,hite,hes,hise,hem,wil,wol
 predicate helpers:mogal,meral
-pronouns:emika,awelme,awilma,awolma,esika,etika
+pronouns:emika,awelme,etika,awilma,awolma,esika
 raw materials:dulete,vome
-seasons:rinome,mesote,lunome,nelite,veneme
-time:merke,lite,mikali,dedre,tenil,volune,voline,mika,tokol,krena,dunagre,renod,relite,duname,regel,remika,merli,tomop,meveme,tomol,nomal,renel,minaka,dumbete,lukrene
-tools:bilepe,repete,vilipi,besegre,moropa,tosete,tilte,enote,soki
-undesirable things:soponi,eradre,kiriki
-verb helpers:dal,kanel
-weather:luvem,seskoma,kresne,gremute,kreskene,kresnod,seskom,luvema,gremune
+seasons:veneme,rinome,mesote,nelite,lunome
+time:tenil,duname,volune,krena,remika,mika,minaka,relite,nomal,dunagre,tomol,dumbete,lukrene,tomop,tokol,renoka,meveme,dedre,merli,merke,lite,regel,renel,mikali,voline
+tools:moropa,soki,tilte,besegre,bilepe,repete,enote,tosete,vilipi
+undesirable things:eradre,soponi,kiriki
+verb helpers:kanel,dal
+weather:kreskene,luvem,seskoma,gremune,seskom,kresne,kresnopi,luvema,gremute
