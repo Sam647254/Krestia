@@ -334,8 +334,14 @@ namespace KrestiaVortaro {
             : v;
       }
 
-      public static Tuple<IImmutableSet<Vorto>, IImmutableSet<VortaraKategorio>> Ĝisdatigi2(IEnumerable<Vorto> vortoj,
-         IEnumerable<VortaraKategorio> kategorioj) { }
+      public static Tuple<IImmutableSet<Vorto>, IImmutableSet<VortaraKategorio>> Ĝisdatigi2(IImmutableSet<Vorto> vortoj,
+         IEnumerable<VortaraKategorio> kategorioj) {
+         var anstataŭaĵoj = TroviAnstataŭaĵojn(vortoj);
+         var novajKategorioj = AnstataŭigiEnKategorio(kategorioj, anstataŭaĵoj);
+         var novajVortoj = AnstataŭigiEnRadikoj(vortoj, anstataŭaĵoj);
+         return new Tuple<IImmutableSet<Vorto>, IImmutableSet<VortaraKategorio>>(novajVortoj.ToImmutableSortedSet(),
+            novajKategorioj.ToImmutableSortedSet());
+      }
 
       private static IEnumerable<VortaraKategorio> AnstataŭigiEnKategorio(IEnumerable<VortaraKategorio> kategorioj,
          IDictionary<string, string> anstataŭaĵoj) {
@@ -354,11 +360,20 @@ namespace KrestiaVortaro {
                v.Ujo1, v.Ujo2, v.Ujo3, v.Noto, v.Blissimbolo);
          });
       }
+      
+      private static readonly IList<string> KlasajFinaĵoj = new List<string> {
+         "pi", "pe", "pa", "ti", "te", "ta", "ki", "ke", "ka",
+      };
 
       private static IDictionary<string, string> TroviAnstataŭaĵojn(IEnumerable<Vorto> vortoj) {
          var anstataŭaĵoj = new Dictionary<string, string>();
+         var random = new Random(0);
          foreach (var vorto in vortoj) {
-            if (vorto.PlenaVorto.EndsWith('d')) { }
+            if (vorto.PlenaVorto.EndsWith('d')) {
+               var bazo = vorto.PlenaVorto.Substring(0, vorto.PlenaVorto.Length - 1);
+               var novaFinaĵo = KlasajFinaĵoj[random.Next(0, KlasajFinaĵoj.Count)]!;
+               anstataŭaĵoj.Add(vorto.PlenaVorto, bazo + novaFinaĵo);
+            }
             else if (vorto.PlenaVorto.EndsWith('g') || vorto.PlenaVorto.EndsWith('n')) {
                anstataŭaĵoj.Add(vorto.PlenaVorto, vorto.PlenaVorto.Substring(0, vorto.PlenaVorto.Length - 1) + 's');
             }
