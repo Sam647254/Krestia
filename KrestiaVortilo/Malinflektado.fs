@@ -50,6 +50,7 @@ module Malinflektado =
 
    let nenombrigeblaKlasoInflekcioj =
       [ DifinitoFinaĵo("nsa", Havaĵo)
+        DifinitoFinaĵo("la", Fokuso)
         BazaFinaĵo("ga", AtributivoEstiMalantaŭ)
         BazaFinaĵo("va", AtributivoEstiAntaŭ)
         DifinitoFinaĵo("ra", Sola)
@@ -581,12 +582,14 @@ module Malinflektado =
             |> Option.defaultValue (Error(sprintf "%s ne estas infinitivo" vorto)))
 
    let predikatajBazajTipoj =
-      [ NombrigeblaKlaso
-        NenombrigeblaKlaso
-        MalantaŭNombrigeblaEco
-        AntaŭNombrigeblaEco
-        MalantaŭNenombrigeblaEco
-        AntaŭNenombrigeblaEco ]
+      [ MalplenaVerbo
+        NetransitivaVerbo
+        OblikaNetransitivaVerbo
+        NedirektaNetransitivaVerbo
+        TransitivaVerbo
+        NedirektaTransitivaVerbo
+        OblikaTransitivaVerbo
+        DutransitivaVerbo ]
       |> Set.ofList
 
    let predikatajNebazajInflekcioj =
