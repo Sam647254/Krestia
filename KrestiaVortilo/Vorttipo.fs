@@ -80,6 +80,7 @@ module Vorttipo =
    | AntaŭModifanto
    | Makro
    | FremdaVorto
+   | Cifero
 
    type Vortformo = Vorttipo * Inflekcio
    type VorttipoKontrolilo = (string -> bool)

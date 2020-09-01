@@ -241,11 +241,12 @@ module Malinflektado =
                        "dru", MalantaŭNombrigeblaEco
                        "gro", AntaŭNenombrigeblaEco
                        "gru", MalantaŭNenombrigeblaEco ]
-   
+
    let predikativoEstiFinaĵoj =
       bazajPredikativoEstiFinaĵoj
-      @ (nebazajNenombrigeblaInfinitivoFinaĵoj |> List.map (fun finaĵo -> (finaĵo, NenombrigeblaKlaso)))
-   
+      @ (nebazajNenombrigeblaInfinitivoFinaĵoj
+         |> List.map (fun finaĵo -> (finaĵo, NenombrigeblaKlaso)))
+
    let nebazajDifinitoFinaĵoj =
       bazajPredikativoEstiFinaĵoj
       |> List.map (fun (finaĵo, vorttipo) -> (finaĵo + "re", "re", vorttipo, Kvalito))
@@ -296,14 +297,17 @@ module Malinflektado =
       let bazoŜtupo =
          ĉuDifinito vorto akceptiNenombrigeblan
          |> Option.map (fun vorttipo -> (if ĉuBazo then Bazo else Nebazo) (vorttipo, inflekcio, vorto))
+
       if Option.isNone bazoŜtupo then
          nebazajDifinitoFinaĵoj
          |> List.tryPick (fun (finaĵo, _, vorttipo, _) ->
-            if vorto.EndsWith(finaĵo) && vorto.Length > finaĵo.Length then
-               Some(Nebazo(vorttipo, inflekcio, vorto))
-            else
-               None)
-      else bazoŜtupo
+               if vorto.EndsWith(finaĵo)
+                  && vorto.Length > finaĵo.Length then
+                  Some(Nebazo(vorttipo, inflekcio, vorto))
+               else
+                  None)
+      else
+         bazoŜtupo
 
    let malinflektiSePredikativoInfinito vorto inflekcio =
       ĉuPredikativoEsti vorto
@@ -312,11 +316,54 @@ module Malinflektado =
    let unuNombroFinaĵo = "si"
    let pluraNombroFinaĵo = "ve"
 
+
+   let nefinajCiferoj =
+      [ "miri", "0"
+        "poni", "1"
+        "vori", "2"
+        "noni", "3"
+        "teri", "4"
+        "sini", "5"
+        "liri", "6"
+        "soni", "7"
+        "keri", "8"
+        "gini", "9"
+        "pomiri", "10"
+        "marini", "00"
+        "norini", "000"
+        "lirani", "0000000" ]
+      |> Map.ofList
+
+   let finajCiferoj =
+      [ "mira", "0"
+        "pona", "1"
+        "vora", "2"
+        "nona", "3"
+        "tera", "4"
+        "sina", "5"
+        "lira", "6"
+        "sona", "7"
+        "kera", "8"
+        "gina", "9"
+        "pomira", "10"
+        "marina", "00"
+        "norina", "000"
+        "lirana", "0000000" ]
+      |> Map.ofList
+
+   let ĉuNefinaCifero vorto = Map.containsKey vorto nefinajCiferoj
+
+   let ĉuFinaCifero vorto = Map.containsKey vorto finajCiferoj
+
+   let ĉuCifero vorto =
+      ĉuNefinaCifero vorto || ĉuFinaCifero vorto
+
    let rec malinflekti (vorto: EniraVorto): Result<MalinflektaŜtupo, Eraro> =
       let ĉeno = vorto.Vorto
       match ĉeno with
       | _ when ĉuFremdaVorto ĉeno -> Bazo(FremdaVorto, SolaFormo, ĉeno) |> Ok
       | _ when ĉuLokokupilo ĉeno -> Bazo(Lokokupilo, SolaFormo, ĉeno) |> Ok
+      | _ when ĉuCifero ĉeno -> Bazo(Cifero, Difinito, ĉeno) |> Ok
       | _ ->
          ĉiujInflekcioj
          |> List.tryPick (fun (vorttipo, finaĵo) ->

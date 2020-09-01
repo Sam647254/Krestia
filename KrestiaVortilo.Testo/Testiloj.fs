@@ -121,7 +121,7 @@ module Testiloj =
                   pravajArgumentoj
                   |> Seq.zip rezulto.Argumentoj
                   |> Seq.forall (fun (aktuala, prava) ->
-                        Assert.AreEqual(aktuala, prava)
+                        Assert.AreEqual(prava, aktuala)
                         true)))
       |> Result.mapError malsukcesi
       |> ignore
