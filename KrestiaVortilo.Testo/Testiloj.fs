@@ -121,8 +121,7 @@ module Testiloj =
                   pravajArgumentoj
                   |> Seq.zip rezulto.Argumentoj
                   |> Seq.forall (fun (aktuala, prava) ->
-                        Assert.AreEqual(prava.Vorto.Kapo, aktuala.Vorto.Kapo)
-                        Assert.IsTrue(prava.Vorto.Modifantoj.SetEquals(aktuala.Vorto.Modifantoj))
+                        Assert.AreEqual(aktuala, prava)
                         true)))
       |> Result.mapError malsukcesi
       |> ignore
@@ -149,3 +148,6 @@ module Testiloj =
             Assert.AreEqual(vico, vorto.Vico)
             Assert.AreEqual(pozo, vorto.Pozo))
       |> ignore
+
+   let kontroliNombron eniro nombro =
+      kontroliArgumentojn eniro [ Nombro nombro ]

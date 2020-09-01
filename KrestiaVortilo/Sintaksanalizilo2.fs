@@ -21,13 +21,11 @@ module Sintaksanalizilo2 =
          
       override this.GetHashCode() =
          hash this.Kapo
-   and Argumento = { Vorto: ModifeblaVorto }
+   and Argumento =
+      | ArgumentaVorto of ModifeblaVorto
+      | Nombro of decimal
       
    and Verbo = { Vorto: ModifeblaVorto }
-
-   and AntaŭeModifitaVorto =
-      | PredikataVorto of Verbo
-      | ArgumentaVorto of Argumento
 
    and Modifanto =
       | Pridiranto of Argumento
@@ -81,8 +79,8 @@ module Sintaksanalizilo2 =
    let plenaVerbo vorto = failwith "forigi"
    
    let argumento vorto (modifantoj: Modifanto list): Argumento =
-      { Vorto = { Kapo = vorto
-                  Modifantoj = HashSet(modifantoj) } }
+      { Kapo = vorto
+        Modifantoj = HashSet(modifantoj) } |> ArgumentaVorto 
    
    let verbo vorto (modifantoj: Modifanto list): Verbo =
       { Vorto = { Kapo = vorto
@@ -243,36 +241,10 @@ module Sintaksanalizilo2 =
          { restanta with Frazoj = klaso :: restanta.Frazoj })
 
    // TODO: Bezonas purigadon
-   let rec legiAntaŭeModifitanVortonAk (analizejo: Analizejo): Result<AntaŭeModifitaVorto * Analizejo, Eraro> =
+   let rec legiAntaŭeModifitanVortonAk (analizejo: Analizejo) =
       failwith "forigi"
    
    let legiArgumentojnPor verbo restanta = [], restanta
-
-   let legiAntaŭeModifitanVorton (analizejo: Analizejo): Result<Analizejo, Eraro> =
-      legiAntaŭeModifitanVortonAk analizejo
-      |> Result.map (fun (vorto, restanta) ->
-            match vorto with
-            | PredikataVorto (verbo) ->
-               { restanta with
-                    Frazoj = { Kapo = verbo; Argumentoj = [] } :: analizejo.Frazoj }
-            | ArgumentaVorto (argumento) ->
-               { restanta with
-                    Argumentoj = analizejo.Argumentoj.Conj(argumento) })
-
-   let rec legiSekvan (analizejo: Analizejo) =
-      match analizejo.RestantajVortoj with
-      | sekva :: _ ->
-         if ĉuArgumentaVorto sekva then
-            legiArgumenton analizejo
-         elif ĉuSolaArgumento sekva then
-            legiSolanKlason analizejo
-         elif ĉuAntaŭModifantaVorto sekva then
-            legiAntaŭeModifitanVorton analizejo
-         else
-            Eraro(sekva.OriginalaVorto, sprintf "Can't parse %s" sekva.OriginalaVorto.Vorto)
-            |> Error
-         |> Result.bind (fun restanta -> legiSekvan restanta)
-      | [] -> Ok analizejo
 
    let prepariEniron (eniro: string) ĉuTesto =
       eniro
