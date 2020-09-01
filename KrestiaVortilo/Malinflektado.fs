@@ -494,10 +494,10 @@ module Malinflektado =
          vorto
 
    and bazoPorDividi (infinitivo: string) =
-      [ "gru"
-        "gro"
-        "dru"
-        "dro"
+      [ "gri"
+        "gre"
+        "dri"
+        "dre"
         "li"
         "lu"
         "d"
