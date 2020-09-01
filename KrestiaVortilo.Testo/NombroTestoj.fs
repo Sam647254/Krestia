@@ -10,4 +10,4 @@ type NombroTestoj() =
       kontroliNombron "sona" 7m
       kontroliNombron "poni miri vori nona" 1023m
       kontroliNombron "teri sini liri sona" 4567m
-      kontroliNombron "keri gini pomira" 8910m      
+      kontroliNombron "keri gini pomira" 8910m

@@ -1,5 +1,6 @@
 ﻿namespace KrestiaVortilo
 
+open System
 open System.Collections.Generic
 open KrestiaVortilo.Vorttipo
 open KrestiaVortilo.Malinflektado
@@ -102,8 +103,15 @@ module Imperativa =
 
       member private this.LegiArgumenton(): Result<Argumento, Eraro> =
          let sekva = enira.Peek()
-         if ĉuCifero sekva.OriginalaVorto.Vorto then failwith "???"
-         if ĉuDifinita sekva then
+         if ĉuCifero sekva.OriginalaVorto.Vorto then
+            this.LegiNombron()
+            |> Result.map (fun ciferoj ->
+               let nombro = Decimal.Parse(ciferoj)
+               let argumento = Nombro nombro
+               lastaModifeblaVorto.Push(ModifeblaArgumento argumento)
+               lastaArgumento <- Some argumento
+               argumento)
+         elif ĉuDifinita sekva then
             this.LegiPlenanArgumenton(enira.Dequeue())
          elif ĉuAntaŭModifantaVorto sekva then
             this.LegiPridiranton()
