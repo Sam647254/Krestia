@@ -490,6 +490,8 @@ module Malinflektado =
             (0,
              vorto.Length
              - (if vorto.EndsWith("sh") then 2 else 1))
+      elif ĉuCifero vorto then
+         vorto + "|"
       else
          vorto
 
