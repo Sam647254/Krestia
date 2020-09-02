@@ -96,8 +96,9 @@ Public Class RektangulaSvgDesegnilo
       {"reflekcio", AddressOf Reflekcio},
       {"okazo", AddressOf Okazo},
       {"aktualaOkazo", AddressOf AktualaOkazo},
-      {"finitaOkazo", AddressOf FinitaOkazo}
-      }
+      {"finitaOkazo", AddressOf FinitaOkazo},
+      {"cifero", AddressOf Cifero}
+   }
    
    Private Function NomoKomenco() As String
       X += DuonaLarĝeco + Spaceto
@@ -518,6 +519,11 @@ h {0} l {3} {1} l -{3} {1} h -{0} l {3} -{1} z",
       X = Spaco
       Y += DufojaAlteco + Spaco
       Return ""
+   End Function
+   
+   Private Function Cifero() As String
+      X += Dx + Spaceto
+      Return String.Format("h {0} v {1} h -{0} z", Dx, DufojaAlteco)
    End Function
 
    Private Function M(aktualaLarĝeco As Integer, aktualaAlteco As Integer) As String
