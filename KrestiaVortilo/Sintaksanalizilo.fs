@@ -153,6 +153,47 @@ module Sintaksanalizilo =
    let ĉuFremdaVorto (ĉeno: string) = ĉeno.Length > 0 && not (Char.IsLower(ĉeno.Chars(0)))
 
    let ĉuLokokupilo (ĉeno: string) = ĉeno.StartsWith("w") || ĉeno.StartsWith("h")
+   
+   let nefinajCiferoj =
+      [ "miri", "0"
+        "poni", "1"
+        "vori", "2"
+        "noni", "3"
+        "teri", "4"
+        "sini", "5"
+        "liri", "6"
+        "soni", "7"
+        "keri", "8"
+        "gini", "9"
+        "pomiri", "10"
+        "marini", "00"
+        "norini", "000"
+        "lirani", "0000000" ]
+      |> Map.ofList
+
+   let finajCiferoj =
+      [ "mira", "0"
+        "pona", "1"
+        "vora", "2"
+        "nona", "3"
+        "tera", "4"
+        "sina", "5"
+        "lira", "6"
+        "sona", "7"
+        "kera", "8"
+        "gina", "9"
+        "pomira", "10"
+        "marina", "00"
+        "norina", "000"
+        "lirana", "0000000" ]
+      |> Map.ofList
+
+   let ĉuNefinaCifero vorto = Map.containsKey vorto nefinajCiferoj
+
+   let ĉuFinaCifero vorto = Map.containsKey vorto finajCiferoj
+
+   let ĉuCifero vorto =
+      ĉuNefinaCifero vorto || ĉuFinaCifero vorto
 
    let ĉuBazo (ĉeno: string): Vorttipo option =
       if ĉuFremdaVorto ĉeno then
@@ -199,6 +240,7 @@ module Sintaksanalizilo =
                | MalantaŭModifanto -> "Modifier (postfix)"
                | AntaŭModifanto -> "Modifier (prefix)"
                | Makro -> "Macro"
-               | FremdaVorto -> "Foreign word")
+               | FremdaVorto -> "Foreign word"
+               | Cifero -> "Digit")
          |> Option.map (fun bazo ->
                if ĉuReciproka bazo then bazo + " (reciprocal)" else bazo)

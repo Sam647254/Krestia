@@ -316,48 +316,6 @@ module Malinflektado =
    let unuNombroFinaĵo = "si"
    let pluraNombroFinaĵo = "ve"
 
-
-   let nefinajCiferoj =
-      [ "miri", "0"
-        "poni", "1"
-        "vori", "2"
-        "noni", "3"
-        "teri", "4"
-        "sini", "5"
-        "liri", "6"
-        "soni", "7"
-        "keri", "8"
-        "gini", "9"
-        "pomiri", "10"
-        "marini", "00"
-        "norini", "000"
-        "lirani", "0000000" ]
-      |> Map.ofList
-
-   let finajCiferoj =
-      [ "mira", "0"
-        "pona", "1"
-        "vora", "2"
-        "nona", "3"
-        "tera", "4"
-        "sina", "5"
-        "lira", "6"
-        "sona", "7"
-        "kera", "8"
-        "gina", "9"
-        "pomira", "10"
-        "marina", "00"
-        "norina", "000"
-        "lirana", "0000000" ]
-      |> Map.ofList
-
-   let ĉuNefinaCifero vorto = Map.containsKey vorto nefinajCiferoj
-
-   let ĉuFinaCifero vorto = Map.containsKey vorto finajCiferoj
-
-   let ĉuCifero vorto =
-      ĉuNefinaCifero vorto || ĉuFinaCifero vorto
-
    let rec malinflekti (vorto: EniraVorto): Result<MalinflektaŜtupo, Eraro> =
       let ĉeno = vorto.Vorto
       match ĉeno with
@@ -511,6 +469,7 @@ module Malinflektado =
             else None)
       |> Option.defaultValue infinitivo
       |> bazoDe
+      |> (fun bazo -> bazo.Replace("|", ""))
 
    and normaligiEnVortaranFormon (infinitivo: string) =
       if Char.IsUpper(infinitivo.[0]) then
@@ -821,5 +780,6 @@ module Malinflektado =
             | Lokokupilo -> "Placeholder"
             | FremdaVorto -> "Foreign word"
             | Makro -> "Macro"
+            | Cifero -> "Digit"
          | Nebazo (_) -> failwith "Nevalida lasta malinflekta ŝtupo"
       | Error ((_, eraro)) -> failwith eraro
