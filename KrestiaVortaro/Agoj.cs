@@ -212,7 +212,7 @@ namespace KrestiaVortaro {
          var novajVortojGrupoj = ĉiujPartoj.Select(vico => vico[0]).GroupBy(Malinflektado.bazoDe).ToImmutableHashSet();
          var ĉiujVortoj = ĉiujPartoj.Select(vico => vico[0]).ToImmutableHashSet();
          var plurfojeAldonitajVortoj =
-            novajVortojGrupoj.Where(grupo => grupo.Count(v => !Sintaksanalizilo.ĉuCifero(v)) > 1).Select(g => g.Key).ToImmutableHashSet();
+            novajVortojGrupoj.Where(grupo => grupo.Count() > 1).Select(g => g.Key).ToImmutableHashSet();
          if (!plurfojeAldonitajVortoj.IsEmpty) {
             throw new InvalidOperationException($"Vortoj jam ekzistas: {string.Join(", ", plurfojeAldonitajVortoj)}");
          }
