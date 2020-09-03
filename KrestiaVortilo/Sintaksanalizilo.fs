@@ -191,15 +191,15 @@ module Sintaksanalizilo =
         "kera", "8"
         "gina", "9"
         "pomira", "10"
-        "marina", "00"
-        "norina", "000"
-        "lirana", "0000000" ]
+        "volira", "00"
+        "nolira", "000"
+        "linara", "0000000" ]
       |> Map.ofList
    
    let komencajFinajCiferoj =
       [ "volira", "100"
         "nolira", "1000"
-        "lirana", "1000000" ]
+        "linara", "1000000" ]
       |> Map.ofList
 
    let ĉuNefinaCifero vorto = Map.containsKey vorto nefinajCiferoj
