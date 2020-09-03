@@ -10,6 +10,7 @@ namespace KrestiaVortaro {
       public IEnumerable<string>? GlosajVortoj { get; set; }
       public IEnumerable<IEnumerable<string>>? GlosajŜtupoj { get; set; }
       public IEnumerable<string>? BazajVortoj { get; set; }
+      public decimal? NombroRezulto { get; set; }
 
       public VortoRezulto() {
          Rezultoj = new List<Vortaro.VortoKunSignifo>();

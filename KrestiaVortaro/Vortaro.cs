@@ -77,6 +77,16 @@ namespace KrestiaVortaro {
       public VortoRezulto TroviVortojn(string peto) {
          var kvanto = Sintaksanalizilo2.iĝiEnEnirajVortoj(false, peto);
          if (kvanto.Length > 1) {
+            var nombro = Imperativa.proveLegiNombron(peto);
+            if (nombro.IsOk) {
+               try {
+                  var nombraRezulto = nombro.ResultValue.Value;
+                  return new VortoRezulto {
+                     NombroRezulto = nombraRezulto
+                  };
+               }
+               catch (NullReferenceException) { }
+            }
             var malinflektita = kvanto.Select(Malinflektado.tuteMalinflekti).ToList();
             try {
                return GlosaRezulto(malinflektita.ToList());

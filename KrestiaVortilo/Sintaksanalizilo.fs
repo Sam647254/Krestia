@@ -166,9 +166,17 @@ module Sintaksanalizilo =
         "keri", "8"
         "gini", "9"
         "pomiri", "10"
-        "marini", "00"
-        "norini", "000"
-        "lirani", "0000000" ]
+        "voliri", "00"
+        "noliri", "000"
+        "lirani", "000000"
+        "di", "." ]
+      |> Map.ofList
+   
+   let komencajNefinajCiferoj =
+      [ "voliri", "100"
+        "noliri", "1000"
+        "lirani", "1000000"
+        "di", "0." ]
       |> Map.ofList
 
    let finajCiferoj =
@@ -186,6 +194,12 @@ module Sintaksanalizilo =
         "marina", "00"
         "norina", "000"
         "lirana", "0000000" ]
+      |> Map.ofList
+   
+   let komencajFinajCiferoj =
+      [ "volira", "100"
+        "nolira", "1000"
+        "lirana", "1000000" ]
       |> Map.ofList
 
    let ĉuNefinaCifero vorto = Map.containsKey vorto nefinajCiferoj

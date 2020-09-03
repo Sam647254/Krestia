@@ -104,7 +104,7 @@ module Imperativa =
       member private this.LegiArgumenton(): Result<Argumento, Eraro> =
          let sekva = enira.Peek()
          if ĉuCifero sekva.OriginalaVorto.Vorto then
-            this.LegiNombron()
+            this.LegiNombron true
             |> Result.map (fun ciferoj ->
                let nombro = Decimal.Parse(ciferoj)
                let argumento = Nombro nombro
@@ -141,13 +141,25 @@ module Imperativa =
          atendantajPridirantoj.Clear()
          novaArgumento
 
-      member private this.LegiNombron() =
+      member private this.LegiNombron ĉuKomenca =
          let sekva = enira.Dequeue()
          if ĉuFinaCifero sekva.BazaVorto then
-            finajCiferoj.[sekva.BazaVorto] |> Ok
+            if ĉuKomenca then
+                komencajFinajCiferoj
+                |> Map.tryFind sekva.BazaVorto
+                |> Option.defaultValue finajCiferoj.[sekva.BazaVorto]
+                |> Ok
+            else
+               finajCiferoj.[sekva.BazaVorto] |> Ok
          elif ĉuNefinaCifero sekva.BazaVorto then
-            let cifero = nefinajCiferoj.[sekva.BazaVorto]
-            this.LegiNombron()
+            let cifero =
+               if ĉuKomenca then
+                  komencajNefinajCiferoj
+                  |> Map.tryFind sekva.BazaVorto
+                  |> Option.defaultValue (nefinajCiferoj.[sekva.BazaVorto])
+               else
+                  nefinajCiferoj.[sekva.BazaVorto]
+            this.LegiNombron false
             |> Result.map (fun restantaj ->
                cifero + restantaj)
          else
@@ -223,3 +235,12 @@ module Imperativa =
    let legiImperative (eniro: string) =
       prepariEniron eniro false
       |> Result.bind (fun vortoj -> ImperativaLegilo(Queue(vortoj)).Legi())
+
+   let proveLegiNombron (eniro: string) =
+      legiImperative eniro
+      |> Result.map (fun rezulto ->
+         List.tryHead rezulto.Argumentoj
+         |> Option.bind (fun argumento ->
+            match argumento with
+            | Nombro(nombro) -> Some nombro
+            | _ -> None))
