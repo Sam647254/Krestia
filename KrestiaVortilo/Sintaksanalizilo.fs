@@ -168,14 +168,14 @@ module Sintaksanalizilo =
         "pomiri", "10"
         "voliri", "00"
         "noliri", "000"
-        "lirani", "000000"
+        "linari", "000000"
         "di", "." ]
       |> Map.ofList
    
    let komencajNefinajCiferoj =
       [ "voliri", "100"
         "noliri", "1000"
-        "lirani", "1000000"
+        "linari", "1000000"
         "di", "0." ]
       |> Map.ofList
 
@@ -214,6 +214,8 @@ module Sintaksanalizilo =
          Some FremdaVorto
       elif ĉuLokokupilo ĉeno then
          Some Lokokupilo
+      elif ĉuCifero ĉeno then
+         Some Cifero
       else
          bazajFinaĵoj
          |> Map.tryPick (fun finaĵo tipo ->
@@ -229,6 +231,8 @@ module Sintaksanalizilo =
          Some "Foreign word"
       elif ĉuLokokupilo ĉeno then
          Some "Placeholder"
+      elif ĉuCifero ĉeno then
+         Some "Digit"
       else
          ĉuBazo ĉeno
          |> Option.map (fun tipo ->
@@ -254,7 +258,6 @@ module Sintaksanalizilo =
                | MalantaŭModifanto -> "Modifier (postfix)"
                | AntaŭModifanto -> "Modifier (prefix)"
                | Makro -> "Macro"
-               | FremdaVorto -> "Foreign word"
-               | Cifero -> "Digit")
+               | FremdaVorto -> "Foreign word")
          |> Option.map (fun bazo ->
                if ĉuReciproka bazo then bazo + " (reciprocal)" else bazo)

@@ -12,19 +12,20 @@ module Sintaksanalizilo2 =
    type ModifeblaVorto =
       { Kapo: MalinflektitaVorto
         Modifantoj: HashSet<Modifanto> }
-      
+
       override this.Equals(alia) =
          match alia with
          | :? ModifeblaVorto as aliaVorto ->
-            aliaVorto.Kapo = this.Kapo && aliaVorto.Modifantoj.SetEquals(this.Modifantoj)
+            aliaVorto.Kapo = this.Kapo
+            && aliaVorto.Modifantoj.SetEquals(this.Modifantoj)
          | _ -> false
-         
-      override this.GetHashCode() =
-         hash this.Kapo
+
+      override this.GetHashCode() = hash this.Kapo
+
    and Argumento =
       | ArgumentaVorto of ModifeblaVorto
       | Nombro of decimal
-      
+
    and Verbo = { Vorto: ModifeblaVorto }
 
    and Modifanto =
@@ -40,7 +41,7 @@ module Sintaksanalizilo2 =
       | Vol
       | Del
       | Nal
-      
+
    type Predikato =
       { Kapo: Verbo
         Argumentoj: Argumento list }
@@ -77,40 +78,44 @@ module Sintaksanalizilo2 =
    let plenaArgumento vorto = failwith "forigi"
 
    let plenaVerbo vorto = failwith "forigi"
-   
+
    let argumento vorto (modifantoj: Modifanto list): Argumento =
       { Kapo = vorto
-        Modifantoj = HashSet(modifantoj) } |> ArgumentaVorto 
-   
+        Modifantoj = HashSet(modifantoj) }
+      |> ArgumentaVorto
+
    let verbo vorto (modifantoj: Modifanto list): Verbo =
-      { Vorto = { Kapo = vorto
-                  Modifantoj = HashSet(modifantoj) } }
-      
+      { Vorto =
+           { Kapo = vorto
+             Modifantoj = HashSet(modifantoj) } }
+
    let valencoDe (vorto: MalinflektitaVorto) =
       vorto.InflekcioŜtupoj
       |> List.fold (fun ak sek ->
-         match sek with
-         | Nebazo(_, inflekcio, _) ->
-            match inflekcio with
-            | PartaUjo1 | PartaUjo2 | PartaUjo3 -> ak - 1
-            | PredikativoEsti -> ak + 1
-            | _ -> ak
-         | Bazo(vorttipo, inflekcio, _) ->
-            match vorttipo with
-            | MalplenaVerbo -> ak
-            | NetransitivaVerbo -> ak + 1
-            | TransitivaVerbo -> ak + 2
-            | DutransitivaVerbo -> ak + 3
-            | NombrigeblaKlaso
-            | NenombrigeblaKlaso
-            | AntaŭNombrigeblaEco
-            | AntaŭNenombrigeblaEco
-            | MalantaŭNombrigeblaEco
-            | MalantaŭNenombrigeblaEco ->
-                match inflekcio with
-                | PredikativoEsti -> ak + 1
-                | _ -> ak
-            | _ -> 0) 0
+            match sek with
+            | Nebazo (_, inflekcio, _) ->
+               match inflekcio with
+               | PartaUjo1
+               | PartaUjo2
+               | PartaUjo3 -> ak - 1
+               | PredikativoEsti -> ak + 1
+               | _ -> ak
+            | Bazo (vorttipo, inflekcio, _) ->
+               match vorttipo with
+               | MalplenaVerbo -> ak
+               | NetransitivaVerbo -> ak + 1
+               | TransitivaVerbo -> ak + 2
+               | DutransitivaVerbo -> ak + 3
+               | NombrigeblaKlaso
+               | NenombrigeblaKlaso
+               | AntaŭNombrigeblaEco
+               | AntaŭNenombrigeblaEco
+               | MalantaŭNombrigeblaEco
+               | MalantaŭNenombrigeblaEco ->
+                  match inflekcio with
+                  | PredikativoEsti -> ak + 1
+                  | _ -> ak
+               | _ -> 0) 0
 
    let kreiSintaksanalizilon =
       { Argumentoj = Deque.empty
@@ -122,7 +127,7 @@ module Sintaksanalizilo2 =
    let kreiRezulton = { Frazoj = []; RestantajVortoj = [] }
 
    let rec aldoniModifanton argumento modifanto = failwith "forigi"
-   
+
    let lastaArgumentoDe sintaksanalizilo =
       sintaksanalizilo.LastaArgumento
       |> Option.map (fun a ->
@@ -157,15 +162,15 @@ module Sintaksanalizilo2 =
       { sintaksanalizilo with
            LastaArgumento = Some argumento }
 
-   let aldoniModifantonAlLastaVerbo sintaksanalizilo modifanto: Result<Sintaksanalizilo, Eraro> =
-      failwith "forigi"
+   let aldoniModifantonAlLastaVerbo sintaksanalizilo modifanto: Result<Sintaksanalizilo, Eraro> = failwith "forigi"
 
    let forigiRepetajnVortojn (vortoj: EniraVorto list): EniraVorto list =
       vortoj
       |> List.fold<EniraVorto, EniraVorto list> (fun ak sek ->
             if List.isEmpty ak
                || sek.Vorto
-               <> (List.head ak |> (fun v -> v.Vorto)) then
+               <> (List.head ak |> (fun v -> v.Vorto))
+               || ĉuCifero sek.Vorto then
                sek :: ak
             else
                ak) []
@@ -180,8 +185,7 @@ module Sintaksanalizilo2 =
       else
          Ok sintaksanalizilo
 
-   let kategorigi sintaksanalizilo vortoj: Result<Sintaksanalizilo, Eraro> =
-      failwith "forigi"
+   let kategorigi sintaksanalizilo vortoj: Result<Sintaksanalizilo, Eraro> = failwith "forigi"
 
    let rec legiFrazojn (sintaksanalizilo: Sintaksanalizilo) (rezulto: AnaziloRezulto): Result<AnaziloRezulto, Eraro> =
       failwith "forigi"
@@ -215,16 +219,13 @@ module Sintaksanalizilo2 =
 
    let legiPridiranton (analizejo: Analizejo) = failwith "???"
 
-   let proviLegiArgumentajnModifantojn (restantajVortoj: MalinflektitaVorto list) =
-      failwith "???"
+   let proviLegiArgumentajnModifantojn (restantajVortoj: MalinflektitaVorto list) = failwith "???"
 
    let proviLegiPridirantajnModifantojn (restantajVortoj: MalinflektitaVorto list) = [], restantajVortoj
 
-   let proviLegiAntaŭanModifanton (analizejo: Analizejo) =
-      failwith "forigi"
+   let proviLegiAntaŭanModifanton (analizejo: Analizejo) = failwith "forigi"
 
-   let rec legiSekvanArgumenton (analizejo: Analizejo): Result<Argumento * Analizejo, Eraro> =
-      failwith "???"
+   let rec legiSekvanArgumenton (analizejo: Analizejo): Result<Argumento * Analizejo, Eraro> = failwith "???"
 
    let legiArgumenton (analizejo: Analizejo): Result<Analizejo, Eraro> =
       legiSekvanArgumenton analizejo
@@ -232,18 +233,17 @@ module Sintaksanalizilo2 =
             { restanta with
                  Argumentoj = restanta.Argumentoj.Conj(argumento) })
 
-   let legiSekvanSolanKlason (analizejo: Analizejo): Result<Predikato * Analizejo, Eraro> =
-      failwith "???"
-   
+   let legiSekvanSolanKlason (analizejo: Analizejo): Result<Predikato * Analizejo, Eraro> = failwith "???"
+
    let legiSolanKlason (analizejo: Analizejo): Result<Analizejo, Eraro> =
       legiSekvanSolanKlason analizejo
       |> Result.map (fun (klaso, restanta) ->
-         { restanta with Frazoj = klaso :: restanta.Frazoj })
+            { restanta with
+                 Frazoj = klaso :: restanta.Frazoj })
 
    // TODO: Bezonas purigadon
-   let rec legiAntaŭeModifitanVortonAk (analizejo: Analizejo) =
-      failwith "forigi"
-   
+   let rec legiAntaŭeModifitanVortonAk (analizejo: Analizejo) = failwith "forigi"
+
    let legiArgumentojnPor verbo restanta = [], restanta
 
    let prepariEniron (eniro: string) ĉuTesto =
