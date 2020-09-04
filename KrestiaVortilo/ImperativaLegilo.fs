@@ -81,11 +81,11 @@ module Imperativa =
       member private this.LegiLokalanFrazon bazaKonteksto: Result<Predikato, Eraro> =
          let konteksto =
             { Argumentoj = LinkedList<Argumento>()
-              AtendantajPridirantoj = LinkedList<Modifanto>()
+              AtendantajPridirantoj = bazaKonteksto.AtendantajPridirantoj
               AtendantajPredikatoj = LinkedList<AtendantaPredikato>()
-              LastaModifeblaVorto = LinkedList<LastaLegitaModifeblaVorto>()
-              LastaModifeblaVerbo = LinkedList<Verbo>()
-              LastaModifeblaArgumento = LinkedList<Argumento>() }
+              LastaModifeblaVorto = bazaKonteksto.LastaModifeblaVorto
+              LastaModifeblaVerbo = bazaKonteksto.LastaModifeblaVerbo
+              LastaModifeblaArgumento = bazaKonteksto.LastaModifeblaArgumento }
 
          let rec legiAk () =
             this.LegiSekvan konteksto
@@ -94,7 +94,26 @@ module Imperativa =
                      || konteksto.Argumentoj.Count < konteksto.AtendantajPredikatoj.First.Value.Valenco then
                      legiAk ()
                   else
-                     failwith "TODO")
+                     let predikato = { Kapo = konteksto.AtendantajPredikatoj.First.Value.Verbo
+                                       Argumentoj = List.ofSeq konteksto.Argumentoj }
+                     
+                     konteksto.AtendantajPridirantoj
+                     |> Seq.map bazaKonteksto.AtendantajPridirantoj.AddLast
+                     |> ignore
+                     
+                     konteksto.LastaModifeblaVorto
+                     |> Seq.map bazaKonteksto.LastaModifeblaVorto.AddLast
+                     |> ignore
+                     
+                     konteksto.LastaModifeblaVerbo
+                     |> Seq.map bazaKonteksto.LastaModifeblaVerbo.AddLast
+                     |> ignore
+                     
+                     konteksto.LastaModifeblaArgumento
+                     |> Seq.map bazaKonteksto.LastaModifeblaArgumento.AddLast
+                     |> ignore
+                     
+                     Ok predikato)
 
          legiAk ()
 
@@ -287,6 +306,10 @@ module Imperativa =
                       konteksto.LastaModifeblaVerbo.RemoveLast()
                       Ok(lastaVerbo))
                   |> Result.map (fun lastaVerbo -> lastaVerbo.Vorto.Modifantoj.Add(nomil) |> ignore))
+         | "nivoral" ->
+            konteksto.LastaModifeblaVerbo.Last.Value.Vorto.Modifantoj.Add(Nivoral) |> ignore |> Ok
+         | "sivil" ->
+            konteksto.LastaModifeblaVerbo.Last.Value.Vorto.Modifantoj.Add(Sivil) |> ignore |> Ok
          | _ -> failwith "Unexpected input"
 
    let legiImperative (eniro: string) =

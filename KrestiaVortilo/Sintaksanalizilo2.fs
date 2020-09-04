@@ -80,10 +80,7 @@ module Sintaksanalizilo2 =
       [ "mel", Mel; "sonol", Sonol ] |> Map.ofList
 
    let modifantojDePredikataVerboj =
-      [ "nevil"
-        "sivil"
-        "nivoral"
-        "nomil" ]
+      [ "nevil"; "sivil"; "nivoral"; "nomil" ]
       |> Set.ofList
 
    let plenaArgumento vorto = failwith "forigi"
@@ -114,7 +111,9 @@ module Sintaksanalizilo2 =
             | Bazo (vorttipo, inflekcio, _) ->
                match vorttipo with
                | MalplenaVerbo -> ak
-               | NetransitivaVerbo -> ak + 1
+               | NetransitivaVerbo
+               | OblikaNetransitivaVerbo
+               | NedirektaNetransitivaVerbo -> ak + 1
                | TransitivaVerbo -> ak + 2
                | DutransitivaVerbo -> ak + 3
                | NombrigeblaKlaso
@@ -202,7 +201,7 @@ module Sintaksanalizilo2 =
       failwith "forigi"
 
    let iĝiEnEnirajVortoj ĉuTesto (eniro: string) =
-      eniro.Split(["\r\n"; "\n"] |> Array.ofList, StringSplitOptions.None)
+      eniro.Split([ "\r\n"; "\n" ] |> Array.ofList, StringSplitOptions.None)
       |> List.ofArray
       |> List.map (fun vico -> vico.Split(' '))
       |> List.map List.ofArray

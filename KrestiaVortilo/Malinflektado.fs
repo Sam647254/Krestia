@@ -602,7 +602,8 @@ module Malinflektado =
         PluraEkzistado
         Sola
         UnuSola
-        PluraSola ]
+        PluraSola
+        Hipoteza ]
       |> Set.ofList
 
    let argumentajBazajTipoj =
