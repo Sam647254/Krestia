@@ -159,7 +159,7 @@ module Malinflektado =
 
    let oblikaTransitivaVerboInflekcioj =
       [ BazaFinaĵo("ia", Hipoteza)
-        BazaFinaĵo("i", Perfekto)
+        BazaFinaĵo("io", Perfekto)
         BazaFinaĵo("ela", Intenco)
         BazaFinaĵo("ri", Optativo)
         BazaFinaĵo("ea", Ĝerundo)

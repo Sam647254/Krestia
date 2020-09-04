@@ -1,5 +1,6 @@
 ﻿namespace KrestiaVortilo
 
+open System
 open System.Collections.Generic
 open FSharpx.Collections
 
@@ -24,6 +25,8 @@ module Sintaksanalizilo2 =
 
    and Argumento =
       | ArgumentaVorto of ModifeblaVorto
+      | Mite of MalinflektitaVorto * Predikato
+      | Ete of MalinflektitaVorto * Predikato
       | Nombro of decimal
 
    and Verbo = { Vorto: ModifeblaVorto }
@@ -34,15 +37,18 @@ module Sintaksanalizilo2 =
       | Mel of Argumento
       | Sonol of Argumento
       | Nival
+      | Nevil
+      | Nomil of Predikato
+      | Nivoral
+      | Sivil
 
-   and PredikataVerboModifanto = | Nevil
 
    and Parvorto =
       | Vol
       | Del
       | Nal
 
-   type Predikato =
+   and Predikato =
       { Kapo: Verbo
         Argumentoj: Argumento list }
 
@@ -73,7 +79,11 @@ module Sintaksanalizilo2 =
    let modifantoj1DeKlasoj =
       [ "mel", Mel; "sonol", Sonol ] |> Map.ofList
 
-   let modifantojDePredikataVerboj = [ "nevil", Nevil ] |> Map.ofList
+   let modifantojDePredikataVerboj =
+      [ "nevil", Nevil
+        "sivil", Sivil
+        "nivoral", Nivoral ]
+      |> Map.ofList
 
    let plenaArgumento vorto = failwith "forigi"
 
@@ -191,7 +201,7 @@ module Sintaksanalizilo2 =
       failwith "forigi"
 
    let iĝiEnEnirajVortoj ĉuTesto (eniro: string) =
-      eniro.Split('\n')
+      eniro.Split(["\r\n"; "\n"] |> Array.ofList, StringSplitOptions.None)
       |> List.ofArray
       |> List.map (fun vico -> vico.Split(' '))
       |> List.map List.ofArray

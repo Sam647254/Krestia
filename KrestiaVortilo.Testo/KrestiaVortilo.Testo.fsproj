@@ -25,6 +25,7 @@
     <Compile Include="SintaksanaliziloTestoj.fs" />
     <Compile Include="EraroTestoj.fs" />
     <Compile Include="NombroTestoj.fs" />
+    <Compile Include="MetilmoTestoj.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
