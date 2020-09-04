@@ -89,16 +89,16 @@ type EcoTestoj() =
 
    [<TestMethod>]
    member _.Fokuso() =
-      [ "la", Fokuso
-        "sila", UnuFokuso
-        "vela", PluraFokuso ]
+      [ "le", Fokuso
+        "sile", UnuFokuso
+        "vele", PluraFokuso ]
       |> List.map (fun (finaĵo, inflekcio) ->
             kontroliInflekcion AntaŭNombrigeblaEco inflekcio ("dedre" + finaĵo)
             kontroliInflekcion MalantaŭNombrigeblaEco inflekcio ("dedri" + finaĵo))
       |> ignore
 
-      kontroliInflekcion AntaŭNenombrigeblaEco Fokuso "amegrela"
-      kontroliInflekcion MalantaŭNenombrigeblaEco Fokuso "amegrila"
+      kontroliInflekcion AntaŭNenombrigeblaEco Fokuso "amegrele"
+      kontroliInflekcion MalantaŭNenombrigeblaEco Fokuso "amegrile"
 
    [<TestMethod>]
    member this.AtributivoEstiMalantaŭ() =

@@ -76,11 +76,11 @@ type KlasoTestoj() =
 
    [<TestMethod>]
    member _.Fokuso() =
-      kontroliInflekciojn difinitoj "la" NombrigeblaKlaso Fokuso
-      kontroliInflekciojn difinitoj "sila" NombrigeblaKlaso UnuFokuso
-      kontroliInflekciojn difinitoj "vela" NombrigeblaKlaso PluraFokuso
+      kontroliInflekciojn difinitoj "le" NombrigeblaKlaso Fokuso
+      kontroliInflekciojn difinitoj "sile" NombrigeblaKlaso UnuFokuso
+      kontroliInflekciojn difinitoj "vele" NombrigeblaKlaso PluraFokuso
 
-      kontroliInflekciojn difinitoj2 "la" NenombrigeblaKlaso Fokuso
+      kontroliInflekciojn difinitoj2 "le" NenombrigeblaKlaso Fokuso
 
    [<TestMethod>]
    member _.AtributivoEstiMalantaŭ() =
