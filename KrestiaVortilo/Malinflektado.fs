@@ -26,14 +26,9 @@ module Malinflektado =
         InflekcioŜtupoj: MalinflektaŜtupo list
         OriginalaVorto: EniraVorto }
 
-   let okazoFinaĵoj =
-      [ BazaFinaĵo("lo", Okazo)
-        BazaFinaĵo("laa", AktualaOkazo)
-        BazaFinaĵo("lu", FinitaOkazo) ]
-
    let nombrigeblaKlasoInflekcioj =
       [ DUPFinaĵo("nsa", Havaĵo, UnuHavaĵo, PluraHavaĵo)
-        DUPFinaĵo("la", Fokuso, UnuFokuso, PluraFokuso)
+        DUPFinaĵo("le", Fokuso, UnuFokuso, PluraFokuso)
         DifinitoFinaĵo("ga", AtributivoEstiMalantaŭ)
         DifinitoFinaĵo("va", AtributivoEstiAntaŭ)
         DUPFinaĵo("ra", Sola, UnuSola, PluraSola)
@@ -50,7 +45,7 @@ module Malinflektado =
 
    let nenombrigeblaKlasoInflekcioj =
       [ DifinitoFinaĵo("nsa", Havaĵo)
-        DifinitoFinaĵo("la", Fokuso)
+        DifinitoFinaĵo("le", Fokuso)
         BazaFinaĵo("ga", AtributivoEstiMalantaŭ)
         BazaFinaĵo("va", AtributivoEstiAntaŭ)
         DifinitoFinaĵo("ra", Sola)
@@ -71,7 +66,6 @@ module Malinflektado =
         BazaFinaĵo("ela", Intenco)
         BazaFinaĵo("elim", Translativo)
         BazaFinaĵo("ea", Ĝerundo) ]
-      @ okazoFinaĵoj
 
    let netransitivaVerboInflekcioj =
       [ BazaFinaĵo("e", Hipoteza)
@@ -85,7 +79,6 @@ module Malinflektado =
         BazaFinaĵo("elis", Translativo)
         BazaFinaĵo("mea", Ĝerundo)
         BazaFinaĵo("em", PartaUjo1) ]
-      @ okazoFinaĵoj
 
    let transitivaVerboInflekcioj =
       [ BazaFinaĵo("re", Hipoteza)
@@ -106,7 +99,6 @@ module Malinflektado =
         BazaFinaĵo("rim", Reflekcio)
         BazaFinaĵo("ris", Reflekcio)
         BazaFinaĵo("res", UnueUjo2) ]
-      @ okazoFinaĵoj
 
    let dutransitivaVerboInflekcioj =
       [ BazaFinaĵo("re", Hipoteza)
@@ -137,7 +129,6 @@ module Malinflektado =
         BazaFinaĵo("ish", Reflekcio)
         BazaFinaĵo("rosh", UnueUjo2)
         BazaFinaĵo("rut", UnueUjo3) ]
-      @ okazoFinaĵoj
 
    let nedirektaTransitivaVerboInflekcioj =
       [ BazaFinaĵo("e", Hipoteza)
@@ -156,7 +147,6 @@ module Malinflektado =
         BazaFinaĵo("os", PartaUjo3)
         BazaFinaĵo("ros", UnueUjo3)
         BazaFinaĵo("es", Reflekcio) ]
-      @ okazoFinaĵoj
 
    let oblikaNetransitivaVerboInflekcioj =
       [ BazaFinaĵo("ia", Hipoteza)
@@ -166,7 +156,6 @@ module Malinflektado =
         BazaFinaĵo("ea", Ĝerundo)
         BazaFinaĵo("onia", Argumento2)
         BazaFinaĵo("am", PartaUjo2) ]
-      @ okazoFinaĵoj
 
    let oblikaTransitivaVerboInflekcioj =
       [ BazaFinaĵo("ia", Hipoteza)
@@ -182,7 +171,6 @@ module Malinflektado =
         BazaFinaĵo("ig", PartaUjo3)
         BazaFinaĵo("rig", UnueUjo3)
         BazaFinaĵo("eg", Reflekcio) ]
-      @ okazoFinaĵoj
 
    let nedirektaNetransitivaVerboInflekcioj =
       [ BazaFinaĵo("ia", Progresivo)
@@ -192,7 +180,6 @@ module Malinflektado =
         BazaFinaĵo("ea", Ĝerundo)
         BazaFinaĵo("onia", Argumento2)
         BazaFinaĵo("om", PartaUjo3) ]
-      @ okazoFinaĵoj
 
    let private inflekciojPerVorttipoj =
       [ NombrigeblaKlaso, nombrigeblaKlasoInflekcioj
