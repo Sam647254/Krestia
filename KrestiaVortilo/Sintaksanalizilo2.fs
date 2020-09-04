@@ -80,10 +80,11 @@ module Sintaksanalizilo2 =
       [ "mel", Mel; "sonol", Sonol ] |> Map.ofList
 
    let modifantojDePredikataVerboj =
-      [ "nevil", Nevil
-        "sivil", Sivil
-        "nivoral", Nivoral ]
-      |> Map.ofList
+      [ "nevil"
+        "sivil"
+        "nivoral"
+        "nomil" ]
+      |> Set.ofList
 
    let plenaArgumento vorto = failwith "forigi"
 

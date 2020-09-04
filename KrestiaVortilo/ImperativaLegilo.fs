@@ -33,6 +33,8 @@ module Imperativa =
       let atendantajPridirantoj = LinkedList<Modifanto>()
       let atendantajPredikatoj = LinkedList<AtendantaPredikato>()
       let lastaModifeblaVorto = Stack<LastaLegitaModifeblaVorto>()
+      let lastaModifeblaVerbo = Stack<Verbo>()
+      let lastaModifeblaArgumento = Stack<Argumento>()
       let mutable lastaArgumento: Argumento option = None
 
       member this.Legi(): Result<Rezulto, Eraro> =
@@ -95,6 +97,9 @@ module Imperativa =
                      atendantajPredikatoj.AddLast({ Verbo = verbo; Valenco = valenco })
                      |> ignore
                      this.LegiSekvan())
+            elif ĉuMalantaŭModifanto sekva then
+               this.LegiMalantaŭModifanton()
+               |> Result.bind this.LegiSekvan
             else
                Eraro(sekva.OriginalaVorto, sprintf "Can't parse %s" sekva.OriginalaVorto.Vorto)
                |> Error
@@ -106,12 +111,12 @@ module Imperativa =
          if ĉuCifero sekva.OriginalaVorto.Vorto then
             this.LegiNombron true
             |> Result.map (fun ciferoj ->
-               let nombro = Decimal.Parse(ciferoj)
-               let argumento = Nombro nombro
-               lastaModifeblaVorto.Push(ModifeblaArgumento argumento)
-               lastaArgumento <- Some argumento
-               argumento)
-         elif ĉuDifinita sekva then
+                  let nombro = Decimal.Parse(ciferoj)
+                  let argumento = Nombro nombro
+                  lastaModifeblaVorto.Push(ModifeblaArgumento argumento)
+                  lastaArgumento <- Some argumento
+                  argumento)
+         elif ĉuDifinita sekva || ĉuLokokupilo sekva.BazaVorto then
             this.LegiPlenanArgumenton(enira.Dequeue())
          elif ĉuAntaŭModifantaVorto sekva then
             this.LegiPridiranton()
@@ -145,10 +150,10 @@ module Imperativa =
          let sekva = enira.Dequeue()
          if ĉuFinaCifero sekva.BazaVorto then
             if ĉuKomenca then
-                komencajFinajCiferoj
-                |> Map.tryFind sekva.BazaVorto
-                |> Option.defaultValue finajCiferoj.[sekva.BazaVorto]
-                |> Ok
+               komencajFinajCiferoj
+               |> Map.tryFind sekva.BazaVorto
+               |> Option.defaultValue finajCiferoj.[sekva.BazaVorto]
+               |> Ok
             else
                finajCiferoj.[sekva.BazaVorto] |> Ok
          elif ĉuNefinaCifero sekva.BazaVorto then
@@ -159,9 +164,9 @@ module Imperativa =
                   |> Option.defaultValue (nefinajCiferoj.[sekva.BazaVorto])
                else
                   nefinajCiferoj.[sekva.BazaVorto]
+
             this.LegiNombron false
-            |> Result.map (fun restantaj ->
-               cifero + restantaj)
+            |> Result.map (fun restantaj -> cifero + restantaj)
          else
             Error(Eraro(sekva.OriginalaVorto, "Could not read digit"))
 
@@ -186,6 +191,7 @@ module Imperativa =
 
                atendantajPridirantoj.Clear()
                lastaModifeblaVorto.Push(ModifeblaVerbo novaVerbo)
+               lastaModifeblaVerbo.Push(novaVerbo)
                novaVerbo)
 
       member private this.LegiPridiranton(): Result<Modifanto, Eraro> =
@@ -232,6 +238,19 @@ module Imperativa =
                            |> Option.map (fun modifanto -> modifanto :: listo)
                            |> Option.defaultValue listo))) (Ok [])
 
+      member private this.LegiMalantaŭModifanton() =
+         let sekva = enira.Dequeue()
+         match sekva.BazaVorto with
+         | "nomil" ->
+            this.LegiLokalanFrazon()
+            |> Result.bind (fun frazo ->
+                  let nomil = Nomil(frazo)
+                  (if lastaModifeblaVerbo.Count = 0
+                   then Error(Eraro(sekva.OriginalaVorto, "No verb to modify"))
+                   else Ok(lastaModifeblaVerbo.Pop()))
+                  |> Result.map (fun lastaVerbo -> lastaVerbo.Vorto.Modifantoj.Add(nomil) |> ignore))
+         | _ -> failwith "Unexpected input"
+
    let legiImperative (eniro: string) =
       prepariEniron eniro false
       |> Result.bind (fun vortoj -> ImperativaLegilo(Queue(vortoj)).Legi())
@@ -239,8 +258,8 @@ module Imperativa =
    let proveLegiNombron (eniro: string) =
       legiImperative eniro
       |> Result.map (fun rezulto ->
-         List.tryHead rezulto.Argumentoj
-         |> Option.bind (fun argumento ->
-            match argumento with
-            | Nombro(nombro) -> Some nombro
-            | _ -> None))
+            List.tryHead rezulto.Argumentoj
+            |> Option.bind (fun argumento ->
+                  match argumento with
+                  | Nombro (nombro) -> Some nombro
+                  | _ -> None))
