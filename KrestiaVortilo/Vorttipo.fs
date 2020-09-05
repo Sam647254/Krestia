@@ -4,14 +4,8 @@ module Vorttipo =
    type Inflekcio =
    | Infinitivo
    | Difinito
-   | UnuNombro
    | Havaĵo
-   | UnuHavaĵo
-   | PluraHavaĵo
-   | PluraNombro
    | Fokuso
-   | UnuFokuso
-   | PluraFokuso
    | Progresivo
    | Perfekto
    | Intenco
@@ -22,16 +16,12 @@ module Vorttipo =
    | AtributivoEstiAntaŭ
    | AtributivoEstiMalantaŭ
    | Havado
-   | UnuHavado
-   | PluraHavado
    | AtributativoHavi
    | Imperativo
    | Argumento1
    | Argumento2
    | Argumento3
    | Ekzistado
-   | UnuEkzistado
-   | PluraEkzistado
    | Hortativo
    | Translativo
    | Ĝerundo
@@ -45,8 +35,6 @@ module Vorttipo =
    | Egigo
    | Etigo
    | Sola
-   | UnuSola
-   | PluraSola
    | Reflekcio
    | Okazo
    | AktualaOkazo
@@ -57,8 +45,6 @@ module Vorttipo =
    | Kvalito
    | Hipoteza
    | Apartigita
-   | UnuApartigita
-   | PluraApartigita
 
    type Vorttipo =
    | NombrigeblaKlaso

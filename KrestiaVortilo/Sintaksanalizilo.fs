@@ -214,6 +214,24 @@ module Sintaksanalizilo =
                if ĉeno.EndsWith(finaĵo) && ĉeno.Length > finaĵo.Length
                then Some tipo
                else None)
+   
+   let bazaInflekcioDe vorttipo =
+      match vorttipo with
+      | NombrigeblaKlaso
+      | NenombrigeblaKlaso
+      | AntaŭNenombrigeblaEco
+      | AntaŭNombrigeblaEco
+      | MalantaŭNenombrigeblaEco
+      | MalantaŭNombrigeblaEco -> Difinito
+      | MalplenaVerbo
+      | NetransitivaVerbo
+      | OblikaNetransitivaVerbo
+      | NedirektaNetransitivaVerbo
+      | TransitivaVerbo
+      | DutransitivaVerbo
+      | OblikaTransitivaVerbo
+      | NedirektaTransitivaVerbo -> Progresivo
+      | _ -> SolaFormo
 
    let ĉuReciproka (infinitivo: string) =
       [ "at"; "ap"; "av"; "ash" ] |> List.exists infinitivo.EndsWith

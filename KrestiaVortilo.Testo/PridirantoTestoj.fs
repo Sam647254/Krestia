@@ -12,9 +12,7 @@ type PridirantoTestoj () =
    member _.KontroliTesto () =
       [ ("perid", Infinitivo)
         ("peride", Difinito)
-        ("perida", UnuNombro)
         ("peridu", Havaĵo)
-        ("peridie", PluraNombro)
         ("peridia", PredikativoEsti)
         ("peridea", AtributivoEstiMalantaŭ)
         ("peridis", Translativo)

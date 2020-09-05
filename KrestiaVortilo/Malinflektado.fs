@@ -15,7 +15,6 @@ module Malinflektado =
       | BazaFinaĵo of string * Inflekcio
       | DifinitoFinaĵo of string * Inflekcio
       | PredikativoEstiFinaĵo of string * Inflekcio
-      | DUPFinaĵo of string * Definito: Inflekcio * UnuNombro: Inflekcio * PluraNombro: Inflekcio
 
    type ĈuAkceptiNenombrigeblan =
       | AkceptiNenombrigeblan
@@ -29,21 +28,18 @@ module Malinflektado =
       override this.ToString() = this.OriginalaVorto.Vorto
 
    let nombrigeblaKlasoInflekcioj =
-      [ DUPFinaĵo("nsa", Havaĵo, UnuHavaĵo, PluraHavaĵo)
-        DUPFinaĵo("le", Fokuso, UnuFokuso, PluraFokuso)
+      [ DifinitoFinaĵo("nsa", Havaĵo)
+        DifinitoFinaĵo("le", Fokuso)
         DifinitoFinaĵo("ga", AtributivoEstiMalantaŭ)
         DifinitoFinaĵo("va", AtributivoEstiAntaŭ)
-        DUPFinaĵo("ra", Sola, UnuSola, PluraSola)
-        DUPFinaĵo("res", Havado, UnuHavado, PluraHavado)
-        DUPFinaĵo("rem", Havado, UnuHavado, PluraHavado)
-        DUPFinaĵo("rim", Ekzistado, UnuEkzistado, PluraEkzistado)
+        DifinitoFinaĵo("ra", Sola)
+        DifinitoFinaĵo("res", Havado)
+        DifinitoFinaĵo("rim", Ekzistado)
         DifinitoFinaĵo("lam", Translativo)
         PredikativoEstiFinaĵo("las", Translativo)
         PredikativoEstiFinaĵo("vra", Ĝerundo)
         DifinitoFinaĵo("vra", SpecifaĜerundo)
-        PredikativoEstiFinaĵo("re", Kvalito)
-        DUPFinaĵo("", Difinito, UnuNombro, PluraNombro)
-        PredikativoEstiFinaĵo("", PredikativoEsti) ]
+        PredikativoEstiFinaĵo("re", Kvalito) ]
 
    let nenombrigeblaKlasoInflekcioj =
       [ DifinitoFinaĵo("nsa", Havaĵo)
@@ -58,9 +54,7 @@ module Malinflektado =
         PredikativoEstiFinaĵo("las", Translativo)
         PredikativoEstiFinaĵo("vra", Ĝerundo)
         DifinitoFinaĵo("vra", SpecifaĜerundo)
-        PredikativoEstiFinaĵo("re", Kvalito)
-        DifinitoFinaĵo("", Difinito)
-        PredikativoEstiFinaĵo("", PredikativoEsti) ]
+        PredikativoEstiFinaĵo("re", Kvalito) ]
 
    let malplenaVerboInflekcioj =
       [ BazaFinaĵo("ia", Hipoteza)
@@ -358,30 +352,10 @@ module Malinflektado =
 
                      malinflektiSeDifinito difinito inflekcio AkceptiNenombrigeblan (finaĵo.Length = 0) vorttipo
                   else
-                     None
-               | DUPFinaĵo (finaĵo, difinito, unuNombro, pluraNombro) ->
-                  if ĉeno.EndsWith(finaĵo) then
-                     let restantaj =
-                        ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)
-
-                     let ĉuBazo = finaĵo.Length = 0
-                     if restantaj.EndsWith(unuNombroFinaĵo) then
-                        let difinito =
-                           ĉeno.Substring(0, restantaj.Length - unuNombroFinaĵo.Length)
-
-                        malinflektiSeDifinito difinito unuNombro NeAkceptiNenombrigeblan ĉuBazo vorttipo
-                     elif restantaj.EndsWith(pluraNombroFinaĵo) then
-                        let difinito =
-                           ĉeno.Substring(0, restantaj.Length - pluraNombroFinaĵo.Length)
-
-                        malinflektiSeDifinito difinito pluraNombro NeAkceptiNenombrigeblan ĉuBazo vorttipo
-                     else
-                        malinflektiSeDifinito restantaj difinito AkceptiNenombrigeblan ĉuBazo vorttipo
-                  else
                      None)
          |> Option.orElseWith (fun () ->
                ĉuBazo ĉeno
-               |> Option.map (fun vorttipo -> Bazo(vorttipo, Infinitivo, ĉeno)))
+               |> Option.map (fun vorttipo -> Bazo(vorttipo, bazaInflekcioDe vorttipo, ĉeno)))
          |> Option.map Ok
          |> Option.defaultValue
                ((vorto, (sprintf "%s estas nevalida" ĉeno))
@@ -610,14 +584,8 @@ module Malinflektado =
         Imperativo
         Hortativo
         Havado
-        UnuHavado
-        PluraHavado
         Ekzistado
-        UnuEkzistado
-        PluraEkzistado
         Sola
-        UnuSola
-        PluraSola
         Hipoteza ]
       |> Set.ofList
 
@@ -626,12 +594,8 @@ module Malinflektado =
 
    let argumentajInflekcioj =
       [ Difinito
-        UnuNombro
-        PluraNombro
         SolaFormo
         Havaĵo
-        UnuHavaĵo
-        PluraHavaĵo
         Kvalito
         Apartigita
         Ĝerundo ]
@@ -673,8 +637,6 @@ module Malinflektado =
       match vorto.InflekcioŜtupoj.Head with
       | Nebazo (_, inflekcio, _) ->
          inflekcio = Sola
-         || inflekcio = UnuSola
-         || inflekcio = PluraSola
       | _ -> false
 
    let ĉuAntaŭEco (vorto: MalinflektitaVorto) =
@@ -682,9 +644,7 @@ module Malinflektado =
       match unuaInflekcio with
       | Bazo (vorttipo, inflekcio, _) ->
          (vorttipo = AntaŭNombrigeblaEco
-          && (inflekcio = Difinito
-              || inflekcio = UnuNombro
-              || inflekcio = PluraNombro))
+          && (inflekcio = Difinito))
          || (vorttipo = AntaŭNenombrigeblaEco
              && inflekcio = Difinito)
       | _ -> false
@@ -694,9 +654,7 @@ module Malinflektado =
       match unuaInflekcio with
       | Bazo (vorttipo, inflekcio, _) ->
          (vorttipo = MalantaŭNombrigeblaEco
-          && (inflekcio = Difinito
-              || inflekcio = UnuNombro
-              || inflekcio = PluraNombro))
+          && (inflekcio = Difinito))
          || (vorttipo = MalantaŭNenombrigeblaEco
              && inflekcio = Difinito)
       | _ -> false
@@ -710,9 +668,7 @@ module Malinflektado =
                 || vorttipo = AntaŭNenombrigeblaEco
                 || vorttipo = MalantaŭNombrigeblaEco
                 || vorttipo = MalantaŭNenombrigeblaEco)
-               && (inflekcio = Havaĵo
-                   || inflekcio = UnuHavaĵo
-                   || inflekcio = PluraHavaĵo)
+               && (inflekcio = Havaĵo)
             | Bazo (_, _, _) -> false)
 
    let ĉiujInflekciojDe vorto =
@@ -724,13 +680,6 @@ module Malinflektado =
                   match finaĵo with
                   | BazaFinaĵo (sufikso, inflekcio) -> (inflekcio, vorto + sufikso)
                   | DifinitoFinaĵo (sufikso, inflekcio) -> (inflekcio, vorto + sufikso)
-                  | DUPFinaĵo (sufikso, inflekcio, _, _) ->
-                     (inflekcio,
-                      (sprintf
-                         "%s, %s, %s"
-                          (vorto + sufikso)
-                          (vorto + unuNombroFinaĵo + sufikso)
-                          (vorto + pluraNombroFinaĵo + sufikso)))
                   | PredikativoEstiFinaĵo (sufikso, inflekcio) -> (inflekcio, (difinitoAlInfinitivo vorto) + sufikso))
             |> Map.ofList)
 

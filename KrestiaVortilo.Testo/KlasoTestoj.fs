@@ -59,26 +59,14 @@ type KlasoTestoj() =
       kontroliInflekciojn predikatoj2 "" NenombrigeblaKlaso PredikativoEsti
 
    [<TestMethod>]
-   member _.UnuNombro() =
-      kontroliInflekciojn difinitoj "si" NombrigeblaKlaso UnuNombro
-
-   [<TestMethod>]
-   member _.PluraNombro() =
-      kontroliInflekciojn difinitoj "ve" NombrigeblaKlaso PluraNombro
-
-   [<TestMethod>]
    member _.Havaĵo() =
       kontroliInflekciojn difinitoj "nsa" NombrigeblaKlaso Havaĵo
-      kontroliInflekciojn difinitoj "sinsa" NombrigeblaKlaso UnuHavaĵo
-      kontroliInflekciojn difinitoj "vensa" NombrigeblaKlaso PluraHavaĵo
 
       kontroliInflekciojn difinitoj2 "nsa" NenombrigeblaKlaso Havaĵo
 
    [<TestMethod>]
    member _.Fokuso() =
       kontroliInflekciojn difinitoj "le" NombrigeblaKlaso Fokuso
-      kontroliInflekciojn difinitoj "sile" NombrigeblaKlaso UnuFokuso
-      kontroliInflekciojn difinitoj "vele" NombrigeblaKlaso PluraFokuso
 
       kontroliInflekciojn difinitoj2 "le" NenombrigeblaKlaso Fokuso
 
@@ -151,8 +139,6 @@ type KlasoTestoj() =
    [<TestMethod>]
    member _.Sola() =
       kontroliInflekciojn difinitoj "ra" NombrigeblaKlaso Sola
-      kontroliInflekciojn difinitoj "sira" NombrigeblaKlaso UnuSola
-      kontroliInflekciojn difinitoj "vera" NombrigeblaKlaso PluraSola
 
       kontroliInflekciojn difinitoj2 "ra" NenombrigeblaKlaso Sola
 
@@ -187,11 +173,7 @@ type KlasoTestoj() =
    [<TestMethod>]
    member _.Havado() =
       [ "res", Havado
-        "rem", Havado
-        "sires", UnuHavado
-        "sirem", UnuHavado
-        "veres", PluraHavado
-        "verem", PluraHavado ]
+        "rem", Havado ]
       |> List.map (fun (finaĵo, inflekcio) -> kontroliInflekciojn difinitoj finaĵo NombrigeblaKlaso inflekcio)
       |> ignore
 
@@ -201,9 +183,7 @@ type KlasoTestoj() =
 
    [<TestMethod>]
    member _.Ekzistado() =
-      [ "rim", Ekzistado
-        "sirim", UnuEkzistado
-        "verim", PluraEkzistado ]
+      [ "rim", Ekzistado ]
       |> List.map (fun (finaĵo, inflekcio) -> kontroliInflekciojn difinitoj finaĵo NombrigeblaKlaso inflekcio)
       |> ignore
 
@@ -299,5 +279,4 @@ type KlasoTestoj() =
 
       "nekeveregore"
       |> kontroliĈiujnInfleckiojn [ Nebazo(OblikaNetransitivaVerbo, Ujo2Volo, "nekevereg")
-                                    Nebazo(NombrigeblaKlaso, PluraHavado, "neko")
                                     Bazo(NombrigeblaKlaso, Infinitivo, "neko") ]
