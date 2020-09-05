@@ -71,7 +71,7 @@ kerel segrerem melismea"
              Argumentoj =
                 [ argumento hime []
                   Keni
-                     (senmodifantaVorto keni,
+                     (keni,
                       argumento prenta [ Pridiranto(argumento meritetiega []) ],
                       Mine
                          (mine,
@@ -81,4 +81,4 @@ kerel segrerem melismea"
                                   [ Kerel
                                      ({ Kapo = verbo segrerem [ EcoDe(argumento melismea []) ]
                                         Argumentoj = [] }) ]
-                            Argumentoj = [ argumento gremegrelave [] ] })) ] } ]
+                            Argumentoj = [ argumento gremegrelave [ Borol ] ] })) ] } ]

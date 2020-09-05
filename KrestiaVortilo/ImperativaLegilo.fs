@@ -193,6 +193,25 @@ module Imperativa =
             elif sekva.BazaVorto = "ene" then
                this.LegiLokalanFrazon konteksto
                |> Result.map (fun frazo -> Ene(sekva, frazo))
+            elif sekva.BazaVorto = "keni" then
+               this.LegiModifantojnPor sekva konteksto
+               |> Result.bind (fun modifantoj ->
+                  this.LegiArgumenton konteksto
+                  |> Result.bind (fun argumento1 ->
+                     this.LegiArgumenton konteksto
+                     |> Result.map (fun argumento2 ->
+                        [ argumento1; argumento2 ]
+                        |> List.map (fun a ->
+                           konteksto.AtendantajPridirantoj
+                           |> Seq.map (fun p -> this.AldoniModifantonAlArgumento p a)
+                           |> ignore
+                           
+                           modifantoj
+                           |> List.map (fun m -> this.AldoniModifantonAlArgumento m a)
+                           |> ignore)
+                        |> ignore
+                        
+                        Keni(sekva, argumento1, argumento2))))
             else
                this.LegiModifantojnPor sekva konteksto
                |> Result.map (fun pliajModifantoj ->

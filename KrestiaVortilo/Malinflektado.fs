@@ -619,7 +619,9 @@ module Malinflektado =
         Havaĵo
         UnuHavaĵo
         PluraHavaĵo
-        Kvalito ]
+        Kvalito
+        Apartigita
+        Ĝerundo ]
       |> Set.ofList
 
    let malantaŭModifantajInflekcioj = [ AtributivoEstiMalantaŭ ] |> Set.ofList
@@ -638,15 +640,6 @@ module Malinflektado =
 
    let ĉuDifinita (vorto: MalinflektitaVorto) =
       ĉuArgumentaVorto vorto
-      && match List.last vorto.InflekcioŜtupoj with
-         | Bazo (vorttipo, _, _) ->
-            vorttipo = NombrigeblaKlaso
-            || vorttipo = NenombrigeblaKlaso
-            || vorttipo = AntaŭNenombrigeblaEco
-            || vorttipo = AntaŭNombrigeblaEco
-            || vorttipo = MalantaŭNombrigeblaEco
-            || vorttipo = MalantaŭNenombrigeblaEco
-         | _ -> false
 
    let ĉuMalantaŭModifantaVorto (vorto: MalinflektitaVorto) =
       match vorto.InflekcioŜtupoj.Head with

@@ -33,7 +33,7 @@ module Sintaksanalizilo2 =
       | ArgumentaVorto of ModifeblaVorto
       | Mine of MalinflektitaVorto * Predikato
       | Ene of MalinflektitaVorto * Predikato
-      | Keni of ModifeblaVorto * Argumento * Argumento
+      | Keni of MalinflektitaVorto * Argumento * Argumento
       | Nombro of decimal
       
       override this.ToString() =
@@ -73,6 +73,8 @@ module Sintaksanalizilo2 =
          | Nomil p -> sprintf "Nomil(%s)" (p.ToString())
          | Nivoral -> "Nivoral"
          | Sivil -> "Sivil"
+         | Borol -> "Borol"
+         | Kerel p -> sprintf "Kerel(%O)" p
 
 
    and Parvorto =
