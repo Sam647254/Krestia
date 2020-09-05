@@ -9,7 +9,7 @@ open Testiloj
 type MetilmoTestoj() =
    [<TestMethod>]
    member _.Unu() =
-      let [ hime; deletro; linetiga; rone; _; merogia; _; _; mite; hel; teretro; ete; mirateva; delevio ] =
+      let [ hime; deletro; linetiga; rone; _; merogia; _; _; mite; hel; teretro; ete; mirateva; delegio ] =
          [ "hime"
            "deletro"
            "linetiga"
@@ -23,19 +23,19 @@ type MetilmoTestoj() =
            "teretro"
            "ete"
            "mirateva"
-           "delevio" ]
+           "delegio" ]
          |> List.map praveMalinflekti
 
       kontroliFrazojn "hime deletro linetiga rone
 nomil merogia nivoral sivil
 mite hel teretro ete
-mirateva delevio rone"
+mirateva delegio rone"
          [ { Kapo =
                 verbo
                    deletro
                    [ Pridiranto(argumento linetiga [])
                      Nomil
-                        ({ Kapo = verbo merogia []
+                        ({ Kapo = verbo merogia [Nivoral; Sivil]
                            Argumentoj =
                               [ Mite
                                  (mite,
@@ -44,6 +44,6 @@ mirateva delevio rone"
                                        [ argumento hel []
                                          Ete
                                             (ete,
-                                             { Kapo = verbo delevio [ Pridiranto(argumento mirateva []) ]
+                                             { Kapo = verbo delegio [ Pridiranto(argumento mirateva []) ]
                                                Argumentoj = [ argumento rone [] ] }) ] }) ] }) ]
              Argumentoj = [ argumento hime []; argumento rone [] ] } ]

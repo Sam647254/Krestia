@@ -25,6 +25,8 @@ module Malinflektado =
       { BazaVorto: string
         InflekcioŜtupoj: MalinflektaŜtupo list
         OriginalaVorto: EniraVorto }
+      
+      override this.ToString() = this.OriginalaVorto.Vorto
 
    let nombrigeblaKlasoInflekcioj =
       [ DUPFinaĵo("nsa", Havaĵo, UnuHavaĵo, PluraHavaĵo)
@@ -150,7 +152,7 @@ module Malinflektado =
 
    let oblikaNetransitivaVerboInflekcioj =
       [ BazaFinaĵo("ia", Hipoteza)
-        BazaFinaĵo("e", Perfekto)
+        BazaFinaĵo("io", Perfekto)
         BazaFinaĵo("ela", Intenco)
         BazaFinaĵo("ra", Optativo)
         BazaFinaĵo("ea", Ĝerundo)

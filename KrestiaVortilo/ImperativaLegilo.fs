@@ -94,25 +94,26 @@ module Imperativa =
                      || konteksto.Argumentoj.Count < konteksto.AtendantajPredikatoj.First.Value.Valenco then
                      legiAk ()
                   else
-                     let predikato = { Kapo = konteksto.AtendantajPredikatoj.First.Value.Verbo
-                                       Argumentoj = List.ofSeq konteksto.Argumentoj }
-                     
+                     let predikato =
+                        { Kapo = konteksto.AtendantajPredikatoj.First.Value.Verbo
+                          Argumentoj = List.ofSeq konteksto.Argumentoj }
+
                      konteksto.AtendantajPridirantoj
                      |> Seq.map bazaKonteksto.AtendantajPridirantoj.AddLast
                      |> ignore
-                     
+
                      konteksto.LastaModifeblaVorto
                      |> Seq.map bazaKonteksto.LastaModifeblaVorto.AddLast
                      |> ignore
-                     
+
                      konteksto.LastaModifeblaVerbo
                      |> Seq.map bazaKonteksto.LastaModifeblaVerbo.AddLast
                      |> ignore
-                     
+
                      konteksto.LastaModifeblaArgumento
                      |> Seq.map bazaKonteksto.LastaModifeblaArgumento.AddLast
                      |> ignore
-                     
+
                      Ok predikato)
 
          legiAk ()
@@ -184,16 +185,23 @@ module Imperativa =
 
       member private this.LegiPlenanArgumenton sekva konteksto =
          let novaArgumento =
-            this.LegiModifantojnPor sekva konteksto
-            |> Result.map (fun pliajModifantoj ->
-                  let argumento =
-                     plenaModifitaArgumento sekva (Seq.append pliajModifantoj konteksto.AtendantajPridirantoj)
+            if sekva.BazaVorto = "mite" then
+               this.LegiLokalanFrazon konteksto
+               |> Result.map (fun frazo -> Mite(sekva, frazo))
+            elif sekva.BazaVorto = "ete" then
+               this.LegiLokalanFrazon konteksto
+               |> Result.map (fun frazo -> Ete(sekva, frazo))
+            else
+               this.LegiModifantojnPor sekva konteksto
+               |> Result.map (fun pliajModifantoj ->
+                     let argumento =
+                        plenaModifitaArgumento sekva (Seq.append pliajModifantoj konteksto.AtendantajPridirantoj)
 
-                  konteksto.LastaModifeblaVorto.AddLast(ModifeblaArgumento argumento)
-                  |> ignore
-                  argumento)
+                     konteksto.AtendantajPridirantoj.Clear()
+                     konteksto.LastaModifeblaVorto.AddLast(ModifeblaArgumento argumento)
+                     |> ignore
+                     argumento)
 
-         konteksto.AtendantajPridirantoj.Clear()
          novaArgumento
 
       member private this.LegiNombron ĉuKomenca =
@@ -296,20 +304,25 @@ module Imperativa =
          let sekva = enira.Dequeue()
          match sekva.BazaVorto with
          | "nomil" ->
-            this.LegiLokalanFrazon konteksto
-            |> Result.bind (fun frazo ->
-                  let nomil = Nomil(frazo)
-                  (if konteksto.LastaModifeblaVerbo.Count = 0 then
-                     Error(Eraro(sekva.OriginalaVorto, "No verb to modify"))
-                   else
-                      let lastaVerbo = konteksto.LastaModifeblaVerbo.Last.Value
-                      konteksto.LastaModifeblaVerbo.RemoveLast()
-                      Ok(lastaVerbo))
-                  |> Result.map (fun lastaVerbo -> lastaVerbo.Vorto.Modifantoj.Add(nomil) |> ignore))
+            (if konteksto.LastaModifeblaVerbo.Count = 0 then
+               Error(Eraro(sekva.OriginalaVorto, "No verb to modify"))
+             else
+                let lastaVerbo = konteksto.LastaModifeblaVerbo.Last.Value
+                konteksto.LastaModifeblaVerbo.RemoveLast()
+                Ok(lastaVerbo))
+            |> Result.bind (fun lastaVerbo ->
+                  this.LegiLokalanFrazon konteksto
+                  |> Result.map (fun frazo ->
+                        let nomil = Nomil(frazo)
+                        lastaVerbo.Vorto.Modifantoj.Add(nomil) |> ignore))
          | "nivoral" ->
-            konteksto.LastaModifeblaVerbo.Last.Value.Vorto.Modifantoj.Add(Nivoral) |> ignore |> Ok
+            konteksto.LastaModifeblaVerbo.Last.Value.Vorto.Modifantoj.Add(Nivoral)
+            |> ignore
+            |> Ok
          | "sivil" ->
-            konteksto.LastaModifeblaVerbo.Last.Value.Vorto.Modifantoj.Add(Sivil) |> ignore |> Ok
+            konteksto.LastaModifeblaVerbo.Last.Value.Vorto.Modifantoj.Add(Sivil)
+            |> ignore
+            |> Ok
          | _ -> failwith "Unexpected input"
 
    let legiImperative (eniro: string) =

@@ -22,14 +22,30 @@ module Sintaksanalizilo2 =
          | _ -> false
 
       override this.GetHashCode() = hash this.Kapo
+      
+      override this.ToString() =
+         sprintf
+            "%O<%O>"
+            this.Kapo
+            (List.ofSeq this.Modifantoj)
 
    and Argumento =
       | ArgumentaVorto of ModifeblaVorto
       | Mite of MalinflektitaVorto * Predikato
       | Ete of MalinflektitaVorto * Predikato
       | Nombro of decimal
+      
+      override this.ToString() =
+         match this with
+         | ArgumentaVorto av -> av.ToString()
+         | Mite(m, p) -> sprintf "%O[%s]" m (p.ToString())
+         | Ete(e, p) -> sprintf "%O[%s]" e (p.ToString())
+         | Nombro n -> n.ToString()
 
-   and Verbo = { Vorto: ModifeblaVorto }
+   and Verbo =
+      { Vorto: ModifeblaVorto }
+      
+      override this.ToString() = this.Vorto.ToString()
 
    and Modifanto =
       | Pridiranto of Argumento
@@ -41,6 +57,18 @@ module Sintaksanalizilo2 =
       | Nomil of Predikato
       | Nivoral
       | Sivil
+      
+      override this.ToString() =
+         match this with
+         | Pridiranto a -> sprintf "Pridiranto(%s)" (a.ToString())
+         | EcoDe a -> sprintf "EcoDe(%s)" (a.ToString())
+         | Mel a -> sprintf "Mel(%s)" (a.ToString())
+         | Sonol a -> sprintf "Sonol(%s)" (a.ToString())
+         | Nival -> "Nival"
+         | Nevil -> "Nevil"
+         | Nomil p -> sprintf "Nomil(%s)" (p.ToString())
+         | Nivoral -> "Nivoral"
+         | Sivil -> "Sivil"
 
 
    and Parvorto =
@@ -51,6 +79,12 @@ module Sintaksanalizilo2 =
    and Predikato =
       { Kapo: Verbo
         Argumentoj: Argumento list }
+      
+      override this.ToString() =
+         sprintf
+            "%O(%O)"
+            this.Kapo
+            this.Argumentoj
 
    type AtendantaPlurvorto =
       | AtendantaParvorto of argumento: Argumento * parvorto: Parvorto
@@ -114,7 +148,9 @@ module Sintaksanalizilo2 =
                | NetransitivaVerbo
                | OblikaNetransitivaVerbo
                | NedirektaNetransitivaVerbo -> ak + 1
-               | TransitivaVerbo -> ak + 2
+               | TransitivaVerbo
+               | OblikaTransitivaVerbo
+               | NedirektaTransitivaVerbo -> ak + 2
                | DutransitivaVerbo -> ak + 3
                | NombrigeblaKlaso
                | NenombrigeblaKlaso
