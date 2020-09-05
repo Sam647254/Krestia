@@ -186,10 +186,10 @@ module Malinflektado =
    let private inflekciojPerVorttipoj =
       [ NombrigeblaKlaso, nombrigeblaKlasoInflekcioj
         NenombrigeblaKlaso, nenombrigeblaKlasoInflekcioj
-        AntaŭNombrigeblaEco, nombrigeblaKlasoInflekcioj
-        AntaŭNenombrigeblaEco, nenombrigeblaKlasoInflekcioj
-        MalantaŭNombrigeblaEco, nombrigeblaKlasoInflekcioj
-        MalantaŭNenombrigeblaEco, nenombrigeblaKlasoInflekcioj
+        AntaŭNombrigeblaEco, nombrigeblaKlasoInflekcioj @ [ DifinitoFinaĵo("la", Apartigita) ]
+        AntaŭNenombrigeblaEco, nenombrigeblaKlasoInflekcioj @ [ DifinitoFinaĵo("la", Apartigita) ]
+        MalantaŭNombrigeblaEco, nombrigeblaKlasoInflekcioj @ [ DifinitoFinaĵo("la", Apartigita) ]
+        MalantaŭNenombrigeblaEco, nenombrigeblaKlasoInflekcioj @ [ DifinitoFinaĵo("la", Apartigita) ]
         MalplenaVerbo, malplenaVerboInflekcioj
         NetransitivaVerbo, netransitivaVerboInflekcioj
         TransitivaVerbo, transitivaVerboInflekcioj

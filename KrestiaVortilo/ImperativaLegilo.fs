@@ -166,6 +166,8 @@ module Imperativa =
                   let argumento = Nombro nombro
                   konteksto.LastaModifeblaVorto.AddLast(ModifeblaArgumento argumento)
                   |> ignore
+                  konteksto.LastaModifeblaArgumento.AddLast argumento
+                  |> ignore
                   argumento)
          elif ĉuDifinita sekva || ĉuLokokupilo sekva.BazaVorto then
             this.LegiPlenanArgumenton (enira.Dequeue()) konteksto
@@ -181,16 +183,16 @@ module Imperativa =
                   this.AldoniPridiranton pridiranto (konteksto.LastaModifeblaVorto.Last.Value)
                   this.LegiArgumenton konteksto)
          else
-            failwith "Unexpected input"
+            Error(Eraro(sekva.OriginalaVorto, "Unexpected input"))
 
       member private this.LegiPlenanArgumenton sekva konteksto =
          let novaArgumento =
-            if sekva.BazaVorto = "mite" then
+            if sekva.BazaVorto = "mine" then
                this.LegiLokalanFrazon konteksto
-               |> Result.map (fun frazo -> Mite(sekva, frazo))
-            elif sekva.BazaVorto = "ete" then
+               |> Result.map (fun frazo -> Mine(sekva, frazo))
+            elif sekva.BazaVorto = "ene" then
                this.LegiLokalanFrazon konteksto
-               |> Result.map (fun frazo -> Ete(sekva, frazo))
+               |> Result.map (fun frazo -> Ene(sekva, frazo))
             else
                this.LegiModifantojnPor sekva konteksto
                |> Result.map (fun pliajModifantoj ->
@@ -199,6 +201,8 @@ module Imperativa =
 
                      konteksto.AtendantajPridirantoj.Clear()
                      konteksto.LastaModifeblaVorto.AddLast(ModifeblaArgumento argumento)
+                     |> ignore
+                     konteksto.LastaModifeblaArgumento.AddLast argumento
                      |> ignore
                      argumento)
 
@@ -231,11 +235,14 @@ module Imperativa =
       member private this.AldoniPridiranton (pridiranto: Modifanto) vorto =
          match vorto with
          | ModifeblaVerbo (verbo) -> verbo.Vorto.Modifantoj.Add(pridiranto) |> ignore
-         | ModifeblaArgumento (argumento) ->
-            match argumento with
-            | ArgumentaVorto (vorto) -> vorto.Modifantoj.Add(pridiranto)
-            | _ -> failwith "???"
-            |> ignore
+         | ModifeblaArgumento (argumento) -> this.AldoniModifantonAlArgumento pridiranto argumento
+
+
+      member private this.AldoniModifantonAlArgumento pridiranto vorto =
+         match vorto with
+         | ArgumentaVorto vorto -> vorto.Modifantoj.Add(pridiranto)
+         | _ -> failwith "???"
+         |> ignore
 
       member private this.LegiPredikaton konteksto =
          let sekva = enira.Dequeue()
@@ -303,7 +310,8 @@ module Imperativa =
       member private this.LegiMalantaŭModifanton konteksto =
          let sekva = enira.Dequeue()
          match sekva.BazaVorto with
-         | "nomil" ->
+         | _ when modifantojDePredikatoKunFrazo.ContainsKey(sekva.BazaVorto) ->
+            let modifanto = modifantojDePredikatoKunFrazo.[sekva.BazaVorto]
             (if konteksto.LastaModifeblaVerbo.Count = 0 then
                Error(Eraro(sekva.OriginalaVorto, "No verb to modify"))
              else
@@ -313,8 +321,8 @@ module Imperativa =
             |> Result.bind (fun lastaVerbo ->
                   this.LegiLokalanFrazon konteksto
                   |> Result.map (fun frazo ->
-                        let nomil = Nomil(frazo)
-                        lastaVerbo.Vorto.Modifantoj.Add(nomil) |> ignore))
+                        let plenaModifanto = modifanto frazo
+                        lastaVerbo.Vorto.Modifantoj.Add(plenaModifanto) |> ignore))
          | "nivoral" ->
             konteksto.LastaModifeblaVerbo.Last.Value.Vorto.Modifantoj.Add(Nivoral)
             |> ignore
@@ -323,7 +331,10 @@ module Imperativa =
             konteksto.LastaModifeblaVerbo.Last.Value.Vorto.Modifantoj.Add(Sivil)
             |> ignore
             |> Ok
-         | _ -> failwith "Unexpected input"
+         | "borol" ->
+            this.AldoniModifantonAlArgumento Borol konteksto.LastaModifeblaArgumento.Last.Value
+            |> Ok
+         | _ -> Error(Eraro(sekva.OriginalaVorto, "Unexpected input"))
 
    let legiImperative (eniro: string) =
       prepariEniron eniro false

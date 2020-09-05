@@ -31,16 +31,18 @@ module Sintaksanalizilo2 =
 
    and Argumento =
       | ArgumentaVorto of ModifeblaVorto
-      | Mite of MalinflektitaVorto * Predikato
-      | Ete of MalinflektitaVorto * Predikato
+      | Mine of MalinflektitaVorto * Predikato
+      | Ene of MalinflektitaVorto * Predikato
+      | Keni of ModifeblaVorto * Argumento * Argumento
       | Nombro of decimal
       
       override this.ToString() =
          match this with
          | ArgumentaVorto av -> av.ToString()
-         | Mite(m, p) -> sprintf "%O[%s]" m (p.ToString())
-         | Ete(e, p) -> sprintf "%O[%s]" e (p.ToString())
+         | Mine(m, p) -> sprintf "%O[%s]" m (p.ToString())
+         | Ene(e, p) -> sprintf "%O[%s]" e (p.ToString())
          | Nombro n -> n.ToString()
+         | Keni(m, a1, a2) -> sprintf "%O[%O %O]" m a1 a2
 
    and Verbo =
       { Vorto: ModifeblaVorto }
@@ -57,6 +59,8 @@ module Sintaksanalizilo2 =
       | Nomil of Predikato
       | Nivoral
       | Sivil
+      | Kerel of Predikato
+      | Borol
       
       override this.ToString() =
          match this with
@@ -113,9 +117,12 @@ module Sintaksanalizilo2 =
    let modifantoj1DeKlasoj =
       [ "mel", Mel; "sonol", Sonol ] |> Map.ofList
 
-   let modifantojDePredikataVerboj =
-      [ "nevil"; "sivil"; "nivoral"; "nomil" ]
-      |> Set.ofList
+   let modifantojDePredikatoKunFrazo =
+      [ "nomil", Nomil
+        "kerel", Kerel ]
+      |> Map.ofList
+   
+   let senmodifantaVorto vorto = { Kapo = vorto; Modifantoj = HashSet<Modifanto>() }
 
    let plenaArgumento vorto = failwith "forigi"
 

@@ -9,7 +9,7 @@ open Testiloj
 type MetilmoTestoj() =
    [<TestMethod>]
    member _.Unu() =
-      let [ hime; deletro; linetiga; rone; _; merogia; _; _; mite; hel; teretro; ete; mirateva; delegio ] =
+      let [ hime; deletro; linetiga; rone; _; merogia; _; _; mine; hel; teretro; ene; mirateva; delegio ] =
          [ "hime"
            "deletro"
            "linetiga"
@@ -18,32 +18,67 @@ type MetilmoTestoj() =
            "merogia"
            "nivoral"
            "sivil"
-           "mite"
+           "mine"
            "hel"
            "teretro"
-           "ete"
+           "ene"
            "mirateva"
            "delegio" ]
          |> List.map praveMalinflekti
 
       kontroliFrazojn "hime deletro linetiga rone
 nomil merogia nivoral sivil
-mite hel teretro ete
+mine hel teretro ene
 mirateva delegio rone"
          [ { Kapo =
                 verbo
                    deletro
                    [ Pridiranto(argumento linetiga [])
                      Nomil
-                        ({ Kapo = verbo merogia [Nivoral; Sivil]
+                        ({ Kapo = verbo merogia [ Nivoral; Sivil ]
                            Argumentoj =
-                              [ Mite
-                                 (mite,
+                              [ Mine
+                                 (mine,
                                   { Kapo = verbo teretro []
                                     Argumentoj =
                                        [ argumento hel []
-                                         Ete
-                                            (ete,
+                                         Ene
+                                            (ene,
                                              { Kapo = verbo delegio [ Pridiranto(argumento mirateva []) ]
                                                Argumentoj = [ argumento rone [] ] }) ] }) ] }) ]
              Argumentoj = [ argumento hime []; argumento rone [] ] } ]
+
+   [<TestMethod>]
+   member _.Du() =
+      let [ hime; rilitro; keni; prenta; meritetiega; mine; gremegrelave; relos; segrerem; melismea ] =
+         [ "hime"
+           "rilitro"
+           "keni"
+           "prenta"
+           "meritetiega"
+           "mine"
+           "gremegrelave"
+           "relos"
+           "segrerem"
+           "melismea" ]
+         |> List.map praveMalinflekti
+
+      kontroliFrazojn "hime rilitro keni
+prenta meritetiega
+mine gremegrelave borol relos
+kerel segrerem melismea"
+         [ { Kapo = verbo rilitro []
+             Argumentoj =
+                [ argumento hime []
+                  Keni
+                     (senmodifantaVorto keni,
+                      argumento prenta [ Pridiranto(argumento meritetiega []) ],
+                      Mine
+                         (mine,
+                          { Kapo =
+                               verbo
+                                  relos
+                                  [ Kerel
+                                     ({ Kapo = verbo segrerem [ EcoDe(argumento melismea []) ]
+                                        Argumentoj = [] }) ]
+                            Argumentoj = [ argumento gremegrelave [] ] })) ] } ]

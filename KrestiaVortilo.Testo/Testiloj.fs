@@ -11,7 +11,7 @@ open KrestiaVortilo.Sintaksanalizilo2
 open KrestiaVortilo.Malinflektado
 
 module Testiloj =
-   let malsukcesi (_, eraro) = Assert.Fail eraro
+   let malsukcesi (vorto, eraro) = Assert.Fail (sprintf "%s (%s)" eraro vorto.Vorto)
 
    [<Obsolete>]
    let plenaModifanto modifanto = failwith "clean up"

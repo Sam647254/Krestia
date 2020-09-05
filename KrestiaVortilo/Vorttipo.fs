@@ -56,6 +56,7 @@ module Vorttipo =
    | Optativo
    | Kvalito
    | Hipoteza
+   | Apartigita
 
    type Vorttipo =
    | NombrigeblaKlaso

@@ -68,7 +68,12 @@ module Sintaksanalizilo =
         "tetie"
         "petie"
         "setie"
-        "shetie" ] @ (verboFinaĵoj
+        "shetie"
+        // Apartigita
+        "grela"
+        "grila"
+        "drela"
+        "drila" ] @ (verboFinaĵoj
                    |> Map.values
                    |> Seq.map (fun sufikso ->
                          [ sufikso + "le"
