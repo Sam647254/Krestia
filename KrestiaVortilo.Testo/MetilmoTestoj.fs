@@ -50,14 +50,14 @@ mirateva delegio rone"
 
    [<TestMethod>]
    member _.Du() =
-      let [ hime; rilitro; keni; prenta; meritetiega; mine; gremegrelave; relos; segrerem; melismea ] =
+      let [ hime; rilitro; keni; prenta; meritetiega; mine; gremegrela; relos; segrerem; melismea ] =
          [ "hime"
            "rilitro"
            "keni"
            "prenta"
            "meritetiega"
            "mine"
-           "gremegrelave"
+           "gremegrela"
            "relos"
            "segrerem"
            "melismea" ]
@@ -65,7 +65,7 @@ mirateva delegio rone"
 
       kontroliFrazojn "hime rilitro keni
 prenta meritetiega
-mine gremegrelave borol relos
+mine gremegrela borol relos
 kerel segrerem melismea"
          [ { Kapo = verbo rilitro []
              Argumentoj =
@@ -81,4 +81,4 @@ kerel segrerem melismea"
                                   [ Kerel
                                      ({ Kapo = verbo segrerem [ EcoDe(argumento melismea []) ]
                                         Argumentoj = [] }) ]
-                            Argumentoj = [ argumento gremegrelave [ Borol ] ] })) ] } ]
+                            Argumentoj = [ argumento gremegrela [ Borol ] ] })) ] } ]

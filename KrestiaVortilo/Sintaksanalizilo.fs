@@ -73,16 +73,17 @@ module Sintaksanalizilo =
    let nombrigeblaPluraNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ve")
 
    let nenombrigeblaInfinitivoFinaĵoj =
-      [ "mu"; "mo"; "maa"; "nu"; "no"; "naa" ]
+      let klasajFinaĵoj = [ "mu"; "mo"; "maa"; "nu"; "no"; "naa" ]
+      klasajFinaĵoj
+      @ ((nombrigeblaDifinitoFinaĵoj @ klasajFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ro")))
    
    let nebazajNenombrigeblaInfinitivoFinaĵoj =
       [ "mu"; "mo"; "maa"; "nu"; "no"; "naa" ]
       |> List.map (fun finaĵo -> finaĵo + "ro")
    
    let nenombrigeblaDifinitoFinaĵoj =
-      let klasajFinaĵoj = [ "mi"; "me"; "ma"; "ni"; "ne"; "na" ]
-      klasajFinaĵoj
-      @ ((nombrigeblaDifinitoFinaĵoj @ klasajFinaĵoj |> List.map (fun finaĵo -> finaĵo + "re")))
+      [ "mi"; "me"; "ma"; "ni"; "ne"; "na" ]
+      @ ((nombrigeblaDifinitoFinaĵoj @ [ "mu"; "mo"; "maa"; "nu"; "no"; "naa" ] |> List.map (fun finaĵo -> finaĵo + "re")))
 
    let finajLiteroj finaĵoj tipo inflekcio =
       finaĵoj
