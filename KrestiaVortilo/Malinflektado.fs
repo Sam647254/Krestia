@@ -186,10 +186,10 @@ module Malinflektado =
    let private inflekciojPerVorttipoj =
       [ NombrigeblaKlaso, nombrigeblaKlasoInflekcioj
         NenombrigeblaKlaso, nenombrigeblaKlasoInflekcioj
-        AntaŭNombrigeblaEco, nombrigeblaKlasoInflekcioj @ [ DifinitoFinaĵo("la", Apartigita) ]
-        AntaŭNenombrigeblaEco, nenombrigeblaKlasoInflekcioj @ [ DifinitoFinaĵo("la", Apartigita) ]
-        MalantaŭNombrigeblaEco, nombrigeblaKlasoInflekcioj @ [ DifinitoFinaĵo("la", Apartigita) ]
-        MalantaŭNenombrigeblaEco, nenombrigeblaKlasoInflekcioj @ [ DifinitoFinaĵo("la", Apartigita) ]
+        AntaŭNombrigeblaEco, DifinitoFinaĵo("la", Apartigita) :: nombrigeblaKlasoInflekcioj
+        AntaŭNenombrigeblaEco, DifinitoFinaĵo("la", Apartigita) :: nenombrigeblaKlasoInflekcioj
+        MalantaŭNombrigeblaEco, DifinitoFinaĵo("la", Apartigita) :: nombrigeblaKlasoInflekcioj
+        MalantaŭNenombrigeblaEco, DifinitoFinaĵo("la", Apartigita) :: nenombrigeblaKlasoInflekcioj
         MalplenaVerbo, malplenaVerboInflekcioj
         NetransitivaVerbo, netransitivaVerboInflekcioj
         TransitivaVerbo, transitivaVerboInflekcioj
@@ -212,7 +212,20 @@ module Malinflektado =
       nombrigeblaDifinitoFinaĵoj
       |> List.map (fun finaĵo -> (finaĵo, NombrigeblaKlaso))
       |> List.append [ "dre", AntaŭNombrigeblaEco
-                       "dri", MalantaŭNombrigeblaEco ]
+                       "dri", MalantaŭNombrigeblaEco
+                       // Patiento
+                       "tonia", TransitivaVerbo
+                       "ponia", DutransitivaVerbo
+                       // Aganto
+                       "tetie", TransitivaVerbo
+                       "petie", DutransitivaVerbo
+                       "setie", NetransitivaVerbo
+                       "shetie", NedirektaTransitivaVerbo
+                       // Apartigita
+                       "grela", AntaŭNenombrigeblaEco
+                       "grila", MalantaŭNenombrigeblaEco
+                       "drela", AntaŭNombrigeblaEco
+                       "drila", MalantaŭNombrigeblaEco ]
 
    let difinitoFinaĵoj =
       nombrigeblaDifinitoFinaĵoj
@@ -282,7 +295,7 @@ module Malinflektado =
       predikativoEstiFinaĵoj
       |> List.tryPick (fun (finaĵo, vorttipo) -> if vorto.EndsWith(finaĵo) then Some vorttipo else None)
 
-   let malinflektiSeDifinito (vorto: string) inflekcio akceptiNenombrigeblan ĉuBazo =
+   let malinflektiSeDifinito (vorto: string) inflekcio akceptiNenombrigeblan ĉuBazo vorttipo =
       let bazoŜtupo =
          ĉuDifinito vorto akceptiNenombrigeblan
          |> Option.map (fun vorttipo -> (if ĉuBazo then Bazo else Nebazo) (vorttipo, inflekcio, vorto))
@@ -298,7 +311,7 @@ module Malinflektado =
       else
          bazoŜtupo
 
-   let malinflektiSePredikativoInfinito vorto inflekcio =
+   let malinflektiSePredikativoInfinito vorto inflekcio vorttipo =
       ĉuPredikativoEsti vorto
       |> Option.map (fun vorttipo -> Nebazo(vorttipo, inflekcio, infinitivoAlDifinito vorto))
 
@@ -335,7 +348,7 @@ module Malinflektado =
                      let radiko =
                         ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)
 
-                     malinflektiSePredikativoInfinito radiko inflekcio
+                     malinflektiSePredikativoInfinito radiko inflekcio vorttipo
                   else
                      None
                | DifinitoFinaĵo (finaĵo, inflekcio) ->
@@ -343,7 +356,7 @@ module Malinflektado =
                      let difinito =
                         ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)
 
-                     malinflektiSeDifinito difinito inflekcio AkceptiNenombrigeblan (finaĵo.Length = 0)
+                     malinflektiSeDifinito difinito inflekcio AkceptiNenombrigeblan (finaĵo.Length = 0) vorttipo
                   else
                      None
                | DUPFinaĵo (finaĵo, difinito, unuNombro, pluraNombro) ->
@@ -356,14 +369,14 @@ module Malinflektado =
                         let difinito =
                            ĉeno.Substring(0, restantaj.Length - unuNombroFinaĵo.Length)
 
-                        malinflektiSeDifinito difinito unuNombro NeAkceptiNenombrigeblan ĉuBazo
+                        malinflektiSeDifinito difinito unuNombro NeAkceptiNenombrigeblan ĉuBazo vorttipo
                      elif restantaj.EndsWith(pluraNombroFinaĵo) then
                         let difinito =
                            ĉeno.Substring(0, restantaj.Length - pluraNombroFinaĵo.Length)
 
-                        malinflektiSeDifinito difinito pluraNombro NeAkceptiNenombrigeblan ĉuBazo
+                        malinflektiSeDifinito difinito pluraNombro NeAkceptiNenombrigeblan ĉuBazo vorttipo
                      else
-                        malinflektiSeDifinito restantaj difinito AkceptiNenombrigeblan ĉuBazo
+                        malinflektiSeDifinito restantaj difinito AkceptiNenombrigeblan ĉuBazo vorttipo
                   else
                      None)
          |> Option.orElseWith (fun () ->

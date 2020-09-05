@@ -99,6 +99,11 @@ type EcoTestoj() =
 
       kontroliInflekcion AntaŭNenombrigeblaEco Fokuso "amegrele"
       kontroliInflekcion MalantaŭNenombrigeblaEco Fokuso "amegrile"
+      
+   [<TestMethod>]
+   member this.Apartigita() =
+      this.TestiFinaĵon "la" Apartigita
+      this.TestiFinaĵon2 "la" Apartigita
 
    [<TestMethod>]
    member this.AtributivoEstiMalantaŭ() =

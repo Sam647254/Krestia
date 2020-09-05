@@ -60,20 +60,7 @@ module Sintaksanalizilo =
         "ta"
         "ki"
         "ke"
-        "ka"
-        // Patiento
-        "tonia"
-        "ponia"
-        // Aganto
-        "tetie"
-        "petie"
-        "setie"
-        "shetie"
-        // Apartigita
-        "grela"
-        "grila"
-        "drela"
-        "drila" ] @ (verboFinaĵoj
+        "ka" ] @ (verboFinaĵoj
                    |> Map.values
                    |> Seq.map (fun sufikso ->
                          [ sufikso + "le"
