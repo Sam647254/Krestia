@@ -155,7 +155,7 @@ module Imperativa =
                Eraro(sekva.OriginalaVorto, sprintf "Can't parse %s" sekva.OriginalaVorto.Vorto)
                |> Error
          else
-            Ok()
+            failwith "Unexpected end of input"
 
       member private this.LegiArgumenton konteksto: Result<Argumento, Eraro> =
          let sekva = enira.Peek()
