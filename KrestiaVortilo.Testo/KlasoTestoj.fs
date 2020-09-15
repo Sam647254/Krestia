@@ -92,7 +92,7 @@ type KlasoTestoj() =
          | [ imilta; kunataga ] ->
             kontroliArgumentojn
                "imilta kunataga"
-               [ plenaModifitaArgumento imilta (List.singleton (Modifanto.Pridiranto <| argumento kunataga [])) ]
+               [ argumento imilta (List.singleton (Modifanto.Pridiranto <| argumento kunataga [])) ]
          | _ -> Assert.Fail()
 
       let _ =
@@ -103,7 +103,7 @@ type KlasoTestoj() =
          | [ kunatava; imilta ] ->
             kontroliArgumentojn
                "kunatava imilta"
-               [ plenaModifitaArgumento imilta (List.singleton (Modifanto.Pridiranto <| argumento kunatava [])) ]
+               [ argumento imilta (List.singleton (Modifanto.Pridiranto <| argumento kunatava [])) ]
          | _ -> Assert.Fail()
 
       let _ =
@@ -114,7 +114,7 @@ type KlasoTestoj() =
          | [ kunatava; imilta; rimaga ] ->
             kontroliArgumentojn
                "kunatava imilta rimaga"
-               [ plenaModifitaArgumento
+               [ argumento
                   imilta
                      [ Modifanto.Pridiranto <| argumento kunatava []
                        Modifanto.Pridiranto <| argumento rimaga [] ] ]
@@ -128,7 +128,7 @@ type KlasoTestoj() =
          | [ kunatava; rimava; imilta ] ->
             kontroliArgumentojn
                "kunatava rimava imilta"
-               [ plenaModifitaArgumento
+               [ argumento
                   imilta
                     [ Modifanto.Pridiranto <| argumento kunatava []
                       Modifanto.Pridiranto <| argumento rimava [] ] ]

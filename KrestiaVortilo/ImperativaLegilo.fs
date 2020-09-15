@@ -277,6 +277,7 @@ module Imperativa =
                |> ignore
                konteksto.LastaModifeblaVerbo.AddLast(novaVerbo)
                |> ignore
+               konteksto.LegitajModifeblajVortoj.AddLast(novaVerbo.Vorto) |> ignore
                novaVerbo)
 
       member private this.LegiPridiranton konteksto: Result<Modifanto, Eraro> =

@@ -23,13 +23,13 @@ type EcoTestoj() =
          let [ dedre; krena ] =
             [ "dedre"; "krena" ] |> List.map praveMalinflekti
 
-         kontroliArgumentojn "dedre krena" [ plenaModifitaArgumento dedre (List.singleton (EcoDe(argumento krena []))) ]
+         kontroliArgumentojn "dedre krena" [ argumento dedre (List.singleton (EcoDe(argumento krena []))) ]
 
       let _ =
          let [ krena; dedri ] =
             [ "krena"; "dedri" ] |> List.map praveMalinflekti
 
-         kontroliArgumentojn "krena dedri" [ plenaModifitaArgumento dedri (List.singleton (EcoDe(argumento krena []))) ]
+         kontroliArgumentojn "krena dedri" [ argumento dedri (List.singleton (EcoDe(argumento krena []))) ]
 
       ()
 
