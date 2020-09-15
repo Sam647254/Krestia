@@ -611,6 +611,7 @@ module Malinflektado =
       | Bazo (vorttipo, inflekcio, _) ->
          (Set.contains inflekcio argumentajInflekcioj)
          || vorttipo = Lokokupilo
+         || vorttipo = FremdaVorto
       | Nebazo (_, inflekcio, _) -> Set.contains inflekcio argumentajInflekcioj
 
    let ĉuDifinita (vorto: MalinflektitaVorto) =

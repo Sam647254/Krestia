@@ -169,7 +169,7 @@ module Imperativa =
                   konteksto.LastaModifeblaArgumento.AddLast argumento
                   |> ignore
                   argumento)
-         elif ĉuDifinita sekva || ĉuLokokupilo sekva.BazaVorto then
+         elif ĉuDifinita sekva then
             this.LegiPlenanArgumenton (enira.Dequeue()) konteksto
          elif ĉuAntaŭModifantaVorto sekva then
             this.LegiPridiranton konteksto
@@ -212,6 +212,27 @@ module Imperativa =
                         |> ignore
                         
                         Keni(sekva, argumento1, argumento2))))
+            elif sekva.BazaVorto = "pini" then
+               this.LegiModifantojnPor sekva konteksto
+               |> Result.bind (fun modifantoj ->
+                  this.LegiArgumenton konteksto
+                  |> Result.bind (fun argumento1 ->
+                     this.LegiArgumenton konteksto
+                     |> Result.bind (fun argumento2 ->
+                        this.LegiArgumenton konteksto
+                        |> Result.map (fun argumento3 ->
+                           [ argumento1; argumento2; argumento3 ]
+                           |> List.map (fun a ->
+                              konteksto.AtendantajPridirantoj
+                              |> Seq.map (fun p -> this.AldoniModifantonAlArgumento p a)
+                              |> ignore
+                              
+                              modifantoj
+                              |> List.map (fun m -> this.AldoniModifantonAlArgumento m a)
+                              |> ignore)
+                           |> ignore
+                        
+                           Pini(sekva, argumento1, argumento2, argumento3)))))
             else
                this.LegiModifantojnPor sekva konteksto
                |> Result.map (fun pliajModifantoj ->
@@ -360,13 +381,15 @@ module Imperativa =
             | ModifeblaVerbo _ -> konteksto.LastaModifeblaVerbo.RemoveLast()
             konteksto.LastaModifeblaVorto.RemoveLast()
             |> Ok
-         | "nel" ->
+         | _ when modifantojDeVortoKunArgumento.ContainsKey(sekva.BazaVorto) ->
+            let modifanto = modifantojDeVortoKunArgumento.[sekva.BazaVorto]
             let lastaVorto = konteksto.LastaModifeblaVorto.Last.Value
             this.LegiArgumenton konteksto
             |> Result.map (fun argumento ->
+               let novaModifanto = modifanto argumento
                match lastaVorto with
-               | ModifeblaArgumento a -> this.AldoniModifantonAlArgumento (Nel(argumento)) a
-               | ModifeblaVerbo v -> v.Vorto.Modifantoj.Add(Nel(argumento)) |> ignore)
+               | ModifeblaArgumento a -> this.AldoniModifantonAlArgumento novaModifanto a
+               | ModifeblaVerbo v -> v.Vorto.Modifantoj.Add(novaModifanto) |> ignore)
          | _ -> Error(Eraro(sekva.OriginalaVorto, "Unexpected input"))
 
    let legiImperative (eniro: string) =

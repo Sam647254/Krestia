@@ -118,12 +118,12 @@ module Sintaksanalizilo2 =
         "kerel", Kerel ]
       |> Map.ofList
       
-   let modifantojDePredikatoKunArgumento =
+   let modifantojDeVortoKunArgumento =
       [ "sonol", Sonol
         "mel", Mel
         "nel", Nel
-        "ponel", Ponel
-        "vol", Vol ]
+        "vol", Vol
+        "ponel", Ponel ]
       |> Map.ofList
    
    let senmodifantaVorto vorto = { Kapo = vorto; Modifantoj = HashSet<Modifanto>() }
