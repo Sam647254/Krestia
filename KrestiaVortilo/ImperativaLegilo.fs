@@ -353,6 +353,20 @@ module Imperativa =
          | "borol" ->
             this.AldoniModifantonAlArgumento Borol konteksto.LastaModifeblaArgumento.Last.Value
             |> Ok
+         | "nil" ->
+            let lastaVorto = konteksto.LastaModifeblaVorto.Last.Value
+            match lastaVorto with
+            | ModifeblaArgumento _ -> konteksto.LastaModifeblaArgumento.RemoveLast()
+            | ModifeblaVerbo _ -> konteksto.LastaModifeblaVerbo.RemoveLast()
+            konteksto.LastaModifeblaVorto.RemoveLast()
+            |> Ok
+         | "nel" ->
+            let lastaVorto = konteksto.LastaModifeblaVorto.Last.Value
+            this.LegiArgumenton konteksto
+            |> Result.map (fun argumento ->
+               match lastaVorto with
+               | ModifeblaArgumento a -> this.AldoniModifantonAlArgumento (Nel(argumento)) a
+               | ModifeblaVerbo v -> v.Vorto.Modifantoj.Add(Nel(argumento)) |> ignore)
          | _ -> Error(Eraro(sekva.OriginalaVorto, "Unexpected input"))
 
    let legiImperative (eniro: string) =

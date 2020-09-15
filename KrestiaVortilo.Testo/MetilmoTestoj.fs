@@ -85,7 +85,7 @@ kerel segrerem melismea"
 
    [<TestMethod>]
    member _.Tri() =
-      let [ hime; glatela; mevekinsa; liseregela; gremensa; kriteva; ponakava; kumiteva; eleteva; grema ] =
+      let [ hime; glatela; mevekinsa; liseregela; gremensa; kriteva; ponakava; lumiteva; eleteva; grema ] =
          [ "hime"
            "glatela"
            "mevekinsa"
@@ -93,7 +93,7 @@ kerel segrerem melismea"
            "gremensa"
            "kriteva"
            "ponakava"
-           "kumiteva"
+           "lumiteva"
            "elateva"
            "grema" ]
          |> List.map praveMalinflekti
@@ -114,7 +114,7 @@ lumiteva elateva grema"
                                      grema
                                       [ pridiranto kriteva
                                         pridiranto ponakava
-                                        pridiranto kumiteva
+                                        pridiranto lumiteva
                                         pridiranto eleteva ]) ]
                          Argumentoj = [ argumento gremensa [] ] }) ]
              Argumentoj =

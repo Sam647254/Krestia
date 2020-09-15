@@ -68,6 +68,7 @@ module Sintaksanalizilo2 =
          | Pridiranto a -> sprintf "Pridiranto(%s)" (a.ToString())
          | EcoDe a -> sprintf "EcoDe(%s)" (a.ToString())
          | Mel a -> sprintf "Mel(%s)" (a.ToString())
+         | Nel a -> sprintf "Nel(%O)" a
          | Sonol a -> sprintf "Sonol(%s)" (a.ToString())
          | Nival -> "Nival"
          | Nevil -> "Nevil"
@@ -76,7 +77,6 @@ module Sintaksanalizilo2 =
          | Sivil -> "Sivil"
          | Borol -> "Borol"
          | Kerel p -> sprintf "Kerel(%O)" p
-
 
    and Parvorto =
       | Vol

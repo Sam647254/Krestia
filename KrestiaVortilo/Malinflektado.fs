@@ -27,28 +27,14 @@ module Malinflektado =
       
       override this.ToString() = this.OriginalaVorto.Vorto
 
-   let nombrigeblaKlasoInflekcioj =
+   let klasajInflekcioj =
       [ DifinitoFinaĵo("nsa", Havaĵo)
         DifinitoFinaĵo("le", Fokuso)
         DifinitoFinaĵo("ga", AtributivoEstiMalantaŭ)
         DifinitoFinaĵo("va", AtributivoEstiAntaŭ)
         DifinitoFinaĵo("ra", Sola)
         DifinitoFinaĵo("res", Havado)
-        DifinitoFinaĵo("rim", Ekzistado)
-        DifinitoFinaĵo("lam", Translativo)
-        PredikativoEstiFinaĵo("las", Translativo)
-        PredikativoEstiFinaĵo("vra", Ĝerundo)
-        DifinitoFinaĵo("vra", SpecifaĜerundo)
-        PredikativoEstiFinaĵo("re", Kvalito) ]
-
-   let nenombrigeblaKlasoInflekcioj =
-      [ DifinitoFinaĵo("nsa", Havaĵo)
-        DifinitoFinaĵo("le", Fokuso)
-        BazaFinaĵo("ga", AtributivoEstiMalantaŭ)
-        BazaFinaĵo("va", AtributivoEstiAntaŭ)
-        DifinitoFinaĵo("ra", Sola)
         DifinitoFinaĵo("rem", Havado)
-        DifinitoFinaĵo("reg", Havado)
         DifinitoFinaĵo("rim", Ekzistado)
         DifinitoFinaĵo("lam", Translativo)
         PredikativoEstiFinaĵo("las", Translativo)
@@ -178,12 +164,12 @@ module Malinflektado =
         BazaFinaĵo("om", PartaUjo3) ]
 
    let private inflekciojPerVorttipoj =
-      [ NombrigeblaKlaso, nombrigeblaKlasoInflekcioj
-        NenombrigeblaKlaso, nenombrigeblaKlasoInflekcioj
-        AntaŭNombrigeblaEco, DifinitoFinaĵo("la", Apartigita) :: nombrigeblaKlasoInflekcioj
-        AntaŭNenombrigeblaEco, DifinitoFinaĵo("la", Apartigita) :: nenombrigeblaKlasoInflekcioj
-        MalantaŭNombrigeblaEco, DifinitoFinaĵo("la", Apartigita) :: nombrigeblaKlasoInflekcioj
-        MalantaŭNenombrigeblaEco, DifinitoFinaĵo("la", Apartigita) :: nenombrigeblaKlasoInflekcioj
+      [ NombrigeblaKlaso, klasajInflekcioj
+        NenombrigeblaKlaso, klasajInflekcioj
+        AntaŭNombrigeblaEco, DifinitoFinaĵo("la", Apartigita) :: klasajInflekcioj
+        AntaŭNenombrigeblaEco, DifinitoFinaĵo("la", Apartigita) :: klasajInflekcioj
+        MalantaŭNombrigeblaEco, DifinitoFinaĵo("la", Apartigita) :: klasajInflekcioj
+        MalantaŭNenombrigeblaEco, DifinitoFinaĵo("la", Apartigita) :: klasajInflekcioj
         MalplenaVerbo, malplenaVerboInflekcioj
         NetransitivaVerbo, netransitivaVerboInflekcioj
         TransitivaVerbo, transitivaVerboInflekcioj
@@ -208,18 +194,18 @@ module Malinflektado =
       |> List.append [ "dre", AntaŭNombrigeblaEco
                        "dri", MalantaŭNombrigeblaEco
                        // Patiento
-                       "tonia", TransitivaVerbo
-                       "ponia", DutransitivaVerbo
+                       "tonia", NombrigeblaKlaso
+                       "ponia", NombrigeblaKlaso
                        // Aganto
-                       "tetie", TransitivaVerbo
-                       "petie", DutransitivaVerbo
-                       "setie", NetransitivaVerbo
-                       "shetie", NedirektaTransitivaVerbo
+                       "tetie", NombrigeblaKlaso
+                       "petie", NombrigeblaKlaso
+                       "setie", NombrigeblaKlaso
+                       "shetie", NombrigeblaKlaso
                        // Apartigita
-                       "grela", AntaŭNenombrigeblaEco
-                       "grila", MalantaŭNenombrigeblaEco
-                       "drela", AntaŭNombrigeblaEco
-                       "drila", MalantaŭNombrigeblaEco ]
+                       "grela", NombrigeblaKlaso
+                       "grila", NombrigeblaKlaso
+                       "drela", NombrigeblaKlaso
+                       "drila", NombrigeblaKlaso ]
 
    let difinitoFinaĵoj =
       nombrigeblaDifinitoFinaĵoj
@@ -289,10 +275,14 @@ module Malinflektado =
       predikativoEstiFinaĵoj
       |> List.tryPick (fun (finaĵo, vorttipo) -> if vorto.EndsWith(finaĵo) then Some vorttipo else None)
 
-   let malinflektiSeDifinito (vorto: string) inflekcio akceptiNenombrigeblan ĉuBazo vorttipo =
+   let malinflektiSeDifinito (vorto: string) inflekcio akceptiNenombrigeblan ĉuBazo pravaVorttipo =
       let bazoŜtupo =
          ĉuDifinito vorto akceptiNenombrigeblan
-         |> Option.map (fun vorttipo -> (if ĉuBazo then Bazo else Nebazo) (vorttipo, inflekcio, vorto))
+         |> Option.bind (fun vorttipo ->
+            if vorttipo = pravaVorttipo then
+               (if ĉuBazo then Bazo else Nebazo) (vorttipo, inflekcio, vorto) |> Some
+            else
+               None)
 
       if Option.isNone bazoŜtupo then
          nebazajDifinitoFinaĵoj
