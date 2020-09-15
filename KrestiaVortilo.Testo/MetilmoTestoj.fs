@@ -120,3 +120,53 @@ lumiteva elateva grema"
              Argumentoj =
                 [ argumento hime []
                   argumento mevekinsa [] ] } ]
+
+   [<TestMethod>]
+   member _.Kvar() =
+      let [ hime; lipro; rone; metilmo; gelemela; ponel; pini; het; hal; lukrenega; likrenega; rinomega; seskoma ] =
+         [ "hime"
+           "lipro"
+           "rone"
+           "Metilmo"
+           "gelemela"
+           "ponel"
+           "pini"
+           "het"
+           "hal"
+           "lukrenega"
+           "likrenega"
+           "rinomega"
+           "seskoma" ]
+         |> List.map praveMalinflekti
+
+      kontroliFrazojn "hime lipro rone Metilmo
+kerel gelemela ponel pini vol het
+hal lukrenega hal likrenega
+hal rinomega sonol seskoma"
+         [ { Kapo =
+                verbo
+                   lipro
+                   [ Kerel
+                      ({ Kapo =
+                            verbo
+                               gelemela
+                               [ Ponel
+                                  (Pini
+                                     (pini,
+                                      argumento
+                                         hal
+                                         [ pridiranto lukrenega
+                                           Vol(argumento het []) ],
+                                      argumento
+                                         hal
+                                         [ pridiranto likrenega
+                                           Vol(argumento het []) ],
+                                      argumento
+                                         hal
+                                         [ Pridiranto(argumento rinomega [ Sonol(argumento seskoma []) ])
+                                           Vol(argumento het []) ])) ]
+                         Argumentoj = [] }) ]
+             Argumentoj =
+                [ argumento hime []
+                  argumento rone []
+                  argumento metilmo [] ] } ]

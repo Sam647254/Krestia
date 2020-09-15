@@ -34,6 +34,7 @@ module Sintaksanalizilo2 =
       | Mine of MalinflektitaVorto * Predikato
       | Ene of MalinflektitaVorto * Predikato
       | Keni of MalinflektitaVorto * Argumento * Argumento
+      | Pini of MalinflektitaVorto * Argumento * Argumento * Argumento
       | Nombro of decimal
       
       override this.ToString() =
@@ -42,7 +43,8 @@ module Sintaksanalizilo2 =
          | Mine(m, p) -> sprintf "%O[%s]" m (p.ToString())
          | Ene(e, p) -> sprintf "%O[%s]" e (p.ToString())
          | Nombro n -> n.ToString()
-         | Keni(m, a1, a2) -> sprintf "%O[%O %O]" m a1 a2
+         | Keni(m, a1, a2) -> sprintf "%O[%O, %O]" m a1 a2
+         | Pini(m, a1, a2, a3) -> sprintf "%O[%O, %O, %O]" m a1 a2 a3
 
    and Verbo =
       { Vorto: ModifeblaVorto }
@@ -55,6 +57,8 @@ module Sintaksanalizilo2 =
       | Mel of Argumento
       | Nel of Argumento
       | Sonol of Argumento
+      | Ponel of Argumento
+      | Vol of Argumento
       | Nival
       | Nevil
       | Nomil of Predikato
@@ -70,6 +74,8 @@ module Sintaksanalizilo2 =
          | Mel a -> sprintf "Mel(%s)" (a.ToString())
          | Nel a -> sprintf "Nel(%O)" a
          | Sonol a -> sprintf "Sonol(%s)" (a.ToString())
+         | Ponel a -> sprintf "Ponel(%s)" (a.ToString())
+         | Vol a -> sprintf "Vol(%O)" a
          | Nival -> "Nival"
          | Nevil -> "Nevil"
          | Nomil p -> sprintf "Nomil(%s)" (p.ToString())
@@ -77,11 +83,6 @@ module Sintaksanalizilo2 =
          | Sivil -> "Sivil"
          | Borol -> "Borol"
          | Kerel p -> sprintf "Kerel(%O)" p
-
-   and Parvorto =
-      | Vol
-      | Del
-      | Nal
 
    and Predikato =
       { Kapo: Verbo
@@ -92,10 +93,6 @@ module Sintaksanalizilo2 =
             "%O(%O)"
             this.Kapo
             this.Argumentoj
-
-   type AtendantaPlurvorto =
-      | AtendantaParvorto of argumento: Argumento * parvorto: Parvorto
-      | AtendantaModifanto of Modifanto
 
    type Sintaksanalizilo =
       { Argumentoj: Deque<Argumento>
@@ -113,16 +110,20 @@ module Sintaksanalizilo2 =
       { Frazoj: Predikato list
         RestantajVortoj: Argumento list }
 
-   let parvortoj =
-      [ "vol", Vol; "del", Del; "nal", Nal ]
-      |> Map.ofList
-
    let modifantoj1DeKlasoj =
       [ "mel", Mel; "sonol", Sonol ] |> Map.ofList
 
    let modifantojDePredikatoKunFrazo =
       [ "nomil", Nomil
         "kerel", Kerel ]
+      |> Map.ofList
+      
+   let modifantojDePredikatoKunArgumento =
+      [ "sonol", Sonol
+        "mel", Mel
+        "nel", Nel
+        "ponel", Ponel
+        "vol", Vol ]
       |> Map.ofList
    
    let senmodifantaVorto vorto = { Kapo = vorto; Modifantoj = HashSet<Modifanto>() }
