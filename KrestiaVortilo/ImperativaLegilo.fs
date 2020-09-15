@@ -182,6 +182,10 @@ module Imperativa =
             |> Result.bind (fun pridiranto ->
                   this.AldoniPridiranton pridiranto (konteksto.LastaModifeblaVorto.Last.Value)
                   this.LegiArgumenton konteksto)
+         elif ĉuMalantaŭModifanto sekva then
+            this.LegiMalantaŭModifanton konteksto
+            |> Result.bind (fun () ->
+               this.LegiArgumenton konteksto)
          else
             Error(Eraro(sekva.OriginalaVorto, "Unexpected input"))
 
@@ -194,6 +198,10 @@ module Imperativa =
                this.LegiLokalanFrazon konteksto
                |> Result.map (fun frazo -> Ene(sekva, frazo))
             elif sekva.BazaVorto = "keni" then
+               let keni = senmodifantaVorto sekva
+               let keniArgumento = ArgumentaVorto keni
+               konteksto.LastaModifeblaArgumento.AddLast(keniArgumento) |> ignore
+               konteksto.LastaModifeblaVorto.AddLast(ModifeblaArgumento keniArgumento) |> ignore
                this.LegiModifantojnPor sekva konteksto
                |> Result.bind (fun modifantoj ->
                   this.LegiArgumenton konteksto
@@ -211,8 +219,12 @@ module Imperativa =
                            |> ignore)
                         |> ignore
                         
-                        Keni(sekva, argumento1, argumento2))))
+                        Keni(keni, argumento1, argumento2))))
             elif sekva.BazaVorto = "pini" then
+               let pini = senmodifantaVorto sekva
+               let piniArgumento = ArgumentaVorto pini
+               konteksto.LastaModifeblaArgumento.AddLast(piniArgumento) |> ignore
+               konteksto.LastaModifeblaVorto.AddLast(ModifeblaArgumento piniArgumento) |> ignore
                this.LegiModifantojnPor sekva konteksto
                |> Result.bind (fun modifantoj ->
                   this.LegiArgumenton konteksto
@@ -232,7 +244,7 @@ module Imperativa =
                               |> ignore)
                            |> ignore
                         
-                           Pini(sekva, argumento1, argumento2, argumento3)))))
+                           Pini(pini, argumento1, argumento2, argumento3)))))
             else
                this.LegiModifantojnPor sekva konteksto
                |> Result.map (fun pliajModifantoj ->

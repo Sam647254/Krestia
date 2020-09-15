@@ -22,33 +22,30 @@ module Sintaksanalizilo2 =
          | _ -> false
 
       override this.GetHashCode() = hash this.Kapo
-      
+
       override this.ToString() =
-         sprintf
-            "%O<%O>"
-            this.Kapo
-            (List.ofSeq this.Modifantoj)
+         sprintf "%O<%O>" this.Kapo (List.ofSeq this.Modifantoj)
 
    and Argumento =
       | ArgumentaVorto of ModifeblaVorto
       | Mine of MalinflektitaVorto * Predikato
       | Ene of MalinflektitaVorto * Predikato
-      | Keni of MalinflektitaVorto * Argumento * Argumento
-      | Pini of MalinflektitaVorto * Argumento * Argumento * Argumento
+      | Keni of ModifeblaVorto * Argumento * Argumento
+      | Pini of ModifeblaVorto * Argumento * Argumento * Argumento
       | Nombro of decimal
-      
+
       override this.ToString() =
          match this with
          | ArgumentaVorto av -> av.ToString()
-         | Mine(m, p) -> sprintf "%O[%s]" m (p.ToString())
-         | Ene(e, p) -> sprintf "%O[%s]" e (p.ToString())
+         | Mine (m, p) -> sprintf "%O[%s]" m (p.ToString())
+         | Ene (e, p) -> sprintf "%O[%s]" e (p.ToString())
          | Nombro n -> n.ToString()
-         | Keni(m, a1, a2) -> sprintf "%O[%O, %O]" m a1 a2
-         | Pini(m, a1, a2, a3) -> sprintf "%O[%O, %O, %O]" m a1 a2 a3
+         | Keni (m, a1, a2) -> sprintf "%O[%O, %O]" m a1 a2
+         | Pini (m, a1, a2, a3) -> sprintf "%O[%O, %O, %O]" m a1 a2 a3
 
    and Verbo =
       { Vorto: ModifeblaVorto }
-      
+
       override this.ToString() = this.Vorto.ToString()
 
    and Modifanto =
@@ -66,7 +63,7 @@ module Sintaksanalizilo2 =
       | Sivil
       | Kerel of Predikato
       | Borol
-      
+
       override this.ToString() =
          match this with
          | Pridiranto a -> sprintf "Pridiranto(%s)" (a.ToString())
@@ -87,12 +84,9 @@ module Sintaksanalizilo2 =
    and Predikato =
       { Kapo: Verbo
         Argumentoj: Argumento list }
-      
+
       override this.ToString() =
-         sprintf
-            "%O(%O)"
-            this.Kapo
-            this.Argumentoj
+         sprintf "%O(%O)" this.Kapo this.Argumentoj
 
    type Sintaksanalizilo =
       { Argumentoj: Deque<Argumento>
@@ -114,10 +108,8 @@ module Sintaksanalizilo2 =
       [ "mel", Mel; "sonol", Sonol ] |> Map.ofList
 
    let modifantojDePredikatoKunFrazo =
-      [ "nomil", Nomil
-        "kerel", Kerel ]
-      |> Map.ofList
-      
+      [ "nomil", Nomil; "kerel", Kerel ] |> Map.ofList
+
    let modifantojDeVortoKunArgumento =
       [ "sonol", Sonol
         "mel", Mel
@@ -125,8 +117,14 @@ module Sintaksanalizilo2 =
         "vol", Vol
         "ponel", Ponel ]
       |> Map.ofList
-   
-   let senmodifantaVorto vorto = { Kapo = vorto; Modifantoj = HashSet<Modifanto>() }
+
+   let senmodifantaVorto vorto =
+      { Kapo = vorto
+        Modifantoj = HashSet<Modifanto>() }
+
+   let modifeblaVorto vorto (modifantoj: Modifanto list) =
+      { Kapo = vorto
+        Modifantoj = HashSet<Modifanto>(modifantoj) }
 
    let plenaArgumento vorto = failwith "forigi"
 
@@ -136,9 +134,8 @@ module Sintaksanalizilo2 =
       { Kapo = vorto
         Modifantoj = HashSet(modifantoj) }
       |> ArgumentaVorto
-      
-   let pridiranto vorto =
-      Pridiranto (argumento vorto [])
+
+   let pridiranto vorto = Pridiranto(argumento vorto [])
 
    let verbo vorto (modifantoj: Modifanto list): Verbo =
       { Vorto =

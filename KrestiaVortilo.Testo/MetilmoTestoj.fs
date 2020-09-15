@@ -71,7 +71,7 @@ kerel segrerem melismea"
              Argumentoj =
                 [ argumento hime []
                   Keni
-                     (keni,
+                     (senmodifantaVorto keni,
                       argumento prenta [ Pridiranto(argumento meritetiega []) ],
                       Mine
                          (mine,
@@ -152,19 +152,10 @@ hal rinomega sonol seskoma"
                                gelemela
                                [ Ponel
                                   (Pini
-                                     (pini,
-                                      argumento
-                                         hal
-                                         [ pridiranto lukrenega
-                                           Vol(argumento het []) ],
-                                      argumento
-                                         hal
-                                         [ pridiranto likrenega
-                                           Vol(argumento het []) ],
-                                      argumento
-                                         hal
-                                         [ Pridiranto(argumento rinomega [ Sonol(argumento seskoma []) ])
-                                           Vol(argumento het []) ])) ]
+                                     (modifeblaVorto pini [ Vol(argumento het []) ],
+                                      argumento hal [ pridiranto lukrenega ],
+                                      argumento hal [ pridiranto likrenega ],
+                                      argumento hal [ Pridiranto(argumento rinomega [ Sonol(argumento seskoma []) ]) ])) ]
                          Argumentoj = [] }) ]
              Argumentoj =
                 [ argumento hime []
