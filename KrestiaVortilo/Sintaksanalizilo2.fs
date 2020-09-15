@@ -53,6 +53,7 @@ module Sintaksanalizilo2 =
       | Pridiranto of Argumento
       | EcoDe of Argumento
       | Mel of Argumento
+      | Nel of Argumento
       | Sonol of Argumento
       | Nival
       | Nevil
@@ -134,6 +135,9 @@ module Sintaksanalizilo2 =
       { Kapo = vorto
         Modifantoj = HashSet(modifantoj) }
       |> ArgumentaVorto
+      
+   let pridiranto vorto =
+      Pridiranto (argumento vorto [])
 
    let verbo vorto (modifantoj: Modifanto list): Verbo =
       { Vorto =

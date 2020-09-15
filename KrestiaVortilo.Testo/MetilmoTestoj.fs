@@ -82,3 +82,41 @@ kerel segrerem melismea"
                                      ({ Kapo = verbo segrerem [ EcoDe(argumento melismea []) ]
                                         Argumentoj = [] }) ]
                             Argumentoj = [ argumento gremegrela [ Borol ] ] })) ] } ]
+
+   [<TestMethod>]
+   member _.Tri() =
+      let [ hime; glatela; mevekinsa; liseregela; gremensa; kriteva; ponakava; kumiteva; eleteva; grema ] =
+         [ "hime"
+           "glatela"
+           "mevekinsa"
+           "liseregela"
+           "gremensa"
+           "kriteva"
+           "ponakava"
+           "kumiteva"
+           "elateva"
+           "grema" ]
+         |> List.map praveMalinflekti
+
+      kontroliFrazojn "hime glatela mevekinsa
+kerel liseregela gremensa nil
+nel kriteva ponakava
+lumiteva elateva grema"
+         [ { Kapo =
+                verbo
+                   glatela
+                   [ Kerel
+                      ({ Kapo =
+                            verbo
+                               liseregela
+                               [ Nel
+                                  (argumento
+                                     grema
+                                      [ pridiranto kriteva
+                                        pridiranto ponakava
+                                        pridiranto kumiteva
+                                        pridiranto eleteva ]) ]
+                         Argumentoj = [ argumento gremensa [] ] }) ]
+             Argumentoj =
+                [ argumento hime []
+                  argumento mevekinsa [] ] } ]
