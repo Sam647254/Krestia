@@ -26,6 +26,7 @@
     <Compile Include="EraroTestoj.fs" />
     <Compile Include="NombroTestoj.fs" />
     <Compile Include="MetilmoTestoj.fs" />
+    <Compile Include="GitHubTestoj.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
