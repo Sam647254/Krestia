@@ -17,14 +17,14 @@ namespace KrestiaServilo {
             case Sintaksanalizilo2.Modifanto.Tags.EcoDe: {
                var pridiranto = value as dynamic;
                writer.WriteString("tipo", value.GetType().Name);
-               writer.WritePropertyName("Argumento");
+               writer.WritePropertyName("argumento");
                JsonSerializer.Serialize(writer, pridiranto!.Item, options);
                break;
             }
             case Sintaksanalizilo2.Modifanto.Tags.Modifanto1: {
                var modifanto = value as Sintaksanalizilo2.Modifanto.Modifanto1;
                writer.WriteString("tipo", modifanto!.Item1.BazaVorto);
-               writer.WritePropertyName("Argumento");
+               writer.WritePropertyName("argumento");
                JsonSerializer.Serialize(writer, modifanto!.Item2, options);
                break;
             }
@@ -37,7 +37,7 @@ namespace KrestiaServilo {
             case Sintaksanalizilo2.Modifanto.Tags.ModifantoKunFrazo: {
                var modifanto = value as Sintaksanalizilo2.Modifanto.ModifantoKunFrazo;
                writer.WriteString("tipo", modifanto?.Item1.BazaVorto);
-               writer.WritePropertyName("Frazo");
+               writer.WritePropertyName("frazo");
                JsonSerializer.Serialize(writer, modifanto!.Item2, options);
                break;
             }

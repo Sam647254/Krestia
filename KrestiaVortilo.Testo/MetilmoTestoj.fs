@@ -9,7 +9,7 @@ open Testiloj
 type MetilmoTestoj() =
    [<TestMethod>]
    member _.Unu() =
-      let [ hime; deletro; linetiga; rone; _; merogia; _; _; mine; hel; teretro; ene; mirateva; delegio ] =
+      let [ hime; deletro; linetiga; rone; nomil; merogia; nivoral; sivil; mine; hel; teretro; ene; mirateva; delegio ] =
          [ "hime"
            "deletro"
            "linetiga"
@@ -34,8 +34,9 @@ mirateva delegio rone"
                 verbo
                    deletro
                    [ Pridiranto(argumento linetiga [])
-                     Nomil
-                        ({ Kapo = verbo merogia [ Nivoral; Sivil ]
+                     ModifantoKunFrazo
+                        (nomil,
+                         { Kapo = verbo merogia [ modifanto nivoral; modifanto sivil ]
                            Argumentoj =
                               [ Mine
                                  (mine,
@@ -50,7 +51,7 @@ mirateva delegio rone"
 
    [<TestMethod>]
    member _.Du() =
-      let [ hime; rilitro; keni; prenta; meritetiega; mine; gremegrela; relos; segrerem; melismea ] =
+      let [ hime; rilitro; keni; prenta; meritetiega; mine; gremegrela; borol; relos; kerel; segrerem; melismea ] =
          [ "hime"
            "rilitro"
            "keni"
@@ -58,7 +59,9 @@ mirateva delegio rone"
            "meritetiega"
            "mine"
            "gremegrela"
+           "borol"
            "relos"
+           "kerel"
            "segrerem"
            "melismea" ]
          |> List.map praveMalinflekti
@@ -78,19 +81,22 @@ kerel segrerem melismea"
                           { Kapo =
                                verbo
                                   relos
-                                  [ Kerel
-                                     ({ Kapo = verbo segrerem [ EcoDe(argumento melismea []) ]
+                                  [ ModifantoKunFrazo
+                                     (kerel,
+                                      { Kapo = verbo segrerem [ EcoDe(argumento melismea []) ]
                                         Argumentoj = [] }) ]
-                            Argumentoj = [ argumento gremegrela [ Borol ] ] })) ] } ]
+                            Argumentoj = [ argumento gremegrela [ modifanto borol ] ] })) ] } ]
 
    [<TestMethod>]
    member _.Tri() =
-      let [ hime; glatela; mevekinsa; liseregela; gremensa; kriteva; ponakava; lumiteva; eleteva; grema ] =
+      let [ hime; glatela; mevekinsa; kerel; liseregela; gremensa; nel; kriteva; ponakava; lumiteva; eleteva; grema ] =
          [ "hime"
            "glatela"
            "mevekinsa"
+           "kerel"
            "liseregela"
            "gremensa"
+           "nel"
            "kriteva"
            "ponakava"
            "lumiteva"
@@ -105,13 +111,15 @@ lumiteva elateva grema"
          [ { Kapo =
                 verbo
                    glatela
-                   [ Kerel
-                      ({ Kapo =
+                   [ ModifantoKunFrazo
+                      (kerel,
+                       { Kapo =
                             verbo
                                liseregela
-                               [ Nel
-                                  (argumento
-                                     grema
+                               [ Modifanto1
+                                  (nel,
+                                   argumento
+                                      grema
                                       [ pridiranto kriteva
                                         pridiranto ponakava
                                         pridiranto lumiteva
@@ -123,11 +131,13 @@ lumiteva elateva grema"
 
    [<TestMethod>]
    member _.Kvar() =
-      let [ hime; lipro; rone; metilmo; gelemela; ponel; pini; het; hal; lukrenega; likrenega; rinomega; seskoma ] =
+      let [ hime; lipro; rone; metilmo; kerel; gelemela; ponel; pini; het; hal; lukrenega; likrenega; rinomega; seskoma;
+            vol; sonol ] =
          [ "hime"
            "lipro"
            "rone"
            "Metilmo"
+           "kerel"
            "gelemela"
            "ponel"
            "pini"
@@ -136,7 +146,9 @@ lumiteva elateva grema"
            "lukrenega"
            "likrenega"
            "rinomega"
-           "seskoma" ]
+           "seskoma"
+           "vol"
+           "sonol" ]
          |> List.map praveMalinflekti
 
       kontroliFrazojn "hime lipro rone Metilmo
@@ -146,16 +158,20 @@ hal rinomega sonol seskoma"
          [ { Kapo =
                 verbo
                    lipro
-                   [ Kerel
-                      ({ Kapo =
+                   [ ModifantoKunFrazo
+                      (kerel,
+                       { Kapo =
                             verbo
                                gelemela
-                               [ Ponel
-                                  (Pini
-                                     (modifeblaVorto pini [ Vol(argumento het []) ],
-                                      argumento hal [ pridiranto lukrenega ],
-                                      argumento hal [ pridiranto likrenega ],
-                                      argumento hal [ Pridiranto(argumento rinomega [ Sonol(argumento seskoma []) ]) ])) ]
+                               [ Modifanto1
+                                  (ponel,
+                                   Pini
+                                      (modifeblaVorto pini [ Modifanto1(vol, argumento het []) ],
+                                       argumento hal [ pridiranto lukrenega ],
+                                       argumento hal [ pridiranto likrenega ],
+                                       argumento
+                                          hal
+                                          [ Pridiranto(argumento rinomega [ Modifanto1(sonol, argumento seskoma []) ]) ])) ]
                          Argumentoj = [] }) ]
              Argumentoj =
                 [ argumento hime []
