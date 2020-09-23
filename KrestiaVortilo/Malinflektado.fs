@@ -433,7 +433,11 @@ module Malinflektado =
         "lu"
         "d"
         "l"
-        "r" ]
+        "r"
+        "m"
+        "s"
+        "t"
+        "p" ]
       |> List.tryPick (fun finaĵo ->
             if infinitivo.EndsWith(finaĵo)
             then Some(infinitivo.Substring(0, infinitivo.Length - finaĵo.Length))
