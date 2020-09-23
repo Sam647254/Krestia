@@ -64,6 +64,7 @@
           <e p="VortoController.cs" t="Include" />
         </e>
         <e p="KrestiaServilo.csproj" t="IncludeRecursive" />
+        <e p="MalinflektaŜtupoJsonConverter.cs" t="Include" />
         <e p="ModifantoJsonConverter.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
