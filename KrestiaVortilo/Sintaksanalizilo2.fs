@@ -140,7 +140,9 @@ module Sintaksanalizilo2 =
                match inflekcio with
                | PartaUjo1
                | PartaUjo2
-               | PartaUjo3 -> ak - 1
+               | PartaUjo3
+               | Imperativo
+               | Hortativo -> ak - 1
                | PredikativoEsti -> ak + 1
                | _ -> ak
             | Bazo (vorttipo, inflekcio, _) ->

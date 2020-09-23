@@ -201,6 +201,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="EcoTestoj.fs" t="Include" />
         <e p="EraroTestoj.fs" t="Include" />
+        <e p="GitHubTestoj.fs" t="Include" />
         <e p="KlasoTestoj.fs" t="Include" />
         <e p="KrestiaVortilo.Testo.fsproj" t="IncludeRecursive" />
         <e p="LokokupiloTestoj.fs" t="Include" />
