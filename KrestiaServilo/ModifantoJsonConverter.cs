@@ -11,32 +11,35 @@ namespace KrestiaServilo {
 
       public override void Write(Utf8JsonWriter writer, Sintaksanalizilo2.Modifanto value, JsonSerializerOptions options) {
          writer.WriteStartObject();
-
+         writer.WriteString("tipo", value.GetType().Name);
          switch (value.Tag) {
-            case Sintaksanalizilo2.Modifanto.Tags.Pridiranto:
+            case Sintaksanalizilo2.Modifanto.Tags.Pridiranto: {
+               var pridiranto = value as Sintaksanalizilo2.Modifanto.Pridiranto;
+               writer.WritePropertyName("argumento");
+               JsonSerializer.Serialize(writer, pridiranto!.Item, options);
+               break;
+            }
             case Sintaksanalizilo2.Modifanto.Tags.EcoDe: {
-               var pridiranto = value as dynamic;
-               writer.WriteString("tipo", value.GetType().Name);
+               var pridiranto = value as Sintaksanalizilo2.Modifanto.EcoDe;
                writer.WritePropertyName("argumento");
                JsonSerializer.Serialize(writer, pridiranto!.Item, options);
                break;
             }
             case Sintaksanalizilo2.Modifanto.Tags.Modifanto1: {
                var modifanto = value as Sintaksanalizilo2.Modifanto.Modifanto1;
-               writer.WriteString("tipo", modifanto!.Item1.BazaVorto);
+               writer.WriteString("modifanto", modifanto!.Item1.BazaVorto);
                writer.WritePropertyName("argumento");
                JsonSerializer.Serialize(writer, modifanto!.Item2, options);
                break;
             }
             case Sintaksanalizilo2.Modifanto.Tags.SimplaModifanto: {
                var modifanto = value as Sintaksanalizilo2.Modifanto.SimplaModifanto;
-               writer.WriteString("tipo", modifanto?.Item.BazaVorto);
-               JsonSerializer.Serialize(writer, modifanto!.Item, options);
+               writer.WriteString("modifanto", modifanto!.Item.BazaVorto);
                break;
             }
             case Sintaksanalizilo2.Modifanto.Tags.ModifantoKunFrazo: {
                var modifanto = value as Sintaksanalizilo2.Modifanto.ModifantoKunFrazo;
-               writer.WriteString("tipo", modifanto?.Item1.BazaVorto);
+               writer.WriteString("modifanto", modifanto!.Item1.BazaVorto);
                writer.WritePropertyName("frazo");
                JsonSerializer.Serialize(writer, modifanto!.Item2, options);
                break;

@@ -17,6 +17,7 @@ namespace KrestiaServilo {
       public void ConfigureServices(IServiceCollection services) {
          services.AddControllers().AddJsonOptions(options => {
             options.JsonSerializerOptions.Converters.Add(new ModifantoJsonConverter());
+            options.JsonSerializerOptions.Converters.Add(new ArgumentoJsonConverter());
          });
          services.AddSingleton<IVortaroService>(provider => new VortaroService());
          services.AddSingleton<IBlissFonto>(provider => new AwsBlissimbolaro());
