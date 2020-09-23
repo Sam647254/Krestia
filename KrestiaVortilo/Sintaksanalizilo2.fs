@@ -51,35 +51,17 @@ module Sintaksanalizilo2 =
    and Modifanto =
       | Pridiranto of Argumento
       | EcoDe of Argumento
-      | Mel of Argumento
-      | Nel of Argumento
-      | Sonol of Argumento
-      | Ponel of Argumento
-      | Vol of Argumento
-      | Nival
-      | Nevil
-      | Nomil of Predikato
-      | Nivoral
-      | Sivil
-      | Kerel of Predikato
-      | Borol
+      | SimplaModifanto of MalinflektitaVorto
+      | Modifanto1 of MalinflektitaVorto * Argumento
+      | ModifantoKunFrazo of MalinflektitaVorto * Predikato
 
       override this.ToString() =
          match this with
          | Pridiranto a -> sprintf "Pridiranto(%s)" (a.ToString())
          | EcoDe a -> sprintf "EcoDe(%s)" (a.ToString())
-         | Mel a -> sprintf "Mel(%s)" (a.ToString())
-         | Nel a -> sprintf "Nel(%O)" a
-         | Sonol a -> sprintf "Sonol(%s)" (a.ToString())
-         | Ponel a -> sprintf "Ponel(%s)" (a.ToString())
-         | Vol a -> sprintf "Vol(%O)" a
-         | Nival -> "Nival"
-         | Nevil -> "Nevil"
-         | Nomil p -> sprintf "Nomil(%s)" (p.ToString())
-         | Nivoral -> "Nivoral"
-         | Sivil -> "Sivil"
-         | Borol -> "Borol"
-         | Kerel p -> sprintf "Kerel(%O)" p
+         | SimplaModifanto m -> m.BazaVorto
+         | Modifanto1(m, a) -> sprintf "%s(%O)" m.BazaVorto a
+         | ModifantoKunFrazo(m, p) -> sprintf "%s(%O)" m.BazaVorto p
 
    and Predikato =
       { Kapo: Verbo
@@ -105,18 +87,24 @@ module Sintaksanalizilo2 =
         RestantajVortoj: Argumento list }
 
    let modifantoj1DeKlasoj =
-      [ "mel", Mel; "sonol", Sonol ] |> Map.ofList
+      [ "mel"; "sonol" ] |> Set.ofList
 
    let modifantojDePredikatoKunFrazo =
-      [ "nomil", Nomil; "kerel", Kerel ] |> Map.ofList
+      [ "nomil"; "kerel" ] |> Set.ofList
+   
+   let modifantojDeVerboj =
+      [ "nivoral"; "sivil" ] |> Set.ofList
+      
+   let modifantojDeKlasoj =
+      [ "borol" ] |> Set.ofList
 
    let modifantojDeVortoKunArgumento =
-      [ "sonol", Sonol
-        "mel", Mel
-        "nel", Nel
-        "vol", Vol
-        "ponel", Ponel ]
-      |> Map.ofList
+      [ "sonol"
+        "mel"
+        "nel"
+        "vol"
+        "ponel" ]
+      |> Set.ofList
 
    let senmodifantaVorto vorto =
       { Kapo = vorto
@@ -125,6 +113,8 @@ module Sintaksanalizilo2 =
    let modifeblaVorto vorto (modifantoj: Modifanto list) =
       { Kapo = vorto
         Modifantoj = HashSet<Modifanto>(modifantoj) }
+  
+   let modifanto vorto = SimplaModifanto vorto
 
    let plenaArgumento vorto = failwith "forigi"
 

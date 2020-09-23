@@ -13,22 +13,34 @@ namespace KrestiaServilo {
          writer.WriteStartObject();
 
          switch (value.Tag) {
-            case Sintaksanalizilo2.Modifanto.Tags.Pridiranto: {
-               var pridiranto = value as Sintaksanalizilo2.Modifanto.Pridiranto;
-               writer.WriteString("tipo", "Pridiranto");
+            case Sintaksanalizilo2.Modifanto.Tags.Pridiranto:
+            case Sintaksanalizilo2.Modifanto.Tags.EcoDe: {
+               var pridiranto = value as dynamic;
+               writer.WriteString("tipo", value.GetType().Name);
                writer.WritePropertyName("Argumento");
                JsonSerializer.Serialize(writer, pridiranto!.Item, options);
                break;
             }
-            case Sintaksanalizilo2.Modifanto.Tags.EcoDe: {
-               var ecoDe = value as Sintaksanalizilo2.Modifanto.EcoDe;
-               writer.WriteString("tipo", "EcoDe");
+            case Sintaksanalizilo2.Modifanto.Tags.Modifanto1: {
+               var modifanto = value as Sintaksanalizilo2.Modifanto.Modifanto1;
+               writer.WriteString("tipo", modifanto!.Item1.BazaVorto);
                writer.WritePropertyName("Argumento");
-               JsonSerializer.Serialize(writer, ecoDe!.Item, options);
+               JsonSerializer.Serialize(writer, modifanto!.Item2, options);
                break;
             }
-            default:
-               throw new NotImplementedException();
+            case Sintaksanalizilo2.Modifanto.Tags.SimplaModifanto: {
+               var modifanto = value as Sintaksanalizilo2.Modifanto.SimplaModifanto;
+               writer.WriteString("tipo", modifanto?.Item.BazaVorto);
+               JsonSerializer.Serialize(writer, modifanto!.Item, options);
+               break;
+            }
+            case Sintaksanalizilo2.Modifanto.Tags.ModifantoKunFrazo: {
+               var modifanto = value as Sintaksanalizilo2.Modifanto.ModifantoKunFrazo;
+               writer.WriteString("tipo", modifanto?.Item1.BazaVorto);
+               writer.WritePropertyName("Frazo");
+               JsonSerializer.Serialize(writer, modifanto!.Item2, options);
+               break;
+            }
          }
          
          writer.WriteEndObject();
