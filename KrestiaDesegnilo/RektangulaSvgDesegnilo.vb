@@ -45,7 +45,7 @@ Public Class RektangulaSvgDesegnilo
       {"[", AddressOf NomoKomenco},
       {"]", AddressOf NomoFino},
       {"lokokupilo", AddressOf Lokokupilo},
-      {"klaso", AddressOf Klaso},
+      {"klaso", AddressOf Difinito},
       {"antaŭNenombrigeblaEco", AddressOf EcoDekstra},
       {"malantaŭNenombrigeblaEco", AddressOf EcoMaldekstra},
       {"rekordo<", AddressOf RekordoMaldekstra},
@@ -53,7 +53,7 @@ Public Class RektangulaSvgDesegnilo
       {"pridiranto", AddressOf Pridiranto},
       {"atributivoEstiMalantaŭ", AddressOf AtributivoEstiMaldekstra},
       {"atributivoEstiAntaŭ", AddressOf AtributivoEstiDekstra},
-      {"predikativoEsti", AddressOf PredikativoEsti},
+      {"predikativoEsti", AddressOf Klaso},
       {"vico", AddressOf Vico},
       {"netransitivaVerbo", AddressOf Netransitiva},
       {"nedirektaTransitivaVerbo", AddressOf NedirecktaTransitiva},
@@ -435,7 +435,7 @@ m -{5} {6} h {1} l {2} {3} h -{1} z m {4} 0 l -{2} {3} h -{1} l {2} -{3} z",
             "h {1} l {2} {3} h -{1} z m {4} 0 l -{2} {3} h -{1} l {2} -{3} z
 m -{4} {5} h {4} v {7} h -{8} v {6} h -{1} v -{6} h -{8} z",
             0, Dx, DuonaLarĝeco\2, Alteco, DuonaLarĝeco + Dx, Alteco + Spaceto, Alteco - Dy, Dy,
-            DuonaLarĝeco\2 - Dx\2 + Spaceto\2)
+            (DuonaLarĝeco + Dx)\2 - Dx\2)
    End Function
 
    Private Function OblikaTransitiva() As String

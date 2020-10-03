@@ -48,7 +48,8 @@ timeran <KV> <eniro> <eliro>
                }
                case "timeran": {
                   var vicoj = Agoj.KonvertiEnTimeranTxt(File.ReadLines(args[1]));
-                  TimeranDesegnilo.Program.Dosiero(args[2], vicoj, int.Parse(args[3]), int.Parse(args[4]));
+                  TimeranDesegnilo.Program.Dosiero(args[2], vicoj, int.Parse(args[3]), int.Parse(args[4]),
+                     int.Parse(args[5]), int.Parse(args[6]));
                   break;
                }
                case "alkv": {

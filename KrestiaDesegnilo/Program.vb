@@ -19,7 +19,7 @@ Public Module Program
       ElseIf args(0) = "bliss" Then
          Bliss(args(1), args(2), args(3))
       Else
-         Dosiero(args(1), args(0), Integer.Parse(args(2)), Integer.Parse(args(3)))
+         Dosiero(args(1), args(0), Integer.Parse(args(2)), Integer.Parse(args(3)), 40, 100)
       End If
    End Sub
 
@@ -45,8 +45,9 @@ Public Module Program
       bliss.Fini()
    End Sub
 
-   Public Sub Dosiero(eliro As String, eniro As IEnumerable(Of String), dx As Integer, dy As Integer)
-      Dim svg = New RektangulaSvgDesegnilo(eliro, 100, 40, dx, dy)
+   Public Sub Dosiero(eliro As String, eniro As IEnumerable(Of String), dx As Integer, dy As Integer, larĝeco As Integer,
+                      alteco As Integer)
+      Dim svg = New RektangulaSvgDesegnilo(eliro, larĝeco, alteco, dx, dy)
       For Each line In eniro
          Dim silaboj = line.Split(" "c)
          For Each silabo In silaboj

@@ -101,8 +101,7 @@ namespace KrestiaVortaro {
 
                return char.ToLowerInvariant(literoNomo[0]) + literoNomo.Substring(1);
             }).Reverse().ToImmutableList();
-            if ((gramatikajLiteroj.First() == "nombrigeblaKlaso" ||
-                 gramatikajLiteroj.First() == "nenombrigeblaKlaso")
+            if (gramatikajLiteroj.First() == "klaso"
                 && gramatikajLiteroj.Count > 1) {
                gramatikajLiteroj = gramatikajLiteroj.RemoveAt(0);
             }
