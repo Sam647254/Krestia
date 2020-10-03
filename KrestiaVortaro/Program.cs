@@ -42,15 +42,13 @@ timeran <KV> <eniro> <eliro>
                   break;
                }
                case "bliss": {
-                  var vortaro = await JsonVortaro.Malfermi(args[1]);
-                  var vicoj = Agoj.KonvertiEnTimeranTxt(vortaro, File.ReadLines(args[2]));
-                  await File.WriteAllLinesAsync(args[3], vicoj);
+                  var vicoj = Agoj.KonvertiEnTimeranTxt(File.ReadLines(args[1]));
+                  await File.WriteAllLinesAsync(args[2], vicoj);
                   break;
                }
                case "timeran": {
-                  var vortaro = await JsonVortaro.Malfermi(args[1]);
-                  var vicoj = Agoj.KonvertiEnTimeranTxt(vortaro, File.ReadLines(args[2]), false);
-                  await File.WriteAllLinesAsync(args[3], vicoj);
+                  var vicoj = Agoj.KonvertiEnTimeranTxt(File.ReadLines(args[1]));
+                  TimeranDesegnilo.Program.Dosiero(args[2], vicoj, int.Parse(args[3]), int.Parse(args[4]));
                   break;
                }
                case "alkv": {

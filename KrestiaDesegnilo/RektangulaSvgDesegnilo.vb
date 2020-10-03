@@ -75,7 +75,7 @@ Public Class RektangulaSvgDesegnilo
       {"volo2", AddressOf Volo2},
       {"volo3", AddressOf Volo3},
       {"sola", AddressOf Sola},
-      {"estonteco", AddressOf Estonteco},
+      {"intenco", AddressOf Estonteco},
       {"malantaŭModifanto", AddressOf ModifantoMaldekstra},
       {"antaŭModifanto", AddressOf ModifantoDekstra},
       {"antaŭNombrigeblaEco", AddressOf NombrigeblaEcoDekstra},
@@ -94,8 +94,8 @@ Public Class RektangulaSvgDesegnilo
       {"igo", AddressOf Igo},
       {"etigo", AddressOf Etigo},
       {"reflekcio", AddressOf Reflekcio},
-      {"okazo", AddressOf Okazo},
-      {"aktualaOkazo", AddressOf AktualaOkazo},
+      {"hipoteza", AddressOf Okazo},
+      {"apartigita", AddressOf AktualaOkazo},
       {"finitaOkazo", AddressOf FinitaOkazo},
       {"cifero", AddressOf Cifero}
    }

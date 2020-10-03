@@ -19,26 +19,5 @@ namespace KrestiaVortaro.Testo {
             Kategorioj = new VortaraKategorio[0],
          };
       }
-
-      [Test]
-      public void Test1() {
-         const string eniro = "hen atowa";
-         const string eliro = "hen lokokupilo 123 predikativoEsti";
-         Assert.AreEqual(eliro, Agoj.KonvertiEnTimeranTxt(_vortaro, new[] {eniro}).First());
-      }
-
-      [Test]
-      public void Test2() {
-         const string eniro = "hen bitre val renka";
-         const string eliro = "hen lokokupilo 125 transitivaVerbo progresivo va malantaŭModifanto 124 difinito";
-         Assert.AreEqual(eliro, Agoj.KonvertiEnTimeranTxt(_vortaro, new[] {eniro}).First());
-      }
-      
-      [Test]
-      public void Test3() {
-         const string eniro = "hen var bitre renkave";
-         const string eliro = "hen lokokupilo va antaŭModifanto 125 transitivaVerbo progresivo 124 pluraNombro";
-         Assert.AreEqual(eliro, Agoj.KonvertiEnTimeranTxt(_vortaro, new[] {eniro}).First());
-      }
    }
 }

@@ -11,6 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\KrestiaDesegnilo\TimeranDesegnilo.vbproj" />
       <ProjectReference Include="..\KrestiaVortilo\KrestiaVortilo.fsproj" />
     </ItemGroup>
 

@@ -1,7 +1,7 @@
 ﻿Imports System
 Imports System.IO
 
-Module Program
+Public Module Program
    Private Sub Desegni(svg As RektangulaSvgDesegnilo, partoj As String())
       For Each silabo In partoj
          Try
@@ -45,9 +45,9 @@ Module Program
       bliss.Fini()
    End Sub
 
-   Private Sub Dosiero(eliro As String, eniro As String, dx As Integer, dy As Integer)
+   Public Sub Dosiero(eliro As String, eniro As IEnumerable(Of String), dx As Integer, dy As Integer)
       Dim svg = New RektangulaSvgDesegnilo(eliro, 100, 40, dx, dy)
-      For Each line In File.ReadLines(eniro)
+      For Each line In eniro
          Dim silaboj = line.Split(" "c)
          For Each silabo In silaboj
             Try
