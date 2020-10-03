@@ -28,20 +28,12 @@ module Sintaksanalizilo2 =
 
    and Argumento =
       | ArgumentaVorto of ModifeblaVorto
-      | Mine of MalinflektitaVorto * Predikato
-      | Ene of MalinflektitaVorto * Predikato
-      | Keni of ModifeblaVorto * Argumento * Argumento
-      | Pini of ModifeblaVorto * Argumento * Argumento * Argumento
       | Nombro of decimal
 
       override this.ToString() =
          match this with
          | ArgumentaVorto av -> av.ToString()
-         | Mine (m, p) -> sprintf "%O[%s]" m (p.ToString())
-         | Ene (e, p) -> sprintf "%O[%s]" e (p.ToString())
          | Nombro n -> n.ToString()
-         | Keni (m, a1, a2) -> sprintf "%O[%O, %O]" m a1 a2
-         | Pini (m, a1, a2, a3) -> sprintf "%O[%O, %O, %O]" m a1 a2 a3
 
    and Verbo =
       { Vorto: ModifeblaVorto }
@@ -51,6 +43,10 @@ module Sintaksanalizilo2 =
    and Modifanto =
       | Pridiranto of Argumento
       | EcoDe of Argumento
+      | Mine of Predikato
+      | Ene of Predikato
+      | Keni of Argumento * Argumento
+      | Pini of Argumento * Argumento * Argumento
       | SimplaModifanto of MalinflektitaVorto
       | Modifanto1 of MalinflektitaVorto * Argumento
       | ModifantoKunFrazo of MalinflektitaVorto * Predikato
@@ -62,6 +58,10 @@ module Sintaksanalizilo2 =
          | SimplaModifanto m -> m.BazaVorto
          | Modifanto1(m, a) -> sprintf "%s(%O)" m.BazaVorto a
          | ModifantoKunFrazo(m, p) -> sprintf "%s(%O)" m.BazaVorto p
+         | Ene p
+         | Mine p -> sprintf "(%O)" p
+         | Keni(a1, a2) -> sprintf "(%O, %O)" a1 a2
+         | Pini(a1, a2, a3) -> sprintf "(%O, %O, %O)" a1 a2 a3
 
    and Predikato =
       { Kapo: Verbo
@@ -120,7 +120,7 @@ module Sintaksanalizilo2 =
 
    let plenaVerbo vorto = failwith "forigi"
 
-   let argumento vorto (modifantoj: Modifanto list): Argumento =
+   let argumento vorto (modifantoj: Modifanto seq): Argumento =
       { Kapo = vorto
         Modifantoj = HashSet(modifantoj) }
       |> ArgumentaVorto

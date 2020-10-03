@@ -178,56 +178,21 @@ module Imperativa =
 
       member private this.LegiPlenanArgumenton sekva konteksto =
          let novaArgumento =
-            if sekva.BazaVorto = "mine" then
-               this.LegiLokalanFrazon konteksto
-               |> Result.map (fun frazo -> Mine(sekva, frazo))
-            elif sekva.BazaVorto = "ene" then
-               this.LegiLokalanFrazon konteksto
-               |> Result.map (fun frazo -> Ene(sekva, frazo))
-            elif sekva.BazaVorto = "keni" then
-               let keni = senmodifantaVorto sekva
-               let keniArgumento = ArgumentaVorto keni
-               konteksto.LastaModifeblaArgumento.AddLast(keniArgumento)
+               let (argumento, vorto) = plenaModifitaArgumento sekva konteksto.AtendantajPridirantoj
+               konteksto.AtendantajPridirantoj.Clear()
+               konteksto.LastaModifeblaVorto.AddLast(ModifeblaArgumento argumento)
                |> ignore
-               konteksto.LastaModifeblaVorto.AddLast(ModifeblaArgumento keniArgumento)
+               konteksto.LastaModifeblaArgumento.AddLast argumento
                |> ignore
-               konteksto.LegitajModifeblajVortoj.AddLast(keni)
+               konteksto.LegitajModifeblajVortoj.AddLast vorto
                |> ignore
-               this.LegiArgumenton konteksto
-               |> Result.bind (fun argumento1 ->
-                     this.LegiArgumenton konteksto
-                     |> Result.map (fun argumento2 ->
-
-                           Keni(keni, argumento1, argumento2)))
-            elif sekva.BazaVorto = "pini" then
-               let pini = senmodifantaVorto sekva
-               let piniArgumento = ArgumentaVorto pini
-               konteksto.LastaModifeblaArgumento.AddLast(piniArgumento)
-               |> ignore
-               konteksto.LastaModifeblaVorto.AddLast(ModifeblaArgumento piniArgumento)
-               |> ignore
-               konteksto.LegitajModifeblajVortoj.AddLast(pini)
-               |> ignore
-               this.LegiArgumenton konteksto
-               |> Result.bind (fun argumento1 ->
-                     this.LegiArgumenton konteksto
-                     |> Result.bind (fun argumento2 ->
-                           this.LegiArgumenton konteksto
-                           |> Result.map (fun argumento3 ->
-
-                                 Pini(pini, argumento1, argumento2, argumento3))))
-            else
+               
                this.LegiModifantojnPor sekva konteksto
                |> Result.map (fun pliajModifantoj ->
-                     let (argumento, vorto) =
-                        plenaModifitaArgumento sekva (Seq.append pliajModifantoj konteksto.AtendantajPridirantoj)
-
-                     konteksto.AtendantajPridirantoj.Clear()
-                     konteksto.LastaModifeblaVorto.AddLast(ModifeblaArgumento argumento)
-                     |> ignore
-                     konteksto.LastaModifeblaArgumento.AddLast argumento
-                     |> ignore
-                     konteksto.LegitajModifeblajVortoj.AddLast vorto
+                     pliajModifantoj
+                     |> List.map (fun m ->
+                        printf "%O" m
+                        vorto.Modifantoj.Add(m))
                      |> ignore
                      argumento)
 
@@ -304,8 +269,9 @@ module Imperativa =
                |> Result.bind (fun listo ->
                      let modifanto =
                         match sek with
-                        | Nebazo (vorttipo, inflekcio, _) -> Ok None
-                        | Bazo (vorttipo, _, _) ->
+                        | Nebazo (_, _, _) ->
+                           Ok None
+                        | Bazo (vorttipo, _, bazaVorto) ->
                            match vorttipo with
                            | AntaŭNombrigeblaEco
                            | AntaŭNenombrigeblaEco ->
@@ -314,7 +280,7 @@ module Imperativa =
                               else
                                  let rezulto =
                                     this.LegiArgumenton konteksto
-                                    |> Result.map (fun argumento -> Some(EcoDe(argumento)))
+                                    |> Result.map (EcoDe >> Some)
 
                                  rezulto
                            | MalantaŭNombrigeblaEco
@@ -330,6 +296,45 @@ module Imperativa =
                                     |> ignore
                                  | _ -> ()
                                  Ok(Some(EcoDe argumento))
+                           | NenombrigeblaKlaso ->
+                              if bazaVorto = "mine" then
+                                 this.LegiLokalanFrazon konteksto
+                                 |> Result.map (Mine >> Some)
+                              elif bazaVorto = "ene" then
+                                 this.LegiLokalanFrazon konteksto
+                                 |> Result.map (Ene >> Some)
+                              elif bazaVorto = "keni" then
+                                 let keni = senmodifantaVorto vorto
+                                 let keniArgumento = ArgumentaVorto keni
+                                 konteksto.LastaModifeblaArgumento.AddLast(keniArgumento)
+                                 |> ignore
+                                 konteksto.LastaModifeblaVorto.AddLast(ModifeblaArgumento keniArgumento)
+                                 |> ignore
+                                 konteksto.LegitajModifeblajVortoj.AddLast(keni)
+                                 |> ignore
+                                 this.LegiArgumenton konteksto
+                                 |> Result.bind (fun argumento1 ->
+                                       this.LegiArgumenton konteksto
+                                       |> Result.map (fun argumento2 ->
+                                             Keni(argumento1, argumento2) |> Some))
+                              elif bazaVorto = "pini" then
+                                    let pini = senmodifantaVorto vorto
+                                    let piniArgumento = ArgumentaVorto pini
+                                    konteksto.LastaModifeblaArgumento.AddLast(piniArgumento)
+                                    |> ignore
+                                    konteksto.LastaModifeblaVorto.AddLast(ModifeblaArgumento piniArgumento)
+                                    |> ignore
+                                    konteksto.LegitajModifeblajVortoj.AddLast(pini)
+                                    |> ignore
+                                    this.LegiArgumenton konteksto
+                                    |> Result.bind (fun argumento1 ->
+                                          this.LegiArgumenton konteksto
+                                          |> Result.bind (fun argumento2 ->
+                                                this.LegiArgumenton konteksto
+                                                |> Result.map (fun argumento3 ->
+                                                      Pini(argumento1, argumento2, argumento3) |> Some)))
+                              else
+                                 Ok None
                            | _ -> Ok None
 
                      modifanto

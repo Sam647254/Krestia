@@ -38,15 +38,17 @@ mirateva delegio rone"
                         (nomil,
                          { Kapo = verbo merogia [ modifanto nivoral; modifanto sivil ]
                            Argumentoj =
-                              [ Mine
-                                 (mine,
-                                  { Kapo = verbo teretro []
-                                    Argumentoj =
-                                       [ argumento hel []
-                                         Ene
-                                            (ene,
-                                             { Kapo = verbo delegio [ Pridiranto(argumento mirateva []) ]
-                                               Argumentoj = [ argumento rone [] ] }) ] }) ] }) ]
+                              [ argumento
+                                 mine
+                                   [ Mine
+                                      ({ Kapo = verbo teretro []
+                                         Argumentoj =
+                                            [ argumento hel []
+                                              argumento
+                                                 ene
+                                                 [ Ene
+                                                    ({ Kapo = verbo delegio [ Pridiranto(argumento mirateva []) ]
+                                                       Argumentoj = [ argumento rone [] ] }) ] ] }) ] ] }) ]
              Argumentoj = [ argumento hime []; argumento rone [] ] } ]
 
    [<TestMethod>]
@@ -73,19 +75,21 @@ kerel segrerem melismea"
          [ { Kapo = verbo rilitro []
              Argumentoj =
                 [ argumento hime []
-                  Keni
-                     (senmodifantaVorto keni,
-                      argumento prenta [ Pridiranto(argumento meritetiega []) ],
-                      Mine
-                         (mine,
-                          { Kapo =
-                               verbo
-                                  relos
-                                  [ ModifantoKunFrazo
-                                     (kerel,
-                                      { Kapo = verbo segrerem [ EcoDe(argumento melismea []) ]
-                                        Argumentoj = [] }) ]
-                            Argumentoj = [ argumento gremegrela [ modifanto borol ] ] })) ] } ]
+                  argumento
+                     keni
+                     [ Keni
+                        (argumento prenta [ Pridiranto(argumento meritetiega []) ],
+                         argumento
+                            mine
+                            [ Mine
+                               ({ Kapo =
+                                     verbo
+                                        relos
+                                        [ ModifantoKunFrazo
+                                           (kerel,
+                                            { Kapo = verbo segrerem [ EcoDe(argumento melismea []) ]
+                                              Argumentoj = [] }) ]
+                                  Argumentoj = [ argumento gremegrela [ modifanto borol ] ] }) ]) ] ] } ]
 
    [<TestMethod>]
    member _.Tri() =
@@ -165,13 +169,15 @@ hal rinomega sonol seskoma"
                                gelemela
                                [ Modifanto1
                                   (ponel,
-                                   Pini
-                                      (modifeblaVorto pini [ Modifanto1(vol, argumento het []) ],
-                                       argumento hal [ pridiranto lukrenega ],
-                                       argumento hal [ pridiranto likrenega ],
-                                       argumento
-                                          hal
-                                          [ Pridiranto(argumento rinomega [ Modifanto1(sonol, argumento seskoma []) ]) ])) ]
+                                   argumento
+                                      pini
+                                      [ Pini
+                                         (argumento hal [ pridiranto lukrenega ],
+                                          argumento hal [ pridiranto likrenega ],
+                                          argumento
+                                             hal
+                                             [ Pridiranto
+                                                (argumento rinomega [ Modifanto1(sonol, argumento seskoma []) ]) ]) ]) ]
                          Argumentoj = [] }) ]
              Argumentoj =
                 [ argumento hime []
