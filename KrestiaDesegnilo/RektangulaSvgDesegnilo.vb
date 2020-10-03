@@ -125,7 +125,7 @@ Public Class RektangulaSvgDesegnilo
          String.Format("m {0} 0 a {0} {1} 0 0 0 0 {2} z v {3} a {4} {5} 0 0 1 0 -{6} z m 0 {7} h -{0} v {8} h {0} z",
                        DuonaLarĝeco, Alteco, DufojaAlteco, DufojaAlteco - Dy, DuonaLarĝeco - Dx, Alteco - Dy,
                        DufojaAlteco - 2*Dy,
-                       Alteco - Dy\2, Dy)
+                       DufojaAlteco\2 - Dy\2, Dy)
    End Function
 
    Private Function EcoMaldekstra() As String

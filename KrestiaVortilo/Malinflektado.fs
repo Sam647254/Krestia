@@ -402,7 +402,7 @@ module Malinflektado =
             | [ solaŜtupo ] ->
                match solaŜtupo with
                | Bazo (vorttipo, inflekcio, _) ->
-                  (inflekcio = Infinitivo)
+                  (inflekcio = Progresivo)
                   && verboTipoj
                   |> Set.contains vorttipo
                | _ -> false
@@ -486,6 +486,7 @@ module Malinflektado =
       let normaligita =
          ĉeno.Replace("aa", "ɒ").Replace("sh", "ʃ")
          |> if inkluziFinaĵon then (fun s -> s) else bazoPorDividi
+         |> (fun s -> if s.Length = 0 then ĉeno else s)
 
       let rec dividiAk ĉuKomenca (literoj: Litero list): Result<string list, string> =
          match literoj with
