@@ -98,24 +98,38 @@ namespace KrestiaVortaro {
                if (literoNomo == "NombrigeblaKlaso" || literoNomo == "NenombrigeblaKlaso") {
                   return "klaso";
                }
+
                return char.ToLowerInvariant(literoNomo[0]) + literoNomo.Substring(1);
             }).Reverse().ToImmutableList();
             if ((gramatikajLiteroj.First() == "nombrigeblaKlaso" ||
                  gramatikajLiteroj.First() == "nenombrigeblaKlaso")
-               && gramatikajLiteroj.Count > 1) {
+                && gramatikajLiteroj.Count > 1) {
                gramatikajLiteroj = gramatikajLiteroj.RemoveAt(0);
             }
 
-            var silaboj = Malinflektado.dividi(Malinflektado.bazoDe(malinflektita.ResultValue.BazaVorto), false);
-            
+            var silaboj = Malinflektado.dividi(
+               Malinflektado.bazoDe(malinflektita.ResultValue.BazaVorto.ToLowerInvariant()),
+               false);
+
             if (silaboj.IsError) {
                throw new Exception(silaboj.ErrorValue);
             }
 
-            var partoj = new List<string> {
-               string.Join(' ', silaboj.ResultValue),
-            };
-            partoj.AddRange(gramatikajLiteroj);
+            var partoj = gramatikajLiteroj.First() == "fremdaVorto"
+               ? new List<string> {
+                  "[",
+                  string.Join(' ', silaboj.ResultValue),
+               }
+               : new List<string> {
+                  string.Join(' ', silaboj.ResultValue),
+               };
+            if (gramatikajLiteroj.First() == "fremdaVorto") {
+               partoj.Add("]");
+            }
+            else {
+               partoj.AddRange(gramatikajLiteroj);
+            }
+
             return partoj;
          }).SelectMany(v => v)).Select(vortoj => string.Join(' ', vortoj));
       }

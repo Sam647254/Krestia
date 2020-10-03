@@ -439,7 +439,7 @@ module Malinflektado =
         "t"
         "p" ]
       |> List.tryPick (fun finaĵo ->
-            if infinitivo.EndsWith(finaĵo)
+            if infinitivo.EndsWith(finaĵo) && (not (infinitivo.StartsWith("h")))
             then Some(infinitivo.Substring(0, infinitivo.Length - finaĵo.Length))
             else None)
       |> Option.defaultValue infinitivo
