@@ -62,7 +62,7 @@ module Testiloj =
 
    let kontroliSilabojn (vorto: string, prava: string list) =
       dividi vorto false
-      |> Result.map (fun rezulto -> Assert.AreEqual(rezulto, prava))
+      |> Result.map (fun rezulto -> Assert.AreEqual(prava, rezulto))
       |> Result.mapError Assert.Fail
       |> ignore
 

@@ -10,10 +10,10 @@ type TransitivaVerboTestoj () =
 
    [<TestMethod>]
    member _.KontroliTesto () =
-      [ ("buvitot", Infinitivo)
-        ("buvitotre", Progresivo)
+      [ ("buvitot", Progresivo)
+        ("buvitotre", Hipoteza)
         ("buvitotro", Perfekto)
-        ("buvitotrie", AtributivoEstiMalantaŭ)
+        ("buvitotrie", Optativo)
         ("buvitotela", Intenco)
         ("buvitotora", Desiderativo)
         ("buvitotore", Ujo2Volo)

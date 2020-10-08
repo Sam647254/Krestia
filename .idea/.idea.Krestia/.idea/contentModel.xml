@@ -206,15 +206,11 @@
         <e p="MalplenaVerboTestoj.fs" t="Include" />
         <e p="MetilmoTestoj.fs" t="Include" />
         <e p="NetransitivaVerboTestoj.fs" t="Include" />
-        <e p="NombrigeblaKlasoTestoj.fs" t="Include" />
         <e p="NombroTestoj.fs" t="Include" />
         <e p="obj" t="ExcludeRecursive" />
         <e p="PartaNetransitivaVerboTestoj.fs" t="Include" />
-        <e p="PredikataAŭArgumentaTestoj.fs" t="Include" />
-        <e p="PridirantoTestoj.fs" t="Include" />
         <e p="Program.fs" t="Include" />
         <e p="SilaboTestoj.fs" t="Include" />
-        <e p="SintaksanaliziloTestoj.fs" t="Include" />
         <e p="Testiloj.fs" t="Include" />
         <e p="TransitivaVerboTestoj.fs" t="Include" />
         <e p="VerboTestoj.fs" t="Include" />

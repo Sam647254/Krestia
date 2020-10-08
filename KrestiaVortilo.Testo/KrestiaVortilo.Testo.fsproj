@@ -18,7 +18,6 @@
     <Compile Include="KlasoTestoj.fs" />
     <Compile Include="VerboTestoj.fs" />
     <Compile Include="SilaboTestoj.fs" />
-    <Compile Include="SintaksanaliziloTestoj.fs" />
     <Compile Include="EraroTestoj.fs" />
     <Compile Include="NombroTestoj.fs" />
     <Compile Include="MetilmoTestoj.fs" />
