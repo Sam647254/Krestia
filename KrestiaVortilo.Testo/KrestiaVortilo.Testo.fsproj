@@ -9,18 +9,15 @@
 
   <ItemGroup>
     <Compile Include="Testiloj.fs" />
-    <Compile Include="NombrigeblaKlasoTestoj.fs" />
     <Compile Include="EcoTestoj.fs" />
     <Compile Include="TransitivaVerboTestoj.fs" />
     <Compile Include="NetransitivaVerboTestoj.fs" />
     <Compile Include="MalplenaVerboTestoj.fs" />
     <Compile Include="PartaNetransitivaVerboTestoj.fs" />
-    <Compile Include="PridirantoTestoj.fs" />
     <Compile Include="LokokupiloTestoj.fs" />
     <Compile Include="KlasoTestoj.fs" />
     <Compile Include="VerboTestoj.fs" />
     <Compile Include="SilaboTestoj.fs" />
-    <Compile Include="PredikataAŭArgumentaTestoj.fs" />
     <Compile Include="SintaksanaliziloTestoj.fs" />
     <Compile Include="EraroTestoj.fs" />
     <Compile Include="NombroTestoj.fs" />

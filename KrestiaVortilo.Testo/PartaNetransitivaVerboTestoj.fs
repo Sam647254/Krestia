@@ -10,8 +10,8 @@ type PartaNetransitivaVerboTestoj () =
 
    [<TestMethod>]
    member _.KontroliTesto () =
-      [ ("omon", Infinitivo)
-        ("omonia", Progresivo)
+      [ ("omon", Progresivo)
+        ("omonia", Hipoteza)
         ("omonio", Perfekto)
         ("omonela", Intenco)
         ("omoneri", Ujo3Volo)

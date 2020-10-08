@@ -205,7 +205,6 @@
         <e p="LokokupiloTestoj.fs" t="Include" />
         <e p="MalplenaVerboTestoj.fs" t="Include" />
         <e p="MetilmoTestoj.fs" t="Include" />
-        <e p="NenombrigeblaKlasoTestoj.fs" t="Include" />
         <e p="NetransitivaVerboTestoj.fs" t="Include" />
         <e p="NombrigeblaKlasoTestoj.fs" t="Include" />
         <e p="NombroTestoj.fs" t="Include" />

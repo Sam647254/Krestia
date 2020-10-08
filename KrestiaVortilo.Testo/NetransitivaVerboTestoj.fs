@@ -10,12 +10,12 @@ type NetransitivaVerboTestoj () =
 
    [<TestMethod>]
    member _.KontroliTesto () =
-      [ ("dulavis", Infinitivo)
-        ("dulavise", Progresivo)
+      [ ("dulavis", Progresivo)
+        ("dulavise", Hipoteza)
         ("dulaviso", Perfekto)
         ("dulavisela", Intenco)
         ("dulavisora", Desiderativo)
-        ("dulavisie", AtributivoEstiMalantaŭ)
+        ("dulavisie", Optativo)
         ("dulavisea", Imperativo)
         ("dulavisetio", Argumento1)
         ("dulaviselis", Translativo)
