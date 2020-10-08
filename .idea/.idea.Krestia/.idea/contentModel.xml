@@ -174,7 +174,6 @@
         <e p="VortoRezulto.cs" t="Include" />
       </e>
       <e p="KrestiaVortaro.Testo" t="IncludeRecursive">
-        <e p="AgojTestoj.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="KrestiaVortaro.Testo.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
@@ -184,7 +183,6 @@
             </e>
           </e>
         </e>
-        <e p="TimeranTestoj.cs" t="Include" />
       </e>
       <e p="KrestiaVortilo" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />

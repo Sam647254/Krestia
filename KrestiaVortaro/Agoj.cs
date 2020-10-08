@@ -1,89 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using KrestiaVortilo;
 
 namespace KrestiaVortaro {
    public static class Agoj {
-      [Obsolete("Ne plu necesas ĉi tion; redaktu rekte la KV-dosieron")]
-      internal static async Task<JsonVortaro> RenomigiVortojn(JsonVortaro vortaro, string eniro) {
-         var dosiero = await File.ReadAllLinesAsync(eniro);
-         var ids = vortaro.Vortoj.Select((v, i) => (v, i)).ToDictionary(p => p.v.PlenaVorto, p => p.i);
-         var vortoj = vortaro.Vortoj.ToList();
-         foreach (var vico in dosiero) {
-            var partoj = vico.Split('|');
-            var vorto = vortoj[ids[partoj[0]]];
-            vorto.PlenaVorto = partoj[1];
-            vorto.BazaVorto = Malinflektado.bazoDe(partoj[1]);
-         }
-
-         return new JsonVortaro {
-            Vortoj = vortoj,
-            Kategorioj = vortaro.Kategorioj,
-         };
-      }
-
-      [Obsolete("Ne plu necesas ĉi tion; redaktu rekte la KV-dosieron")]
-      public static ImmutableSortedSet<Vorto> AldoniVortojn(JsonVortaro vortaro, IEnumerable<string> dosiero) {
-         var ĉiujPartoj = (from v in dosiero select v.Split('|')).ToImmutableList();
-         var novajVortojGrupoj = ĉiujPartoj.Select(vico => vico[0]).GroupBy(Malinflektado.bazoDe).ToImmutableHashSet();
-         var novajVortoj = ĉiujPartoj.Select(vico => vico[0]).ToImmutableHashSet();
-         var plurfojeAldonitajVortoj =
-            novajVortojGrupoj.Where(grupo => grupo.Count() > 1).Select(g => g.Key).ToImmutableHashSet();
-         if (!plurfojeAldonitajVortoj.IsEmpty) {
-            throw new InvalidOperationException($"Plurfoje aldonis: {string.Join(", ", plurfojeAldonitajVortoj)}");
-         }
-
-         var ekzistantajVortoj = vortaro.Vortoj.Select(v => v.PlenaVorto).ToImmutableHashSet();
-         var ekzistantajBazoj = ekzistantajVortoj.Select(Malinflektado.bazoDe).ToImmutableHashSet();
-         var novajBazoj = novajVortoj.Select(Malinflektado.bazoDe).ToImmutableHashSet();
-         var denoveAldonitajVortoj = ekzistantajBazoj.Intersect(novajBazoj);
-         if (denoveAldonitajVortoj.Any()) {
-            throw new InvalidOperationException($"La bazo jam ekzistas: {string.Join(", ", denoveAldonitajVortoj)}");
-         }
-
-         var ĉiujVortoj = ekzistantajVortoj.Union(novajVortoj);
-         var novajVicoj = ĉiujPartoj.Select(partoj => {
-            try {
-               var vorto = partoj[0];
-               var signifajPartoj = partoj[1].Split('^');
-               var signifo = signifajPartoj[0];
-               var gloso = partoj[2];
-               var radikoj = partoj[3].Split(',').Where(r => r.Length > 0).ToImmutableList();
-               var noto = partoj[4];
-               var valenco = KontroliVortonKajValencon(ĉiujVortoj, vorto, radikoj);
-               var ujo1 = valenco >= 1 ? signifajPartoj[1] : null;
-               var ujo2 = valenco >= 2 ? signifajPartoj[2] : null;
-               var ujo3 = valenco == 3 ? signifajPartoj[3] : null;
-
-               var novaVorto = new Vorto(vorto, Malinflektado.bazoDe(vorto),
-                  radikoj.Select(r => {
-                     if (ĉiujVortoj.Contains(r)) {
-                        return r;
-                     }
-
-                     throw new InvalidOperationException($"La radiko de {vorto}, {r} ne ekzistas");
-                  }), signifo, gloso, ujo1, ujo2, ujo3, noto);
-
-               return novaVorto;
-            }
-            catch (Exception e) {
-               Console.WriteLine($"La vico {string.Join('|', partoj)} ne estas nevalida");
-               Console.WriteLine(e.Message);
-               if (e is IndexOutOfRangeException) {
-                  throw new InvalidOperationException(null, e);
-               }
-
-               throw;
-            }
-         });
-         return vortaro.Vortoj.ToImmutableSortedSet().Union(novajVicoj);
-      }
-
       public static IEnumerable<string> KonvertiEnTimeranTxt(IEnumerable<string> eniro) {
          return eniro.Select(vico => vico.Split(' ').Select(vorto => {
             var malinflektita = Malinflektado.tuteMalinflekti(Malinflektado.testaVorto(vorto));
@@ -303,7 +226,7 @@ namespace KrestiaVortaro {
          return kategorioj;
       }
 
-      private static Dictionary<string, string> _novajFinaĵoj = new Dictionary<string, string>() {
+      private static readonly Dictionary<string, string> NovajFinaĵoj = new Dictionary<string, string>() {
          {"maa", "ma"},
          {"mo", "me"},
          {"mu", "mi"},
@@ -342,7 +265,7 @@ namespace KrestiaVortaro {
       }
 
       private static string IgiEnNovaBazo(string v) {
-         var novaFinaĵo = _novajFinaĵoj.FirstOrDefault(f => v.EndsWith(f.Key));
+         var novaFinaĵo = NovajFinaĵoj.FirstOrDefault(f => v.EndsWith(f.Key));
          return !novaFinaĵo.Equals(default(KeyValuePair<string, string>))
             ? v.Substring(0, v.Length - novaFinaĵo.Key.Length) + novaFinaĵo.Value
             : v;

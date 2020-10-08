@@ -547,7 +547,7 @@ module Malinflektado =
             |> Result.map (fun restantajSilaboj -> v.ToString() :: restantajSilaboj)
          | [ Vokalo (v) ] -> [ v.ToString() ] |> Ok
          // Eraro
-         | [] -> Error "La vorto estas vida"
+         | [] -> Ok []
          | _ -> Error(sprintf "Ne povas dividi %A" literoj)
 
       dividiAk
