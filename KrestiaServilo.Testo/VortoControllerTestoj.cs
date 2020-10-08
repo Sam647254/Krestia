@@ -12,11 +12,11 @@ namespace KrestiaServilo.Testo {
 
       [Test]
       public void Get() {
-         var vorto = _controller.Get("kunaa");
+         var vorto = _controller.Get("kuna");
          
          Assert.IsInstanceOf<OkObjectResult>(vorto);
          var respondo = ((OkObjectResult) vorto).Value as VortoRespondo;
-         Assert.AreEqual("kunaa", respondo?.Vorto);
+         Assert.AreEqual("kuna", respondo?.Vorto);
          Assert.AreEqual("water", respondo?.Signifo);
       }
 
@@ -36,7 +36,7 @@ namespace KrestiaServilo.Testo {
          
          Assert.IsInstanceOf<OkObjectResult>(respondo);
          var rezulto = (VortoRezulto) ((OkObjectResult) respondo).Value;
-         Assert.AreEqual("kunaa", rezulto.MalinflektitaVorto);
+         Assert.AreEqual("kuna", rezulto.MalinflektitaVorto);
       }
 
       [Test]
