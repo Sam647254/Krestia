@@ -10,8 +10,8 @@ type MalplenaVerboTestoj () =
 
    [<TestMethod>]
    member _.KontroliTesto () =
-      [ ("meratrem", Infinitivo)
-        ("meratremia", Progresivo)
+      [ ("meratrem", Progresivo)
+        ("meratremia", Hipoteza)
         ("meratremio", Perfekto)
         ("meratremela", Intenco)
         ("meratremelim", Translativo)

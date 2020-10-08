@@ -142,7 +142,10 @@ module Testiloj =
       |> ignore
 
    let kontroliPozonDeEraro eniro vico pozo =
-      analizi eniro false
+      prepariEniron eniro false
+      |> Result.bind (fun eniro ->
+         let legilo = eniro |> Queue |> ImperativaLegilo
+         legilo.Legi())
       |> Result.map (fun _ -> Assert.Fail(sprintf "%s estas nevalida, sed estas sukcese legita" eniro))
       |> Result.mapError (fun (vorto, _) ->
             Assert.AreEqual(vico, vorto.Vico)
