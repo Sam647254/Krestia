@@ -155,7 +155,7 @@ module Malinflektado =
         BazaFinaĵo("eg", Reflekcio) ]
 
    let nedirektaNetransitivaVerboInflekcioj =
-      [ BazaFinaĵo("ia", Progresivo)
+      [ BazaFinaĵo("ia", Hipoteza)
         BazaFinaĵo("io", Perfekto)
         BazaFinaĵo("ela", Intenco)
         BazaFinaĵo("eri", Ujo3Volo)

@@ -7,7 +7,7 @@ type SilaboTestoj() =
 
    [<TestMethod>]
    member _.SilaboTesto() =
-      [ "temigro", [ "te"; "mi" ]
+      [ "temigre", [ "te"; "mi" ]
         "liveras", [ "li"; "ve"; "ra" ]
         "krestia", [ "kres"; "ti"; "a" ] ]
       |> List.map Testiloj.kontroliSilabojn

@@ -17,7 +17,7 @@ type NetransitivaVerboTestoj () =
         ("dulavisora", Desiderativo)
         ("dulavisie", Optativo)
         ("dulavisea", Imperativo)
-        ("dulavisetio", Argumento1)
+        ("dulavisetie", Argumento1)
         ("dulaviselis", Translativo)
         ("dulavismea", Ĝerundo)
         ("dulavisem", PartaUjo1) ]
