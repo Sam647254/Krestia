@@ -45,6 +45,9 @@ module Vorttipo =
    | Kvalito
    | Hipoteza
    | Apartigita
+   | FremdaVorto
+   | Cifero
+   | Predikato
 
    type Vorttipo =
    | NombrigeblaKlaso

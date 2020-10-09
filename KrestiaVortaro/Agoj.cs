@@ -163,7 +163,7 @@ namespace KrestiaVortaro {
 
             var vorto = partoj[0];
 
-            if (vorto.EndsWith('l') && partoj.Length < 7) {
+            if (vorto.EndsWith('l') && !vorto.StartsWith('h') && partoj.Length < 7) {
                eraroj.Add(new InvalidOperationException($"La vico de {vorto} ne sufiĉas da argumentojn"));
                return null;
             }

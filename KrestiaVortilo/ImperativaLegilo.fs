@@ -48,11 +48,22 @@ module Imperativa =
   
    let private vortarajVorttipoj =
       [ 'N', NombrigeblaKlaso
-        'n', NenombrigeblaKlaso ]
+        'n', NenombrigeblaKlaso
+        '0', MalplenaVerbo
+        '1', NetransitivaVerbo
+        '2', TransitivaVerbo
+        '3', DutransitivaVerbo
+        '4', OblikaNetransitivaVerbo
+        '5', OblikaTransitivaVerbo
+        '6', NedirektaNetransitivaVerbo
+        '7', NedirektaTransitivaVerbo ]
       |> Map.ofList
       
    let private vortarajInflekcioj =
-      [ 'D', Difinito ]
+      [ 'D', Difinito
+        'N', SolaFormo
+        'F', Inflekcio.FremdaVorto
+        'P', Predikato ]
       |> Map.ofList
    
    let alportiModifantojn () =
@@ -71,7 +82,7 @@ module Imperativa =
       |> Async.RunSynchronously
       |> Seq.choose (fun vico ->
          let partoj = vico.Split('|')
-         if not(partoj.[0].EndsWith("l")) then
+         if not(partoj.[0].EndsWith("l")) || partoj.[0].StartsWith("h") then
             None
          else
             let vorttipoj =
