@@ -66,7 +66,7 @@ module Imperativa =
         'P', Predikato ]
       |> Map.ofList
    
-   let alportiModifantojn () =
+   let alportiModifantojn =
       async {
          let peto = WebRequest.Create("https://raw.githubusercontent.com/Sam647254/Krestia/master/vortaro.kv")
          let! respondo = peto.AsyncGetResponse()
@@ -96,6 +96,11 @@ module Imperativa =
               ModifantoInflekcioj = List.ofSeq inflekcioj }
             |> Some
          )
+   
+   let validajModifantoj =
+      alportiModifantojn
+      |> Seq.map (fun m -> m.PlenaVorto, m)
+      |> Map.ofSeq
 
    type ImperativaLegilo(enira: Queue<MalinflektitaVorto>) =
 
@@ -403,45 +408,54 @@ module Imperativa =
 
       member private this.LegiMalantaŭModifanton konteksto =
          let sekva = enira.Dequeue()
-         match sekva.BazaVorto with
-         | _ when modifantojDePredikatoKunFrazo.Contains(sekva.BazaVorto) ->
-            (if konteksto.LastaModifeblaVerbo.Count = 0 then
-               Error(Eraro(sekva.OriginalaVorto, "No verb to modify"))
-             else
-                let lastaVerbo = konteksto.LastaModifeblaVerbo.Last.Value
-                konteksto.LastaModifeblaVerbo.RemoveLast()
-                Ok(lastaVerbo))
-            |> Result.bind (fun lastaVerbo ->
+         validajModifantoj.TryFind sekva.BazaVorto
+         |> Option.map (fun legitaModifanto ->
+               match legitaModifanto.ModifantoInflekcioj with
+               | [ Predikato ] ->
                   this.LegiLokalanFrazon konteksto
                   |> Result.map (fun frazo ->
-                        let plenaModifanto = ModifantoKunFrazo(sekva, frazo)
-                        lastaVerbo.Vorto.Modifantoj.Add(plenaModifanto)
-                        |> ignore))
-         | _ when modifantojDeVerboj.Contains(sekva.BazaVorto) ->
-            konteksto.LastaModifeblaVerbo.Last.Value.Vorto.Modifantoj.Add(modifanto sekva)
-            |> ignore
-            |> Ok
-         | _ when modifantojDeKlasoj.Contains(sekva.BazaVorto) ->
-            // TODO: Trovi ĉu estas klaso
-            this.AldoniModifantonAlArgumento (modifanto sekva) konteksto.LastaModifeblaArgumento.Last.Value
-            |> Ok
-         | "nil" ->
-            let lastaVorto = konteksto.LastaModifeblaVorto.Last.Value
-            match lastaVorto with
-            | ModifeblaArgumento _ -> konteksto.LastaModifeblaArgumento.RemoveLast()
-            | ModifeblaVerbo _ -> konteksto.LastaModifeblaVerbo.RemoveLast()
-            konteksto.LastaModifeblaVorto.RemoveLast()
-            konteksto.LegitajModifeblajVortoj.RemoveLast()
-            |> Ok
-         | _ when modifantojDeVortoKunArgumento.Contains(sekva.BazaVorto) ->
-            let lastaVorto =
-               konteksto.LegitajModifeblajVortoj.Last.Value
+                     let plenaModifanto = ModifantoKunFrazo(sekva, frazo)
+                     failwith "TODO")
+               | _ when modifantojDePredikatoKunFrazo.Contains(sekva.BazaVorto) ->
+                  (if konteksto.LastaModifeblaVerbo.Count = 0 then
+                     Error(Eraro(sekva.OriginalaVorto, "No verb to modify"))
+                   else
+                      let lastaVerbo = konteksto.LastaModifeblaVerbo.Last.Value
+                      konteksto.LastaModifeblaVerbo.RemoveLast()
+                      Ok(lastaVerbo))
+                  |> Result.bind (fun lastaVerbo ->
+                        this.LegiLokalanFrazon konteksto
+                        |> Result.map (fun frazo ->
+                              let plenaModifanto = ModifantoKunFrazo(sekva, frazo)
+                              lastaVerbo.Vorto.Modifantoj.Add(plenaModifanto)
+                              |> ignore))
+               | _ when modifantojDeVerboj.Contains(sekva.BazaVorto) ->
+                  konteksto.LastaModifeblaVerbo.Last.Value.Vorto.Modifantoj.Add(modifanto sekva)
+                  |> ignore
+                  |> Ok
+               | _ when modifantojDeKlasoj.Contains(sekva.BazaVorto) ->
+                  // TODO: Trovi ĉu estas klaso
+                  this.AldoniModifantonAlArgumento (modifanto sekva) konteksto.LastaModifeblaArgumento.Last.Value
+                  |> Ok
+               | "nil" ->
+                  let lastaVorto = konteksto.LastaModifeblaVorto.Last.Value
+                  match lastaVorto with
+                  | ModifeblaArgumento _ -> konteksto.LastaModifeblaArgumento.RemoveLast()
+                  | ModifeblaVerbo _ -> konteksto.LastaModifeblaVerbo.RemoveLast()
+                  konteksto.LastaModifeblaVorto.RemoveLast()
+                  konteksto.LegitajModifeblajVortoj.RemoveLast()
+                  |> Ok
+               | _ when modifantojDeVortoKunArgumento.Contains(sekva.BazaVorto) ->
+                  let lastaVorto =
+                     konteksto.LegitajModifeblajVortoj.Last.Value
 
-            this.LegiArgumenton konteksto
-            |> Result.map (fun argumento ->
-                  let novaModifanto = Modifanto1(sekva, argumento)
-                  lastaVorto.Modifantoj.Add(novaModifanto) |> ignore)
-         | _ -> Error(Eraro(sekva.OriginalaVorto, "Unexpected input"))
+                  this.LegiArgumenton konteksto
+                  |> Result.map (fun argumento ->
+                        let novaModifanto = Modifanto1(sekva, argumento)
+                        lastaVorto.Modifantoj.Add(novaModifanto) |> ignore)
+               | _ -> Error(Eraro(sekva.OriginalaVorto, "Unexpected input"))
+            )
+         |> Option.defaultValue (Error(Eraro(sekva.OriginalaVorto, "Unrecognized modifier")))
 
       member private this.LegitajVortoj konteksto =
          let mutable vorto = konteksto.LegitajModifeblajVortoj.Last
