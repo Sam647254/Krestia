@@ -27,7 +27,7 @@ namespace KrestiaServilo.Testo {
          Assert.IsInstanceOf<OkObjectResult>(respondo);
          var rezulto = ((OkObjectResult) respondo).Value as VortoRezulto;
          Assert.AreEqual(1, rezulto?.Rezultoj.Count());
-         Assert.AreEqual("kunaa", rezulto?.Rezultoj.First().Vorto);
+         Assert.AreEqual("kuna", rezulto?.Rezultoj.First().Vorto);
       }
 
       [Test]
@@ -57,8 +57,8 @@ namespace KrestiaServilo.Testo {
          Assert.IsInstanceOf<OkObjectResult>(respondo);
          var rezulto = (((OkObjectResult) respondo).Value as IOrderedEnumerable<Vortaro.VortoKunSignifo>)!.ToList();
          Assert.AreEqual(2, rezulto?.Count);
-         Assert.AreEqual("kresku", rezulto?[0].Vorto);
-         Assert.AreEqual("kunaa", rezulto?[1].Vorto);
+         Assert.AreEqual("kreski", rezulto?[0].Vorto);
+         Assert.AreEqual("kuna", rezulto?[1].Vorto);
       }
    }
 }
