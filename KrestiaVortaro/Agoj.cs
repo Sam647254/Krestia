@@ -150,45 +150,51 @@ namespace KrestiaVortaro {
          var ĉiujVortoj = ĉiujPartoj.Select(vico => vico[0]).ToImmutableHashSet();
          var plurfojeAldonitajVortoj =
             novajVortojGrupoj.Where(grupo => grupo.Count() > 1).Select(g => g.Key).ToImmutableHashSet();
+         var eraroj = new List<Exception>();
          if (!plurfojeAldonitajVortoj.IsEmpty) {
             throw new InvalidOperationException($"Vortoj jam ekzistas: {string.Join(", ", plurfojeAldonitajVortoj)}");
          }
 
-         return ĉiujPartoj.Select(partoj => {
-            try {
-               var vorto = partoj[0];
-               var signifajPartoj = partoj[1].Split('^');
-               var signifo = signifajPartoj[0];
-               var gloso = partoj[2];
-               var radikoj = partoj[3].Split(',').Where(r => r.Length > 0).ToImmutableList();
-               var noto = partoj[4];
-               var valenco = KontroliVortonKajValencon(ĉiujVortoj, vorto, radikoj);
-               var ujo1 = valenco >= 1 ? signifajPartoj[1] : null;
-               var ujo2 = valenco >= 2 ? signifajPartoj[2] : null;
-               var ujo3 = valenco == 3 ? signifajPartoj[3] : null;
-
-               var novaVorto = new Vorto(vorto, Malinflektado.bazoDe(vorto),
-                  radikoj.Select(r => {
-                     if (ĉiujVortoj.Contains(r)) {
-                        return r;
-                     }
-
-                     throw new InvalidOperationException($"La radiko de {vorto}, {r} ne ekzistas");
-                  }), signifo, gloso, ujo1, ujo2, ujo3, noto);
-
-               return novaVorto;
+         var rezulto = ĉiujPartoj.Select(partoj => {
+            if (partoj.Length < 5) {
+               eraroj.Add(new InvalidOperationException($"La vico {string.Join('|', partoj)} estas tro mallonga"));
+               return null;
             }
-            catch (Exception e) {
-               Console.WriteLine($"La vico {string.Join('|', partoj)} ne estas nevalida");
-               Console.WriteLine(e.Message);
-               Console.WriteLine(e.StackTrace);
-               if (e is IndexOutOfRangeException) {
-                  throw new InvalidOperationException(null, e);
-               }
 
-               throw;
+            var vorto = partoj[0];
+
+            if (vorto.EndsWith('l') && partoj.Length < 7) {
+               eraroj.Add(new InvalidOperationException($"La vico de {vorto} ne sufiĉas da argumentojn"));
+               return null;
             }
-         }).ToImmutableSortedSet();
+
+            var signifajPartoj = partoj[1].Split('^');
+            var signifo = signifajPartoj[0];
+            var gloso = partoj[2];
+            var radikoj = partoj[3].Split(',').Where(r => r.Length > 0).ToImmutableList();
+            var noto = partoj[4];
+            var valenco = KontroliVortonKajValencon(ĉiujVortoj, vorto, radikoj);
+            var ujo1 = valenco >= 1 ? signifajPartoj[1] : null;
+            var ujo2 = valenco >= 2 ? signifajPartoj[2] : null;
+            var ujo3 = valenco == 3 ? signifajPartoj[3] : null;
+
+            var novaVorto = new Vorto(vorto, Malinflektado.bazoDe(vorto),
+               radikoj.Select(r => {
+                  if (ĉiujVortoj.Contains(r)) {
+                     return r;
+                  }
+
+                  throw new InvalidOperationException($"La radiko de {vorto}, {r} ne ekzistas");
+               }), signifo, gloso, ujo1, ujo2, ujo3, noto);
+
+            return novaVorto;
+         }).Where(v => v != null).Select(v => v!).ToImmutableSortedSet();
+
+         if (eraroj.Count > 0) {
+            throw new AggregateException(null, eraroj);
+         }
+
+         return rezulto;
       }
 
       public static ImmutableSortedSet<VortaraKategorio> KontroliKategoriojn(IImmutableSet<Vorto> vortoj,
@@ -297,7 +303,7 @@ namespace KrestiaVortaro {
                v.Ujo1, v.Ujo2, v.Ujo3, v.Noto, v.Blissimbolo);
          });
       }
-      
+
       private static readonly IList<string> KlasajFinaĵoj = new List<string> {
          "pi", "pe", "pa", "ti", "te", "ta", "ki", "ke", "ka",
       };

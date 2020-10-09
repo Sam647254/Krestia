@@ -269,6 +269,7 @@ module Sintaksanalizilo =
                | MalantaŭModifanto -> "Modifier (postfix)"
                | AntaŭModifanto -> "Modifier (prefix)"
                | Makro -> "Macro"
-               | FremdaVorto -> "Foreign word")
+               | FremdaVorto -> "Foreign word"
+               | Cifero -> "Digit")
          |> Option.map (fun bazo ->
                if ĉuReciproka bazo then bazo + " (reciprocal)" else bazo)

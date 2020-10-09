@@ -52,18 +52,6 @@ timeran <KV> <eniro> <eliro>
                      int.Parse(args[5]), int.Parse(args[6]));
                   break;
                }
-               case "alkv": {
-                  var vortaro = await JsonVortaro.Malfermi(args[1]);
-                  var vicoj = Agoj.AlKv(vortaro);
-                  await File.WriteAllLinesAsync(args[2], vicoj);
-                  break;
-               }
-               case "alkg": {
-                  var vortaro = await JsonVortaro.Malfermi(args[1]);
-                  var vicoj = Agoj.AlKg(vortaro);
-                  await File.WriteAllLinesAsync(args[2], vicoj);
-                  break;
-               }
                case "kontroli": {
                   var kv = File.ReadLines(args[1]);
                   var kg = File.ReadLines(args[2]);
