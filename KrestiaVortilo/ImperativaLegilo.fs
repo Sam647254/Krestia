@@ -2,6 +2,8 @@
 
 open System
 open System.Collections.Generic
+open System.IO
+open System.Net
 open KrestiaVortilo.Vorttipo
 open KrestiaVortilo.Malinflektado
 open KrestiaVortilo.Sintaksanalizilo
@@ -38,6 +40,51 @@ module Imperativa =
         LastaModifeblaVerbo: LinkedList<Verbo>
         LastaModifeblaArgumento: LinkedList<Argumento>
         LegitajModifeblajVortoj: LinkedList<ModifeblaVorto> }
+      
+   type ModifantoEnVortaro =
+      { PlenaVorto : string
+        ModifeblajVorttipoj : Set<Vorttipo>
+        ModifantoInflekcioj : Inflekcio list }
+  
+   let private vortarajVorttipoj =
+      [ 'N', NombrigeblaKlaso
+        'n', NenombrigeblaKlaso ]
+      |> Map.ofList
+      
+   let private vortarajInflekcioj =
+      [ 'D', Difinito ]
+      |> Map.ofList
+   
+   let alportiModifantojn () =
+      async {
+         let peto = WebRequest.Create("https://raw.githubusercontent.com/Sam647254/Krestia/master/vortaro.kv")
+         let! respondo = peto.AsyncGetResponse()
+         use stream = respondo.GetResponseStream()
+         use streamReader = new StreamReader(stream)
+         return seq {
+            let mutable vico = streamReader.ReadLine()
+            while vico <> null do
+               yield vico
+               vico <- streamReader.ReadLine()
+         }
+      }
+      |> Async.RunSynchronously
+      |> Seq.choose (fun vico ->
+         let partoj = vico.Split('|')
+         if not(partoj.[0].EndsWith("l")) then
+            None
+         else
+            let vorttipoj =
+               partoj.[6].ToCharArray()
+               |> Seq.map (fun c -> Map.find c vortarajVorttipoj)
+            let inflekcioj =
+               partoj.[7].ToCharArray()
+               |> Seq.map (fun c -> Map.find c vortarajInflekcioj)
+            { PlenaVorto = partoj.[0]
+              ModifeblajVorttipoj = Set.ofSeq vorttipoj
+              ModifantoInflekcioj = List.ofSeq inflekcioj }
+            |> Some
+         )
 
    type ImperativaLegilo(enira: Queue<MalinflektitaVorto>) =
 
