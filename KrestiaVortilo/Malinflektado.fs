@@ -76,11 +76,11 @@ module Malinflektado =
         BazaFinaĵo("ea", Ĝerundo)
         BazaFinaĵo("im", PartaUjo1)
         BazaFinaĵo("ig", PartaUjo1)
-        BazaFinaĵo("em", PartaUjo2)
         BazaFinaĵo("es", PartaUjo2)
-        BazaFinaĵo("rim", Reflekcio)
+        BazaFinaĵo("em", PartaUjo2)
         BazaFinaĵo("ris", Reflekcio)
-        BazaFinaĵo("res", UnueUjo2) ]
+        BazaFinaĵo("rim", Reflekcio)
+        BazaFinaĵo("ret", UnueUjo2) ]
 
    let dutransitivaVerboInflekcioj =
       [ BazaFinaĵo("re", Hipoteza)
@@ -109,8 +109,8 @@ module Malinflektado =
         BazaFinaĵo("ut", PartaUjo3)
         BazaFinaĵo("im", Reflekcio)
         BazaFinaĵo("ish", Reflekcio)
-        BazaFinaĵo("rosh", UnueUjo2)
-        BazaFinaĵo("rut", UnueUjo3) ]
+        BazaFinaĵo("rop", UnueUjo2)
+        BazaFinaĵo("rup", UnueUjo3) ]
 
    let nedirektaTransitivaVerboInflekcioj =
       [ BazaFinaĵo("e", Hipoteza)
@@ -127,7 +127,7 @@ module Malinflektado =
         BazaFinaĵo("an", PartaUjo1)
         BazaFinaĵo("om", PartaUjo3)
         BazaFinaĵo("os", PartaUjo3)
-        BazaFinaĵo("ros", UnueUjo3)
+        BazaFinaĵo("rosh", UnueUjo3)
         BazaFinaĵo("es", Reflekcio) ]
 
    let oblikaNetransitivaVerboInflekcioj =
@@ -151,7 +151,7 @@ module Malinflektado =
         BazaFinaĵo("on", PartaUjo2)
         BazaFinaĵo("im", PartaUjo3)
         BazaFinaĵo("ig", PartaUjo3)
-        BazaFinaĵo("rig", UnueUjo3)
+        BazaFinaĵo("riv", UnueUjo3)
         BazaFinaĵo("eg", Reflekcio) ]
 
    let nedirektaNetransitivaVerboInflekcioj =

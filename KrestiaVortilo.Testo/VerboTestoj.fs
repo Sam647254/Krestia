@@ -22,7 +22,7 @@ type VerboTestoj() =
         "nitrit"
         "buvitot"
         "dliret"
-        "klitret"
+        "klitet"
         "eramatosh"
         "tesh"
         "volesh"
@@ -42,7 +42,7 @@ type VerboTestoj() =
       |> List.map (kontroliInflekcion NetransitivaVerbo Progresivo)
       |> ignore
 
-      [ "nitrit"; "buvitot"; "dliret"; "klitret" ]
+      [ "nitrit"; "buvitot"; "dliret"; "klitet" ]
       |> List.map (kontroliInflekcion TransitivaVerbo Progresivo)
       |> ignore
 
