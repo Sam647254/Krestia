@@ -416,11 +416,6 @@ module Imperativa =
          |> Option.map (fun legitaModifanto ->
                match legitaModifanto.ModifantoInflekcioj with
                | [ Predikato ] ->
-                  this.LegiLokalanFrazon konteksto
-                  |> Result.map (fun frazo ->
-                     let plenaModifanto = ModifantoKunFrazo(sekva, frazo)
-                     failwith "TODO")
-               | _ when modifantojDePredikatoKunFrazo.Contains(sekva.BazaVorto) ->
                   (if konteksto.LastaModifeblaVerbo.Count = 0 then
                      Error(Eraro(sekva.OriginalaVorto, "No verb to modify"))
                    else
