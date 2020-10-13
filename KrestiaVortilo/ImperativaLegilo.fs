@@ -70,9 +70,9 @@ module Imperativa =
       async {
          let peto = WebRequest.Create("https://raw.githubusercontent.com/Sam647254/Krestia/master/vortaro.kv")
          let! respondo = peto.AsyncGetResponse()
-         use stream = respondo.GetResponseStream()
-         use streamReader = new StreamReader(stream)
          return seq {
+            use stream = respondo.GetResponseStream()
+            use streamReader = new StreamReader(stream)
             let mutable vico = streamReader.ReadLine()
             while vico <> null do
                yield vico
@@ -86,11 +86,15 @@ module Imperativa =
             None
          else
             let vorttipoj =
-               partoj.[6].ToCharArray()
-               |> Seq.map (fun c -> Map.find c vortarajVorttipoj)
+               partoj.[5].ToCharArray()
+               |> Seq.map (fun c ->
+                  Map.tryFind c vortarajVorttipoj
+                  |> Option.defaultWith (fun () -> failwith (sprintf "Nevalida: %c" c)))
             let inflekcioj =
-               partoj.[7].ToCharArray()
-               |> Seq.map (fun c -> Map.find c vortarajInflekcioj)
+               partoj.[6].ToCharArray()
+               |> Seq.map (fun c ->
+                  Map.tryFind c vortarajInflekcioj
+                  |> Option.defaultWith (fun () -> failwith (sprintf "Nevalida: %c" c)))
             { PlenaVorto = partoj.[0]
               ModifeblajVorttipoj = Set.ofSeq vorttipoj
               ModifantoInflekcioj = List.ofSeq inflekcioj }
@@ -437,7 +441,7 @@ module Imperativa =
                   // TODO: Trovi ĉu estas klaso
                   this.AldoniModifantonAlArgumento (modifanto sekva) konteksto.LastaModifeblaArgumento.Last.Value
                   |> Ok
-               | "nil" ->
+               | _ when legitaModifanto.PlenaVorto = "nil" ->
                   let lastaVorto = konteksto.LastaModifeblaVorto.Last.Value
                   match lastaVorto with
                   | ModifeblaArgumento _ -> konteksto.LastaModifeblaArgumento.RemoveLast()
