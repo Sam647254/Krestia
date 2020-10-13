@@ -47,16 +47,14 @@ module Sintaksanalizilo2 =
       | Ene of Predikato
       | Keni of Argumento * Argumento
       | Pini of Argumento * Argumento * Argumento
-      | SimplaModifanto of MalinflektitaVorto
-      | Modifanto1 of MalinflektitaVorto * Argumento
+      | ModifantoKunArgumentoj of MalinflektitaVorto * Argumento list
       | ModifantoKunFrazo of MalinflektitaVorto * Predikato
 
       override this.ToString() =
          match this with
          | Pridiranto a -> sprintf "Pridiranto(%s)" (a.ToString())
          | EcoDe a -> sprintf "EcoDe(%s)" (a.ToString())
-         | SimplaModifanto m -> m.BazaVorto
-         | Modifanto1(m, a) -> sprintf "%s(%O)" m.BazaVorto a
+         | ModifantoKunArgumentoj(m, a) -> sprintf "%s(%O)" m.BazaVorto a
          | ModifantoKunFrazo(m, p) -> sprintf "%s(%O)" m.BazaVorto p
          | Ene p
          | Mine p -> sprintf "(%O)" p
@@ -114,7 +112,7 @@ module Sintaksanalizilo2 =
       { Kapo = vorto
         Modifantoj = HashSet<Modifanto>(modifantoj) }
   
-   let modifanto vorto = SimplaModifanto vorto
+   let modifanto vorto = ModifantoKunArgumentoj (vorto, [])
 
    let plenaArgumento vorto = failwith "forigi"
 

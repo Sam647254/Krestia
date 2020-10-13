@@ -25,8 +25,8 @@ namespace KrestiaServilo {
                JsonSerializer.Serialize(writer, pridiranto!.Item, options);
                break;
             }
-            case Sintaksanalizilo2.Modifanto.Tags.Modifanto1: {
-               var modifanto = value as Sintaksanalizilo2.Modifanto.Modifanto1;
+            case Sintaksanalizilo2.Modifanto.Tags.ModifantoKunArgumentoj: {
+               var modifanto = value as Sintaksanalizilo2.Modifanto.ModifantoKunArgumentoj;
                writer.WriteString("modifanto", modifanto!.Item1.BazaVorto);
                writer.WritePropertyName("argumento");
                JsonSerializer.Serialize(writer, modifanto!.Item2, options);

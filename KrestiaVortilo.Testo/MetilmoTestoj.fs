@@ -120,14 +120,14 @@ lumiteva elateva grema"
                        { Kapo =
                             verbo
                                liseregela
-                               [ Modifanto1
+                               [ ModifantoKunArgumentoj
                                   (nel,
-                                   argumento
+                                   [ argumento
                                       grema
-                                      [ pridiranto kriteva
-                                        pridiranto ponakava
-                                        pridiranto lumiteva
-                                        pridiranto eleteva ]) ]
+                                        [ pridiranto kriteva
+                                          pridiranto ponakava
+                                          pridiranto lumiteva
+                                          pridiranto eleteva ] ]) ]
                          Argumentoj = [ argumento gremensa [] ] }) ]
              Argumentoj =
                 [ argumento hime []
@@ -167,17 +167,19 @@ hal rinomega sonol seskoma"
                        { Kapo =
                             verbo
                                gelemela
-                               [ Modifanto1
+                               [ ModifantoKunArgumentoj
                                   (ponel,
-                                   argumento
+                                   [ argumento
                                       pini
-                                      [ Pini
-                                         (argumento hal [ pridiranto lukrenega ],
-                                          argumento hal [ pridiranto likrenega ],
-                                          argumento
-                                             hal
-                                             [ Pridiranto
-                                                (argumento rinomega [ Modifanto1(sonol, argumento seskoma []) ]) ]) ]) ]
+                                        [ Pini
+                                           (argumento hal [ pridiranto lukrenega ],
+                                            argumento hal [ pridiranto likrenega ],
+                                            argumento
+                                               hal
+                                               [ Pridiranto
+                                                  (argumento
+                                                     rinomega
+                                                      [ ModifantoKunArgumentoj(sonol, [ argumento seskoma [] ]) ]) ]) ] ]) ]
                          Argumentoj = [] }) ]
              Argumentoj =
                 [ argumento hime []
