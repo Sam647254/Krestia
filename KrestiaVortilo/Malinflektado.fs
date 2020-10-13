@@ -26,6 +26,13 @@ module Malinflektado =
         OriginalaVorto: EniraVorto }
       
       override this.ToString() = this.OriginalaVorto.Vorto
+   
+   let egalajVorttipoj =
+      [ Argumento1, NombrigeblaKlaso
+        Argumento2, NombrigeblaKlaso
+        Argumento3, NombrigeblaKlaso
+        Kvalito, NenombrigeblaKlaso ]
+      |> Map.ofList
 
    let klasajInflekcioj =
       [ DifinitoFinaĵo("nsa", Havaĵo)

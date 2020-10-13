@@ -105,6 +105,22 @@ module Imperativa =
       alportiModifantojn
       |> Seq.map (fun m -> m.PlenaVorto, m)
       |> Map.ofSeq
+      
+   let ĉuPovasModifi (modifanto: ModifantoEnVortaro) (vorto: ModifeblaVorto) =
+      vorto.Kapo.InflekcioŜtupoj
+      |> List.exists (fun ŝtupo ->
+         match ŝtupo with
+         | Nebazo(_, i, _) ->
+            egalajVorttipoj.TryFind i
+            |> Option.map modifanto.ModifeblajVorttipoj.Contains
+            |> Option.defaultValue false
+         | Bazo(v, _, _) ->
+            modifanto.ModifeblajVorttipoj.Contains v)
+   
+   let ĉuHavasInflekcion (vorto: MalinflektitaVorto) inflekcio =
+      match List.last vorto.InflekcioŜtupoj with
+      | Nebazo(_, i, _)
+      | Bazo(_, i, _) -> i = inflekcio
 
    type ImperativaLegilo(enira: Queue<MalinflektitaVorto>) =
 
@@ -463,6 +479,10 @@ module Imperativa =
                yield vorto.Value
                vorto <- vorto.Previous
          }
+      
+      member private this.TroviModifeblanVortoPor modifanto konteksto =
+         this.LegitajVortoj konteksto
+         |> Seq.tryFind (ĉuPovasModifi modifanto)
 
    let legiImperative (eniro: string) =
       prepariEniron eniro false
