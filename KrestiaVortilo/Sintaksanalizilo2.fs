@@ -84,26 +84,6 @@ module Sintaksanalizilo2 =
       { Frazoj: Predikato list
         RestantajVortoj: Argumento list }
 
-   let modifantoj1DeKlasoj =
-      [ "mel"; "sonol" ] |> Set.ofList
-
-   let modifantojDePredikatoKunFrazo =
-      [ "nomil"; "kerel" ] |> Set.ofList
-   
-   let modifantojDeVerboj =
-      [ "nivoral"; "sivil" ] |> Set.ofList
-      
-   let modifantojDeKlasoj =
-      [ "borol" ] |> Set.ofList
-
-   let modifantojDeVortoKunArgumento =
-      [ "sonol"
-        "mel"
-        "nel"
-        "vol"
-        "ponel" ]
-      |> Set.ofList
-
    let senmodifantaVorto vorto =
       { Kapo = vorto
         Modifantoj = HashSet<Modifanto>() }

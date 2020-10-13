@@ -31,7 +31,8 @@ module Malinflektado =
       [ Argumento1, NombrigeblaKlaso
         Argumento2, NombrigeblaKlaso
         Argumento3, NombrigeblaKlaso
-        Kvalito, NenombrigeblaKlaso ]
+        Kvalito, NenombrigeblaKlaso
+        Apartigita, NombrigeblaKlaso ]
       |> Map.ofList
 
    let klasajInflekcioj =
@@ -314,8 +315,8 @@ module Malinflektado =
    let rec malinflekti (vorto: EniraVorto): Result<MalinflektaŜtupo, Eraro> =
       let ĉeno = vorto.Vorto
       match ĉeno with
-      | _ when ĉuFremdaVorto ĉeno -> Bazo(FremdaVorto, SolaFormo, ĉeno) |> Ok
-      | _ when ĉuLokokupilo ĉeno -> Bazo(Lokokupilo, SolaFormo, ĉeno) |> Ok
+      | _ when ĉuFremdaVorto ĉeno -> Bazo(FremdaVorto, Difinito, ĉeno) |> Ok
+      | _ when ĉuLokokupilo ĉeno -> Bazo(Lokokupilo, Difinito, ĉeno) |> Ok
       | _ when ĉuCifero ĉeno -> Bazo(Cifero, Difinito, ĉeno) |> Ok
       | _ ->
          ĉiujInflekcioj

@@ -121,10 +121,13 @@ module Imperativa =
                |> Option.defaultValue false
             | Bazo (v, _, _) -> modifanto.ModifeblajVorttipoj.Contains v)
 
-   let ĉuHavasInflekcion (vorto: MalinflektitaVorto) inflekcio =
-      match List.last vorto.InflekcioŜtupoj with
-      | Nebazo (_, i, _)
-      | Bazo (_, i, _) -> i = inflekcio
+   let ĉuHavasInflekcion (vorto: Argumento) inflekcio =
+      match vorto with
+      | ArgumentaVorto argumento ->
+         match List.last argumento.Kapo.InflekcioŜtupoj with
+         | Nebazo (_, i, _)
+         | Bazo (_, i, _) -> i = inflekcio
+      | Nombro n -> inflekcio = Inflekcio.Cifero
 
    type ImperativaLegilo(enira: Queue<MalinflektitaVorto>) =
 
@@ -166,8 +169,11 @@ module Imperativa =
                            :: listo))) (Ok [])
          |> Result.map List.rev
          |> Result.map (fun frazoj ->
-               { Frazoj = frazoj
-                 Argumentoj = konteksto.Argumentoj |> List.ofSeq })
+               if konteksto.AtendantajPridirantoj.Count > 0 then
+                  failwith "Leftover modifiers"
+               else
+                  { Frazoj = frazoj
+                    Argumentoj = konteksto.Argumentoj |> List.ofSeq })
 
       member private this.LegiLokalanFrazon bazaKonteksto: Result<Predikato, Eraro> =
          let konteksto =
@@ -448,14 +454,6 @@ module Imperativa =
                               let plenaModifanto = ModifantoKunFrazo(sekva, frazo)
                               lastaVerbo.Vorto.Modifantoj.Add(plenaModifanto)
                               |> ignore))
-               | _ when modifantojDeVerboj.Contains(sekva.BazaVorto) ->
-                  konteksto.LastaModifeblaVerbo.Last.Value.Vorto.Modifantoj.Add(modifanto sekva)
-                  |> ignore
-                  |> Ok
-               | _ when modifantojDeKlasoj.Contains(sekva.BazaVorto) ->
-                  // TODO: Trovi ĉu estas klaso
-                  this.AldoniModifantonAlArgumento (modifanto sekva) konteksto.LastaModifeblaArgumento.Last.Value
-                  |> Ok
                | _ when legitaModifanto.PlenaVorto = "nil" ->
                   let lastaVorto = konteksto.LastaModifeblaVorto.Last.Value
                   match lastaVorto with
@@ -464,40 +462,46 @@ module Imperativa =
                   konteksto.LastaModifeblaVorto.RemoveLast()
                   konteksto.LegitajModifeblajVortoj.RemoveLast()
                   |> Ok
-               | _ when modifantojDeVortoKunArgumento.Contains(sekva.BazaVorto) ->
-                  let lastaVorto =
-                     konteksto.LegitajModifeblajVortoj.Last.Value
-
-                  this.LegiArgumenton konteksto
-                  |> Result.map (fun argumento ->
-                        let novaModifanto =
-                           ModifantoKunArgumentoj(sekva, [ argumento ])
-
-                        lastaVorto.Modifantoj.Add(novaModifanto) |> ignore)
                | _ ->
+                  let legitajVortoj =
+                     konteksto.LegitajModifeblajVortoj
+                     |> List.ofSeq
+                     |> List.rev
                   this.LegiModifantajnArgumentojnPor legitaModifanto konteksto
                   |> Result.bind (fun argumentojn ->
-                     let modifanto = ModifantoKunArgumentoj(sekva, argumentojn)
-                     this.TroviModifeblanVortoPor legitaModifanto konteksto
-                     |> Option.map (fun modifotaVorto -> modifotaVorto.Modifantoj.Add(modifanto) |> ignore)
-                     |> Option.map Ok
-                     |> Option.defaultValue (Error(Eraro(sekva.OriginalaVorto, "no word to modify")))))
+                        let modifanto =
+                           ModifantoKunArgumentoj(sekva, argumentojn)
+
+                        this.TroviModifeblanVortoPor legitaModifanto legitajVortoj
+                        |> Option.map (fun modifotaVorto -> modifotaVorto.Modifantoj.Add(modifanto) |> ignore)
+                        |> Option.map Ok
+                        |> Option.defaultValue (Error(Eraro(sekva.OriginalaVorto, "no word to modify")))))
          |> Option.defaultValue (Error(Eraro(sekva.OriginalaVorto, "Unrecognized modifier")))
 
-      member private this.LegitajVortoj konteksto =
-         let mutable vorto = konteksto.LegitajModifeblajVortoj.Last
-         seq {
-            for _ in 0 .. konteksto.LegitajModifeblajVortoj.Count do
-               yield vorto.Value
-               vorto <- vorto.Previous
-         }
-
-      member private this.TroviModifeblanVortoPor modifanto konteksto =
-         this.LegitajVortoj konteksto
+      member private this.TroviModifeblanVortoPor modifanto vortoj =
+         vortoj
          |> Seq.tryFind (ĉuPovasModifi modifanto)
-      
+
       member private this.LegiModifantajnArgumentojnPor modifanto konteksto =
-         failwith "???"
+         modifanto.ModifantoInflekcioj
+         |> List.fold (fun ak sek ->
+               match ak with
+               | Ok listo ->
+                  this.LegiArgumenton konteksto
+                  |> Result.bind (fun argumento ->
+                        if ĉuHavasInflekcion argumento sek then
+                           Ok(argumento :: listo)
+                        else
+                           Error
+                              (Eraro
+                                 (this.OriginalaVortoDe argumento,
+                                  sprintf "does not have the expected inflection %O" sek)))
+               | Error _ -> ak) (Ok [])
+
+      member private this.OriginalaVortoDe argumento =
+         match argumento with
+         | ArgumentaVorto a -> a.Kapo.OriginalaVorto
+         | Nombro n -> failwith "TODO"
 
    let legiImperative (eniro: string) =
       prepariEniron eniro false
