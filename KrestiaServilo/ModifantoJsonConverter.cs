@@ -32,11 +32,6 @@ namespace KrestiaServilo {
                JsonSerializer.Serialize(writer, modifanto!.Item2, options);
                break;
             }
-            case Sintaksanalizilo2.Modifanto.Tags.SimplaModifanto: {
-               var modifanto = value as Sintaksanalizilo2.Modifanto.SimplaModifanto;
-               writer.WriteString("modifanto", modifanto!.Item.BazaVorto);
-               break;
-            }
             case Sintaksanalizilo2.Modifanto.Tags.ModifantoKunFrazo: {
                var modifanto = value as Sintaksanalizilo2.Modifanto.ModifantoKunFrazo;
                writer.WriteString("modifanto", modifanto!.Item1.BazaVorto);

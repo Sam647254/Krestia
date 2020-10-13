@@ -474,7 +474,14 @@ module Imperativa =
                            ModifantoKunArgumentoj(sekva, [ argumento ])
 
                         lastaVorto.Modifantoj.Add(novaModifanto) |> ignore)
-               | _ -> Error(Eraro(sekva.OriginalaVorto, "Unexpected input")))
+               | _ ->
+                  this.LegiModifantajnArgumentojnPor legitaModifanto konteksto
+                  |> Result.bind (fun argumentojn ->
+                     let modifanto = ModifantoKunArgumentoj(sekva, argumentojn)
+                     this.TroviModifeblanVortoPor legitaModifanto konteksto
+                     |> Option.map (fun modifotaVorto -> modifotaVorto.Modifantoj.Add(modifanto) |> ignore)
+                     |> Option.map Ok
+                     |> Option.defaultValue (Error(Eraro(sekva.OriginalaVorto, "no word to modify")))))
          |> Option.defaultValue (Error(Eraro(sekva.OriginalaVorto, "Unrecognized modifier")))
 
       member private this.LegitajVortoj konteksto =
@@ -488,6 +495,9 @@ module Imperativa =
       member private this.TroviModifeblanVortoPor modifanto konteksto =
          this.LegitajVortoj konteksto
          |> Seq.tryFind (ĉuPovasModifi modifanto)
+      
+      member private this.LegiModifantajnArgumentojnPor modifanto konteksto =
+         failwith "???"
 
    let legiImperative (eniro: string) =
       prepariEniron eniro false
