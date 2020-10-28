@@ -94,7 +94,7 @@ module Sintaksanalizilo2 =
       { Kapo = vorto
         Modifantoj = HashSet<Modifanto>(modifantoj) }
   
-   let modifanto vorto = ModifantoKunArgumentoj (vorto, [])
+   let modifanto vorto argumentoj = ModifantoKunArgumentoj (vorto, argumentoj)
 
    let plenaArgumento vorto = failwith "forigi"
 
@@ -104,6 +104,8 @@ module Sintaksanalizilo2 =
       { Kapo = vorto
         Modifantoj = HashSet(modifantoj) }
       |> ArgumentaVorto
+   
+   let nombro n = Nombro n
 
    let pridiranto vorto = Pridiranto(argumento vorto [])
 

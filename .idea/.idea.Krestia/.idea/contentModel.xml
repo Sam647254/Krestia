@@ -143,6 +143,7 @@
         <e p="Vorttipo.fs" t="Include" />
       </e>
       <e p="KrestiaVortilo.Testo" t="IncludeRecursive">
+        <e p="AntaŭaModifantoTestoj.fs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="EcoTestoj.fs" t="Include" />
         <e p="EraroTestoj.fs" t="Include" />

@@ -36,7 +36,7 @@ mirateva delegio rone"
                    [ Pridiranto(argumento linetiga [])
                      ModifantoKunFrazo
                         (nomil,
-                         { Kapo = verbo merogia [ modifanto nivoral; modifanto sivil ]
+                         { Kapo = verbo merogia [ modifanto nivoral []; modifanto sivil [] ]
                            Argumentoj =
                               [ argumento
                                  mine
@@ -89,7 +89,7 @@ kerel segrerem melismea"
                                            (kerel,
                                             { Kapo = verbo segrerem [ EcoDe(argumento melismea []) ]
                                               Argumentoj = [] }) ]
-                                  Argumentoj = [ argumento gremegrela [ modifanto borol ] ] }) ]) ] ] } ]
+                                  Argumentoj = [ argumento gremegrela [ modifanto borol [] ] ] }) ]) ] ] } ]
 
    [<TestMethod>]
    member _.Tri() =

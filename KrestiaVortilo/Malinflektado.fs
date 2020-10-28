@@ -32,7 +32,8 @@ module Malinflektado =
         Argumento2, NombrigeblaKlaso
         Argumento3, NombrigeblaKlaso
         Kvalito, NenombrigeblaKlaso
-        Apartigita, NombrigeblaKlaso ]
+        Apartigita, NombrigeblaKlaso
+        Inflekcio.FremdaVorto, NombrigeblaKlaso ]
       |> Map.ofList
 
    let klasajInflekcioj =
@@ -644,6 +645,11 @@ module Malinflektado =
    let ĉuMalantaŭModifanto (vorto: MalinflektitaVorto) =
       match vorto.InflekcioŜtupoj.Head with
       | Bazo (vorttipo, _, _) -> vorttipo = MalantaŭModifanto
+      | _ -> false
+      
+   let ĉuAntaŭModifanto vorto =
+      match vorto.InflekcioŜtupoj.Head with
+      | Bazo (vorttipo, _, _) -> vorttipo = AntaŭModifanto
       | _ -> false
 
    let ĉuSolaArgumento (vorto: MalinflektitaVorto) =
