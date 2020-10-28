@@ -49,6 +49,7 @@ module Sintaksanalizilo2 =
       | Pini of Argumento * Argumento * Argumento
       | ModifantoKunArgumentoj of MalinflektitaVorto * Argumento list
       | ModifantoKunFrazo of MalinflektitaVorto * Predikato
+      | Nil
 
       override this.ToString() =
          match this with
@@ -60,6 +61,7 @@ module Sintaksanalizilo2 =
          | Mine p -> sprintf "(%O)" p
          | Keni(a1, a2) -> sprintf "(%O, %O)" a1 a2
          | Pini(a1, a2, a3) -> sprintf "(%O, %O, %O)" a1 a2 a3
+         | Nil -> ""
 
    and Predikato =
       { Kapo: Verbo
