@@ -63,7 +63,8 @@ module Imperativa =
       [ 'D', Difinito
         'N', SolaFormo
         'F', Inflekcio.FremdaVorto
-        'P', Predikato ]
+        'P', Predikato
+        'C', Inflekcio.Cifero ]
       |> Map.ofList
 
    let alportiModifantojn =

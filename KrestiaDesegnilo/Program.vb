@@ -23,7 +23,7 @@ Public Module Program
       End If
    End Sub
 
-   Private Sub Bliss(eniro As String, eliro As String, radio As Integer)
+   Public Sub Bliss(eniro As String, eliro As String, radio As Integer)
       Dim bliss = New BlissSvgDesegnilo(eliro, radio)
       For Each vico In File.ReadLines(eniro)
          For Each silabo In vico.Split(" "c)

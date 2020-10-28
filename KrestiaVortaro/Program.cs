@@ -46,6 +46,10 @@ timeran <KV> <eniro> <eliro>
                   await File.WriteAllLinesAsync(args[2], vicoj);
                   break;
                }
+               case "rondo": {
+                  TimeranDesegnilo.Program.Bliss(args[1], args[2], int.Parse(args[3]));
+                  break;
+               }
                case "timeran": {
                   var vicoj = Agoj.KonvertiEnTimeranTxt(File.ReadLines(args[1]));
                   TimeranDesegnilo.Program.Dosiero(args[2], vicoj, int.Parse(args[3]), int.Parse(args[4]),

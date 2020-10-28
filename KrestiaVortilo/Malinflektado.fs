@@ -315,9 +315,9 @@ module Malinflektado =
    let rec malinflekti (vorto: EniraVorto): Result<MalinflektaŜtupo, Eraro> =
       let ĉeno = vorto.Vorto
       match ĉeno with
-      | _ when ĉuFremdaVorto ĉeno -> Bazo(FremdaVorto, Difinito, ĉeno) |> Ok
+      | _ when ĉuFremdaVorto ĉeno -> Bazo(FremdaVorto, Inflekcio.FremdaVorto, ĉeno) |> Ok
       | _ when ĉuLokokupilo ĉeno -> Bazo(Lokokupilo, Difinito, ĉeno) |> Ok
-      | _ when ĉuCifero ĉeno -> Bazo(Cifero, Difinito, ĉeno) |> Ok
+      | _ when ĉuCifero ĉeno -> Bazo(Cifero, Inflekcio.Cifero, ĉeno) |> Ok
       | _ ->
          ĉiujInflekcioj
          |> List.tryPick (fun (vorttipo, finaĵo) ->
@@ -625,6 +625,7 @@ module Malinflektado =
          (Set.contains inflekcio argumentajInflekcioj)
          || vorttipo = Lokokupilo
          || vorttipo = FremdaVorto
+         || vorttipo = Cifero
       | Nebazo (_, inflekcio, _) -> Set.contains inflekcio argumentajInflekcioj
 
    let ĉuDifinita (vorto: MalinflektitaVorto) =
