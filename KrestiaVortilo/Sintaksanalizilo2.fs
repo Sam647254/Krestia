@@ -237,6 +237,7 @@ module Sintaksanalizilo2 =
             |> fun (_, listo) -> listo
             |> List.rev)
       |> List.concat
+      |> List.filter (fun v -> v.Vorto.Length > 0)
 
    let analizi (eniro: string) ĉuTesto: Result<AnaziloRezulto, Eraro> =
       eniro
