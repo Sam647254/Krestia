@@ -46,10 +46,11 @@ namespace KrestiaServilo.Controllers {
          return Ok(_vortaroService.Instanco.KategoriaVortlisto);
       }
 
-      [HttpGet("bliss/{id}")]
-      public async Task<ActionResult> Blissimbolo(int id) {
-         var svg = await _blissFonto.AlportiBlissimbolon(id);
-         return File(new MemoryStream(Encoding.UTF8.GetBytes(svg)), "image/svg+xml");
+      [HttpGet("gloso/{vorto}")]
+      public ActionResult Gloso(string vorto) {
+         var rezulto = _vortaroService.Instanco.Vorto(vorto);
+         if (rezulto == null) return NotFound();
+         return Ok(new {gloso = rezulto.Gloso});
       }
    }
 }

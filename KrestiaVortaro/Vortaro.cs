@@ -66,6 +66,7 @@ namespace KrestiaVortaro {
             Vorttipo = vorttipo,
             Silaboj = silaboj.ResultValue,
             Blissimbolo = respondo.Blissimbolo,
+            Gloso = respondo.GlosaSignifo,
             InflektitajFormoj = FSharpOption<FSharpMap<Vorttipo.Inflekcio, string>>.get_IsSome(inflekcioj)
                ? inflekcioj.Value.Select(p => (p.Key.ToString(), p.Value))
                   .ToDictionary(p => p.Item1, p => p.Value)
