@@ -171,12 +171,13 @@ module Imperativa =
                              Argumentoj = argumentoj }
                            :: listo))) (Ok [])
          |> Result.map List.rev
-         |> Result.map (fun frazoj ->
+         |> Result.bind (fun frazoj ->
                if konteksto.AtendantajPridirantoj.Count > 0 then
-                  failwith "Leftover modifiers"
+                  Error(Eraro(malplenaEniraVorto, "Leftover modifiers"))
                else
                   { Frazoj = frazoj
-                    Argumentoj = konteksto.Argumentoj |> List.ofSeq })
+                    Argumentoj = konteksto.Argumentoj |> List.ofSeq }
+                  |> Ok)
 
       member private this.LegiLokalanFrazon bazaKonteksto: Result<Predikato, Eraro> =
          let konteksto =
@@ -247,7 +248,7 @@ module Imperativa =
                Eraro(sekva.OriginalaVorto, sprintf "Can't parse %s" sekva.OriginalaVorto.Vorto)
                |> Error
          else
-            failwith "Unexpected end of input"
+           Error(Eraro(malplenaEniraVorto, "Unexpected end of input"))
 
       member private this.LegiArgumenton konteksto uziModifantojn: Result<Argumento, Eraro> =
          let sekva = enira.Peek()

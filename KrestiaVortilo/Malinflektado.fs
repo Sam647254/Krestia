@@ -8,6 +8,8 @@ module Malinflektado =
    type EniraVorto = { Vico: int; Pozo: int; Vorto: string }
 
    let testaVorto vorto = { Vico = 0; Pozo = 0; Vorto = vorto }
+   
+   let malplenaEniraVorto = { Vico = 0; Pozo = 0; Vorto = "" }
 
    type Eraro = EniraVorto * string
 

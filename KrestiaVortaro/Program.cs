@@ -56,6 +56,12 @@ timeran <KV> <eniro> <eliro>
                      int.Parse(args[5]), int.Parse(args[6]));
                   break;
                }
+               case "timeran2": {
+                  var eniro = File.ReadLines(args[1]);
+                  TimeranDesegnilo.Program.Dosiero(args[2], eniro, int.Parse(args[3]), int.Parse(args[4]),
+                     int.Parse(args[5]), int.Parse(args[6]));
+                  break;
+               }
                case "kontroli": {
                   var kv = File.ReadLines(args[1]);
                   var kg = File.ReadLines(args[2]);
