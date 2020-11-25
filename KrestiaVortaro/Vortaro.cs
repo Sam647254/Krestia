@@ -141,6 +141,19 @@ namespace KrestiaVortaro {
          };
       }
 
+      public string? TroviGlosanSignifon(string vorto) {
+         var bazo = Malinflektado.bazoDe(vorto);
+         var bazaVorto = BazoIndekso.GetValueOrDefault(bazo, null);
+         var vorttipo =
+            (Malinflektado.malinflekti(Malinflektado.testaVorto(vorto)).ResultValue as
+               Sintaksanalizilo.MalinflektaŜtupo.Bazo)!.Item1;
+         if (bazaVorto != null && Malinflektado.ĉuMalplenigita(vorttipo, bazaVorto.PlenaVorto)) {
+            return bazaVorto.GlosaSignifo;
+         }
+
+         return null;
+      }
+
       private VortoRezulto GlosaRezulto(
          IReadOnlyCollection<FSharpResult<Malinflektado.MalinflektitaVorto, Tuple<Malinflektado.EniraVorto, string>>>
             vortoj) {

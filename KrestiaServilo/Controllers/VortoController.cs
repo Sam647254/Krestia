@@ -48,9 +48,9 @@ namespace KrestiaServilo.Controllers {
 
       [HttpGet("gloso/{vorto}")]
       public ActionResult Gloso(string vorto) {
-         var rezulto = _vortaroService.Instanco.Vorto(vorto);
+         var rezulto = _vortaroService.Instanco.TroviGlosanSignifon(vorto);
          if (rezulto == null) return NotFound();
-         return Ok(new {gloso = rezulto.Gloso});
+         return Ok(new {gloso = rezulto});
       }
    }
 }
