@@ -88,6 +88,7 @@ namespace KrestiaVortaro {
                }
                catch (NullReferenceException) { }
             }
+
             var malinflektita = kvanto.Select(Malinflektado.tuteMalinflekti).ToList();
             try {
                return GlosaRezulto(malinflektita.ToList());
@@ -152,11 +153,12 @@ namespace KrestiaVortaro {
          var vorttipo =
             (Malinflektado.malinflekti(Malinflektado.testaVorto(vorto)).ResultValue as
                Sintaksanalizilo.MalinflektaŜtupo.Bazo)!.Item1;
-         if (bazaVorto != null && Malinflektado.ĉuMalplenigita(vorttipo, bazaVorto.PlenaVorto)) {
-            return bazaVorto.GlosaSignifo;
+         if (bazaVorto != null && Malinflektado.ĉuVerbo(vorto).ResultValue &&
+             !Malinflektado.ĉuMalplenigita(vorttipo, bazaVorto.PlenaVorto)) {
+            return null;
          }
 
-         return null;
+         return bazaVorto?.GlosaSignifo;
       }
 
       private VortoRezulto GlosaRezulto(
