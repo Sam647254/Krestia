@@ -366,7 +366,7 @@ module Malinflektado =
                |> Option.map (fun vorttipo -> Nebazo(vorttipo, PredikativoEsti, ebleDifinito))))
          |> Option.map Ok
          |> Option.defaultValue
-               ((vorto, (sprintf "%s estas nevalida" ĉeno))
+               ((vorto, (sprintf "%s cannot be decomposed" ĉeno))
                 |> Error)
 
    and tuteMalinflekti (vorto: EniraVorto) =
@@ -559,7 +559,7 @@ module Malinflektado =
          | [ Vokalo (v) ] -> [ v.ToString() ] |> Ok
          // Eraro
          | [] -> Ok []
-         | _ -> Error(sprintf "Ne povas dividi %A" literoj)
+         | _ -> Error(sprintf "Cannot split %A" literoj)
 
       dividiAk
          true
@@ -573,7 +573,7 @@ module Malinflektado =
             ĉuBazo vorto
             |> Option.map (fun vorttipo -> silaboj @ [ vorttipo.ToString() ])
             |> Option.map Ok
-            |> Option.defaultValue (Error(sprintf "%s ne estas infinitivo" vorto)))
+            |> Option.defaultValue (Error(sprintf "%s is not a base form" vorto)))
 
    let predikatajBazajTipoj =
       [ MalplenaVerbo

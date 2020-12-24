@@ -245,7 +245,7 @@ module Imperativa =
             elif ĉuAntaŭModifanto sekva then
                this.LegiAntaŭanModifanton konteksto
             else
-               Eraro(sekva.OriginalaVorto, sprintf "Can't parse %s" sekva.OriginalaVorto.Vorto)
+               Eraro(sekva.OriginalaVorto, sprintf "Unexpected input: %s" sekva.OriginalaVorto.Vorto)
                |> Error
          else
            Error(Eraro(malplenaEniraVorto, "Unexpected end of input"))
