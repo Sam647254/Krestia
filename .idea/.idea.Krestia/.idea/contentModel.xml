@@ -58,6 +58,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="Document" t="Include">
           <e p="Document.cs" t="Include" />
+          <e p="Header.cs" t="Include" />
           <e p="Paragraph.cs" t="Include" />
         </e>
         <e p="KrestiaLibro.csproj" t="IncludeRecursive" />

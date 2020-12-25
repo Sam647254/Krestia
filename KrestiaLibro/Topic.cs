@@ -1,10 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using KrestiaLibro.Document;
 
 namespace KrestiaLibro {
    public class Topic {
       public string Title { get; set; }
+      public IEnumerable<DocumentPart> DocumentParts { get; set; }
+
+      public void WriteMarkdown(TextWriter output) {
+         foreach (var part in DocumentParts) {
+            part.WriteMarkdown(output);
+         }
+      }
       
       public static Topic Create(string title, Action<TopicBuilder> block) {
          var builder = new TopicBuilder(title);
@@ -19,6 +27,7 @@ namespace KrestiaLibro {
       
       internal TopicBuilder(string title) {
          Title = title;
+         _documentParts.Add(new H1(title));
       }
 
       internal void Paragraph(Action<ParagraphBuilder> block) {
@@ -28,7 +37,9 @@ namespace KrestiaLibro {
       }
 
       internal void Ul(params ListItem[] listItems) {
-         _documentParts.AddRange(listItems);
+         _documentParts.Add(new UnorderedList {
+            ListItems = listItems
+         });
       }
 
       internal ListItem Li(params Segment[] segments) {
@@ -51,7 +62,8 @@ namespace KrestiaLibro {
 
       internal Topic Build() {
          return new Topic {
-            Title = Title
+            Title = Title,
+            DocumentParts = _documentParts
          };
       }
 

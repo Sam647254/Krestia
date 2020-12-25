@@ -13,7 +13,7 @@ the following characteristics, which may significantly differ from those of
 natural languages:");
             });
             b.Ul(
-               b.Li(b.Strong(b.T("No expressions of politeness. ")),
+               b.Li(b.Strong(b.T("No expressions of politeness.")),
                   b.T(@"
 Such expressions, while pleasing to the ear and the ego, do not actually
 contribute to the core meaning of an utterance. While this takes away the
@@ -21,14 +21,14 @@ ability to show manners and respect, it also eliminates the burden, especially
 on language learners, of having to decide how to phrase a request that will
 minimize the possibility of offending the listener.")),
                b.Li(
-                  b.Strong(b.T("Literal interpretations of all words. ")),
+                  b.Strong(b.T("Literal interpretations of all words.")),
                   b.T(@"
 As idiomatic expressions vary from culture to culture, they become a point of
 confusion when people of different backgrounds communicate with each other. To
 avoid misunderstanding that arises from metaphoric use of words, all expressions
 are interpreted by their denotations, unless used in an artistic context, such
 as poems or lyrics.")),
-               b.Li(b.Strong(b.T("Well-defined rules to providing responses. ")),
+               b.Li(b.Strong(b.T("Well-defined rules to providing responses.")),
                   b.T(@"
 A speaker who wishes to seek information from a listener may do so by issuing a
 request using a “response-seeking verb”, and the listener will have a finite number
