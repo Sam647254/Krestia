@@ -44,8 +44,8 @@ module Malinflektado =
         DifinitoFinaĵo("ga", AtributivoEstiMalantaŭ)
         DifinitoFinaĵo("va", AtributivoEstiAntaŭ)
         DifinitoFinaĵo("ra", Sola)
-        DifinitoFinaĵo("res", Havado)
         DifinitoFinaĵo("rem", Havado)
+        DifinitoFinaĵo("res", Havado)
         DifinitoFinaĵo("rim", Ekzistado)
         DifinitoFinaĵo("lam", Translativo)
         PredikativoEstiFinaĵo("las", Translativo)
@@ -434,6 +434,8 @@ module Malinflektado =
              - (if vorto.EndsWith("sh") then 2 else 1))
       else
          vorto
+         
+   and vortaraBazoDe (vorto: string) = (bazoDe vorto, ĉuVerboInfinitivoB vorto)
 
    and bazoPorDividi (infinitivo: string) =
       [ "gri"

@@ -146,7 +146,7 @@ namespace KrestiaVortaro {
 
       public static ImmutableSortedSet<Vorto> KontroliVortojn(IEnumerable<string> kv) {
          var ĉiujPartoj = (from v in kv where v.Length > 0 select v.Split('|')).ToImmutableList();
-         var novajVortojGrupoj = ĉiujPartoj.Select(vico => vico[0]).GroupBy(Malinflektado.bazoDe).ToImmutableHashSet();
+         var novajVortojGrupoj = ĉiujPartoj.Select(vico => vico[0]).GroupBy(Malinflektado.vortaraBazoDe).ToImmutableHashSet();
          var ĉiujVortoj = ĉiujPartoj.Select(vico => vico[0]).ToImmutableHashSet();
          var plurfojeAldonitajVortoj =
             novajVortojGrupoj.Where(grupo => grupo.Count() > 1).Select(g => g.Key).ToImmutableHashSet();

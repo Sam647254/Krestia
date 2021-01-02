@@ -148,27 +148,26 @@ module Sintaksanalizilo =
    let ĉuLokokupilo (ĉeno: string) = ĉeno.StartsWith("w") || ĉeno.StartsWith("h")
    
    let nefinajCiferoj =
-      [ "miri", "0"
-        "poni", "1"
-        "vori", "2"
-        "noni", "3"
-        "teri", "4"
-        "sini", "5"
-        "liri", "6"
-        "soni", "7"
-        "keri", "8"
-        "gini", "9"
-        "pomiri", "10"
-        "voliri", "00"
-        "noliri", "000"
-        "linari", "000000"
+      [ "mi", "0"
+        "po", "1"
+        "vo", "2"
+        "no", "3"
+        "te", "4"
+        "si", "5"
+        "li", "6"
+        "so", "7"
+        "ke", "8"
+        "gi", "9"
+        "plo", "00"
+        "tri", "000"
+        "kle", "000000"
         "di", "." ]
       |> Map.ofList
    
    let komencajNefinajCiferoj =
-      [ "voliri", "100"
-        "noliri", "1000"
-        "linari", "1000000"
+      [ "plo", "100"
+        "tri", "1000"
+        "kle", "1000000"
         "di", "0." ]
       |> Map.ofList
 
@@ -183,10 +182,9 @@ module Sintaksanalizilo =
         "sona", "7"
         "kera", "8"
         "gina", "9"
-        "pomira", "10"
-        "volira", "00"
-        "nolira", "000"
-        "linara", "0000000" ]
+        "trira", "00"
+        "plora", "000"
+        "klera", "0000000" ]
       |> Map.ofList
    
    let komencajFinajCiferoj =
