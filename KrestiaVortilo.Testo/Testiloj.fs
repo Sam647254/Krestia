@@ -153,7 +153,7 @@ module Testiloj =
       |> ignore
 
    let kontroliNombron eniro nombro =
-      kontroliArgumentojn eniro [ Nombro (nombro, []) ]
+      kontroliArgumentojn eniro [ Nombro (nombro, HashSet()) ]
    
    let kontroliKalkulon eniro pravaRezulto =
       proveLegiNombron eniro

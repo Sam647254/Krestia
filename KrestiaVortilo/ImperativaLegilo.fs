@@ -40,7 +40,8 @@ module Imperativa =
         LastaModifeblaVorto: LinkedList<LastaLegitaModifeblaVorto>
         LastaModifeblaVerbo: LinkedList<Verbo>
         LastaModifeblaArgumento: LinkedList<Argumento>
-        LegitajModifeblajVortoj: LinkedList<ModifeblaVorto> }
+        LegitajModifeblajVortoj: LinkedList<ModifeblaVorto>
+        LegitajNombroj: LinkedList<Argumento> }
 
    type ModifantoEnVortaro =
       { PlenaVorto: string
@@ -50,6 +51,7 @@ module Imperativa =
    let private vortarajVorttipoj =
       [ 'N', NombrigeblaKlaso
         'n', NenombrigeblaKlaso
+        'C', Cifero
         '0', MalplenaVerbo
         '1', NetransitivaVerbo
         '2', TransitivaVerbo
@@ -142,7 +144,8 @@ module Imperativa =
               LastaModifeblaVorto = LinkedList<LastaLegitaModifeblaVorto>()
               LastaModifeblaVerbo = LinkedList<Verbo>()
               LastaModifeblaArgumento = LinkedList<Argumento>()
-              LegitajModifeblajVortoj = LinkedList<ModifeblaVorto>() }
+              LegitajModifeblajVortoj = LinkedList<ModifeblaVorto>()
+              LegitajNombroj = LinkedList<Argumento>() }
 
          let rec legiAk (): Result<Rezulto, Eraro> =
             this.LegiSekvan konteksto
@@ -181,14 +184,9 @@ module Imperativa =
 
       member private this.LegiLokalanFrazon bazaKonteksto: Result<Predikato, Eraro> =
          let konteksto =
-            { Argumentoj = LinkedList<Argumento>()
-              AtendantajPridirantoj = bazaKonteksto.AtendantajPridirantoj
-              AtendantajModifantoj = bazaKonteksto.AtendantajModifantoj
-              AtendantajPredikatoj = LinkedList<AtendantaPredikato>()
-              LastaModifeblaVorto = bazaKonteksto.LastaModifeblaVorto
-              LastaModifeblaVerbo = bazaKonteksto.LastaModifeblaVerbo
-              LastaModifeblaArgumento = bazaKonteksto.LastaModifeblaArgumento
-              LegitajModifeblajVortoj = bazaKonteksto.LegitajModifeblajVortoj }
+            { bazaKonteksto with
+                 Argumentoj = LinkedList<Argumento>()
+                 AtendantajPredikatoj = LinkedList<AtendantaPredikato>() }
 
          let rec legiAk () =
             this.LegiSekvan konteksto
@@ -255,8 +253,9 @@ module Imperativa =
          if ĉuCifero sekva.OriginalaVorto.Vorto then
             this.LegiNombron true
             |> Result.map (fun ciferoj ->
-                  let nombro = Decimal.Parse(ciferoj)
-                  Nombro (nombro, []))
+                  let nombro = Nombro (Decimal.Parse(ciferoj), HashSet())
+                  konteksto.LegitajNombroj.AddLast(nombro) |> ignore
+                  nombro)
          elif ĉuDifinita sekva then
             this.LegiPlenanArgumenton (enira.Dequeue()) konteksto uziModifantojn
          elif ĉuAntaŭModifantaVorto sekva then
@@ -468,6 +467,10 @@ module Imperativa =
             konteksto.LegitajModifeblajVortoj
             |> List.ofSeq
             |> List.rev
+         let legitajNombroj =
+            konteksto.LegitajNombroj
+            |> List.ofSeq
+            |> List.rev
 
          this.LegiModifanton konteksto
          |> Result.bind (fun (modifanto, sekva) ->
@@ -476,11 +479,24 @@ module Imperativa =
                | _ ->
                   let enVortaro =
                      validajModifantoj.[sekva.OriginalaVorto.Vorto]
-
-                  this.TroviModifeblanVortoPor enVortaro legitajVortoj
-                  |> Option.map (fun modifotaVorto -> modifotaVorto.Modifantoj.Add(modifanto) |> ignore)
-                  |> Option.map Ok
-                  |> Option.defaultValue (Error(Eraro(sekva.OriginalaVorto, "no word to modify"))))
+                     
+                  if enVortaro.ModifeblajVorttipoj.Contains(Cifero) then
+                     legitajNombroj
+                     |> List.tryFind (fun nombro ->
+                        match nombro with
+                        | Nombro (_, operacioj) -> operacioj.Count = 0
+                        | _ -> false)
+                     |> Option.map (fun nombro ->
+                        match nombro with
+                        | Nombro (_, operacioj) -> operacioj.Add(modifanto) |> ignore
+                        | _ -> ())
+                     |> Option.map Ok
+                     |> Option.defaultValue (Error(Eraro(sekva.OriginalaVorto, "No number to attach to")))
+                  else
+                     this.TroviModifeblanVortoPor enVortaro legitajVortoj
+                     |> Option.map (fun modifotaVorto -> modifotaVorto.Modifantoj.Add(modifanto) |> ignore)
+                     |> Option.map Ok
+                     |> Option.defaultValue (Error(Eraro(sekva.OriginalaVorto, "no word to modify"))))
 
       member private this.LegiAntaŭanModifanton konteksto =
          this.LegiModifanton konteksto
@@ -511,7 +527,11 @@ module Imperativa =
                   Ok(Nil)
                | _ ->
                   this.LegiModifantajnArgumentojnPor legitaModifanto konteksto
-                  |> Result.map (fun argumentojn -> ModifantoKunArgumentoj(sekva, argumentojn)))
+                  |> Result.map (fun argumentojn ->
+                     if legitaModifanto.ModifeblajVorttipoj = Set.ofList [ Cifero ] then
+                        Operaciilo(sekva, argumentojn)
+                     else
+                        ModifantoKunArgumentoj(sekva, argumentojn)))
          |> Option.map (Result.map (fun modifanto -> (modifanto, sekva)))
          |> Option.defaultValue (Error(Eraro(sekva.OriginalaVorto, "Unrecognized modifier")))
 
@@ -556,10 +576,10 @@ module Imperativa =
    let rec kalkuli eniraArgumento =
       match eniraArgumento with
       | Nombro (nombro, operacioj) ->
-         if List.length operacioj = 0 then
+         if operacioj.Count = 0 then
             Ok nombro
          else
-            let operacio = List.head operacioj
+            let operacio = operacioj |> List.ofSeq |> List.head
             match operacio with
             | Operaciilo (o, nombroj) ->
                match o.BazaVorto with

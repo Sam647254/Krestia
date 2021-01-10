@@ -28,7 +28,7 @@ module Sintaksanalizilo2 =
 
    and Argumento =
       | ArgumentaVorto of ModifeblaVorto
-      | Nombro of (decimal * Modifanto list)
+      | Nombro of (decimal * HashSet<Modifanto>)
 
       override this.ToString() =
          match this with
@@ -107,7 +107,7 @@ module Sintaksanalizilo2 =
         Modifantoj = HashSet(modifantoj) }
       |> ArgumentaVorto
    
-   let nombro n = Nombro (n, [])
+   let nombro n = Nombro (n, HashSet<Modifanto>())
 
    let pridiranto vorto = Pridiranto(argumento vorto [])
 
