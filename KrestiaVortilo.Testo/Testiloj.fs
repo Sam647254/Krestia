@@ -153,4 +153,12 @@ module Testiloj =
       |> ignore
 
    let kontroliNombron eniro nombro =
-      kontroliArgumentojn eniro [ Nombro nombro ]
+      kontroliArgumentojn eniro [ Nombro (nombro, []) ]
+   
+   let kontroliKalkulon eniro pravaRezulto =
+      proveLegiNombron eniro
+      |> Result.bind (fun n ->
+         kalkuli (Nombro n))
+      |> Result.map (fun rezulto -> Assert.AreEqual(pravaRezulto, rezulto))
+      |> Result.mapError malsukcesi
+      |> ignore

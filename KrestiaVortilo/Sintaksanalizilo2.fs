@@ -28,7 +28,7 @@ module Sintaksanalizilo2 =
 
    and Argumento =
       | ArgumentaVorto of ModifeblaVorto
-      | Nombro of decimal
+      | Nombro of (decimal * Modifanto list)
 
       override this.ToString() =
          match this with
@@ -49,6 +49,7 @@ module Sintaksanalizilo2 =
       | Pini of Argumento * Argumento * Argumento
       | ModifantoKunArgumentoj of MalinflektitaVorto * Argumento list
       | ModifantoKunFrazo of MalinflektitaVorto * Predikato
+      | Operaciilo of MalinflektitaVorto * Argumento list
       | Nil
 
       override this.ToString() =
@@ -61,6 +62,7 @@ module Sintaksanalizilo2 =
          | Mine p -> sprintf "(%O)" p
          | Keni(a1, a2) -> sprintf "(%O, %O)" a1 a2
          | Pini(a1, a2, a3) -> sprintf "(%O, %O, %O)" a1 a2 a3
+         | Operaciilo(m, n) -> sprintf "%s(%O)" m.BazaVorto n
          | Nil -> ""
 
    and Predikato =
@@ -105,7 +107,7 @@ module Sintaksanalizilo2 =
         Modifantoj = HashSet(modifantoj) }
       |> ArgumentaVorto
    
-   let nombro n = Nombro n
+   let nombro n = Nombro (n, [])
 
    let pridiranto vorto = Pridiranto(argumento vorto [])
 

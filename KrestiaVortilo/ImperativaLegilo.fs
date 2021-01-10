@@ -256,7 +256,7 @@ module Imperativa =
             this.LegiNombron true
             |> Result.map (fun ciferoj ->
                   let nombro = Decimal.Parse(ciferoj)
-                  Nombro nombro)
+                  Nombro (nombro, []))
          elif ĉuDifinita sekva then
             this.LegiPlenanArgumenton (enira.Dequeue()) konteksto uziModifantojn
          elif ĉuAntaŭModifantaVorto sekva then
@@ -545,9 +545,29 @@ module Imperativa =
 
    let proveLegiNombron (eniro: string) =
       legiImperative eniro
-      |> Result.map (fun rezulto ->
+      |> Result.bind (fun rezulto ->
             List.tryHead rezulto.Argumentoj
-            |> Option.bind (fun argumento ->
+            |> Option.map (fun argumento ->
                   match argumento with
-                  | Nombro (nombro) -> Some nombro
-                  | _ -> None))
+                  | Nombro (nombro) -> Ok nombro
+                  | _ -> Error(Eraro(malplenaEniraVorto, "No number given")))
+            |> Option.defaultValue (Error(Eraro(malplenaEniraVorto, "No number given"))))
+
+   let rec kalkuli eniraArgumento =
+      match eniraArgumento with
+      | Nombro (nombro, operacioj) ->
+         if List.length operacioj = 0 then
+            Ok nombro
+         else
+            let operacio = List.head operacioj
+            match operacio with
+            | Operaciilo (o, nombroj) ->
+               match o.BazaVorto with
+               | "tikal" ->
+                  List.head nombroj
+                  |> kalkuli
+                  |> Result.map (fun alia ->
+                     alia + nombro)
+               | _ -> Error(Eraro(o.OriginalaVorto, "Unsupported operation"))
+            | _ -> Error(Eraro(malplenaEniraVorto, sprintf "Not an operator: %O" operacio))
+      | _ -> Error(Eraro(malplenaEniraVorto, sprintf "Not a math expression: %O" eniraArgumento))

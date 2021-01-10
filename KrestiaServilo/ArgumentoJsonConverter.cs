@@ -23,7 +23,7 @@ namespace KrestiaServilo {
                 case Sintaksanalizilo2.Argumento.Tags.Nombro: {
                     var nombro = value as Sintaksanalizilo2.Argumento.Nombro;
                     writer.WriteString("tipo", "nombro");
-                    writer.WriteNumber("nombro", nombro!.Item);
+                    writer.WriteNumber("nombro", nombro!.Item.Item1);
                     break;
                 }
             }
