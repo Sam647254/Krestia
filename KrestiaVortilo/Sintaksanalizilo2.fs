@@ -25,15 +25,20 @@ module Sintaksanalizilo2 =
 
       override this.ToString() =
          sprintf "%O<%O>" this.Kapo (List.ofSeq this.Modifantoj)
+   
+   and ModifeblaNombro =
+      { Nombro: MalinflektitaVorto list
+        Valuo: decimal
+        mutable Operacio: Modifanto option }
 
    and Argumento =
       | ArgumentaVorto of ModifeblaVorto
-      | Nombro of (decimal * HashSet<Modifanto>)
+      | ArgumentaNombro of ModifeblaNombro
 
       override this.ToString() =
          match this with
          | ArgumentaVorto av -> av.ToString()
-         | Nombro n -> n.ToString()
+         | ArgumentaNombro n -> n.ToString()
 
    and Verbo =
       { Vorto: ModifeblaVorto }
@@ -107,7 +112,7 @@ module Sintaksanalizilo2 =
         Modifantoj = HashSet(modifantoj) }
       |> ArgumentaVorto
    
-   let nombro n = Nombro (n, HashSet<Modifanto>())
+   let nombro vortoj n = ArgumentaNombro { Nombro = vortoj; Valuo = n; Operacio = None }
 
    let pridiranto vorto = Pridiranto(argumento vorto [])
 

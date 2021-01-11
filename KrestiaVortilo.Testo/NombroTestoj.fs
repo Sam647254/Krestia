@@ -7,10 +7,10 @@ open Testiloj
 type NombroTestoj() =
    [<TestMethod>]
    member _.NaturajNombroj() =
-      kontroliNombron "sona" 7m
-      kontroliNombron "poni miri vori nona" 1023m
-      kontroliNombron "teri sini liri sona" 4567m
-      kontroliNombron "keri gini pomira" 8910m
+      kontroliKalkulon "sona" 7m
+      kontroliKalkulon "poni miri vori nona" 1023m
+      kontroliKalkulon "teri sini liri sona" 4567m
+      kontroliKalkulon "keri gini pomira" 8910m
    
    [<TestMethod>]
    member _.Kalkulado() =

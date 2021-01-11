@@ -10,10 +10,10 @@ type AntaŭaModifantoTestoj() =
    
    [<TestMethod>]
    member _.KlasajModifantoj() =
-      let [ ser; vor; metilmo; vilka ] =
-         [ "ser"; "vor"; "Metilmo"; "vilka" ]
+      let [ ser; sona; vor; metilmo; vilka ] =
+         [ "ser"; "sona"; "vor"; "Metilmo"; "vilka" ]
          |> List.map praveMalinflekti
          
       kontroliArgumentojn
          "ser sona vor Metilmo vilka"
-         [ argumento vilka [ modifanto ser [ nombro 7m ]; modifanto vor [ argumento metilmo [] ] ] ]
+         [ argumento vilka [ modifanto ser [ nombro [ sona ] 7m ]; modifanto vor [ argumento metilmo [] ] ] ]

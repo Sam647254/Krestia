@@ -151,14 +151,11 @@ module Testiloj =
             Assert.AreEqual(vico, vorto.Vico)
             Assert.AreEqual(pozo, vorto.Pozo))
       |> ignore
-
-   let kontroliNombron eniro nombro =
-      kontroliArgumentojn eniro [ Nombro (nombro, HashSet()) ]
    
    let kontroliKalkulon eniro pravaRezulto =
       proveLegiNombron eniro
       |> Result.bind (fun n ->
-         kalkuli (Nombro n))
+         kalkuli (ArgumentaNombro n))
       |> Result.map (fun rezulto -> Assert.AreEqual(pravaRezulto, rezulto))
       |> Result.mapError malsukcesi
       |> ignore

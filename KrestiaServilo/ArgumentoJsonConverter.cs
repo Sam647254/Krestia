@@ -20,10 +20,10 @@ namespace KrestiaServilo {
                     JsonSerializer.Serialize(writer, vorto, options);
                     break;
                 }
-                case Sintaksanalizilo2.Argumento.Tags.Nombro: {
-                    var nombro = value as Sintaksanalizilo2.Argumento.Nombro;
+                case Sintaksanalizilo2.Argumento.Tags.ArgumentaNombro: {
+                    var nombro = value as Sintaksanalizilo2.Argumento.ArgumentaNombro;
                     writer.WriteString("tipo", "nombro");
-                    writer.WriteNumber("nombro", nombro!.Item.Item1);
+                    writer.WriteNumber("nombro", nombro!.Item.Valuo);
                     break;
                 }
             }

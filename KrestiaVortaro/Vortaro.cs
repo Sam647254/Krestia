@@ -81,7 +81,7 @@ namespace KrestiaVortaro {
             var nombro = Imperativa.proveLegiNombron(peto);
             if (nombro.IsOk) {
                try {
-                  var nombraRezulto = nombro.ResultValue.Item1;
+                  var nombraRezulto = nombro.ResultValue.Valuo;
                   return new VortoRezulto {
                      NombroRezulto = nombraRezulto
                   };
