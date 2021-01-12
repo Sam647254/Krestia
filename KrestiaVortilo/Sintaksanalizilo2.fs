@@ -8,6 +8,8 @@ open Vorttipo
 open Malinflektado
 open Sintaksanalizilo
 
+type SQueue<'a> = System.Collections.Generic.Queue<'a>
+
 module Sintaksanalizilo2 =
    [<CustomEquality; NoComparison>]
    type ModifeblaVorto =
@@ -29,7 +31,7 @@ module Sintaksanalizilo2 =
    and ModifeblaNombro =
       { Nombro: MalinflektitaVorto list
         Valuo: decimal
-        mutable Operacio: Modifanto option }
+        Operacioj: SQueue<Modifanto> }
 
    and Argumento =
       | ArgumentaVorto of ModifeblaVorto
@@ -112,7 +114,7 @@ module Sintaksanalizilo2 =
         Modifantoj = HashSet(modifantoj) }
       |> ArgumentaVorto
    
-   let nombro vortoj n = ArgumentaNombro { Nombro = vortoj; Valuo = n; Operacio = None }
+   let nombro vortoj n = ArgumentaNombro { Nombro = vortoj; Valuo = n; Operacioj = SQueue<Modifanto>() }
 
    let pridiranto vorto = Pridiranto(argumento vorto [])
 

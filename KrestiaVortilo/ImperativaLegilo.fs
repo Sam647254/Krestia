@@ -31,6 +31,7 @@ module Imperativa =
    type private LastaLegitaModifeblaVorto =
       | ModifeblaVerbo of Verbo
       | ModifeblaArgumento of Argumento
+      | ModifeblaNombro of Argumento
 
    type private Konteksto =
       { Argumentoj: LinkedList<Argumento>
@@ -266,9 +267,10 @@ module Imperativa =
                      ArgumentaNombro
                         { Nombro = List.rev vortoj
                           Valuo = Decimal.Parse(ciferoj)
-                          Operacio = None }
+                          Operacioj = Queue<Modifanto>() }
 
                   konteksto.LegitajNombroj.AddLast(nombro) |> ignore
+                  konteksto.LastaModifeblaVorto.AddLast(ModifeblaNombro nombro) |> ignore
                   nombro)
          elif ĉuDifinita sekva then
             this.LegiPlenanArgumenton (enira.Dequeue()) konteksto uziModifantojn
@@ -520,13 +522,10 @@ module Imperativa =
 
                   if enVortaro.ModifeblajVorttipoj.Contains(Cifero) then
                      legitajNombroj
-                     |> List.tryFind (fun nombro ->
-                           match nombro with
-                           | ArgumentaNombro nombro -> Option.isNone nombro.Operacio
-                           | _ -> false)
+                     |> List.tryHead
                      |> Option.map (fun nombro ->
                            match nombro with
-                           | ArgumentaNombro nombro -> nombro.Operacio <- Some modifanto
+                           | ArgumentaNombro nombro -> nombro.Operacioj.Enqueue(modifanto)
                            | _ -> ())
                      |> Option.map Ok
                      |> Option.defaultValue (Error(Eraro(sekva.OriginalaVorto, "No number to attach to")))
@@ -562,6 +561,7 @@ module Imperativa =
                   match lastaVorto with
                   | ModifeblaArgumento _ -> konteksto.LastaModifeblaArgumento.RemoveLast()
                   | ModifeblaVerbo _ -> konteksto.LastaModifeblaVerbo.RemoveLast()
+                  | ModifeblaNombro _ -> konteksto.LegitajNombroj.RemoveLast()
 
                   konteksto.LastaModifeblaVorto.RemoveLast()
                   konteksto.LegitajModifeblajVortoj.RemoveLast()
@@ -616,16 +616,22 @@ module Imperativa =
    let rec kalkuli eniraArgumento =
       match eniraArgumento with
       | ArgumentaNombro nombro ->
-         match nombro.Operacio with
-         | None -> Ok nombro.Valuo
-         | Some (operacio) ->
-            match operacio with
-            | Operaciilo (o, nombroj) ->
-               match o.BazaVorto with
-               | "tikal" ->
-                  List.head nombroj
-                  |> kalkuli
-                  |> Result.map (fun alia -> alia + nombro.Valuo)
-               | _ -> Error(Eraro(o.OriginalaVorto, "Unsupported operation"))
-            | _ -> Error(Eraro(malplenaEniraVorto, sprintf "Not an operator: %O" operacio))
+         match nombro.Operacioj.Count with
+         | 0 -> Ok nombro.Valuo
+         | _ ->
+            nombro.Operacioj
+            |> Seq.fold (fun ak sek ->
+               ak
+               |> Result.bind (fun ak ->
+                  match sek with
+                  | Operaciilo (o, nombroj) ->
+                     match o.BazaVorto with
+                     | _ when binarajOperaciioj.ContainsKey(o.BazaVorto) ->
+                        let operaciilo = binarajOperaciioj.[o.BazaVorto]
+                        List.head nombroj
+                        |> kalkuli
+                        |> Result.map (operaciilo ak)
+                     | _ -> Error(Eraro(o.OriginalaVorto, "Unsupported operation"))
+                  | _ -> Error(Eraro(malplenaEniraVorto, sprintf "Not an operator: %O" sek)))) (Ok nombro.Valuo)
+            
       | _ -> Error(Eraro(malplenaEniraVorto, sprintf "Not a math expression: %O" eniraArgumento))

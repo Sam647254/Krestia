@@ -42,14 +42,15 @@ module Sintaksanalizilo =
         "tetio"
         "petio"
         "setio"
-        "shetio" ] @ (verboFinaĵoj
-                   |> Map.values
-                   |> Seq.map (fun sufikso ->
-                         [ sufikso + "lo"
-                           sufikso + "laa"
-                           sufikso + "lu" ])
-                   |> Seq.concat
-                   |> Seq.toList)
+        "shetio" ]
+      @ (verboFinaĵoj
+         |> Map.values
+         |> Seq.map (fun sufikso ->
+               [ sufikso + "lo"
+                 sufikso + "laa"
+                 sufikso + "lu" ])
+         |> Seq.concat
+         |> Seq.toList)
 
    let nombrigeblaDifinitoFinaĵoj =
       [ "pi"
@@ -60,30 +61,40 @@ module Sintaksanalizilo =
         "ta"
         "ki"
         "ke"
-        "ka" ] @ (verboFinaĵoj
-                   |> Map.values
-                   |> Seq.map (fun sufikso ->
-                         [ sufikso + "le"
-                           sufikso + "la"
-                           sufikso + "li" ])
-                   |> Seq.concat
-                   |> Seq.toList)
+        "ka" ]
+      @ (verboFinaĵoj
+         |> Map.values
+         |> Seq.map (fun sufikso ->
+               [ sufikso + "le"
+                 sufikso + "la"
+                 sufikso + "li" ])
+         |> Seq.concat
+         |> Seq.toList)
 
-   let nombrigeblaUnuNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "si")
-   let nombrigeblaPluraNombroFinaĵoj = nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ve")
+   let nombrigeblaUnuNombroFinaĵoj =
+      nombrigeblaDifinitoFinaĵoj
+      |> List.map (fun finaĵo -> finaĵo + "si")
+
+   let nombrigeblaPluraNombroFinaĵoj =
+      nombrigeblaDifinitoFinaĵoj
+      |> List.map (fun finaĵo -> finaĵo + "ve")
 
    let nenombrigeblaInfinitivoFinaĵoj =
       let klasajFinaĵoj = [ "mu"; "mo"; "maa"; "nu"; "no"; "naa" ]
+
       klasajFinaĵoj
-      @ ((nombrigeblaDifinitoFinaĵoj @ klasajFinaĵoj |> List.map (fun finaĵo -> finaĵo + "ro")))
-   
+      @ ((nombrigeblaDifinitoFinaĵoj @ klasajFinaĵoj
+          |> List.map (fun finaĵo -> finaĵo + "ro")))
+
    let nebazajNenombrigeblaInfinitivoFinaĵoj =
       [ "mu"; "mo"; "maa"; "nu"; "no"; "naa" ]
       |> List.map (fun finaĵo -> finaĵo + "ro")
-   
+
    let nenombrigeblaDifinitoFinaĵoj =
       [ "mi"; "me"; "ma"; "ni"; "ne"; "na" ]
-      @ ((nombrigeblaDifinitoFinaĵoj @ [ "mu"; "mo"; "maa"; "nu"; "no"; "naa" ] |> List.map (fun finaĵo -> finaĵo + "re")))
+      @ ((nombrigeblaDifinitoFinaĵoj
+          @ [ "mu"; "mo"; "maa"; "nu"; "no"; "naa" ]
+          |> List.map (fun finaĵo -> finaĵo + "re")))
 
    let finajLiteroj finaĵoj tipo inflekcio =
       finaĵoj
@@ -104,25 +115,42 @@ module Sintaksanalizilo =
         TransitivaVerbo
         NedirektaTransitivaVerbo
         OblikaTransitivaVerbo
-        DutransitivaVerbo ] |> Set.ofList
+        DutransitivaVerbo ]
+      |> Set.ofList
 
    let malplenigeblaVerboTipoj =
       [ MalplenaVerbo, [ MalplenaVerbo ]
         NetransitivaVerbo, [ NetransitivaVerbo; MalplenaVerbo ]
-        OblikaNetransitivaVerbo, [ OblikaNetransitivaVerbo; MalplenaVerbo ]
-        NedirektaNetransitivaVerbo, [ NedirektaNetransitivaVerbo; MalplenaVerbo ]
-        TransitivaVerbo, [ TransitivaVerbo; NetransitivaVerbo; OblikaNetransitivaVerbo; MalplenaVerbo ]
+        OblikaNetransitivaVerbo,
+        [ OblikaNetransitivaVerbo
+          MalplenaVerbo ]
+        NedirektaNetransitivaVerbo,
+        [ NedirektaNetransitivaVerbo
+          MalplenaVerbo ]
+        TransitivaVerbo,
+        [ TransitivaVerbo
+          NetransitivaVerbo
+          OblikaNetransitivaVerbo
+          MalplenaVerbo ]
         NedirektaTransitivaVerbo,
-        [ NedirektaTransitivaVerbo; NetransitivaVerbo; NedirektaNetransitivaVerbo; MalplenaVerbo ]
+        [ NedirektaTransitivaVerbo
+          NetransitivaVerbo
+          NedirektaNetransitivaVerbo
+          MalplenaVerbo ]
         OblikaTransitivaVerbo,
-        [ OblikaTransitivaVerbo; OblikaNetransitivaVerbo; NedirektaNetransitivaVerbo; MalplenaVerbo ]
+        [ OblikaTransitivaVerbo
+          OblikaNetransitivaVerbo
+          NedirektaNetransitivaVerbo
+          MalplenaVerbo ]
         DutransitivaVerbo, verboTipoj |> List.ofSeq ]
       |> List.map (fun (originala, malplenigitaj) -> originala, malplenigitaj |> Set.ofList)
       |> Map.ofList
 
    let bazajFinaĵoj =
-      (nombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo, NombrigeblaKlaso))
-      @ (nenombrigeblaDifinitoFinaĵoj |> List.map (fun finaĵo -> finaĵo, NenombrigeblaKlaso))
+      (nombrigeblaDifinitoFinaĵoj
+       |> List.map (fun finaĵo -> finaĵo, NombrigeblaKlaso))
+      @ (nenombrigeblaDifinitoFinaĵoj
+         |> List.map (fun finaĵo -> finaĵo, NenombrigeblaKlaso))
         @ [ "lu", MalantaŭRekordo
             "li", AntaŭRekordo
             "dri", MalantaŭNombrigeblaEco
@@ -143,10 +171,13 @@ module Sintaksanalizilo =
             "r", AntaŭModifanto ]
       |> Map.ofList
 
-   let ĉuFremdaVorto (ĉeno: string) = ĉeno.Length > 0 && not (Char.IsLower(ĉeno.Chars(0)))
+   let ĉuFremdaVorto (ĉeno: string) =
+      ĉeno.Length > 0
+      && not (Char.IsLower(ĉeno.Chars(0)))
 
-   let ĉuLokokupilo (ĉeno: string) = ĉeno.StartsWith("w") || ĉeno.StartsWith("h")
-   
+   let ĉuLokokupilo (ĉeno: string) =
+      ĉeno.StartsWith("w") || ĉeno.StartsWith("h")
+
    let nefinajCiferoj =
       [ "mi", "0"
         "po", "1"
@@ -163,7 +194,7 @@ module Sintaksanalizilo =
         "kle", "000000"
         "di", "." ]
       |> Map.ofList
-   
+
    let komencajNefinajCiferoj =
       [ "plo", "100"
         "tri", "1000"
@@ -186,11 +217,18 @@ module Sintaksanalizilo =
         "plora", "000"
         "klera", "0000000" ]
       |> Map.ofList
-   
+
    let komencajFinajCiferoj =
       [ "volira", "100"
         "nolira", "1000"
         "linara", "1000000" ]
+      |> Map.ofList
+
+   let binarajOperaciioj: Map<string, (decimal -> decimal -> decimal)> =
+      [ "tikal", (+)
+        "senal", (-)
+        "petal", (*)
+        "visal", (/) ]
       |> Map.ofList
 
    let ĉuNefinaCifero vorto = Map.containsKey vorto nefinajCiferoj
@@ -210,10 +248,12 @@ module Sintaksanalizilo =
       else
          bazajFinaĵoj
          |> Map.tryPick (fun finaĵo tipo ->
-               if ĉeno.EndsWith(finaĵo) && ĉeno.Length > finaĵo.Length
-               then Some tipo
-               else None)
-   
+               if ĉeno.EndsWith(finaĵo)
+                  && ĉeno.Length > finaĵo.Length then
+                  Some tipo
+               else
+                  None)
+
    let bazaInflekcioDe vorttipo =
       match vorttipo with
       | NombrigeblaKlaso
@@ -233,7 +273,8 @@ module Sintaksanalizilo =
       | _ -> SolaFormo
 
    let ĉuReciproka (infinitivo: string) =
-      [ "at"; "ap"; "av"; "ash" ] |> List.exists infinitivo.EndsWith
+      [ "at"; "ap"; "av"; "ash" ]
+      |> List.exists infinitivo.EndsWith
 
    let infinitivoNomoDe (ĉeno: string): string option =
       if ĉuFremdaVorto ĉeno then
@@ -269,5 +310,4 @@ module Sintaksanalizilo =
                | Makro -> "Macro"
                | FremdaVorto -> "Foreign word"
                | Cifero -> "Digit")
-         |> Option.map (fun bazo ->
-               if ĉuReciproka bazo then bazo + " (reciprocal)" else bazo)
+         |> Option.map (fun bazo -> if ĉuReciproka bazo then bazo + " (reciprocal)" else bazo)
