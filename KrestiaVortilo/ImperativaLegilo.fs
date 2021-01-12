@@ -559,12 +559,15 @@ module Imperativa =
                   let lastaVorto = konteksto.LastaModifeblaVorto.Last.Value
 
                   match lastaVorto with
-                  | ModifeblaArgumento _ -> konteksto.LastaModifeblaArgumento.RemoveLast()
-                  | ModifeblaVerbo _ -> konteksto.LastaModifeblaVerbo.RemoveLast()
+                  | ModifeblaArgumento _ ->
+                     konteksto.LastaModifeblaArgumento.RemoveLast()
+                     konteksto.LegitajModifeblajVortoj.RemoveLast()
+                  | ModifeblaVerbo _ ->
+                     konteksto.LegitajModifeblajVortoj.RemoveLast()
+                     konteksto.LastaModifeblaVerbo.RemoveLast()
                   | ModifeblaNombro _ -> konteksto.LegitajNombroj.RemoveLast()
 
                   konteksto.LastaModifeblaVorto.RemoveLast()
-                  konteksto.LegitajModifeblajVortoj.RemoveLast()
                   Ok(Nil)
                | _ ->
                   this.LegiModifantajnArgumentojnPor legitaModifanto konteksto
