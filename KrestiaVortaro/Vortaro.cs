@@ -77,6 +77,7 @@ namespace KrestiaVortaro {
 
       public VortoRezulto TroviVortojn(string peto) {
          var kvanto = Sintaksanalizilo2.iĝiEnEnirajVortoj(false, peto);
+         VortoRezulto? glosaRezulto = null;
          if (kvanto.Length > 1) {
             var nombro = Imperativa.proveLegiNombron(peto);
             if (nombro.IsOk) {
@@ -91,7 +92,7 @@ namespace KrestiaVortaro {
 
             var malinflektita = kvanto.Select(Malinflektado.tuteMalinflekti).ToList();
             try {
-               return GlosaRezulto(malinflektita.ToList());
+               glosaRezulto = GlosaRezulto(malinflektita.ToList());
             }
             catch (InvalidOperationException) { }
          }
@@ -138,6 +139,9 @@ namespace KrestiaVortaro {
             Gloso = bazo != null && malinflekajŜtupoj.IsOk && malinflekajŜtupoj.ResultValue.InflekcioŜtupoj.Length > 0
                ? bazoGloso
                : null,
+            GlosajVortoj = glosaRezulto?.GlosajVortoj,
+            GlosajŜtupoj = glosaRezulto?.GlosajŜtupoj,
+            BazajVortoj = glosaRezulto?.BazajVortoj,
             MalinflektajŜtupoj = bazo != null && malinflekajŜtupoj.IsOk
                ? malinflekajŜtupoj.ResultValue.InflekcioŜtupoj.Where(ŝ => ŝ.IsNebazo)
                   .Select(ŝ => ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝ).Item2.ToString())
