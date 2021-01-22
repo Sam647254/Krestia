@@ -258,39 +258,42 @@ module Imperativa =
             Error(Eraro(malplenaEniraVorto, "Unexpected end of input"))
 
       member private this.LegiArgumenton konteksto uziModifantojn: Result<Argumento, Eraro> =
-         let sekva = enira.Peek()
-
-         if ĉuCifero sekva.OriginalaVorto.Vorto then
-            this.LegiNombron true
-            |> Result.map (fun (vortoj, ciferoj) ->
-                  let nombro =
-                     ArgumentaNombro
-                        { Nombro = List.rev vortoj
-                          Valuo = Decimal.Parse(ciferoj)
-                          Operacioj = Queue<Modifanto>() }
-
-                  konteksto.LegitajNombroj.AddLast(nombro) |> ignore
-                  konteksto.LastaModifeblaVorto.AddLast(ModifeblaNombro nombro) |> ignore
-                  nombro)
-         elif ĉuDifinita sekva then
-            this.LegiPlenanArgumenton (enira.Dequeue()) konteksto uziModifantojn
-         elif ĉuAntaŭModifantaVorto sekva then
-            this.LegiPridiranton konteksto
-            |> Result.bind (fun pridiranto ->
-                  konteksto.AtendantajPridirantoj.AddLast(pridiranto)
-                  |> ignore
-
-                  this.LegiArgumenton konteksto uziModifantojn)
-         elif ĉuMalantaŭModifantaVorto sekva then
-            this.LegiPridiranton konteksto
-            |> Result.bind (fun pridiranto ->
-                  this.AldoniPridiranton pridiranto (konteksto.LastaModifeblaVorto.Last.Value)
-                  this.LegiArgumenton konteksto uziModifantojn)
-         elif ĉuMalantaŭModifanto sekva then
-            this.LegiMalantaŭanModifanton konteksto
-            |> Result.bind (fun () -> this.LegiArgumenton konteksto uziModifantojn)
+         if enira.Count = 0 then
+            Error(Eraro(malplenaEniraVorto, "Unexpected end of input"))
          else
-            Error(Eraro(sekva.OriginalaVorto, "Unexpected input"))
+            let sekva = enira.Peek()
+
+            if ĉuCifero sekva.OriginalaVorto.Vorto then
+               this.LegiNombron true
+               |> Result.map (fun (vortoj, ciferoj) ->
+                     let nombro =
+                        ArgumentaNombro
+                           { Nombro = List.rev vortoj
+                             Valuo = Decimal.Parse(ciferoj)
+                             Operacioj = Queue<Modifanto>() }
+
+                     konteksto.LegitajNombroj.AddLast(nombro) |> ignore
+                     konteksto.LastaModifeblaVorto.AddLast(ModifeblaNombro nombro) |> ignore
+                     nombro)
+            elif ĉuDifinita sekva then
+               this.LegiPlenanArgumenton (enira.Dequeue()) konteksto uziModifantojn
+            elif ĉuAntaŭModifantaVorto sekva then
+               this.LegiPridiranton konteksto
+               |> Result.bind (fun pridiranto ->
+                     konteksto.AtendantajPridirantoj.AddLast(pridiranto)
+                     |> ignore
+
+                     this.LegiArgumenton konteksto uziModifantojn)
+            elif ĉuMalantaŭModifantaVorto sekva then
+               this.LegiPridiranton konteksto
+               |> Result.bind (fun pridiranto ->
+                     this.AldoniPridiranton pridiranto (konteksto.LastaModifeblaVorto.Last.Value)
+                     this.LegiArgumenton konteksto uziModifantojn)
+            elif ĉuMalantaŭModifanto sekva then
+               this.LegiMalantaŭanModifanton konteksto
+               |> Result.bind (fun () -> this.LegiArgumenton konteksto uziModifantojn)
+            else
+               Error(Eraro(sekva.OriginalaVorto, "Unexpected input"))
 
       member private this.LegiPlenanArgumenton sekva konteksto uziModifantojn =
          let novaArgumento =
@@ -609,12 +612,15 @@ module Imperativa =
    let proveLegiNombron (eniro: string) =
       legiImperative eniro
       |> Result.bind (fun rezulto ->
-            List.tryHead rezulto.Argumentoj
-            |> Option.map (fun argumento ->
-                  match argumento with
-                  | ArgumentaNombro (nombro) -> Ok nombro
-                  | _ -> Error(Eraro(malplenaEniraVorto, "No number given")))
-            |> Option.defaultValue (Error(Eraro(malplenaEniraVorto, "No number given"))))
+            if rezulto.Argumentoj.Length > 1 then
+               Error(Eraro(malplenaEniraVorto, "More than one number given"))
+            else
+               List.tryHead rezulto.Argumentoj
+               |> Option.map (fun argumento ->
+                     match argumento with
+                     | ArgumentaNombro (nombro) -> Ok nombro
+                     | _ -> Error(Eraro(malplenaEniraVorto, "No number given")))
+               |> Option.defaultValue (Error(Eraro(malplenaEniraVorto, "No number given"))))
 
    let rec kalkuli eniraArgumento =
       match eniraArgumento with

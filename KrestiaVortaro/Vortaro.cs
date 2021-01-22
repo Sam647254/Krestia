@@ -78,16 +78,15 @@ namespace KrestiaVortaro {
       public VortoRezulto TroviVortojn(string peto) {
          var kvanto = Sintaksanalizilo2.iĝiEnEnirajVortoj(false, peto);
          VortoRezulto? glosaRezulto = null;
+         decimal? nombraRezulto = null;
          if (kvanto.Length > 1) {
             var nombro = Imperativa.proveLegiNombron(peto);
             if (nombro.IsOk) {
-               try {
-                  var nombraRezulto = nombro.ResultValue.Valuo;
-                  return new VortoRezulto {
-                     NombroRezulto = nombraRezulto
-                  };
-               }
-               catch (NullReferenceException) { }
+                  var rezulto =
+                     Imperativa.kalkuli(Sintaksanalizilo2.Argumento.NewArgumentaNombro(nombro.ResultValue));
+                  if (rezulto.IsOk) {
+                     nombraRezulto = rezulto.ResultValue;
+                  }
             }
 
             var malinflektita = kvanto.Select(Malinflektado.tuteMalinflekti).ToList();
@@ -146,6 +145,7 @@ namespace KrestiaVortaro {
                ? malinflekajŜtupoj.ResultValue.InflekcioŜtupoj.Where(ŝ => ŝ.IsNebazo)
                   .Select(ŝ => ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝ).Item2.ToString())
                : null,
+            NombroRezulto = nombraRezulto,
             Rezultoj = rezultoj.Select(r => new VortoKunSignifo(r.Key, r.Value.Signifo))
                .OrderBy(vorto => Rilateco(vorto, peto))
          };
