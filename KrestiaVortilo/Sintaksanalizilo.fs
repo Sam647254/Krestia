@@ -224,11 +224,18 @@ module Sintaksanalizilo =
         "linara", "1000000" ]
       |> Map.ofList
 
-   let binarajOperaciioj: Map<string, (decimal -> decimal -> decimal)> =
+   let unarajOperaccioj: Map<string, (double -> double)> =
+      [ "mebel", Math.Sqrt
+        "vobel", (fun a -> a * a)
+        "evotel", Math.Log ]
+      
+      |> Map.ofList
+   let binarajOperaciioj: Map<string, (double -> double -> double)> =
       [ "tikal", (+)
         "senal", (-)
         "petal", (*)
-        "visal", (/) ]
+        "visal", (/)
+        "vetel", (fun a b -> Math.Pow(a, b)) ]
       |> Map.ofList
 
    let ĉuNefinaCifero vorto = Map.containsKey vorto nefinajCiferoj
