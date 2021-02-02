@@ -169,7 +169,7 @@ module Malinflektado =
       [ BazaFinaĵo("ia", Hipoteza)
         BazaFinaĵo("io", Perfekto)
         BazaFinaĵo("ela", Intenco)
-        BazaFinaĵo("eri", Ujo3Volo)
+        BazaFinaĵo("eri", Desiderativo)
         BazaFinaĵo("ea", Ĝerundo)
         BazaFinaĵo("onia", Argumento2)
         BazaFinaĵo("om", PartaUjo3) ]
@@ -593,8 +593,6 @@ module Malinflektado =
         Perfekto
         Intenco
         Desiderativo
-        Ujo2Volo
-        Ujo3Volo
         PredikativoEsti
         Imperativo
         Hortativo

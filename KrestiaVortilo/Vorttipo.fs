@@ -2,77 +2,66 @@
 
 module Vorttipo =
    type Inflekcio =
-   | Infinitivo
-   | Difinito
-   | Havaĵo
-   | Fokuso
-   | Progresivo
-   | Perfekto
-   | Intenco
-   | Desiderativo
-   | Ujo2Volo
-   | Ujo3Volo
-   | PredikativoEsti
-   | AtributivoEstiAntaŭ
-   | AtributivoEstiMalantaŭ
-   | Havado
-   | AtributativoHavi
-   | Imperativo
-   | Argumento1
-   | Argumento2
-   | Argumento3
-   | Ekzistado
-   | Hortativo
-   | Translativo
-   | Ĝerundo
-   | SpecifaĜerundo
-   | PartaUjo1
-   | PartaUjo2
-   | PartaUjo3
-   | Pasivigo
-   | Igo
-   | SolaFormo
-   | Egigo
-   | Etigo
-   | Sola
-   | Reflekcio
-   | Okazo
-   | AktualaOkazo
-   | FinitaOkazo
-   | UnueUjo2
-   | UnueUjo3
-   | Optativo
-   | Kvalito
-   | Hipoteza
-   | Apartigita
-   | FremdaVorto
-   | Cifero
-   | Predikato
+   | Difinito // D
+   | Havaĵo // H
+   | Fokuso // F
+   | Progresivo // P
+   | Perfekto // p
+   | Intenco // I
+   | Desiderativo // d
+   | PredikativoEsti // E
+   | AtributivoEstiAntaŭ // A
+   | AtributivoEstiMalantaŭ // a
+   | Havado // h
+   | Imperativo // i
+   | Argumento1 // 1
+   | Argumento2 // 2
+   | Argumento3 // 3
+   | Ekzistado // e
+   | Hortativo // t
+   | Translativo // T
+   | Ĝerundo // Ĝ
+   | SpecifaĜerundo // ĝ
+   | PartaUjo1 // U
+   | PartaUjo2 // J
+   | PartaUjo3 // O
+   | SolaFormo // S
+   | Sola // s
+   | Reflekcio // R
+   | UnueUjo2 // 4
+   | UnueUjo3 // 5
+   | Optativo // o
+   | Kvalito // K
+   | Hipoteza // n
+   | Apartigita // X
+   | FremdaVorto // @
+   | Cifero // #
+   | Predikato // &
 
    type Vorttipo =
-   | NombrigeblaKlaso
-   | NenombrigeblaKlaso
-   | MalantaŭRekordo
-   | AntaŭRekordo
-   | MalantaŭNombrigeblaEco
-   | AntaŭNombrigeblaEco
-   | MalantaŭNenombrigeblaEco
-   | AntaŭNenombrigeblaEco
-   | TransitivaVerbo
-   | DutransitivaVerbo
-   | NetransitivaVerbo
-   | NedirektaTransitivaVerbo
-   | MalplenaVerbo
-   | OblikaNetransitivaVerbo
-   | OblikaTransitivaVerbo
-   | NedirektaNetransitivaVerbo
-   | Pridiranto
-   | Lokokupilo
-   | MalantaŭModifanto
-   | AntaŭModifanto
-   | Makro
-   | FremdaVorto
-   | Cifero
+   | NombrigeblaKlaso // K
+   | NenombrigeblaKlaso // k
+   | MalantaŭRekordo // L
+   | AntaŭRekordo // l
+   | MalantaŭNombrigeblaEco // E
+   | AntaŭNombrigeblaEco // e
+   | MalantaŭNenombrigeblaEco // P
+   | AntaŭNenombrigeblaEco // p
+   | TransitivaVerbo // T
+   | DutransitivaVerbo // D
+   | NetransitivaVerbo // t
+   | NedirektaTransitivaVerbo // N
+   | MalplenaVerbo // M
+   | OblikaNetransitivaVerbo // n
+   | OblikaTransitivaVerbo // O
+   | NedirektaNetransitivaVerbo // Y
+   | Pridiranto // D
+   | Lokokupilo // Q
+   | MalantaŭModifanto // <
+   | AntaŭModifanto // >
+   | Makro // !
+   | FremdaVorto // F
+   | Cifero // C
 
    type Vortformo = Vorttipo * Inflekcio
    type VorttipoKontrolilo = (string -> bool)

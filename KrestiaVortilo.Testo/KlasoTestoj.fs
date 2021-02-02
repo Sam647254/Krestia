@@ -274,9 +274,5 @@ type KlasoTestoj() =
       
       "kunalasmea"
       |> kontroliĈiujnInfleckiojn [ Nebazo(NetransitivaVerbo, Ĝerundo, "kunalas")
-                                    Nebazo(NenombrigeblaKlaso, Translativo, "kunaa")
-                                    Bazo(NenombrigeblaKlaso, Infinitivo, "kunaa") ]
-
-      "nekeveregore"
-      |> kontroliĈiujnInfleckiojn [ Nebazo(OblikaNetransitivaVerbo, Ujo2Volo, "nekevereg")
-                                    Bazo(NombrigeblaKlaso, Infinitivo, "neko") ]
+                                    Nebazo(NenombrigeblaKlaso, Translativo, "kuna")
+                                    Bazo(NenombrigeblaKlaso, Difinito, "kuna") ]

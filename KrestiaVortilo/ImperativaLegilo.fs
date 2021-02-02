@@ -622,11 +622,11 @@ module Imperativa =
                      | _ -> Error(Eraro(malplenaEniraVorto, "No number given")))
                |> Option.defaultValue (Error(Eraro(malplenaEniraVorto, "No number given"))))
 
-   let rec kalkuli eniraArgumento =
+   let rec kalkuli eniraArgumento : Result<double, Eraro> =
       match eniraArgumento with
       | ArgumentaNombro nombro ->
          match nombro.Operacioj.Count with
-         | 0 -> Ok nombro.Valuo
+         | 0 -> Ok (Decimal.ToDouble(nombro.Valuo))
          | _ ->
             nombro.Operacioj
             |> Seq.fold (fun ak sek ->
@@ -641,6 +641,6 @@ module Imperativa =
                         |> kalkuli
                         |> Result.map (operaciilo ak)
                      | _ -> Error(Eraro(o.OriginalaVorto, "Unsupported operation"))
-                  | _ -> Error(Eraro(malplenaEniraVorto, sprintf "Not an operator: %O" sek)))) (Ok nombro.Valuo)
+                  | _ -> Error(Eraro(malplenaEniraVorto, sprintf "Not an operator: %O" sek)))) (Ok (Decimal.ToDouble(nombro.Valuo)))
             
       | _ -> Error(Eraro(malplenaEniraVorto, sprintf "Not a math expression: %O" eniraArgumento))

@@ -78,7 +78,7 @@ namespace KrestiaVortaro {
       public VortoRezulto TroviVortojn(string peto) {
          var kvanto = Sintaksanalizilo2.iĝiEnEnirajVortoj(false, peto);
          VortoRezulto? glosaRezulto = null;
-         decimal? nombraRezulto = null;
+         double? nombraRezulto = null;
          if (kvanto.Length > 1) {
             var nombro = Imperativa.proveLegiNombron(peto);
             if (nombro.IsOk) {
