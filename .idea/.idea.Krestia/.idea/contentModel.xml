@@ -107,6 +107,7 @@
         <e p="JsonVortaro.cs" t="Include" />
         <e p="Kategorio.cs" t="Include" />
         <e p="KrestiaVortaro.csproj" t="IncludeRecursive" />
+        <e p="NovaVortaro.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
