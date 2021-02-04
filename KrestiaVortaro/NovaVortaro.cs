@@ -6,6 +6,8 @@ namespace KrestiaVortaro {
       public List<Rekordo> Rekordoj { get; set; } = null!;
       public List<Verbo> Verboj { get; set; } = null!;
       public List<Modifanto> Modifantoj { get; set; } = null!;
+      public List<VortaraVorto> SpecialajVortoj { get; set; } = null!;
+      public List<NovaKategorio> Kategorioj { get; set; } = null!;
    }
 
    public class VortaraVorto {
@@ -13,7 +15,7 @@ namespace KrestiaVortaro {
       public string Signifo { get; set; } = null!;
       public string Gloso { get; set; } = null!;
       public List<string> Radikoj { get; set; } = null!;
-      public string Noto { get; set; } = null!;
+      public string? Noto { get; set; }
    }
 
    public class Substantivo : VortaraVorto {
@@ -26,13 +28,18 @@ namespace KrestiaVortaro {
    }
 
    public class Verbo : VortaraVorto {
-      public List<string?> ArgumentajNotoj { get; } = null!;
+      public List<string?> ArgumentajNotoj { get; set; } = null!;
       public string? PlenaFormo { get; set; }
    }
 
    public class Modifanto : VortaraVorto {
-      public List<string> ModifeblajTipoj { get; } = null!;
-      public List<string> AldonaĵajTipoj { get; } = null!;
-      public List<string?> AldonaĵajNotoj { get; } = null!;
+      public List<string> ModifeblajTipoj { get; set; } = null!;
+      public List<string> AldonaĵajTipoj { get; set; } = null!;
+      public List<string?> AldonaĵajNotoj { get; set; } = null!;
+   }
+
+   public class NovaKategorio {
+      public string Nomo { get; set; } = null!;
+      public List<string> Vortoj { get; set; } = null!;
    }
 }

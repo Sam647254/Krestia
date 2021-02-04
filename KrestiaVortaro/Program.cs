@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
-using System.Reflection.Metadata;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace KrestiaVortaro {
    internal static class Program {
@@ -89,6 +89,16 @@ timeran <KV> <eniro> <eliro>
                   var (novajVortoj, novajKategorioj) = Agoj.Ĝisdatigi2(vortoj, kategorioj);
                   Task.WaitAll(File.WriteAllLinesAsync(args[3], Agoj.AlKv(novajVortoj)),
                      File.WriteAllLinesAsync(args[4], Agoj.AlKg(novajKategorioj)));
+                  break;
+               }
+               case "nova": {
+                  var kv = File.ReadLines(args[1]);
+                  var kg = File.ReadLines(args[2]);
+                  var vortoj = Agoj.KontroliVortojn(kv);
+                  var kategorioj = Agoj.KontroliKategoriojn(vortoj, kg);
+                  var novaVortaro = Agoj.IgiEnNovaVortaro(vortoj, kategorioj);
+                  var eliro = JsonConvert.SerializeObject(novaVortaro, Formatting.Indented);
+                  await File.WriteAllTextAsync(args[3], eliro);
                   break;
                }
             }

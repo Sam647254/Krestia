@@ -187,6 +187,13 @@ namespace KrestiaVortaro {
                   throw new InvalidOperationException($"La radiko de {vorto}, {r} ne ekzistas");
                }), signifo, gloso, ujo1, ujo2, ujo3, noto);
 
+            if (partoj.Length < 7) return novaVorto;
+            var modifeblajVorttipoj = partoj[5].ToCharArray().Select(t => $"{Vorttipoj[t]}*");
+            var modifantoInflekcioj = partoj[6].ToCharArray().Select(i => $"{Inflekcioj[i]}*");
+
+            novaVorto.ModifeblajVorttipoj = modifeblajVorttipoj.ToList();
+            novaVorto.ModifantoInflekcioj = modifantoInflekcioj.ToList();
+
             return novaVorto;
          }).Where(v => v != null).Select(v => v!).ToImmutableSortedSet();
 
@@ -207,7 +214,7 @@ namespace KrestiaVortaro {
             return new VortaraKategorio(
                nomo,
                subkategorioj: vortojKajSubkategorioj.GetValueOrDefault(true, ImmutableHashSet<string>.Empty)
-                  .Select(k => k.Substring((1))).ToImmutableHashSet(),
+                  .Select(k => k.Substring(1)).ToImmutableHashSet(),
                vortoj: vortojKajSubkategorioj[false]
             );
          }).ToImmutableSortedSet();
@@ -270,6 +277,56 @@ namespace KrestiaVortaro {
             .ToImmutableSortedSet();
       }
 
+      public static NovaVortaro IgiEnNovaVortaro(IEnumerable<Vorto> vortoj, IEnumerable<VortaraKategorio> kategorioj) {
+         var groupoj = vortoj.GroupBy(vorto => Malinflektado.vortaraTipoDe(vorto.PlenaVorto))
+            .ToDictionary(grupo => grupo.Key);
+         var substantivoj = groupoj["Class"]!.Select(s => new Substantivo {
+            Vorto = s.PlenaVorto,
+            Signifo = s.Signifo,
+            Gloso = s.GlosaSignifo,
+            Radikoj = s.Radikoj.ToList(),
+            Noto = s.Noto
+         });
+         var verboj = groupoj["Verb"]!.Select(v => new Verbo {
+            Vorto = v.PlenaVorto,
+            Signifo = v.Signifo,
+            Gloso = v.GlosaSignifo,
+            Radikoj = v.Radikoj.ToList(),
+            Noto = v.Noto,
+            ArgumentajNotoj = new List<string?>(new string?[Malinflektado.valencoDeInfinitivo(v.PlenaVorto)])
+         });
+         var modifantoj = groupoj["Modifier"]!.Select(s => new Modifanto {
+            Vorto = s.PlenaVorto,
+            Signifo = s.Signifo,
+            Gloso = s.GlosaSignifo,
+            Radikoj = s.Radikoj.ToList(),
+            Noto = s.Noto,
+            AldonaĵajTipoj = s.ModifantoInflekcioj!,
+            ModifeblajTipoj = s.ModifeblajVorttipoj!,
+            AldonaĵajNotoj = new List<string?>()
+         });
+         var novajKategorioj = kategorioj.Select(k => new NovaKategorio {
+            Nomo = k.Nomo,
+            Vortoj = k.Vortoj.ToList()
+         });
+         var specialajVortoj = groupoj["Digit"].Concat(groupoj["Placeholder"]).Select(v => new VortaraVorto {
+            Vorto = v.PlenaVorto,
+            Signifo = v.Signifo,
+            Gloso = v.GlosaSignifo,
+            Radikoj = v.Radikoj.ToList(),
+            Noto = v.Noto
+         });
+
+         return new NovaVortaro {
+            Substantivoj = substantivoj.ToList(),
+            Rekordoj = new List<Rekordo>(),
+            Verboj = verboj.ToList(),
+            Modifantoj = modifantoj.ToList(),
+            SpecialajVortoj = specialajVortoj.ToList(),
+            Kategorioj = novajKategorioj.ToList()
+         };
+      }
+
       private static string IgiEnNovaBazo(string v) {
          var novaFinaĵo = NovajFinaĵoj.FirstOrDefault(f => v.EndsWith(f.Key));
          return !novaFinaĵo.Equals(default(KeyValuePair<string, string>))
@@ -306,6 +363,28 @@ namespace KrestiaVortaro {
 
       private static readonly IList<string> KlasajFinaĵoj = new List<string> {
          "pi", "pe", "pa", "ti", "te", "ta", "ki", "ke", "ka",
+      };
+
+      private static readonly IDictionary<char, char> Vorttipoj = new Dictionary<char, char> {
+         { 'N', 'K' },
+         { 'n', 'k' },
+         { '0', 'M' },
+         { '1', 't' },
+         { '2', 'T' },
+         { '3', 'D' },
+         { '4', 'n' },
+         { '5', 'O' },
+         { '6', 'Y' },
+         { '7', 'N' },
+         { 'C', 'C' }
+      };
+
+      private static readonly IDictionary<char, char> Inflekcioj = new Dictionary<char, char> {
+         {'D', 'D'},
+         {'N', 'S'},
+         {'F', '@'},
+         {'P', 'P'},
+         {'C', '#'},
       };
 
       private static IDictionary<string, string> TroviAnstataŭaĵojn(IEnumerable<Vorto> vortoj) {
