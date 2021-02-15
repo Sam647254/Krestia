@@ -21,21 +21,6 @@
       <e p=".github\workflows\dotnetcore.yml" t="Include" />
       <e p=".gitignore" t="Include" />
       <e p="Krestia.sln" t="IncludeFlat" />
-      <e p="KrestiaAWSAlirilo" t="IncludeRecursive">
-        <e p="AWSAlirilo.cs" t="Include" />
-        <e p="bin" t="ExcludeRecursive" />
-        <e p="KrestiaAWSAlirilo.csproj" t="IncludeRecursive" />
-        <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
-            <e p="netcoreapp3.1" t="Include">
-              <e p="KrestiaAWSAlirilo.AssemblyInfo.cs" t="Include" />
-            </e>
-          </e>
-        </e>
-        <e p="Program.cs" t="Include" />
-        <e p="UnuFojajProgrametoj.cs" t="Include" />
-        <e p="VortoRespondo.cs" t="Include" />
-      </e>
       <e p="KrestiaDesegnilo" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
         <e p="BlissSvgDesegnilo.vb" t="Include" />
