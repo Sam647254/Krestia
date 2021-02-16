@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
+using KrestiaVortaroBazo;
 using KrestiaVortilo;
 
 namespace KrestiaVortaro {
@@ -277,7 +278,7 @@ namespace KrestiaVortaro {
             .ToImmutableSortedSet();
       }
 
-      public static NovaVortaro IgiEnNovaVortaro(IEnumerable<Vorto> vortoj, IEnumerable<VortaraKategorio> kategorioj) {
+      public static NovaJsonVortaro IgiEnNovaVortaro(IEnumerable<Vorto> vortoj, IEnumerable<VortaraKategorio> kategorioj) {
          var groupoj = vortoj.GroupBy(vorto => Malinflektado.vortaraTipoDe(vorto.PlenaVorto))
             .ToDictionary(grupo => grupo.Key);
          var substantivoj = groupoj["Class"]!.Select(s => new Substantivo {
@@ -317,7 +318,7 @@ namespace KrestiaVortaro {
             Noto = v.Noto
          });
 
-         return new NovaVortaro {
+         return new NovaJsonVortaro {
             Substantivoj = substantivoj.ToList(),
             Rekordoj = new List<Rekordo>(),
             Verboj = verboj.ToList(),

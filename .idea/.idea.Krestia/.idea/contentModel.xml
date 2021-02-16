@@ -92,7 +92,6 @@
         <e p="JsonVortaro.cs" t="Include" />
         <e p="Kategorio.cs" t="Include" />
         <e p="KrestiaVortaro.csproj" t="IncludeRecursive" />
-        <e p="NovaVortaro.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
@@ -117,6 +116,19 @@
           </e>
         </e>
       </e>
+      <e p="KrestiaVortaroBazo" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="KrestiaVortaroBazo.csproj" t="IncludeRecursive" />
+        <e p="NovaJsonVortaro.cs" t="Include" />
+        <e p="NovaVortaraIndekso.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="KrestiaVortaroBazo.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
       <e p="KrestiaVortaroRedaktilo" t="IncludeRecursive">
         <e p="App.xaml" t="Include" />
         <e p="App.xaml.cs" t="Include" />
@@ -133,6 +145,9 @@
         <e p="KrestiaVortaroRedaktilo.csproj" t="IncludeRecursive" />
         <e p="MainPage.xaml" t="Include" />
         <e p="MainPage.xaml.cs" t="Include" />
+        <e p="Migrations" t="Include">
+          <e p="JsonDictionaryVerbMigration.cs" t="Include" />
+        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="x86" t="Include">
             <e p="Debug" t="Include">

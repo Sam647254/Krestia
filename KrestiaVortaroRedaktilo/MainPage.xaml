@@ -8,9 +8,16 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-   <Grid>
-      <TextBlock>
-         ABC
-      </TextBlock>
-   </Grid>
+    <Page.TopAppBar>
+        <AppBar>
+            <StackPanel Orientation="Horizontal">
+                <AppBarButton Icon="OpenFile" Label="Open dictionary"
+                              Click="OpenDictionary_OnClick" />
+            </StackPanel>
+        </AppBar>
+    </Page.TopAppBar>
+
+    <Grid>
+        <TextBlock Name="Stats"></TextBlock>
+    </Grid>
 </Page>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
-namespace KrestiaVortaro {
-   public class NovaVortaro {
+namespace KrestiaVortaroBazo {
+   public class NovaJsonVortaro {
       public List<Substantivo> Substantivoj { get; set; } = null!;
       public List<Rekordo> Rekordoj { get; set; } = null!;
       public List<Verbo> Verboj { get; set; } = null!;

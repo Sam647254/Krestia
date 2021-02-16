@@ -4,6 +4,7 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <Nullable>enable</Nullable>
+        <LangVersion>default</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,6 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\KrestiaDesegnilo\TimeranDesegnilo.vbproj" />
+      <ProjectReference Include="..\KrestiaVortaroBazo\KrestiaVortaroBazo.csproj" />
       <ProjectReference Include="..\KrestiaVortilo\KrestiaVortilo.fsproj" />
     </ItemGroup>
 
