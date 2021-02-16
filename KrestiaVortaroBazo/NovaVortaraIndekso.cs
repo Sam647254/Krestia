@@ -6,19 +6,25 @@ namespace KrestiaVortaroBazo {
    public class NovaVortaraIndekso {
       public Dictionary<string, VortaraVorto> Indekso { get; }
 
+      private NovaJsonVortaro _vortaro;
+
       public NovaVortaraIndekso(string eniro) {
-         var vortaro = JsonConvert.DeserializeObject<NovaJsonVortaro>(eniro);
+         _vortaro = JsonConvert.DeserializeObject<NovaJsonVortaro>(eniro)!;
          
          Indekso = new Dictionary<string, VortaraVorto>();
          
-         var vortoj = vortaro!.Substantivoj
-            .Concat<VortaraVorto>(vortaro.Verboj)
-            .Concat(vortaro.Rekordoj)
-            .Concat(vortaro.Modifantoj)
-            .Concat(vortaro.SpecialajVortoj);
+         var vortoj = _vortaro.Substantivoj
+            .Concat<VortaraVorto>(_vortaro.Verboj)
+            .Concat(_vortaro.Rekordoj)
+            .Concat(_vortaro.Modifantoj)
+            .Concat(_vortaro.SpecialajVortoj);
          foreach (var vorto in vortoj) {
             Indekso.Add(vorto.Vorto, vorto);
          }
+      }
+
+      public string IgiEnJson() {
+         return JsonConvert.SerializeObject(_vortaro);
       }
    }
 }
