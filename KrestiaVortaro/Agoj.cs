@@ -344,6 +344,22 @@ namespace KrestiaVortaro {
             novajKategorioj.ToImmutableSortedSet());
       }
 
+      public static void RedaktiVerbajnSignifojn(NovaJsonVortaro vortaro) {
+         foreach (var verbo in vortaro.Verboj) {
+            Console.WriteLine("{0}: {1}", verbo.Vorto, verbo.Signifo);
+            Console.Write("New difinition: ");
+            var novaSignifo = Console.ReadLine();
+            var valenco = Malinflektado.valencoDeInfinitivo(verbo.Vorto);
+            var notoj = Enumerable.Range(1, valenco).Select(i => {
+               Console.Write("Notes for argument {0}: ", i);
+               var noto = Console.ReadLine();
+               return string.IsNullOrWhiteSpace(noto) ? null : noto;
+            }).ToList();
+            verbo.Signifo = novaSignifo!;
+            verbo.ArgumentajNotoj = notoj;
+         }
+      }
+
       private static IEnumerable<VortaraKategorio> AnstataŭigiEnKategorio(IEnumerable<VortaraKategorio> kategorioj,
          IDictionary<string, string> anstataŭaĵoj) {
          return kategorioj.Select(

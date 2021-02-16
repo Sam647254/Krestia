@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using KrestiaVortaroBazo;
 using Newtonsoft.Json;
 using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
@@ -99,6 +100,14 @@ timeran <KV> <eniro> <eliro>
                   var novaVortaro = Agoj.IgiEnNovaVortaro(vortoj, kategorioj);
                   var eliro = JsonConvert.SerializeObject(novaVortaro, Formatting.Indented);
                   await File.WriteAllTextAsync(args[3], eliro);
+                  break;
+               }
+               case "verbo": {
+                  var enhavo = await File.ReadAllTextAsync(args[1]);
+                  var vortaro = JsonConvert.DeserializeObject<NovaJsonVortaro>(enhavo);
+                  Agoj.RedaktiVerbajnSignifojn(vortaro);
+                  var novaVortaro = JsonConvert.SerializeObject(vortaro, Formatting.Indented);
+                  await File.WriteAllTextAsync(args[1], novaVortaro);
                   break;
                }
             }
