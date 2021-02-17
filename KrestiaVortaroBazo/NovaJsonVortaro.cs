@@ -29,6 +29,7 @@ namespace KrestiaVortaroBazo {
 
    public class Verbo : VortaraVorto {
       public List<string?> ArgumentajNotoj { get; set; } = null!;
+      public string FrazaSignifo { get; set; } = "";
       public string? PlenaFormo { get; set; }
    }
 

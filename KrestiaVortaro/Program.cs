@@ -109,6 +109,13 @@ timeran <KV> <eniro> <eliro>
                   await File.WriteAllLinesAsync(args[2], verboj);
                   break;
                }
+               case "verbo2": {
+                  var enhavo = await File.ReadAllTextAsync(args[1]);
+                  var eniro = File.ReadLines(args[2]);
+                  var indekso = new NovaVortaraIndekso(enhavo);
+                  Agoj.ĜisdatigiVerbojn(indekso, eniro);
+                  break;
+               }
             }
          }
          catch (InvalidOperationException e) {

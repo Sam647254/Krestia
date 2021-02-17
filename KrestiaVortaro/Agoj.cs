@@ -345,22 +345,35 @@ namespace KrestiaVortaro {
       }
 
       public static IEnumerable<string> TroviVerbojn(NovaJsonVortaro vortaro) {
-         return vortaro.Verboj.Select(verbo => verbo.Vorto);
+         return vortaro.Verboj.Select(verbo => $"{verbo.Vorto}|{verbo.Signifo}|");
       }
 
-      public static void RedaktiVerbajnSignifojn(NovaJsonVortaro vortaro) {
-         foreach (var verbo in vortaro.Verboj) {
-            Console.WriteLine("{0}: {1}", verbo.Vorto, verbo.Signifo);
-            Console.Write("New difinition: ");
-            var novaSignifo = Console.ReadLine();
-            var valenco = Malinflektado.valencoDeInfinitivo(verbo.Vorto);
-            var notoj = Enumerable.Range(1, valenco).Select(i => {
-               Console.Write("Notes for argument {0}: ", i);
-               var noto = Console.ReadLine();
-               return string.IsNullOrWhiteSpace(noto) ? null : noto;
-            }).ToList();
-            verbo.Signifo = novaSignifo!;
-            verbo.ArgumentajNotoj = notoj;
+      public static void ĜisdatigiVerbojn(NovaVortaraIndekso vortaro, IEnumerable<string> vicoj) {
+         foreach (var vico in vicoj) {
+            var partoj = vico.Split('|');
+            var verbo = (vortaro.Indekso[partoj[0]] as Verbo)!;
+            var signifo = partoj[1];
+            var frazaSignifo = partoj[2];
+            List<string?>? argumentajNotoj = null;
+            if (partoj.Length >= 4) {
+               argumentajNotoj = partoj[3].Split('^').Select(n => string.IsNullOrEmpty(n) ? null : n).ToList();
+               if (argumentajNotoj.Count == 0) {
+                  argumentajNotoj = null;
+               }
+            }
+
+            string? noto = null;
+            if (partoj.Length == 5) {
+               noto = partoj[4];
+            }
+
+            verbo.Signifo = signifo;
+            verbo.FrazaSignifo = frazaSignifo;
+            if (argumentajNotoj != null) {
+               verbo.ArgumentajNotoj = argumentajNotoj;
+            }
+
+            verbo.Noto = noto;
          }
       }
 

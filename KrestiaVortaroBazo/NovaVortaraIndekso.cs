@@ -6,7 +6,7 @@ namespace KrestiaVortaroBazo {
    public class NovaVortaraIndekso {
       public Dictionary<string, VortaraVorto> Indekso { get; }
 
-      private NovaJsonVortaro _vortaro;
+      private readonly NovaJsonVortaro _vortaro;
 
       public NovaVortaraIndekso(string eniro) {
          _vortaro = JsonConvert.DeserializeObject<NovaJsonVortaro>(eniro)!;
