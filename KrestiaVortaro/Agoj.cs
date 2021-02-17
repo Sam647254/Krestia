@@ -344,6 +344,10 @@ namespace KrestiaVortaro {
             novajKategorioj.ToImmutableSortedSet());
       }
 
+      public static IEnumerable<string> TroviVerbojn(NovaJsonVortaro vortaro) {
+         return vortaro.Verboj.Select(verbo => verbo.Vorto);
+      }
+
       public static void RedaktiVerbajnSignifojn(NovaJsonVortaro vortaro) {
          foreach (var verbo in vortaro.Verboj) {
             Console.WriteLine("{0}: {1}", verbo.Vorto, verbo.Signifo);

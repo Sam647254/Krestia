@@ -102,12 +102,11 @@ timeran <KV> <eniro> <eliro>
                   await File.WriteAllTextAsync(args[3], eliro);
                   break;
                }
-               case "verbo": {
+               case "verbo1": {
                   var enhavo = await File.ReadAllTextAsync(args[1]);
                   var vortaro = JsonConvert.DeserializeObject<NovaJsonVortaro>(enhavo);
-                  Agoj.RedaktiVerbajnSignifojn(vortaro);
-                  var novaVortaro = JsonConvert.SerializeObject(vortaro, Formatting.Indented);
-                  await File.WriteAllTextAsync(args[1], novaVortaro);
+                  var verboj = Agoj.TroviVerbojn(vortaro);
+                  await File.WriteAllLinesAsync(args[2], verboj);
                   break;
                }
             }
