@@ -1,1 +1,4957 @@
-{"Substantivoj":[{"PlenaFormo":null,"Vorto":"almeki","Signifo":"healthy, well","Gloso":"healthy","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"ameme","Signifo":"ambient temperature","Gloso":"temperature","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"avelme","Signifo":"something, someone","Gloso":"something","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"avilma","Signifo":"everything, all","Gloso":"everything","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"avolma","Signifo":"what","Gloso":"what","Radikoj":[],"Noto":"Putting this into a sentence turns it into a question"},{"PlenaFormo":null,"Vorto":"bedreke","Signifo":"warm","Gloso":"warm","Radikoj":[],"Noto":"Refers to temperatures between 20°C and 30°C"},{"PlenaFormo":null,"Vorto":"beledriki","Signifo":"scorching hot","Gloso":"hot","Radikoj":[],"Noto":"Refers to temperatures above 40°C"},{"PlenaFormo":null,"Vorto":"beleta","Signifo":"stove, oven, cooking heat source","Gloso":"stove","Radikoj":["beledriki"],"Noto":""},{"PlenaFormo":null,"Vorto":"belime","Signifo":"wind","Gloso":"wind","Radikoj":["bet","gelume"],"Noto":""},{"PlenaFormo":null,"Vorto":"belpe","Signifo":"circle","Gloso":"circle","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"benidreta","Signifo":"hot","Gloso":"hot","Radikoj":[],"Noto":"Refers to temperatures between 30°C and 40°C"},{"PlenaFormo":null,"Vorto":"berope","Signifo":"brisk, cool","Gloso":"brisk","Radikoj":[],"Noto":"Refers to temperatures between 10°C and 20°C"},{"PlenaFormo":null,"Vorto":"beseti","Signifo":"zodiac sign","Gloso":"zodiac_sign","Radikoj":["belpe","seliti","teti"],"Noto":""},{"PlenaFormo":null,"Vorto":"besota","Signifo":"foul, stinky, bad-smelling","Gloso":"foul","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"bileka","Signifo":"sharp","Gloso":"sharp","Radikoj":[],"Noto":"Refers to something that can cut; does not refer to smell or figurative meanings"},{"PlenaFormo":null,"Vorto":"bilepe","Signifo":"chisel","Gloso":"chisel","Radikoj":["bilesop"],"Noto":""},{"PlenaFormo":null,"Vorto":"bimiti","Signifo":"angry","Gloso":"angry","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"bolta","Signifo":"door","Gloso":"door","Radikoj":[],"Noto":"Both sides are inside a building"},{"PlenaFormo":null,"Vorto":"borope","Signifo":"breath","Gloso":"breath","Radikoj":["borop"],"Noto":""},{"PlenaFormo":null,"Vorto":"bota","Signifo":"nail","Gloso":"nail","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"breka","Signifo":"male","Gloso":"male","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"brepe","Signifo":"boy","Gloso":"boy","Radikoj":["breka"],"Noto":""},{"PlenaFormo":null,"Vorto":"brete","Signifo":"man","Gloso":"man","Radikoj":["breka","tate"],"Noto":""},{"PlenaFormo":null,"Vorto":"delta","Signifo":"spot, dot, speck","Gloso":"spot","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"demepa","Signifo":"joyful, glad, happy","Gloso":"happy","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"domote","Signifo":"house","Gloso":"house","Radikoj":[],"Noto":"Refers to any kind of dwelling place"},{"PlenaFormo":null,"Vorto":"drelopa","Signifo":"rough, uneven","Gloso":"rough","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"dulete","Signifo":"glass","Gloso":"glass","Radikoj":["duna"],"Noto":""},{"PlenaFormo":null,"Vorto":"dumbete","Signifo":"clock, timepiece","Gloso":"clock","Radikoj":["duna","bet"],"Noto":""},{"PlenaFormo":null,"Vorto":"duna","Signifo":"sand (substance)","Gloso":"sand","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"duname","Signifo":"time","Gloso":"time","Radikoj":["duna"],"Noto":"Refers to the concept of time (i.e. arrow of time) itself"},{"PlenaFormo":null,"Vorto":"elate","Signifo":"new, novel","Gloso":"new","Radikoj":["elita"],"Noto":"Refers to something that one previously did not know (i.e. a new book = a book that one just obtained)"},{"PlenaFormo":null,"Vorto":"elita","Signifo":"new, young, recent","Gloso":"new","Radikoj":[],"Noto":"Refers to something that has not existed for too long (i.e. a new book = a book that was recently published)"},{"PlenaFormo":null,"Vorto":"emika","Signifo":"I (singular), we (plural); first-person pronoun","Gloso":"FIRST_PERSON","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"emolka","Signifo":"garden","Gloso":"garden","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"ene","Signifo":"subclause marker indicating the verb as the head","Gloso":"clause_of","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"enita","Signifo":"sheep","Gloso":"sheep","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"enote","Signifo":"chain, shackle","Gloso":"chain","Radikoj":["enat"],"Noto":""},{"PlenaFormo":null,"Vorto":"esika","Signifo":"you; second-person pronoun","Gloso":"SECOND_PERSON","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"etika","Signifo":"he, she, it, they; third-person pronoun","Gloso":"THIRD_PERSON","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"gelume","Signifo":"air","Gloso":"air","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"ginite","Signifo":"cool, refreshingly cold","Gloso":"cool","Radikoj":[],"Noto":"Related to \"kenid\" (cold), but refers to a temperature that one would enjoy"},{"PlenaFormo":null,"Vorto":"glineka","Signifo":"weak","Gloso":"weak","Radikoj":[],"Noto":"Refers to physical weakness"},{"PlenaFormo":null,"Vorto":"gliniki","Signifo":"crab","Gloso":"crab","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"golepi","Signifo":"quiet","Gloso":"quiet","Radikoj":[],"Noto":"Refers to sound pressure levels between 30 dB and 50 dB"},{"PlenaFormo":null,"Vorto":"grema","Signifo":"world","Gloso":"world","Radikoj":["gremi","vosma"],"Noto":""},{"PlenaFormo":null,"Vorto":"greme","Signifo":"future","Gloso":"future","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"gremi","Signifo":"sky","Gloso":"sky","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"gremune","Signifo":"weather","Gloso":"weather","Radikoj":["gremi"],"Noto":"Refers to the state of the sky at a given time"},{"PlenaFormo":null,"Vorto":"gremute","Signifo":"weather condition","Gloso":"weather","Radikoj":["gremune"],"Noto":"Refers to any of the weather conditions, such as rain, sun, etc."},{"PlenaFormo":null,"Vorto":"grike","Signifo":"female","Gloso":"female","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"grite","Signifo":"woman","Gloso":"woman","Radikoj":["grike","tate"],"Noto":""},{"PlenaFormo":null,"Vorto":"gromoka","Signifo":"frequent, recurring","Gloso":"frequent","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"grumiki","Signifo":"bitter","Gloso":"bitter","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"imilta","Signifo":"room","Gloso":"room","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"kedrepa","Signifo":"cold","Gloso":"cold","Radikoj":[],"Noto":"Refers to temperatures between -20°C and 0°C"},{"PlenaFormo":null,"Vorto":"keledrike","Signifo":"extremely cold","Gloso":"cold","Radikoj":[],"Noto":"Refers to temperatures below -40°C"},{"PlenaFormo":null,"Vorto":"keleke","Signifo":"lively loud","Gloso":"lively","Radikoj":[],"Noto":"Refers to sound pressure levels between 50 dB and 70 dB"},{"PlenaFormo":null,"Vorto":"keneka","Signifo":"loud","Gloso":"loud","Radikoj":[],"Noto":"Refers to sound pressure levels between 70 dB and 100 dB"},{"PlenaFormo":null,"Vorto":"kenidreki","Signifo":"unbearably cold","Gloso":"cold","Radikoj":[],"Noto":"Refers to temperatures between -40°C and -20°C"},{"PlenaFormo":null,"Vorto":"kenipi","Signifo":"uncomfortably cold","Gloso":"cold","Radikoj":[],"Noto":"Subjectively defined; refers to any temperature that is painful to endure"},{"PlenaFormo":null,"Vorto":"kete","Signifo":"sound","Gloso":"sound","Radikoj":[],"Noto":"Refers to any instance of sound"},{"PlenaFormo":null,"Vorto":"ketete","Signifo":"extremely loud","Gloso":"loud","Radikoj":[],"Noto":"Refers to sound pressure levels between 100 dB and 150 dB"},{"PlenaFormo":null,"Vorto":"kilite","Signifo":"bull, cow, cattle","Gloso":"cattle","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"kirika","Signifo":"brave, courageous","Gloso":"brave","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"kiriki","Signifo":"danger, dangerous situation","Gloso":"danger","Radikoj":["kirika"],"Noto":""},{"PlenaFormo":null,"Vorto":"klesteki","Signifo":"deafeningly loud","Gloso":"loud","Radikoj":[],"Noto":"Refers to sound pressure levels above and including 150 dB"},{"PlenaFormo":null,"Vorto":"kliti","Signifo":"key (lock)","Gloso":"key","Radikoj":[],"Noto":"Refers to the tool used open a lock"},{"PlenaFormo":null,"Vorto":"kluti","Signifo":"lock","Gloso":"lock","Radikoj":["kliti"],"Noto":""},{"PlenaFormo":null,"Vorto":"krelni","Signifo":"shade,shadow","Gloso":"shadow","Radikoj":["krene","lini"],"Noto":""},{"PlenaFormo":null,"Vorto":"krena","Signifo":"dawn, daybreak","Gloso":"dawn","Radikoj":["krenit"],"Noto":""},{"PlenaFormo":null,"Vorto":"krene","Signifo":"light","Gloso":"light","Radikoj":[],"Noto":"Refers to visible light"},{"PlenaFormo":null,"Vorto":"krenote","Signifo":"bright","Gloso":"bright","Radikoj":["krene"],"Noto":"Refers to an abundance of light"},{"PlenaFormo":null,"Vorto":"krenti","Signifo":"window","Gloso":"window","Radikoj":["krene"],"Noto":""},{"PlenaFormo":null,"Vorto":"kresite","Signifo":"ceiling light","Gloso":"light","Radikoj":["krene"],"Noto":""},{"PlenaFormo":null,"Vorto":"kreska","Signifo":"candle","Gloso":"candle","Radikoj":["kreska"],"Noto":""},{"PlenaFormo":null,"Vorto":"kreskene","Signifo":"lightning","Gloso":"lightning","Radikoj":["kresne","krene"],"Noto":""},{"PlenaFormo":null,"Vorto":"kreski","Signifo":"flame","Gloso":"flame","Radikoj":["poski","krene"],"Noto":"Refers to the light emitted by fire"},{"PlenaFormo":null,"Vorto":"kresne","Signifo":"thunder","Gloso":"thunder","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"kresnopi","Signifo":"thunderous","Gloso":"thunderous","Radikoj":["kresne"],"Noto":""},{"PlenaFormo":null,"Vorto":"kreste","Signifo":"lamp, flashlight, torch, localized lighting","Gloso":"lamp","Radikoj":["krene"],"Noto":""},{"PlenaFormo":null,"Vorto":"krete","Signifo":"color, colour","Gloso":"colour","Radikoj":["krene"],"Noto":"Refers to the concept of colours in general, not to any specific colour"},{"PlenaFormo":null,"Vorto":"krite","Signifo":"this one","Gloso":"this","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"kulete","Signifo":"river","Gloso":"river","Radikoj":["leres","kuna"],"Noto":""},{"PlenaFormo":null,"Vorto":"kumome","Signifo":"today","Gloso":"today","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"kuna","Signifo":"water","Gloso":"water","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"kunapa","Signifo":"spring, well","Gloso":"well","Radikoj":["kuna"],"Noto":""},{"PlenaFormo":null,"Vorto":"kunape","Signifo":"wet, damp","Gloso":"wet","Radikoj":["kunape"],"Noto":""},{"PlenaFormo":null,"Vorto":"kunata","Signifo":"ocean,sea","Gloso":"ocean","Radikoj":["kuna"],"Noto":""},{"PlenaFormo":null,"Vorto":"kunote","Signifo":"hard, firm","Gloso":"hard","Radikoj":[],"Noto":"Refers to physical hardness, not difficulty"},{"PlenaFormo":null,"Vorto":"kuvosta","Signifo":"lake","Gloso":"lake","Radikoj":["kuna","vosma"],"Noto":""},{"PlenaFormo":null,"Vorto":"lemipa","Signifo":"sorry, regrettable","Gloso":"regrettable","Radikoj":["lemit"],"Noto":"Not used for apologies, which uses \"lomov\" instead"},{"PlenaFormo":null,"Vorto":"leveka","Signifo":"sad","Gloso":"sad","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"likrene","Signifo":"sunset","Gloso":"sunset","Radikoj":["lukrene","lite"],"Noto":""},{"PlenaFormo":null,"Vorto":"likuta","Signifo":"shore","Gloso":"shore","Radikoj":["lidre","kunata"],"Noto":""},{"PlenaFormo":null,"Vorto":"limita","Signifo":"pure","Gloso":"pure","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"lineki","Signifo":"peacefully quiet","Gloso":"quiet","Radikoj":[],"Noto":"Refers to quietness that is peaceful"},{"PlenaFormo":null,"Vorto":"lineti","Signifo":"peaceful","Gloso":"peaceful","Radikoj":["lineki"],"Noto":""},{"PlenaFormo":null,"Vorto":"lini","Signifo":"darkness","Gloso":"darkness","Radikoj":["linupi"],"Noto":""},{"PlenaFormo":null,"Vorto":"linupi","Signifo":"black","Gloso":"black","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"lipiti","Signifo":"tired, weary, exhausted","Gloso":"tired","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"lipoti","Signifo":"chair","Gloso":"chair","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"lirekuta","Signifo":"tear (from the eyes)","Gloso":"tear","Radikoj":["liredre","kuna"],"Noto":""},{"PlenaFormo":null,"Vorto":"lite","Signifo":"nighttime, night","Gloso":"night","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"liveti","Signifo":"bed","Gloso":"bed","Radikoj":["liveras"],"Noto":""},{"PlenaFormo":null,"Vorto":"livopi","Signifo":"scorpion","Gloso":"scorpion","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"lometi","Signifo":"light (weight)","Gloso":"light","Radikoj":["lomika"],"Noto":"Refers to an object whose weight makes it easy to handle"},{"PlenaFormo":null,"Vorto":"lomika","Signifo":"light, lightweight","Gloso":"light","Radikoj":[],"Noto":"Refers to an object whose weight is below what is expected"},{"PlenaFormo":null,"Vorto":"lukrene","Signifo":"sunrise","Gloso":"sunrise","Radikoj":["luna","krene"],"Noto":""},{"PlenaFormo":null,"Vorto":"lukuna","Signifo":"blood","Gloso":"blood","Radikoj":["lukregre","kuna"],"Noto":""},{"PlenaFormo":null,"Vorto":"lumite","Signifo":"beautiful","Gloso":"beautiful","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"luna","Signifo":"sun","Gloso":"sun","Radikoj":[],"Noto":"Specifically refers to the star that the Earth orbits"},{"PlenaFormo":null,"Vorto":"lunata","Signifo":"star","Gloso":"star","Radikoj":["luna"],"Noto":"Refers to the astronomical objects"},{"PlenaFormo":null,"Vorto":"lunome","Signifo":"summer","Gloso":"summer","Radikoj":["luna"],"Noto":""},{"PlenaFormo":null,"Vorto":"lurika","Signifo":"cloud","Gloso":"cloud","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"lutreta","Signifo":"bone","Gloso":"bone","Radikoj":["lukregre","treta"],"Noto":""},{"PlenaFormo":null,"Vorto":"luvema","Signifo":"rain (substance)","Gloso":"rain","Radikoj":["luvem"],"Noto":"Refers to the falling rain itself"},{"PlenaFormo":null,"Vorto":"mamoki","Signifo":"lazy","Gloso":"lazy","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"mebeta","Signifo":"gate","Gloso":"gate","Radikoj":[],"Noto":"At least one side is outside of a building"},{"PlenaFormo":null,"Vorto":"meki","Signifo":"tree","Gloso":"tree","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"melmote","Signifo":"yard, court","Gloso":"yard","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"memeki","Signifo":"forest, woods","Gloso":"forest","Radikoj":["melidre","meki"],"Noto":""},{"PlenaFormo":null,"Vorto":"memi","Signifo":"wood (substance)","Gloso":"wood","Radikoj":["meki"],"Noto":""},{"PlenaFormo":null,"Vorto":"memipe","Signifo":"fragrant, good smelling, sweet","Gloso":"fragrant","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"memome","Signifo":"yesterday","Gloso":"yesterday","Radikoj":["meveme","kumome"],"Noto":""},{"PlenaFormo":null,"Vorto":"merate","Signifo":"first","Gloso":"first","Radikoj":["mira"],"Noto":"short for \"elta tol mira\""},{"PlenaFormo":null,"Vorto":"merepa","Signifo":"warm, hot, cozy","Gloso":"warm","Radikoj":[],"Noto":"Refers to a comfortably warm temperature"},{"PlenaFormo":null,"Vorto":"merke","Signifo":"hour","Gloso":"hour","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"merome","Signifo":"collection of memories","Gloso":"memories","Radikoj":["meveme"],"Noto":"Refers to the entire collection of memories that a person holds"},{"PlenaFormo":null,"Vorto":"merope","Signifo":"piece of memory","Gloso":"memory","Radikoj":["merome"],"Noto":"Refers to a single remembered event"},{"PlenaFormo":null,"Vorto":"mesote","Signifo":"autumn, fall","Gloso":"autumn","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"meta","Signifo":"space, area","Gloso":"area","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"meveki","Signifo":"legacy","Gloso":"legacy","Radikoj":["meveme"],"Noto":""},{"PlenaFormo":null,"Vorto":"meveme","Signifo":"past","Gloso":"past","Radikoj":["meves"],"Noto":""},{"PlenaFormo":null,"Vorto":"mika","Signifo":"day (entire)","Gloso":"day","Radikoj":[],"Noto":"Refers to the twenty-four-hour period"},{"PlenaFormo":null,"Vorto":"minaka","Signifo":"daytime","Gloso":"daytime","Radikoj":[],"Noto":"Refers to the period between dawn and dusk"},{"PlenaFormo":null,"Vorto":"mine","Signifo":"subclause marker indicating the first argument as the head","Gloso":"argument-1_of","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"morgome","Signifo":"tomorrow","Gloso":"tomorrow","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"moromi","Signifo":"ancestors, ancestry","Gloso":"ancestry","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"moropa","Signifo":"rope","Gloso":"rope","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"mumoka","Signifo":"smooth, even","Gloso":"smooth","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"nebuke","Signifo":"dirty","Gloso":"dirty","Radikoj":[],"Noto":"Does not have to be covered in dirt, but anything that is undesirable"},{"PlenaFormo":null,"Vorto":"nelelte","Signifo":"year","Gloso":"year","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"nelite","Signifo":"season","Gloso":"season","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"nelpe","Signifo":"basket","Gloso":"basket","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"nemite","Signifo":"person who has lost a loved one","Gloso":"love-lost person","Radikoj":[],"Noto":"Specifically refers to a person whose love with a siginificant other (miradre); cannot be used like the term \"widow\""},{"PlenaFormo":null,"Vorto":"neriti","Signifo":"cool","Gloso":"cool","Radikoj":[],"Noto":"Refers to temperatures between 0°C and 10°C"},{"PlenaFormo":null,"Vorto":"nolote","Signifo":"bad, disagreeable, not likeable","Gloso":"bad","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"nonte","Signifo":"table, desk","Gloso":"table","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"norite","Signifo":"lion","Gloso":"lion","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"numope","Signifo":"bored","Gloso":"bored","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"olape","Signifo":"old, already familiar","Gloso":"old","Radikoj":["oliti"],"Noto":"Refers to expressions like \"old news\" or \"old trick\""},{"PlenaFormo":null,"Vorto":"oliti","Signifo":"old, existed for a long time","Gloso":"old","Radikoj":[],"Noto":"Can refer to both objects and humans"},{"PlenaFormo":null,"Vorto":"oluki","Signifo":"old, near the end of lifespan","Gloso":"old","Radikoj":["oliti"],"Noto":"Can refer to both objects and humans"},{"PlenaFormo":null,"Vorto":"omota","Signifo":"silent","Gloso":"silent","Radikoj":[],"Noto":"Refers to sound pressure levels below 30 dB"},{"PlenaFormo":null,"Vorto":"pemete","Signifo":"heavy","Gloso":"heavy","Radikoj":["pemipe"],"Noto":"Refers to an object whose weight makes it difficult to handle"},{"PlenaFormo":null,"Vorto":"pemipe","Signifo":"heavy, heavyweight","Gloso":"heavy","Radikoj":[],"Noto":"Refers to an object whose weight is above what is expected"},{"PlenaFormo":null,"Vorto":"pinuni","Signifo":"medicine, drug","Gloso":"medicine","Radikoj":["pinut"],"Noto":""},{"PlenaFormo":null,"Vorto":"piveke","Signifo":"sour","Gloso":"sour","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"podake","Signifo":"dry","Gloso":"dry","Radikoj":[],"Noto":"Refers to an absence of moisture"},{"PlenaFormo":null,"Vorto":"pomupa","Signifo":"valley","Gloso":"temitaa","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"ponaka","Signifo":"lonely, alone","Gloso":"alone","Radikoj":["pona"],"Noto":""},{"PlenaFormo":null,"Vorto":"popiki","Signifo":"ugly","Gloso":"ugly","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"poski","Signifo":"fire","Gloso":"fire","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"potike","Signifo":"strong, mighty, powerful, forceful","Gloso":"strong","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"prenta","Signifo":"weight, heavy object","Gloso":"weight","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"preta","Signifo":"weighing scale","Gloso":"scale","Radikoj":["pregre"],"Noto":""},{"PlenaFormo":null,"Vorto":"prete","Signifo":"that one","Gloso":"that","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"pretiki","Signifo":"annoyingly loud","Gloso":"loud","Radikoj":[],"Noto":"Refers to loudness that causes discomfort"},{"PlenaFormo":null,"Vorto":"pulte","Signifo":"wall","Gloso":"wall","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"raluta","Signifo":"soft, malleable","Gloso":"soft","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"relite","Signifo":"evening","Gloso":"evening","Radikoj":["renel","relite"],"Noto":""},{"PlenaFormo":null,"Vorto":"remika","Signifo":"morning","Gloso":"morning","Radikoj":["renel","mika"],"Noto":""},{"PlenaFormo":null,"Vorto":"remiti","Signifo":"fish","Gloso":"fish","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"renepe","Signifo":"clean","Gloso":"clean","Radikoj":[],"Noto":"Refers to physical cleaniness; for figurative cleaniness, use \"lemid\" (pure)"},{"PlenaFormo":null,"Vorto":"renoka","Signifo":"early in the day","Gloso":"early","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"repete","Signifo":"scissors","Gloso":"scissors","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"revita","Signifo":"dream","Gloso":"dream","Radikoj":[],"Noto":"Refers to visions seen while sleeping"},{"PlenaFormo":null,"Vorto":"rima","Signifo":"moon (of Earth)","Gloso":"moon","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"rimata","Signifo":"moon (natural satellite)","Gloso":"rimaa","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"rimpe","Signifo":"month","Gloso":"month","Radikoj":["rima"],"Noto":""},{"PlenaFormo":null,"Vorto":"rinome","Signifo":"winter","Gloso":"winter","Radikoj":["rima"],"Noto":""},{"PlenaFormo":null,"Vorto":"risme","Signifo":"smoke","Gloso":"smoke","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"ritma","Signifo":"ash","Gloso":"ash","Radikoj":[],"Noto":"Specifically refers to the residue of burning"},{"PlenaFormo":null,"Vorto":"romoka","Signifo":"eerily quiet","Gloso":"quiet","Radikoj":[],"Noto":"Refers to unexpected quietness that causes anxiety"},{"PlenaFormo":null,"Vorto":"rone","Signifo":"here","Gloso":"here","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"rote","Signifo":"plain, field, open area","Gloso":"field","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"rotopi","Signifo":"illness, sickness, disease","Gloso":"illness","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"runata","Signifo":"dream, wish, ideal, goal","Gloso":"goal","Radikoj":[],"Noto":"Refers to a hypothetical reality that one wishes to bring to reality"},{"PlenaFormo":null,"Vorto":"seliti","Signifo":"animal","Gloso":"animal","Radikoj":[],"Noto":"Refers to the Animalia kingdom, thus including humans"},{"PlenaFormo":null,"Vorto":"sempa","Signifo":"week","Gloso":"week","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"serepi","Signifo":"good, likeable, agreeable","Gloso":"good","Radikoj":["seret"],"Noto":""},{"PlenaFormo":null,"Vorto":"seskake","Signifo":"solid","Gloso":"solid","Radikoj":[],"Noto":"Refers to the solid state of matter"},{"PlenaFormo":null,"Vorto":"seskoma","Signifo":"snow (substance)","Gloso":"snow","Radikoj":[],"Noto":"Refers to the snow itself, as opposed to the weather"},{"PlenaFormo":null,"Vorto":"seskuna","Signifo":"ice","Gloso":"ice","Radikoj":["seskake","kuna"],"Noto":""},{"PlenaFormo":null,"Vorto":"sibepe","Signifo":"hasty, hurried","Gloso":"hasty","Radikoj":["sibepe"],"Noto":""},{"PlenaFormo":null,"Vorto":"sirita","Signifo":"fast, rapid, quick","Gloso":"fast","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"soki","Signifo":"knife, blade","Gloso":"knife","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"soponi","Signifo":"pain","Gloso":"pain","Radikoj":["soki","poski"],"Noto":""},{"PlenaFormo":null,"Vorto":"soroke","Signifo":"slow","Gloso":"slow","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"supe","Signifo":"wrong","Gloso":"wrong","Radikoj":["vita"],"Noto":"antonym of vid"},{"PlenaFormo":null,"Vorto":"tate","Signifo":"adult","Gloso":"adult","Radikoj":["tote"],"Noto":""},{"PlenaFormo":null,"Vorto":"tatrete","Signifo":"person","Gloso":"person","Radikoj":[],"Noto":"May refer to both adults and children"},{"PlenaFormo":null,"Vorto":"temita","Signifo":"mountain, hill","Gloso":"mountain","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"teti","Signifo":"small, little","Gloso":"teti","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"tilte","Signifo":"axe","Gloso":"axe","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"tireka","Signifo":"uncomfortably hot","Gloso":"hot","Radikoj":[],"Noto":"Subjectively defined; refers to a temperature that causes discomfort"},{"PlenaFormo":null,"Vorto":"tosete","Signifo":"hammer","Gloso":"hammer","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"tote","Signifo":"child","Gloso":"child","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"trena","Signifo":"stone (substance)","Gloso":"stone","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"trenata","Signifo":"statue","Gloso":"statue","Radikoj":["trena"],"Noto":""},{"PlenaFormo":null,"Vorto":"treta","Signifo":"rock","Gloso":"rock","Radikoj":["trena"],"Noto":""},{"PlenaFormo":null,"Vorto":"tretete","Signifo":"pleasantly loud","Gloso":"loud","Radikoj":[],"Noto":"Refers to loudness that is pleasant"},{"PlenaFormo":null,"Vorto":"veneme","Signifo":"spring","Gloso":"spring","Radikoj":[],"Noto":""},{"PlenaFormo":null,"Vorto":"vilipi","Signifo":"broom","Gloso":"broom","Radikoj":["vilme"],"Noto":""},{"PlenaFormo":null,"Vorto":"vilme","Signifo":"dust","Gloso":"dust","Radikoj":[],"Noto":"Refers to any fine-grained particles, including ash"},{"PlenaFormo":null,"Vorto":"vita","Signifo":"correct, right","Gloso":"correct","Radikoj":[],"Noto":"Used to describe something that conforms to a standard"},{"PlenaFormo":null,"Vorto":"voline","Signifo":"midnight, dark night","Gloso":"midnight","Radikoj":["vogre","lite"],"Noto":"Refers to the time of the day when dusk and dawn are equidistant; to refer to 00:00, use \"trigre mika\" (beginning of day) instead"},{"PlenaFormo":null,"Vorto":"volune","Signifo":"solar noon","Gloso":"noon","Radikoj":["vogre","luna"],"Noto":"Refers to the time of the day when the sun is at the zenith; to refer to 12:00, use \"vogro mika\" (middle of the day) instead"},{"PlenaFormo":null,"Vorto":"vome","Signifo":"soil","Gloso":"soil","Radikoj":["vosma"],"Noto":""},{"PlenaFormo":null,"Vorto":"vosma","Signifo":"earth, ground","Gloso":"earth","Radikoj":[],"Noto":"Refers to the ground, not the planet"},{"PlenaFormo":null,"Vorto":"vosmi","Signifo":"floor","Gloso":"floor","Radikoj":["vosma"],"Noto":"Refers to any kind of indoor ground, not just wooden floor"},{"PlenaFormo":null,"Vorto":"vosnata","Signifo":"bay, gulf","Gloso":"bay","Radikoj":["vosma","kunata"],"Noto":""},{"PlenaFormo":null,"Vorto":"vosrima","Signifo":"fog,mist","Gloso":"fog","Radikoj":["vosma","lurika"],"Noto":""}],"Rekordoj":[],"Verboj":[{"ArgumentajNotoj":[null],"PlenaFormo":null,"Vorto":"balas","Signifo":"laugh","Gloso":"laugh","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"belep","Signifo":"give, hand over","Gloso":"give","Radikoj":["besedre"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"bemet","Signifo":"feel, perceive","Gloso":"feel","Radikoj":[],"Noto":"Does not have to refer to touching, but any sense of \"getting a feeling of\""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"berit","Signifo":"bite","Gloso":"bite","Radikoj":["buvlit"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"beselet","Signifo":"sweep","Gloso":"sweep","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"bet","Signifo":"move","Gloso":"move","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"bevat","Signifo":"converse with, talk with","Gloso":"converse","Radikoj":["bevidre"],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"bilesop","Signifo":"carve","Gloso":"carve","Radikoj":["bileka"],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"binip","Signifo":"weave, plait","Gloso":"weave","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null],"PlenaFormo":null,"Vorto":"bores","Signifo":"breathe","Gloso":"breathe","Radikoj":["borope"],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"borop","Signifo":"blow on","Gloso":"blow on","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"bulit","Signifo":"drink","Gloso":"drink","Radikoj":["buvidre"],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"bup","Signifo":"speak, say","Gloso":"say","Radikoj":["buvidre"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"buplit","Signifo":"spit","Gloso":"spit","Radikoj":["buvidre"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"burit","Signifo":"lick","Gloso":"lick","Radikoj":["buridre"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"buvlit","Signifo":"eat","Gloso":"eat","Radikoj":["buvidre"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"delat","Signifo":"equal to","Gloso":"equal","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"delet","Signifo":"arrive at","Gloso":"arrive","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"delit","Signifo":"tie together","Gloso":"tie","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null],"PlenaFormo":null,"Vorto":"demis","Signifo":"play, have fun","Gloso":"play","Radikoj":["demepa"],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"dutup","Signifo":"mold","Gloso":"mold","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"emalip","Signifo":"return, come back","Gloso":"return","Radikoj":[],"Noto":"The reflexive form refers to returning or going back to the origin, which, if omitted, is presumably a place close to home or the speaker (if the speaker is not the one returning)"},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"emelet","Signifo":"have a fear for","Gloso":"fear","Radikoj":["emonet"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"emonet","Signifo":"worry about","Gloso":"worry","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"enat","Signifo":"enchain, enshackle","Gloso":"enchain","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"eprat","Signifo":"touch","Gloso":"touch","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"epret","Signifo":"touch","Gloso":"touch","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"erat","Signifo":"go to","Gloso":"go","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null],"PlenaFormo":null,"Vorto":"geles","Signifo":"live through everyday","Gloso":"live","Radikoj":["gelidre"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"gelit","Signifo":"live, dwell at","Gloso":"live_at","Radikoj":["gelidre"],"Noto":"Refers to residing at a place"},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"glap","Signifo":"carry","Gloso":"carry","Radikoj":["gladre"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"gorit","Signifo":"be proud of","Gloso":"proud","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"grelet","Signifo":"embrace","Gloso":"embrace","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"ilet","Signifo":"faithful, loyal to","Gloso":"faithful","Radikoj":[],"Noto":"Does not refer to religion"},{"ArgumentajNotoj":[null],"PlenaFormo":null,"Vorto":"ires","Signifo":"cough","Gloso":"cough","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"kebot","Signifo":"break (shatter)","Gloso":"break","Radikoj":[],"Noto":"Used to denote that the object shatters into small pieces"},{"ArgumentajNotoj":[null],"PlenaFormo":null,"Vorto":"kesis","Signifo":"sneeze","Gloso":"sneeze","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"kirit","Signifo":"dare, have the bravery to...","Gloso":"dare","Radikoj":["kirika"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"kitrot","Signifo":"make, build, construct, create","Gloso":"make","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"kivat","Signifo":"cook","Gloso":"cook","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"krenit","Signifo":"light up, illuminate","Gloso":"illuminate","Radikoj":["krene"],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"kunep","Signifo":"pour","Gloso":"pour","Radikoj":["kuna"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"kunerat","Signifo":"swim","Gloso":"swim","Radikoj":["kuna","erat"],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"larep","Signifo":"show","Gloso":"show","Radikoj":["liret"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"larit","Signifo":"watch, stare at","Gloso":"watch","Radikoj":["liret"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"lebet","Signifo":"harm, cause suffering to","Gloso":"harm","Radikoj":["leveka"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"lemit","Signifo":"pity, feel sorry for","Gloso":"lemed","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null],"PlenaFormo":null,"Vorto":"leres","Signifo":"flow","Gloso":"flow","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null],"PlenaFormo":null,"Vorto":"leris","Signifo":"rest, take a break","Gloso":"rest","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"lilip","Signifo":"to give a name to","Gloso":"name","Radikoj":["ligre"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"liret","Signifo":"look at","Gloso":"look at","Radikoj":["liredre"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"liseret","Signifo":"witness","Gloso":"witness","Radikoj":["liret"],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"lisip","Signifo":"cut","Gloso":"cut","Radikoj":[],"Noto":"Specialized words exist for cutting with scissors, knife, and axe"},{"ArgumentajNotoj":[null],"PlenaFormo":null,"Vorto":"litenes","Signifo":"die","Gloso":"die","Radikoj":["lite"],"Noto":""},{"ArgumentajNotoj":[null],"PlenaFormo":null,"Vorto":"liveras","Signifo":"sleep, especially through the night","Gloso":"sleep","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"lomot","Signifo":"be sorry about, regret","Gloso":"regret","Radikoj":["lemit"],"Noto":""},{"ArgumentajNotoj":[],"PlenaFormo":null,"Vorto":"luvem","Signifo":"rain (weather condition)","Gloso":"rain","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null],"PlenaFormo":null,"Vorto":"meles","Signifo":"live, be alive","Gloso":"live","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null],"PlenaFormo":null,"Vorto":"melis","Signifo":"breathe","Gloso":"melidro","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"meranip","Signifo":"sculpt","Gloso":"sculpt","Radikoj":[],"Noto":"Refers to a fine and often tedious means of creating something out of a raw material"},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"merat","Signifo":"love romantically","Gloso":"love","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"meret","Signifo":"love, have feelings for","Gloso":"love","Radikoj":["merat"],"Noto":"Used to denote a person's feelings whether it's reciprocated or not"},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"merit","Signifo":"know, familiar with","Gloso":"know","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"merot","Signifo":"experience","Gloso":"experience","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"mesip","Signifo":"become, transform into","Gloso":"become","Radikoj":[],"Noto":"Use the reflexive form to denote \"become\""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"metot","Signifo":"smell","Gloso":"smell","Radikoj":["metogre"],"Noto":""},{"ArgumentajNotoj":[null],"PlenaFormo":null,"Vorto":"meves","Signifo":"look back","Gloso":"look back","Radikoj":[],"Noto":"Refers to either physically turning around and looking, or reflecting about the past"},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"mirabat","Signifo":"kiss on the lips","Gloso":"kiss","Radikoj":["merat","buvidre"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"mirabut","Signifo":"kiss","Gloso":"kiss","Radikoj":["merat","buvidre"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"morot","Signifo":"spread out","Gloso":"spread","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"narit","Signifo":"run","Gloso":"run","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null],"PlenaFormo":null,"Vorto":"neris","Signifo":"cry, weep","Gloso":"cry","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"nitrot","Signifo":"read","Gloso":"read","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"nolop","Signifo":"blame","Gloso":"blame","Radikoj":["nolote"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"petrot","Signifo":"taste","Gloso":"taste","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"pinut","Signifo":"heal, cure","Gloso":"heal","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"polot","Signifo":"hate","Gloso":"hate","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"porip","Signifo":"write","Gloso":"write","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"posip","Signifo":"pull, draw","Gloso":"pull","Radikoj":["tesip"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"poskut","Signifo":"burn","Gloso":"burn","Radikoj":["poski"],"Noto":"To denote that something is \"on fire\", use the reduced form \"poskig\""},{"ArgumentajNotoj":[null],"PlenaFormo":null,"Vorto":"prelis","Signifo":"be ready, idling, waiting","Gloso":"ready","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"rebot","Signifo":"cut (with scissors)","Gloso":"cut","Radikoj":["repete"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"relot","Signifo":"remain at, stay at","Gloso":"remain","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"resip","Signifo":"paint","Gloso":"paint","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"rilep","Signifo":"wash","Gloso":"wash","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"rilip","Signifo":"bring","Gloso":"bring","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"sebot","Signifo":"break (split)","Gloso":"break","Radikoj":["kebot"],"Noto":"Used to denote that the object is broken into large, usually two, pieces"},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"senip","Signifo":"rub, wipe","Gloso":"rub","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"seret","Signifo":"like, be fond of","Gloso":"like","Radikoj":[],"Noto":"Can refer to both people and things; when used on people, suggests platonic fondness"},{"ArgumentajNotoj":[],"PlenaFormo":null,"Vorto":"seskom","Signifo":"snow (weather condition)","Gloso":"snow","Radikoj":["seskuna"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"set","Signifo":"want, desire, wish","Gloso":"want","Radikoj":[],"Noto":"Can be used as an alternative to the volition inflection if the act of wishing itself needs a description"},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"sibit","Signifo":"hurry, rush","Gloso":"hurry","Radikoj":[],"Noto":"To say \"rushed to <destination>\", use \"erash sibedea\", which means \"hastily go to\""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"silip","Signifo":"shoot, fire, blast","Gloso":"shoot","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"sirit","Signifo":"rip, tear","Gloso":"rip","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"sokut","Signifo":"cut (with knife)","Gloso":"cut","Radikoj":["soki"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"tenet","Signifo":"fill, take up space, flood with","Gloso":"fill","Radikoj":["tenip"],"Noto":"Use \"tenip\" to denote that the filling agent is not the substance used to fill the container"},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"tenip","Signifo":"fill","Gloso":"fill","Radikoj":[],"Noto":"Use \"tenet\" to denote that the substance is also the one performing the filling"},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"teret","Signifo":"cause","Gloso":"cause","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"tesip","Signifo":"press, push, compress","Gloso":"push","Radikoj":[],"Noto":"Can also mean \"push ... towards ...\""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"tilit","Signifo":"cut, chop (with axe)","Gloso":"chop","Radikoj":["tilte"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"titolit","Signifo":"kill","Gloso":"kill","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"tomop","Signifo":"postpone, delay","Gloso":"postpone","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"tot","Signifo":"hit, strike, beat","Gloso":"hit","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"trelit","Signifo":"begin, start","Gloso":"begin","Radikoj":[],"Noto":"The slot-2 argument should be a verb in the occurrence inflection; has the same semantics as the transitive/initiation action, so it's used when the initiation itself needs a modifier"},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"trelot","Signifo":"finish, complete","Gloso":"finish","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"trolot","Signifo":"stop","Gloso":"stop","Radikoj":[],"Noto":"Does not imply \"finish\" or \"complete\", which is handled by \"orit\""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"veret","Signifo":"listen to, hear","Gloso":"hear","Radikoj":["veredre"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"vilot","Signifo":"bend","Gloso":"bend","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"vomot","Signifo":"wake up, awaken","Gloso":"wake_up","Radikoj":[],"Noto":"Use the reflexive inflection to indicate naturally waking oneself up"},{"ArgumentajNotoj":[null,null,null],"PlenaFormo":null,"Vorto":"vosip","Signifo":"bury","Gloso":"bury","Radikoj":["vosma"],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"vososit","Signifo":"fold","Gloso":"fold","Radikoj":[],"Noto":""},{"ArgumentajNotoj":[null,null],"PlenaFormo":null,"Vorto":"vulot","Signifo":"stretch","Gloso":"stretch","Radikoj":[],"Noto":""}],"Modifantoj":[{"ModifeblajTipoj":["M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":[],"AldonaĵajNotoj":[],"Vorto":"bomol","Signifo":"sometimes, occassionally","Gloso":"sometimes","Radikoj":[],"Noto":"Used to modify verb infinitives to indicate a repeating action that happens sometimes"},{"ModifeblajTipoj":["K*","k*"],"AldonaĵajTipoj":[],"AldonaĵajNotoj":[],"Vorto":"borol","Signifo":"few, little","Gloso":"few","Radikoj":[],"Noto":""},{"ModifeblajTipoj":["K*","k*","M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":["D*"],"AldonaĵajNotoj":[],"Vorto":"dal","Signifo":"at the time of, when","Gloso":"at_time","Radikoj":[],"Noto":""},{"ModifeblajTipoj":["K*"],"AldonaĵajTipoj":["D*"],"AldonaĵajNotoj":[],"Vorto":"del","Signifo":"of, beloning to","Gloso":"of","Radikoj":[],"Noto":"Refers to ownership; stronger than \"vol\", which is semantically vague about the relationship"},{"ModifeblajTipoj":["C*"],"AldonaĵajTipoj":[],"AldonaĵajNotoj":[],"Vorto":"evotol","Signifo":"natural logarithm","Gloso":"ln","Radikoj":[],"Noto":""},{"ModifeblajTipoj":["t*","T*","D*"],"AldonaĵajTipoj":[],"AldonaĵajNotoj":[],"Vorto":"kanel","Signifo":"able to, can, capably, skillfully","Gloso":"capably","Radikoj":[],"Noto":"When modifying a hypothetical verb, it corresponds to \"can\" or \"be able to\""},{"ModifeblajTipoj":["M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":["P*"],"AldonaĵajNotoj":[],"Vorto":"kerel","Signifo":"and (connecting clauses)","Gloso":"and","Radikoj":[],"Noto":""},{"ModifeblajTipoj":["K*"],"AldonaĵajTipoj":[],"AldonaĵajNotoj":[],"Vorto":"konal","Signifo":"another, other","Gloso":"another","Radikoj":[],"Noto":""},{"ModifeblajTipoj":["K*","k*","M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":["D*"],"AldonaĵajNotoj":[],"Vorto":"kumol","Signifo":"today","Gloso":"today","Radikoj":["kumome"],"Noto":"Stands for \"dal kumome\""},{"ModifeblajTipoj":["C*"],"AldonaĵajTipoj":["#*"],"AldonaĵajNotoj":[],"Vorto":"mebel","Signifo":"square root of","Gloso":"sqrt","Radikoj":[],"Noto":""},{"ModifeblajTipoj":["K*","k*","M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":["D*"],"AldonaĵajNotoj":[],"Vorto":"mel","Signifo":"in, within (abstract)","Gloso":"in","Radikoj":[],"Noto":"Used to describe being within a timeframe or environment, such as \"in the night\", \"in a week\""},{"ModifeblajTipoj":["M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":[],"AldonaĵajNotoj":[],"Vorto":"meral","Signifo":"but, however","Gloso":"but","Radikoj":[],"Noto":""},{"ModifeblajTipoj":["K*","k*","M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":["D*"],"AldonaĵajNotoj":[],"Vorto":"mogal","Signifo":"tomorrow","Gloso":"tomorrow","Radikoj":["morgome"],"Noto":"Stands for \"dal morgome\""},{"ModifeblajTipoj":["K*","k*"],"AldonaĵajTipoj":["@*"],"AldonaĵajNotoj":[],"Vorto":"nal","Signifo":"with the name of","Gloso":"named","Radikoj":[],"Noto":"The following word is the name of the modified object"},{"ModifeblajTipoj":["K*","k*","M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":["D*"],"AldonaĵajNotoj":[],"Vorto":"nel","Signifo":"in, inside","Gloso":"in","Radikoj":[],"Noto":"Used to denote the interior of a physical space"},{"ModifeblajTipoj":["K*","k*","M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":[],"AldonaĵajNotoj":[],"Vorto":"nil","Signifo":"(modifier sealer)","Gloso":"-","Radikoj":[],"Noto":"Prevents this word from accepting additional modifiers"},{"ModifeblajTipoj":["K*","k*","M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":[],"AldonaĵajNotoj":[],"Vorto":"nival","Signifo":"other than, not","Gloso":"not","Radikoj":[],"Noto":"Used to mean \"something other than\", which is sometimes indicated with negation in natural languages"},{"ModifeblajTipoj":["M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":[],"AldonaĵajNotoj":[],"Vorto":"nivoral","Signifo":"never again","Gloso":"never_again","Radikoj":["voral"],"Noto":""},{"ModifeblajTipoj":["M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":[],"AldonaĵajNotoj":[],"Vorto":"nomal","Signifo":"always, regularly","Gloso":"always","Radikoj":[],"Noto":"When modifying an infinitive, indicates that the action occurs regularly; when modifying an ongoing action (either progressive or also having \"tenil\" attached to it), indicates that the action will not stop"},{"ModifeblajTipoj":["M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":["P*"],"AldonaĵajNotoj":[],"Vorto":"nomil","Signifo":"in order to","Gloso":"in order to","Radikoj":[],"Noto":"Modifies a verb to indicate that it's done in order to perform another action"},{"ModifeblajTipoj":["C*"],"AldonaĵajTipoj":["#*"],"AldonaĵajNotoj":[],"Vorto":"petal","Signifo":"multiply, multiplied by, times","Gloso":"times","Radikoj":[],"Noto":""},{"ModifeblajTipoj":["K*","k*","M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":["D*"],"AldonaĵajNotoj":[],"Vorto":"ponel","Signifo":"next to, by, with","Gloso":"with","Radikoj":[],"Noto":""},{"ModifeblajTipoj":["M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":[],"AldonaĵajNotoj":[],"Vorto":"regel","Signifo":"soon","Gloso":"soon","Radikoj":[],"Noto":""},{"ModifeblajTipoj":["M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":[],"AldonaĵajNotoj":[],"Vorto":"renel","Signifo":"early","Gloso":"early","Radikoj":[],"Noto":"Modifies a stopped verb to indicate that it finished before the expected time"},{"ModifeblajTipoj":["K*"],"AldonaĵajTipoj":["#*"],"AldonaĵajNotoj":[],"Vorto":"sel","Signifo":"quantity/count specifier","Gloso":"count","Radikoj":[],"Noto":"Followed by the number of instances of a countable noun"},{"ModifeblajTipoj":["C*"],"AldonaĵajTipoj":["#*"],"AldonaĵajNotoj":[],"Vorto":"senal","Signifo":"minus","Gloso":"minus","Radikoj":[],"Noto":""},{"ModifeblajTipoj":["M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":[],"AldonaĵajNotoj":[],"Vorto":"sivil","Signifo":"obligatorily, have to, must","Gloso":"have_to","Radikoj":[],"Noto":"Modifies a hypothetical verb to indicate the obligation of doing it"},{"ModifeblajTipoj":["K*","k*","M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":[],"AldonaĵajNotoj":[],"Vorto":"sonal","Signifo":"only","Gloso":"only","Radikoj":[],"Noto":""},{"ModifeblajTipoj":["K*","k*"],"AldonaĵajTipoj":["D*"],"AldonaĵajNotoj":[],"Vorto":"sonol","Signifo":"without, lacking","Gloso":"without","Radikoj":[],"Noto":"Used to modify an object that lacks an association, either through ownership or characteristic, with the following object"},{"ModifeblajTipoj":["C*"],"AldonaĵajTipoj":["#*"],"AldonaĵajNotoj":[],"Vorto":"tikal","Signifo":"plus","Gloso":"plus","Radikoj":[],"Noto":""},{"ModifeblajTipoj":["C*"],"AldonaĵajTipoj":["S*","#*","#*"],"AldonaĵajNotoj":[],"Vorto":"tikanel","Signifo":"summation","Gloso":"summation","Radikoj":["tikal"],"Noto":""},{"ModifeblajTipoj":["M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":[],"AldonaĵajNotoj":[],"Vorto":"tokol","Signifo":"late, near the end of a period of time","Gloso":"late","Radikoj":[],"Noto":""},{"ModifeblajTipoj":[],"AldonaĵajTipoj":[],"AldonaĵajNotoj":[],"Vorto":"tomol","Signifo":"late","Gloso":"late","Radikoj":[],"Noto":"Refers to an action occuring after the expected time"},{"ModifeblajTipoj":["C*"],"AldonaĵajTipoj":["#*"],"AldonaĵajNotoj":[],"Vorto":"vetel","Signifo":"exponentiation, to the power of","Gloso":"exponent","Radikoj":[],"Noto":""},{"ModifeblajTipoj":["C*"],"AldonaĵajTipoj":["#*"],"AldonaĵajNotoj":[],"Vorto":"visal","Signifo":"divided by","Gloso":"divided_by","Radikoj":[],"Noto":""},{"ModifeblajTipoj":["K*","k*","M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":["D*"],"AldonaĵajNotoj":[],"Vorto":"vol","Signifo":"of, pertaining to","Gloso":"of","Radikoj":[],"Noto":"Links two objects without explicitly stating the nature of the relationship, which is left to the context to decide"},{"ModifeblajTipoj":["M*","t*","T*","D*","n*","O*","Y*","N*"],"AldonaĵajTipoj":[],"AldonaĵajNotoj":[],"Vorto":"voral","Signifo":"again","Gloso":"again","Radikoj":["vora"],"Noto":""},{"ModifeblajTipoj":["C*"],"AldonaĵajTipoj":["#*"],"AldonaĵajNotoj":[],"Vorto":"votel","Signifo":"squared (multiplied by itself)","Gloso":"squared","Radikoj":["vora","mebel"],"Noto":""},{"ModifeblajTipoj":["C*"],"AldonaĵajTipoj":["#*"],"AldonaĵajNotoj":[],"Vorto":"votol","Signifo":"logarithm in the given base","Gloso":"log","Radikoj":[],"Noto":""}],"SpecialajVortoj":[{"Vorto":"di","Signifo":"decimal point","Gloso":".","Radikoj":[],"Noto":""},{"Vorto":"gi","Signifo":"9, nine (non-terminal)","Gloso":"9","Radikoj":[],"Noto":""},{"Vorto":"gina","Signifo":"9, nine (terminal)","Gloso":"9","Radikoj":[],"Noto":""},{"Vorto":"ke","Signifo":"8, eight (non-terminal)","Gloso":"8","Radikoj":[],"Noto":""},{"Vorto":"kera","Signifo":"8, eight (terminal)","Gloso":"8","Radikoj":[],"Noto":""},{"Vorto":"kle","Signifo":"million (non-terminal)","Gloso":"million","Radikoj":[],"Noto":"Represents 1 000 000 at the start of the sequence digits; 000 000 elsewhere"},{"Vorto":"klera","Signifo":"million (non-terminal)","Gloso":"million","Radikoj":[],"Noto":"Represents 1 000 000 by itself; 000 000 elsewhere"},{"Vorto":"li","Signifo":"6, six (non-terminal)","Gloso":"6","Radikoj":[],"Noto":""},{"Vorto":"lira","Signifo":"6, six (terminal)","Gloso":"6","Radikoj":[],"Noto":""},{"Vorto":"mi","Signifo":"0, significant zero (non-terminal)","Gloso":"0","Radikoj":[],"Noto":""},{"Vorto":"mira","Signifo":"0, significant zero (terminal)","Gloso":"0","Radikoj":[],"Noto":""},{"Vorto":"no","Signifo":"3, three (non-terminal)","Gloso":"3","Radikoj":[],"Noto":""},{"Vorto":"nona","Signifo":"3, three (terminal)","Gloso":"3","Radikoj":[],"Noto":""},{"Vorto":"plo","Signifo":"100, hundred (non-terminal)","Gloso":"hundred","Radikoj":[],"Noto":"Represents 100 at the start of the sequence digits; 00 elsewhere"},{"Vorto":"plora","Signifo":"100, hundred (non-terminal)","Gloso":"hundred","Radikoj":[],"Noto":"Represents 100 by itself; 00 elsewhere"},{"Vorto":"po","Signifo":"1, one (non-terminal)","Gloso":"1","Radikoj":[],"Noto":""},{"Vorto":"pona","Signifo":"1, one (terminal)","Gloso":"1","Radikoj":[],"Noto":""},{"Vorto":"si","Signifo":"5, five (non-terminal)","Gloso":"5","Radikoj":[],"Noto":""},{"Vorto":"sina","Signifo":"5, five (terminal)","Gloso":"5","Radikoj":[],"Noto":""},{"Vorto":"so","Signifo":"7, seven (non-terminal)","Gloso":"7","Radikoj":[],"Noto":""},{"Vorto":"sona","Signifo":"7, seven (terminal)","Gloso":"7","Radikoj":[],"Noto":""},{"Vorto":"te","Signifo":"4, four (non-terminal)","Gloso":"4","Radikoj":[],"Noto":""},{"Vorto":"tera","Signifo":"4, four (terminal)","Gloso":"4","Radikoj":[],"Noto":""},{"Vorto":"tri","Signifo":"1000, thousand (non-terminal)","Gloso":"thousand","Radikoj":[],"Noto":"Represents 1000 at the start of the sequence digits; 000 elsewhere"},{"Vorto":"trira","Signifo":"1000, thousand (terminal)","Gloso":"thousand","Radikoj":[],"Noto":"Represents 1000 by itself; 000 elsewhere"},{"Vorto":"vo","Signifo":"2, two (non-terminal)","Gloso":"2","Radikoj":[],"Noto":""},{"Vorto":"vora","Signifo":"2, two (terminal)","Gloso":"2","Radikoj":[],"Noto":""},{"Vorto":"hal","Signifo":"everything, all","Gloso":"everything","Radikoj":["avilma"],"Noto":"Functionally identical to \"avilma\""},{"Vorto":"hel","Signifo":"something, someone","Gloso":"something","Radikoj":["avelme"],"Noto":"Functionally identical to \"avelme\""},{"Vorto":"hem","Signifo":"I","Gloso":"I","Radikoj":["emika"],"Noto":"Functionally identical to \"emikasi\""},{"Vorto":"hes","Signifo":"you (singular)","Gloso":"you","Radikoj":["esika"],"Noto":"Functionally identical to \"esikasi\""},{"Vorto":"het","Signifo":"he, she, it; third-person singular pronoun","Gloso":"3PS","Radikoj":["etika"],"Noto":"Functionally identical to \"etikasi\""},{"Vorto":"hime","Signifo":"We","Gloso":"We","Radikoj":["emika"],"Noto":"Functionally identical to \"emikave\""},{"Vorto":"hise","Signifo":"you (plural)","Gloso":"you","Radikoj":["esika"],"Noto":"Functionally identical to \"esikave\""},{"Vorto":"hite","Signifo":"they","Gloso":"3PP","Radikoj":["etika"],"Noto":"Functionally identical to \"each other\""}],"Kategorioj":[{"Nomo":"abstract","Vortoj":["merope","runata","gremegre","revita","merome"]},{"Nomo":"actions","Vortoj":["vososit","bup","tenet","larit","sibepe","bulit","rilep","buvlit","trelit","binip","prelis","meves","liret","veret","bevat","trelot","kitrot","tregre","mesip","tenip","trolot","sibit","beselet"]},{"Nomo":"activities","Vortoj":["porip","narit","nitrot","kivat","demis"]},{"Nomo":"arts and craftsmanship","Vortoj":["meranip","dutup","resip"]},{"Nomo":"body","Vortoj":["bevidre","liredre","buvidre","edre","veredre"]},{"Nomo":"colours","Vortoj":["linupi"]},{"Nomo":"common attributes","Vortoj":["bomol","oliti","sirita","gromoka","elita","olape","nolote","supe","oluki","elate","soroke","vita","popiki"]},{"Nomo":"common objects","Vortoj":["nonte","kliti","kreste","kluti","dumbete","lipoti"]},{"Nomo":"containers","Vortoj":["nelpe"]},{"Nomo":"date","Vortoj":["nelelte","rimogre","memome","nelite","semali","nelegre","neleli","sempa","kumome","semagre","rimpe"]},{"Nomo":"dates","Vortoj":["mogal","morgome"]},{"Nomo":"emotions","Vortoj":["polot","delegre","meret","numope","emelet","mirabat","emodre","levegre","mirabut","leveka","grelet","seret","demepa","lirekuta","emonet","merat","serepi","bimiti","bimigre"]},{"Nomo":"expressions","Vortoj":["lemit","gorit","kirit","lomot","neris","lemipa","balas","nolop","set"]},{"Nomo":"forceful actions","Vortoj":["senip","enat","vilot","kebot","vulot","tilit","sirit","sebot","rebot","morot","borop","delit","posip","lisip","vosip","sokut","poskut","tesip","tot"]},{"Nomo":"helper modifiers","Vortoj":["konal","sonal","nival","nal","mel","vol","sonol"]},{"Nomo":"home","Vortoj":["nonte","melmote","kresite","liveti","beleta","kreska","domote","gresigre","mebeta","pulte","kreste","krenti","emolka","bolta","gelit","imilta","lipoti","vosmi"]},{"Nomo":"humans","Vortoj":["grike","tate","tatrete","grite","brete","tote","breka","brepe"]},{"Nomo":"kinship","Vortoj":["nemite","miradre","gritodre","bodre","bretodre","venedre","gedre","besedre","moromi","todre","marodre"]},{"Nomo":"life","Vortoj":["runata","bores","dunagre","liveras","borope"]},{"Nomo":"lifestyle","Vortoj":["melis","gelidre","melidre"]},{"Nomo":"locatives","Vortoj":["trigre","nel","negre","vogre","ridre"]},{"Nomo":"movement","Vortoj":["emalip","erat"]},{"Nomo":"nature","Vortoj":["vosma","lunata","poski","gelume","krelni","kreski","kulete","gremi","risme","seskuna","pomupa","ritma","meki","rimata","duna","lukrene","grema","luna","temita","vilme","lurika","rima","belime","krena","vosrima","kunapa","meta","kuvosta","kanedre","memi","vosnata"]},{"Nomo":"object attributes","Vortoj":["bileka"]},{"Nomo":"personal traits","Vortoj":["ilet","lumite","kirika"]},{"Nomo":"physics","Vortoj":["leredre","leres","lidre","seskake","bet","meta"]},{"Nomo":"placeholders","Vortoj":["hise","hem","hite","hes","hime","het"]},{"Nomo":"predicate helpers","Vortoj":["meral","mogal"]},{"Nomo":"pronouns","Vortoj":["emika","esika"]},{"Nomo":"raw materials","Vortoj":["vome","dulete"]},{"Nomo":"seasons","Vortoj":["lunome","nelite","veneme","mesote","rinome"]},{"Nomo":"time","Vortoj":["remika","duname","merke","volune","relite","minaka","mika","tomol","lukrene","renel","dedre","meveme","krena","merli","dunagre","mikali","voline","tomop","regel","dumbete","renoka","tokol","lite","nomal"]},{"Nomo":"tools","Vortoj":["soki","vilipi","besegre","enote","bilepe","tosete","tilte","moropa","repete"]},{"Nomo":"undesirable things","Vortoj":["eradre","kiriki","soponi"]},{"Nomo":"verb helpers","Vortoj":["dal","kanel"]},{"Nomo":"weather","Vortoj":["kresnopi","luvem","gremute","kreskene","gremune","seskom","luvema","seskoma","kresne"]}]}
+{
+  "Substantivoj": [
+    {
+      "PlenaFormo": null,
+      "Vorto": "almeki",
+      "Signifo": "healthy, well",
+      "Gloso": "healthy",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "ameme",
+      "Signifo": "ambient temperature",
+      "Gloso": "temperature",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "avelme",
+      "Signifo": "something, someone",
+      "Gloso": "something",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "avilma",
+      "Signifo": "everything, all",
+      "Gloso": "everything",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "avolma",
+      "Signifo": "what",
+      "Gloso": "what",
+      "Radikoj": [],
+      "Noto": "Putting this into a sentence turns it into a question"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "bedreke",
+      "Signifo": "warm",
+      "Gloso": "warm",
+      "Radikoj": [],
+      "Noto": "Refers to temperatures between 20°C and 30°C"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "beledriki",
+      "Signifo": "scorching hot",
+      "Gloso": "hot",
+      "Radikoj": [],
+      "Noto": "Refers to temperatures above 40°C"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "beleta",
+      "Signifo": "stove, oven, cooking heat source",
+      "Gloso": "stove",
+      "Radikoj": [
+        "beledriki"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "belime",
+      "Signifo": "wind",
+      "Gloso": "wind",
+      "Radikoj": [
+        "bet",
+        "gelume"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "belpe",
+      "Signifo": "circle",
+      "Gloso": "circle",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "benidreta",
+      "Signifo": "hot",
+      "Gloso": "hot",
+      "Radikoj": [],
+      "Noto": "Refers to temperatures between 30°C and 40°C"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "berope",
+      "Signifo": "brisk, cool",
+      "Gloso": "brisk",
+      "Radikoj": [],
+      "Noto": "Refers to temperatures between 10°C and 20°C"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "beseti",
+      "Signifo": "zodiac sign",
+      "Gloso": "zodiac_sign",
+      "Radikoj": [
+        "belpe",
+        "seliti",
+        "teti"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "besota",
+      "Signifo": "foul, stinky, bad-smelling",
+      "Gloso": "foul",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "bileka",
+      "Signifo": "sharp",
+      "Gloso": "sharp",
+      "Radikoj": [],
+      "Noto": "Refers to something that can cut; does not refer to smell or figurative meanings"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "bilepe",
+      "Signifo": "chisel",
+      "Gloso": "chisel",
+      "Radikoj": [
+        "bilesop"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "bimiti",
+      "Signifo": "angry",
+      "Gloso": "angry",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "bolta",
+      "Signifo": "door",
+      "Gloso": "door",
+      "Radikoj": [],
+      "Noto": "Both sides are inside a building"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "borope",
+      "Signifo": "breath",
+      "Gloso": "breath",
+      "Radikoj": [
+        "borop"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "bota",
+      "Signifo": "nail",
+      "Gloso": "nail",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "breka",
+      "Signifo": "male",
+      "Gloso": "male",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "brepe",
+      "Signifo": "boy",
+      "Gloso": "boy",
+      "Radikoj": [
+        "breka"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "brete",
+      "Signifo": "man",
+      "Gloso": "man",
+      "Radikoj": [
+        "breka",
+        "tate"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "delta",
+      "Signifo": "spot, dot, speck",
+      "Gloso": "spot",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "demepa",
+      "Signifo": "joyful, glad, happy",
+      "Gloso": "happy",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "domote",
+      "Signifo": "house",
+      "Gloso": "house",
+      "Radikoj": [],
+      "Noto": "Refers to any kind of dwelling place"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "drelopa",
+      "Signifo": "rough, uneven",
+      "Gloso": "rough",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "dulete",
+      "Signifo": "glass",
+      "Gloso": "glass",
+      "Radikoj": [
+        "duna"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "dumbete",
+      "Signifo": "clock, timepiece",
+      "Gloso": "clock",
+      "Radikoj": [
+        "duna",
+        "bet"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "duna",
+      "Signifo": "sand (substance)",
+      "Gloso": "sand",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "duname",
+      "Signifo": "time",
+      "Gloso": "time",
+      "Radikoj": [
+        "duna"
+      ],
+      "Noto": "Refers to the concept of time (i.e. arrow of time) itself"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "elate",
+      "Signifo": "new, novel",
+      "Gloso": "new",
+      "Radikoj": [
+        "elita"
+      ],
+      "Noto": "Refers to something that one previously did not know (i.e. a new book = a book that one just obtained)"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "elita",
+      "Signifo": "new, young, recent",
+      "Gloso": "new",
+      "Radikoj": [],
+      "Noto": "Refers to something that has not existed for too long (i.e. a new book = a book that was recently published)"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "emika",
+      "Signifo": "I (singular), we (plural); first-person pronoun",
+      "Gloso": "FIRST_PERSON",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "emolka",
+      "Signifo": "garden",
+      "Gloso": "garden",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "ene",
+      "Signifo": "subclause marker indicating the verb as the head",
+      "Gloso": "clause_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "enita",
+      "Signifo": "sheep",
+      "Gloso": "sheep",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "enote",
+      "Signifo": "chain, shackle",
+      "Gloso": "chain",
+      "Radikoj": [
+        "enat"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "esika",
+      "Signifo": "you; second-person pronoun",
+      "Gloso": "SECOND_PERSON",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "etika",
+      "Signifo": "he, she, it, they; third-person pronoun",
+      "Gloso": "THIRD_PERSON",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "gelume",
+      "Signifo": "air",
+      "Gloso": "air",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "ginite",
+      "Signifo": "cool, refreshingly cold",
+      "Gloso": "cool",
+      "Radikoj": [],
+      "Noto": "Related to \"kenid\" (cold), but refers to a temperature that one would enjoy"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "glineka",
+      "Signifo": "weak",
+      "Gloso": "weak",
+      "Radikoj": [],
+      "Noto": "Refers to physical weakness"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "gliniki",
+      "Signifo": "crab",
+      "Gloso": "crab",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "golepi",
+      "Signifo": "quiet",
+      "Gloso": "quiet",
+      "Radikoj": [],
+      "Noto": "Refers to sound pressure levels between 30 dB and 50 dB"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "grema",
+      "Signifo": "world",
+      "Gloso": "world",
+      "Radikoj": [
+        "gremi",
+        "vosma"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "greme",
+      "Signifo": "future",
+      "Gloso": "future",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "gremi",
+      "Signifo": "sky",
+      "Gloso": "sky",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "gremune",
+      "Signifo": "weather",
+      "Gloso": "weather",
+      "Radikoj": [
+        "gremi"
+      ],
+      "Noto": "Refers to the state of the sky at a given time"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "gremute",
+      "Signifo": "weather condition",
+      "Gloso": "weather",
+      "Radikoj": [
+        "gremune"
+      ],
+      "Noto": "Refers to any of the weather conditions, such as rain, sun, etc."
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "grike",
+      "Signifo": "female",
+      "Gloso": "female",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "grite",
+      "Signifo": "woman",
+      "Gloso": "woman",
+      "Radikoj": [
+        "grike",
+        "tate"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "gromoka",
+      "Signifo": "frequent, recurring",
+      "Gloso": "frequent",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "grumiki",
+      "Signifo": "bitter",
+      "Gloso": "bitter",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "imilta",
+      "Signifo": "room",
+      "Gloso": "room",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kedrepa",
+      "Signifo": "cold",
+      "Gloso": "cold",
+      "Radikoj": [],
+      "Noto": "Refers to temperatures between -20°C and 0°C"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "keledrike",
+      "Signifo": "extremely cold",
+      "Gloso": "cold",
+      "Radikoj": [],
+      "Noto": "Refers to temperatures below -40°C"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "keleke",
+      "Signifo": "lively loud",
+      "Gloso": "lively",
+      "Radikoj": [],
+      "Noto": "Refers to sound pressure levels between 50 dB and 70 dB"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "keneka",
+      "Signifo": "loud",
+      "Gloso": "loud",
+      "Radikoj": [],
+      "Noto": "Refers to sound pressure levels between 70 dB and 100 dB"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kenidreki",
+      "Signifo": "unbearably cold",
+      "Gloso": "cold",
+      "Radikoj": [],
+      "Noto": "Refers to temperatures between -40°C and -20°C"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kenipi",
+      "Signifo": "uncomfortably cold",
+      "Gloso": "cold",
+      "Radikoj": [],
+      "Noto": "Subjectively defined; refers to any temperature that is painful to endure"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kete",
+      "Signifo": "sound",
+      "Gloso": "sound",
+      "Radikoj": [],
+      "Noto": "Refers to any instance of sound"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "ketete",
+      "Signifo": "extremely loud",
+      "Gloso": "loud",
+      "Radikoj": [],
+      "Noto": "Refers to sound pressure levels between 100 dB and 150 dB"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kilite",
+      "Signifo": "bull, cow, cattle",
+      "Gloso": "cattle",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kirika",
+      "Signifo": "brave, courageous",
+      "Gloso": "brave",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kiriki",
+      "Signifo": "danger, dangerous situation",
+      "Gloso": "danger",
+      "Radikoj": [
+        "kirika"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "klesteki",
+      "Signifo": "deafeningly loud",
+      "Gloso": "loud",
+      "Radikoj": [],
+      "Noto": "Refers to sound pressure levels above and including 150 dB"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kliti",
+      "Signifo": "key (lock)",
+      "Gloso": "key",
+      "Radikoj": [],
+      "Noto": "Refers to the tool used open a lock"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kluti",
+      "Signifo": "lock",
+      "Gloso": "lock",
+      "Radikoj": [
+        "kliti"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "krelni",
+      "Signifo": "shade,shadow",
+      "Gloso": "shadow",
+      "Radikoj": [
+        "krene",
+        "lini"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "krena",
+      "Signifo": "dawn, daybreak",
+      "Gloso": "dawn",
+      "Radikoj": [
+        "krenit"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "krene",
+      "Signifo": "light",
+      "Gloso": "light",
+      "Radikoj": [],
+      "Noto": "Refers to visible light"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "krenote",
+      "Signifo": "bright",
+      "Gloso": "bright",
+      "Radikoj": [
+        "krene"
+      ],
+      "Noto": "Refers to an abundance of light"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "krenti",
+      "Signifo": "window",
+      "Gloso": "window",
+      "Radikoj": [
+        "krene"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kresite",
+      "Signifo": "ceiling light",
+      "Gloso": "light",
+      "Radikoj": [
+        "krene"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kreska",
+      "Signifo": "candle",
+      "Gloso": "candle",
+      "Radikoj": [
+        "kreska"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kreskene",
+      "Signifo": "lightning",
+      "Gloso": "lightning",
+      "Radikoj": [
+        "kresne",
+        "krene"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kreski",
+      "Signifo": "flame",
+      "Gloso": "flame",
+      "Radikoj": [
+        "poski",
+        "krene"
+      ],
+      "Noto": "Refers to the light emitted by fire"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kresne",
+      "Signifo": "thunder",
+      "Gloso": "thunder",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kresnopi",
+      "Signifo": "thunderous",
+      "Gloso": "thunderous",
+      "Radikoj": [
+        "kresne"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kreste",
+      "Signifo": "lamp, flashlight, torch, localized lighting",
+      "Gloso": "lamp",
+      "Radikoj": [
+        "krene"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "krete",
+      "Signifo": "color, colour",
+      "Gloso": "colour",
+      "Radikoj": [
+        "krene"
+      ],
+      "Noto": "Refers to the concept of colours in general, not to any specific colour"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "krite",
+      "Signifo": "this one",
+      "Gloso": "this",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kulete",
+      "Signifo": "river",
+      "Gloso": "river",
+      "Radikoj": [
+        "leres",
+        "kuna"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kumome",
+      "Signifo": "today",
+      "Gloso": "today",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kuna",
+      "Signifo": "water",
+      "Gloso": "water",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kunapa",
+      "Signifo": "spring, well",
+      "Gloso": "well",
+      "Radikoj": [
+        "kuna"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kunape",
+      "Signifo": "wet, damp",
+      "Gloso": "wet",
+      "Radikoj": [
+        "kunape"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kunata",
+      "Signifo": "ocean,sea",
+      "Gloso": "ocean",
+      "Radikoj": [
+        "kuna"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kunote",
+      "Signifo": "hard, firm",
+      "Gloso": "hard",
+      "Radikoj": [],
+      "Noto": "Refers to physical hardness, not difficulty"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kuvosta",
+      "Signifo": "lake",
+      "Gloso": "lake",
+      "Radikoj": [
+        "kuna",
+        "vosma"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lemipa",
+      "Signifo": "sorry, regrettable",
+      "Gloso": "regrettable",
+      "Radikoj": [
+        "lemit"
+      ],
+      "Noto": "Not used for apologies, which uses \"lomov\" instead"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "leveka",
+      "Signifo": "sad",
+      "Gloso": "sad",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "likrene",
+      "Signifo": "sunset",
+      "Gloso": "sunset",
+      "Radikoj": [
+        "lukrene",
+        "lite"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "likuta",
+      "Signifo": "shore",
+      "Gloso": "shore",
+      "Radikoj": [
+        "lidre",
+        "kunata"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "limita",
+      "Signifo": "pure",
+      "Gloso": "pure",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lineki",
+      "Signifo": "peacefully quiet",
+      "Gloso": "quiet",
+      "Radikoj": [],
+      "Noto": "Refers to quietness that is peaceful"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lineti",
+      "Signifo": "peaceful",
+      "Gloso": "peaceful",
+      "Radikoj": [
+        "lineki"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lini",
+      "Signifo": "darkness",
+      "Gloso": "darkness",
+      "Radikoj": [
+        "linupi"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "linupi",
+      "Signifo": "black",
+      "Gloso": "black",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lipiti",
+      "Signifo": "tired, weary, exhausted",
+      "Gloso": "tired",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lipoti",
+      "Signifo": "chair",
+      "Gloso": "chair",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lirekuta",
+      "Signifo": "tear (from the eyes)",
+      "Gloso": "tear",
+      "Radikoj": [
+        "liredre",
+        "kuna"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lite",
+      "Signifo": "nighttime, night",
+      "Gloso": "night",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "liveti",
+      "Signifo": "bed",
+      "Gloso": "bed",
+      "Radikoj": [
+        "liveras"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "livopi",
+      "Signifo": "scorpion",
+      "Gloso": "scorpion",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lometi",
+      "Signifo": "light (weight)",
+      "Gloso": "light",
+      "Radikoj": [
+        "lomika"
+      ],
+      "Noto": "Refers to an object whose weight makes it easy to handle"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lomika",
+      "Signifo": "light, lightweight",
+      "Gloso": "light",
+      "Radikoj": [],
+      "Noto": "Refers to an object whose weight is below what is expected"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lukrene",
+      "Signifo": "sunrise",
+      "Gloso": "sunrise",
+      "Radikoj": [
+        "luna",
+        "krene"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lukuna",
+      "Signifo": "blood",
+      "Gloso": "blood",
+      "Radikoj": [
+        "lukregre",
+        "kuna"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lumite",
+      "Signifo": "beautiful",
+      "Gloso": "beautiful",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "luna",
+      "Signifo": "sun",
+      "Gloso": "sun",
+      "Radikoj": [],
+      "Noto": "Specifically refers to the star that the Earth orbits"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lunata",
+      "Signifo": "star",
+      "Gloso": "star",
+      "Radikoj": [
+        "luna"
+      ],
+      "Noto": "Refers to the astronomical objects"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lunome",
+      "Signifo": "summer",
+      "Gloso": "summer",
+      "Radikoj": [
+        "luna"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lurika",
+      "Signifo": "cloud",
+      "Gloso": "cloud",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lutreta",
+      "Signifo": "bone",
+      "Gloso": "bone",
+      "Radikoj": [
+        "lukregre",
+        "treta"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "luvema",
+      "Signifo": "rain (substance)",
+      "Gloso": "rain",
+      "Radikoj": [
+        "luvem"
+      ],
+      "Noto": "Refers to the falling rain itself"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "mamoki",
+      "Signifo": "lazy",
+      "Gloso": "lazy",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "mebeta",
+      "Signifo": "gate",
+      "Gloso": "gate",
+      "Radikoj": [],
+      "Noto": "At least one side is outside of a building"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "meki",
+      "Signifo": "tree",
+      "Gloso": "tree",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "melmote",
+      "Signifo": "yard, court",
+      "Gloso": "yard",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "memeki",
+      "Signifo": "forest, woods",
+      "Gloso": "forest",
+      "Radikoj": [
+        "melidre",
+        "meki"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "memi",
+      "Signifo": "wood (substance)",
+      "Gloso": "wood",
+      "Radikoj": [
+        "meki"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "memipe",
+      "Signifo": "fragrant, good smelling, sweet",
+      "Gloso": "fragrant",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "memome",
+      "Signifo": "yesterday",
+      "Gloso": "yesterday",
+      "Radikoj": [
+        "meveme",
+        "kumome"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "merate",
+      "Signifo": "first",
+      "Gloso": "first",
+      "Radikoj": [
+        "mira"
+      ],
+      "Noto": "short for \"elta tol mira\""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "merepa",
+      "Signifo": "warm, hot, cozy",
+      "Gloso": "warm",
+      "Radikoj": [],
+      "Noto": "Refers to a comfortably warm temperature"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "merke",
+      "Signifo": "hour",
+      "Gloso": "hour",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "merome",
+      "Signifo": "collection of memories",
+      "Gloso": "memories",
+      "Radikoj": [
+        "meveme"
+      ],
+      "Noto": "Refers to the entire collection of memories that a person holds"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "merope",
+      "Signifo": "piece of memory",
+      "Gloso": "memory",
+      "Radikoj": [
+        "merome"
+      ],
+      "Noto": "Refers to a single remembered event"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "mesote",
+      "Signifo": "autumn, fall",
+      "Gloso": "autumn",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "meta",
+      "Signifo": "space, area",
+      "Gloso": "area",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "meveki",
+      "Signifo": "legacy",
+      "Gloso": "legacy",
+      "Radikoj": [
+        "meveme"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "meveme",
+      "Signifo": "past",
+      "Gloso": "past",
+      "Radikoj": [
+        "meves"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "mika",
+      "Signifo": "day (entire)",
+      "Gloso": "day",
+      "Radikoj": [],
+      "Noto": "Refers to the twenty-four-hour period"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "minaka",
+      "Signifo": "daytime",
+      "Gloso": "daytime",
+      "Radikoj": [],
+      "Noto": "Refers to the period between dawn and dusk"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "mine",
+      "Signifo": "subclause marker indicating the first argument as the head",
+      "Gloso": "argument-1_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "morgome",
+      "Signifo": "tomorrow",
+      "Gloso": "tomorrow",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "moromi",
+      "Signifo": "ancestors, ancestry",
+      "Gloso": "ancestry",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "moropa",
+      "Signifo": "rope",
+      "Gloso": "rope",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "mumoka",
+      "Signifo": "smooth, even",
+      "Gloso": "smooth",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "nebuke",
+      "Signifo": "dirty",
+      "Gloso": "dirty",
+      "Radikoj": [],
+      "Noto": "Does not have to be covered in dirt, but anything that is undesirable"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "nelelte",
+      "Signifo": "year",
+      "Gloso": "year",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "nelite",
+      "Signifo": "season",
+      "Gloso": "season",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "nelpe",
+      "Signifo": "basket",
+      "Gloso": "basket",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "nemite",
+      "Signifo": "person who has lost a loved one",
+      "Gloso": "love-lost person",
+      "Radikoj": [],
+      "Noto": "Specifically refers to a person whose love with a siginificant other (miradre); cannot be used like the term \"widow\""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "neriti",
+      "Signifo": "cool",
+      "Gloso": "cool",
+      "Radikoj": [],
+      "Noto": "Refers to temperatures between 0°C and 10°C"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "nolote",
+      "Signifo": "bad, disagreeable, not likeable",
+      "Gloso": "bad",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "nonte",
+      "Signifo": "table, desk",
+      "Gloso": "table",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "norite",
+      "Signifo": "lion",
+      "Gloso": "lion",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "numope",
+      "Signifo": "bored",
+      "Gloso": "bored",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "olape",
+      "Signifo": "old, already familiar",
+      "Gloso": "old",
+      "Radikoj": [
+        "oliti"
+      ],
+      "Noto": "Refers to expressions like \"old news\" or \"old trick\""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "oliti",
+      "Signifo": "old, existed for a long time",
+      "Gloso": "old",
+      "Radikoj": [],
+      "Noto": "Can refer to both objects and humans"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "oluki",
+      "Signifo": "old, near the end of lifespan",
+      "Gloso": "old",
+      "Radikoj": [
+        "oliti"
+      ],
+      "Noto": "Can refer to both objects and humans"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "omota",
+      "Signifo": "silent",
+      "Gloso": "silent",
+      "Radikoj": [],
+      "Noto": "Refers to sound pressure levels below 30 dB"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "pemete",
+      "Signifo": "heavy",
+      "Gloso": "heavy",
+      "Radikoj": [
+        "pemipe"
+      ],
+      "Noto": "Refers to an object whose weight makes it difficult to handle"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "pemipe",
+      "Signifo": "heavy, heavyweight",
+      "Gloso": "heavy",
+      "Radikoj": [],
+      "Noto": "Refers to an object whose weight is above what is expected"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "pinuni",
+      "Signifo": "medicine, drug",
+      "Gloso": "medicine",
+      "Radikoj": [
+        "pinut"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "piveke",
+      "Signifo": "sour",
+      "Gloso": "sour",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "podake",
+      "Signifo": "dry",
+      "Gloso": "dry",
+      "Radikoj": [],
+      "Noto": "Refers to an absence of moisture"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "pomupa",
+      "Signifo": "valley",
+      "Gloso": "temitaa",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "ponaka",
+      "Signifo": "lonely, alone",
+      "Gloso": "alone",
+      "Radikoj": [
+        "pona"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "popiki",
+      "Signifo": "ugly",
+      "Gloso": "ugly",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "poski",
+      "Signifo": "fire",
+      "Gloso": "fire",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "potike",
+      "Signifo": "strong, mighty, powerful, forceful",
+      "Gloso": "strong",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "prenta",
+      "Signifo": "weight, heavy object",
+      "Gloso": "weight",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "preta",
+      "Signifo": "weighing scale",
+      "Gloso": "scale",
+      "Radikoj": [
+        "pregre"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "prete",
+      "Signifo": "that one",
+      "Gloso": "that",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "pretiki",
+      "Signifo": "annoyingly loud",
+      "Gloso": "loud",
+      "Radikoj": [],
+      "Noto": "Refers to loudness that causes discomfort"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "pulte",
+      "Signifo": "wall",
+      "Gloso": "wall",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "raluta",
+      "Signifo": "soft, malleable",
+      "Gloso": "soft",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "relite",
+      "Signifo": "evening",
+      "Gloso": "evening",
+      "Radikoj": [
+        "renel",
+        "relite"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "remika",
+      "Signifo": "morning",
+      "Gloso": "morning",
+      "Radikoj": [
+        "renel",
+        "mika"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "remiti",
+      "Signifo": "fish",
+      "Gloso": "fish",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "renepe",
+      "Signifo": "clean",
+      "Gloso": "clean",
+      "Radikoj": [],
+      "Noto": "Refers to physical cleaniness; for figurative cleaniness, use \"lemid\" (pure)"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "renoka",
+      "Signifo": "early in the day",
+      "Gloso": "early",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "repete",
+      "Signifo": "scissors",
+      "Gloso": "scissors",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "revita",
+      "Signifo": "dream",
+      "Gloso": "dream",
+      "Radikoj": [],
+      "Noto": "Refers to visions seen while sleeping"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "rima",
+      "Signifo": "moon (of Earth)",
+      "Gloso": "moon",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "rimata",
+      "Signifo": "moon (natural satellite)",
+      "Gloso": "rimaa",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "rimpe",
+      "Signifo": "month",
+      "Gloso": "month",
+      "Radikoj": [
+        "rima"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "rinome",
+      "Signifo": "winter",
+      "Gloso": "winter",
+      "Radikoj": [
+        "rima"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "risme",
+      "Signifo": "smoke",
+      "Gloso": "smoke",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "ritma",
+      "Signifo": "ash",
+      "Gloso": "ash",
+      "Radikoj": [],
+      "Noto": "Specifically refers to the residue of burning"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "romoka",
+      "Signifo": "eerily quiet",
+      "Gloso": "quiet",
+      "Radikoj": [],
+      "Noto": "Refers to unexpected quietness that causes anxiety"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "rone",
+      "Signifo": "here",
+      "Gloso": "here",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "rote",
+      "Signifo": "plain, field, open area",
+      "Gloso": "field",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "rotopi",
+      "Signifo": "illness, sickness, disease",
+      "Gloso": "illness",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "runata",
+      "Signifo": "dream, wish, ideal, goal",
+      "Gloso": "goal",
+      "Radikoj": [],
+      "Noto": "Refers to a hypothetical reality that one wishes to bring to reality"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "seliti",
+      "Signifo": "animal",
+      "Gloso": "animal",
+      "Radikoj": [],
+      "Noto": "Refers to the Animalia kingdom, thus including humans"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "sempa",
+      "Signifo": "week",
+      "Gloso": "week",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "serepi",
+      "Signifo": "good, likeable, agreeable",
+      "Gloso": "good",
+      "Radikoj": [
+        "seret"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "seskake",
+      "Signifo": "solid",
+      "Gloso": "solid",
+      "Radikoj": [],
+      "Noto": "Refers to the solid state of matter"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "seskoma",
+      "Signifo": "snow (substance)",
+      "Gloso": "snow",
+      "Radikoj": [],
+      "Noto": "Refers to the snow itself, as opposed to the weather"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "seskuna",
+      "Signifo": "ice",
+      "Gloso": "ice",
+      "Radikoj": [
+        "seskake",
+        "kuna"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "sibepe",
+      "Signifo": "hasty, hurried",
+      "Gloso": "hasty",
+      "Radikoj": [
+        "sibepe"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "sirita",
+      "Signifo": "fast, rapid, quick",
+      "Gloso": "fast",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "soki",
+      "Signifo": "knife, blade",
+      "Gloso": "knife",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "soponi",
+      "Signifo": "pain",
+      "Gloso": "pain",
+      "Radikoj": [
+        "soki",
+        "poski"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "soroke",
+      "Signifo": "slow",
+      "Gloso": "slow",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "supe",
+      "Signifo": "wrong",
+      "Gloso": "wrong",
+      "Radikoj": [
+        "vita"
+      ],
+      "Noto": "antonym of vid"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "tate",
+      "Signifo": "adult",
+      "Gloso": "adult",
+      "Radikoj": [
+        "tote"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "tatrete",
+      "Signifo": "person",
+      "Gloso": "person",
+      "Radikoj": [],
+      "Noto": "May refer to both adults and children"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "temita",
+      "Signifo": "mountain, hill",
+      "Gloso": "mountain",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "teti",
+      "Signifo": "small, little",
+      "Gloso": "teti",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "tilte",
+      "Signifo": "axe",
+      "Gloso": "axe",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "tireka",
+      "Signifo": "uncomfortably hot",
+      "Gloso": "hot",
+      "Radikoj": [],
+      "Noto": "Subjectively defined; refers to a temperature that causes discomfort"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "tosete",
+      "Signifo": "hammer",
+      "Gloso": "hammer",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "tote",
+      "Signifo": "child",
+      "Gloso": "child",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "trena",
+      "Signifo": "stone (substance)",
+      "Gloso": "stone",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "trenata",
+      "Signifo": "statue",
+      "Gloso": "statue",
+      "Radikoj": [
+        "trena"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "treta",
+      "Signifo": "rock",
+      "Gloso": "rock",
+      "Radikoj": [
+        "trena"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "tretete",
+      "Signifo": "pleasantly loud",
+      "Gloso": "loud",
+      "Radikoj": [],
+      "Noto": "Refers to loudness that is pleasant"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "veneme",
+      "Signifo": "spring",
+      "Gloso": "spring",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "vilipi",
+      "Signifo": "broom",
+      "Gloso": "broom",
+      "Radikoj": [
+        "vilme"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "vilme",
+      "Signifo": "dust",
+      "Gloso": "dust",
+      "Radikoj": [],
+      "Noto": "Refers to any fine-grained particles, including ash"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "vita",
+      "Signifo": "correct, right",
+      "Gloso": "correct",
+      "Radikoj": [],
+      "Noto": "Used to describe something that conforms to a standard"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "voline",
+      "Signifo": "midnight, dark night",
+      "Gloso": "midnight",
+      "Radikoj": [
+        "vogre",
+        "lite"
+      ],
+      "Noto": "Refers to the time of the day when dusk and dawn are equidistant; to refer to 00:00, use \"trigre mika\" (beginning of day) instead"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "volune",
+      "Signifo": "solar noon",
+      "Gloso": "noon",
+      "Radikoj": [
+        "vogre",
+        "luna"
+      ],
+      "Noto": "Refers to the time of the day when the sun is at the zenith; to refer to 12:00, use \"vogro mika\" (middle of the day) instead"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "vome",
+      "Signifo": "soil",
+      "Gloso": "soil",
+      "Radikoj": [
+        "vosma"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "vosma",
+      "Signifo": "earth, ground",
+      "Gloso": "earth",
+      "Radikoj": [],
+      "Noto": "Refers to the ground, not the planet"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "vosmi",
+      "Signifo": "floor",
+      "Gloso": "floor",
+      "Radikoj": [
+        "vosma"
+      ],
+      "Noto": "Refers to any kind of indoor ground, not just wooden floor"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "vosnata",
+      "Signifo": "bay, gulf",
+      "Gloso": "bay",
+      "Radikoj": [
+        "vosma",
+        "kunata"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "vosrima",
+      "Signifo": "fog,mist",
+      "Gloso": "fog",
+      "Radikoj": [
+        "vosma",
+        "lurika"
+      ],
+      "Noto": ""
+    }
+  ],
+  "Rekordoj": [],
+  "Verboj": [
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} laughs",
+      "PlenaFormo": null,
+      "Vorto": "balas",
+      "Signifo": "laugh",
+      "Gloso": "laugh",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} gives {2} to {1}",
+      "PlenaFormo": null,
+      "Vorto": "belep",
+      "Signifo": "give, hand over",
+      "Gloso": "give",
+      "Radikoj": [
+        "besedre"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        "May be either a tangible object or an emotion"
+      ],
+      "FrazaSignifo": "{0} feels/perceives {1}",
+      "PlenaFormo": null,
+      "Vorto": "bemet",
+      "Signifo": "feel, perceive",
+      "Gloso": "feel",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} bites {1}",
+      "PlenaFormo": null,
+      "Vorto": "berit",
+      "Signifo": "bite",
+      "Gloso": "bite",
+      "Radikoj": [
+        "buvlit"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        "May be any surface that can be swept using a broom"
+      ],
+      "FrazaSignifo": "{0} sweeps {1}",
+      "PlenaFormo": null,
+      "Vorto": "beselet",
+      "Signifo": "sweep",
+      "Gloso": "sweep",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} moves {1}",
+      "PlenaFormo": null,
+      "Vorto": "bet",
+      "Signifo": "move",
+      "Gloso": "move",
+      "Radikoj": [],
+      "Noto": "Use the reflexive to indicate that {0} is moving"
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} talks to {1}",
+      "PlenaFormo": null,
+      "Vorto": "bevat",
+      "Signifo": "converse with, talk with",
+      "Gloso": "converse",
+      "Radikoj": [
+        "bevidre"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        "The shape or final form that is carved",
+        "The material for carving"
+      ],
+      "FrazaSignifo": "{0} carves {1} out of {2}",
+      "PlenaFormo": null,
+      "Vorto": "bilesop",
+      "Signifo": "carve",
+      "Gloso": "carve",
+      "Radikoj": [
+        "bileka"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        "The final product that is weaved",
+        "The material used for weaving"
+      ],
+      "FrazaSignifo": "{0} weaves {1} out of {2}",
+      "PlenaFormo": null,
+      "Vorto": "binip",
+      "Signifo": "weave, plait",
+      "Gloso": "weave",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} breathes",
+      "PlenaFormo": null,
+      "Vorto": "bores",
+      "Signifo": "breathe",
+      "Gloso": "breathe",
+      "Radikoj": [
+        "borope"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        "The gas that is blown"
+      ],
+      "FrazaSignifo": "{0} blows on {1} using {2}",
+      "PlenaFormo": null,
+      "Vorto": "borop",
+      "Signifo": "blow on",
+      "Gloso": "blow on",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} drinks {1}",
+      "PlenaFormo": null,
+      "Vorto": "bulit",
+      "Signifo": "drink",
+      "Gloso": "drink",
+      "Radikoj": [
+        "buvidre"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} says {2} to {1}",
+      "PlenaFormo": null,
+      "Vorto": "bup",
+      "Signifo": "speak, say",
+      "Gloso": "say",
+      "Radikoj": [
+        "buvidre"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} spits out {1}",
+      "PlenaFormo": null,
+      "Vorto": "buplit",
+      "Signifo": "spit",
+      "Gloso": "spit",
+      "Radikoj": [
+        "buvidre"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} licks {1}",
+      "PlenaFormo": null,
+      "Vorto": "burit",
+      "Signifo": "lick",
+      "Gloso": "lick",
+      "Radikoj": [
+        "buridre"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} eats {1}",
+      "PlenaFormo": null,
+      "Vorto": "buvlit",
+      "Signifo": "eat",
+      "Gloso": "eat",
+      "Radikoj": [
+        "buvidre"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} is equal to {1}",
+      "PlenaFormo": null,
+      "Vorto": "delat",
+      "Signifo": "equal to",
+      "Gloso": "equal",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        "Refers to a destination, not anything abstract (e.g. a conclusion)"
+      ],
+      "FrazaSignifo": "{0} arrives at {1}",
+      "PlenaFormo": null,
+      "Vorto": "delet",
+      "Signifo": "arrive at",
+      "Gloso": "arrive",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} ties {1} together",
+      "PlenaFormo": null,
+      "Vorto": "delit",
+      "Signifo": "tie together",
+      "Gloso": "tie",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} is having fun",
+      "PlenaFormo": null,
+      "Vorto": "demis",
+      "Signifo": "play, have fun",
+      "Gloso": "play",
+      "Radikoj": [
+        "demepa"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        "The material used for molding"
+      ],
+      "FrazaSignifo": "{0} molds {1} using {2}",
+      "PlenaFormo": null,
+      "Vorto": "dutup",
+      "Signifo": "mold",
+      "Gloso": "mold",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        "May be a place or a recipient"
+      ],
+      "FrazaSignifo": "{0} returns {2} to {1}",
+      "PlenaFormo": null,
+      "Vorto": "emalip",
+      "Signifo": "return, come back",
+      "Gloso": "return",
+      "Radikoj": [],
+      "Noto": "Use the reflexive to denote that {0} is going back to {2}"
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} fears {1}",
+      "PlenaFormo": null,
+      "Vorto": "emelet",
+      "Signifo": "have a fear for",
+      "Gloso": "fear",
+      "Radikoj": [
+        "emonet"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} is worried about {1}",
+      "PlenaFormo": null,
+      "Vorto": "emonet",
+      "Signifo": "worry about",
+      "Gloso": "worry",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} enchains {1}",
+      "PlenaFormo": null,
+      "Vorto": "enat",
+      "Signifo": "enchain, enshackle",
+      "Gloso": "enchain",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} and {1} touch each other",
+      "PlenaFormo": null,
+      "Vorto": "eprat",
+      "Signifo": "touch",
+      "Gloso": "touch",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} touches {1}",
+      "PlenaFormo": null,
+      "Vorto": "epret",
+      "Signifo": "touch",
+      "Gloso": "touch",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} goes to {1}",
+      "PlenaFormo": null,
+      "Vorto": "erat",
+      "Signifo": "go to",
+      "Gloso": "go",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} is living",
+      "PlenaFormo": null,
+      "Vorto": "geles",
+      "Signifo": "live through everyday",
+      "Gloso": "live",
+      "Radikoj": [
+        "gelidre"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} lives at {1}",
+      "PlenaFormo": null,
+      "Vorto": "gelit",
+      "Signifo": "live, dwell at",
+      "Gloso": "live_at",
+      "Radikoj": [
+        "gelidre"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} carries {1} to {2}",
+      "PlenaFormo": null,
+      "Vorto": "glap",
+      "Signifo": "carry",
+      "Gloso": "carry",
+      "Radikoj": [
+        "gladre"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} is proud of {1}",
+      "PlenaFormo": null,
+      "Vorto": "gorit",
+      "Signifo": "be proud of",
+      "Gloso": "proud",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} embraces {1}",
+      "PlenaFormo": null,
+      "Vorto": "grelet",
+      "Signifo": "embrace",
+      "Gloso": "embrace",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} is loyal to {1}",
+      "PlenaFormo": null,
+      "Vorto": "ilet",
+      "Signifo": "faithful, loyal to",
+      "Gloso": "faithful",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} coughs",
+      "PlenaFormo": null,
+      "Vorto": "ires",
+      "Signifo": "cough",
+      "Gloso": "cough",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} breaks {1}",
+      "PlenaFormo": null,
+      "Vorto": "kebot",
+      "Signifo": "break (shatter)",
+      "Gloso": "break",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} sneezes",
+      "PlenaFormo": null,
+      "Vorto": "kesis",
+      "Signifo": "sneeze",
+      "Gloso": "sneeze",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        "For actions, use the gerund form"
+      ],
+      "FrazaSignifo": "{0} is dares to do {1}/{0} is brave enough for {1}",
+      "PlenaFormo": null,
+      "Vorto": "kirit",
+      "Signifo": "dare, have the bravery to...",
+      "Gloso": "dare",
+      "Radikoj": [
+        "kirika"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} makes {1}",
+      "PlenaFormo": null,
+      "Vorto": "kitrot",
+      "Signifo": "make, build, construct, create",
+      "Gloso": "make",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} cooks {1}",
+      "PlenaFormo": null,
+      "Vorto": "kivat",
+      "Signifo": "cook",
+      "Gloso": "cook",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} illuminates {1}",
+      "PlenaFormo": null,
+      "Vorto": "krenit",
+      "Signifo": "light up, illuminate",
+      "Gloso": "illuminate",
+      "Radikoj": [
+        "krene"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} pours {2} into {1}",
+      "PlenaFormo": null,
+      "Vorto": "kunep",
+      "Signifo": "pour",
+      "Gloso": "pour",
+      "Radikoj": [
+        "kuna"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} swims to {1}",
+      "PlenaFormo": null,
+      "Vorto": "kunerat",
+      "Signifo": "swim",
+      "Gloso": "swim",
+      "Radikoj": [
+        "kuna",
+        "erat"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} shows {2} to {1}",
+      "PlenaFormo": null,
+      "Vorto": "larep",
+      "Signifo": "show",
+      "Gloso": "show",
+      "Radikoj": [
+        "liret"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} stares at {1}",
+      "PlenaFormo": null,
+      "Vorto": "larit",
+      "Signifo": "watch, stare at",
+      "Gloso": "watch",
+      "Radikoj": [
+        "liret"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} harms {1}",
+      "PlenaFormo": null,
+      "Vorto": "lebet",
+      "Signifo": "harm, cause suffering to",
+      "Gloso": "harm",
+      "Radikoj": [
+        "leveka"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} pities {1}",
+      "PlenaFormo": null,
+      "Vorto": "lemit",
+      "Signifo": "pity, feel sorry for",
+      "Gloso": "lemed",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} is flowing",
+      "PlenaFormo": null,
+      "Vorto": "leres",
+      "Signifo": "flow",
+      "Gloso": "flow",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} is resting",
+      "PlenaFormo": null,
+      "Vorto": "leris",
+      "Signifo": "rest, take a break",
+      "Gloso": "rest",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} gives the name of {2} to {1}",
+      "PlenaFormo": null,
+      "Vorto": "lilip",
+      "Signifo": "to give a name to",
+      "Gloso": "name",
+      "Radikoj": [
+        "ligre"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} looks at {1}",
+      "PlenaFormo": null,
+      "Vorto": "liret",
+      "Signifo": "look at",
+      "Gloso": "look at",
+      "Radikoj": [
+        "liredre"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} witnesses {1}",
+      "PlenaFormo": null,
+      "Vorto": "liseret",
+      "Signifo": "witness",
+      "Gloso": "witness",
+      "Radikoj": [
+        "liret"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} cuts {2} using {1}",
+      "PlenaFormo": null,
+      "Vorto": "lisip",
+      "Signifo": "cut",
+      "Gloso": "cut",
+      "Radikoj": [],
+      "Noto": "Specialized words exist for cutting with scissors, knife, and axe"
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} dies",
+      "PlenaFormo": null,
+      "Vorto": "litenes",
+      "Signifo": "die",
+      "Gloso": "die",
+      "Radikoj": [
+        "lite"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} sleeps",
+      "PlenaFormo": null,
+      "Vorto": "liveras",
+      "Signifo": "sleep, especially through the night",
+      "Gloso": "sleep",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} regrets {1}",
+      "PlenaFormo": null,
+      "Vorto": "lomot",
+      "Signifo": "be sorry about, regret",
+      "Gloso": "regret",
+      "Radikoj": [
+        "lemit"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [],
+      "FrazaSignifo": "It is raining",
+      "PlenaFormo": null,
+      "Vorto": "luvem",
+      "Signifo": "rain (weather condition)",
+      "Gloso": "rain",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} is alive",
+      "PlenaFormo": null,
+      "Vorto": "meles",
+      "Signifo": "live, be alive",
+      "Gloso": "live",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} is breathing",
+      "PlenaFormo": null,
+      "Vorto": "melis",
+      "Signifo": "breathe",
+      "Gloso": "melidro",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        "the material used for sculpting"
+      ],
+      "FrazaSignifo": "{0} sculpts {1} out of {2}",
+      "PlenaFormo": null,
+      "Vorto": "meranip",
+      "Signifo": "sculpt",
+      "Gloso": "sculpt",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} and {1} love each other",
+      "PlenaFormo": null,
+      "Vorto": "merat",
+      "Signifo": "love romantically",
+      "Gloso": "love",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} has feelings for {1}",
+      "PlenaFormo": null,
+      "Vorto": "meret",
+      "Signifo": "love, have feelings for",
+      "Gloso": "love",
+      "Radikoj": [
+        "merat"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} knows {1}",
+      "PlenaFormo": null,
+      "Vorto": "merit",
+      "Signifo": "know, familiar with",
+      "Gloso": "know",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} experiences {1}",
+      "PlenaFormo": null,
+      "Vorto": "merot",
+      "Signifo": "experience",
+      "Gloso": "experience",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} turns {1} into {2}",
+      "PlenaFormo": null,
+      "Vorto": "mesip",
+      "Signifo": "become, transform into",
+      "Gloso": "become",
+      "Radikoj": [],
+      "Noto": "Use the reflexive to denote \"to become\", as in, {0} becomes {2}"
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} smells {1}",
+      "PlenaFormo": null,
+      "Vorto": "metot",
+      "Signifo": "smell",
+      "Gloso": "smell",
+      "Radikoj": [
+        "metogre"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} is looking back",
+      "PlenaFormo": null,
+      "Vorto": "meves",
+      "Signifo": "look back",
+      "Gloso": "look back",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} and {1} kiss each other",
+      "PlenaFormo": null,
+      "Vorto": "mirabat",
+      "Signifo": "kiss on the lips",
+      "Gloso": "kiss",
+      "Radikoj": [
+        "merat",
+        "buvidre"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} kisses {1}",
+      "PlenaFormo": null,
+      "Vorto": "mirabut",
+      "Signifo": "kiss",
+      "Gloso": "kiss",
+      "Radikoj": [
+        "merat",
+        "buvidre"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} spreads {1} out",
+      "PlenaFormo": null,
+      "Vorto": "morot",
+      "Signifo": "spread out",
+      "Gloso": "spread",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        "The destination"
+      ],
+      "FrazaSignifo": "{0} runs to {1}",
+      "PlenaFormo": null,
+      "Vorto": "narit",
+      "Signifo": "run",
+      "Gloso": "run",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} is crying",
+      "PlenaFormo": null,
+      "Vorto": "neris",
+      "Signifo": "cry, weep",
+      "Gloso": "cry",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} reads {1}",
+      "PlenaFormo": null,
+      "Vorto": "nitrot",
+      "Signifo": "read",
+      "Gloso": "read",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        "The matter blamed for"
+      ],
+      "FrazaSignifo": "{0} blames {1} for {2}",
+      "PlenaFormo": null,
+      "Vorto": "nolop",
+      "Signifo": "blame",
+      "Gloso": "blame",
+      "Radikoj": [
+        "nolote"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} tastes {1}",
+      "PlenaFormo": null,
+      "Vorto": "petrot",
+      "Signifo": "taste",
+      "Gloso": "taste",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} heals {1}",
+      "PlenaFormo": null,
+      "Vorto": "pinut",
+      "Signifo": "heal, cure",
+      "Gloso": "heal",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} hates {1}",
+      "PlenaFormo": null,
+      "Vorto": "polot",
+      "Signifo": "hate",
+      "Gloso": "hate",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        "The medium being written on"
+      ],
+      "FrazaSignifo": "{0} writes {1} on {2}",
+      "PlenaFormo": null,
+      "Vorto": "porip",
+      "Signifo": "write",
+      "Gloso": "write",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} pulls {1} from {2}",
+      "PlenaFormo": null,
+      "Vorto": "posip",
+      "Signifo": "pull, draw",
+      "Gloso": "pull",
+      "Radikoj": [
+        "tesip"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} burns {1}",
+      "PlenaFormo": null,
+      "Vorto": "poskut",
+      "Signifo": "burn",
+      "Gloso": "burn",
+      "Radikoj": [
+        "poski"
+      ],
+      "Noto": "Use the reflexive to denote \"{0} is burning/on fire\""
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} is ready",
+      "PlenaFormo": null,
+      "Vorto": "prelis",
+      "Signifo": "be ready, idling, waiting",
+      "Gloso": "ready",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} cuts {1} with scissors",
+      "PlenaFormo": null,
+      "Vorto": "rebot",
+      "Signifo": "cut (with scissors)",
+      "Gloso": "cut",
+      "Radikoj": [
+        "repete"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} stays at {1}",
+      "PlenaFormo": null,
+      "Vorto": "relot",
+      "Signifo": "remain at, stay at",
+      "Gloso": "remain",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        "The paint used for the painting"
+      ],
+      "FrazaSignifo": "{0} paints {1} using {2}",
+      "PlenaFormo": null,
+      "Vorto": "resip",
+      "Signifo": "paint",
+      "Gloso": "paint",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} washes {1} in {2}",
+      "PlenaFormo": null,
+      "Vorto": "rilep",
+      "Signifo": "wash",
+      "Gloso": "wash",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} brings {2} to {1}",
+      "PlenaFormo": null,
+      "Vorto": "rilip",
+      "Signifo": "bring",
+      "Gloso": "bring",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} breaks {1}",
+      "PlenaFormo": null,
+      "Vorto": "sebot",
+      "Signifo": "break (split)",
+      "Gloso": "break",
+      "Radikoj": [
+        "kebot"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} wipes {1} using {2}",
+      "PlenaFormo": null,
+      "Vorto": "senip",
+      "Signifo": "rub, wipe",
+      "Gloso": "rub",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} likes {1}",
+      "PlenaFormo": null,
+      "Vorto": "seret",
+      "Signifo": "like, be fond of",
+      "Gloso": "like",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [],
+      "FrazaSignifo": "It is snowing",
+      "PlenaFormo": null,
+      "Vorto": "seskom",
+      "Signifo": "snow (weather condition)",
+      "Gloso": "snow",
+      "Radikoj": [
+        "seskuna"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} wants {1}",
+      "PlenaFormo": null,
+      "Vorto": "set",
+      "Signifo": "want, desire, wish",
+      "Gloso": "want",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} rushes {1}",
+      "PlenaFormo": null,
+      "Vorto": "sibit",
+      "Signifo": "hurry, rush",
+      "Gloso": "hurry",
+      "Radikoj": [],
+      "Noto": "Use the reflexive to denote \"{0} is rushing/in a hurry\""
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} shoots/fires {1} towards {2}",
+      "PlenaFormo": null,
+      "Vorto": "silip",
+      "Signifo": "shoot, fire, blast",
+      "Gloso": "shoot",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} rips {1}",
+      "PlenaFormo": null,
+      "Vorto": "sirit",
+      "Signifo": "rip, tear",
+      "Gloso": "rip",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} cuts {1} with a knife",
+      "PlenaFormo": null,
+      "Vorto": "sokut",
+      "Signifo": "cut (with knife)",
+      "Gloso": "cut",
+      "Radikoj": [
+        "soki"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} floods {1}",
+      "PlenaFormo": null,
+      "Vorto": "tenet",
+      "Signifo": "fill, take up space, flood with",
+      "Gloso": "fill",
+      "Radikoj": [
+        "tenip"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        "The substance that fills up"
+      ],
+      "FrazaSignifo": "{0} fills {1} with {2}",
+      "PlenaFormo": null,
+      "Vorto": "tenip",
+      "Signifo": "fill",
+      "Gloso": "fill",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} causes {1}",
+      "PlenaFormo": null,
+      "Vorto": "teret",
+      "Signifo": "cause",
+      "Gloso": "cause",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} pushes {1} against/towards {2}",
+      "PlenaFormo": null,
+      "Vorto": "tesip",
+      "Signifo": "press, push, compress",
+      "Gloso": "push",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} chops {1} with an axe",
+      "PlenaFormo": null,
+      "Vorto": "tilit",
+      "Signifo": "cut, chop (with axe)",
+      "Gloso": "chop",
+      "Radikoj": [
+        "tilte"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} kills {1}",
+      "PlenaFormo": null,
+      "Vorto": "titolit",
+      "Signifo": "kill",
+      "Gloso": "kill",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} postpones {1} until {2}",
+      "PlenaFormo": null,
+      "Vorto": "tomop",
+      "Signifo": "postpone, delay",
+      "Gloso": "postpone",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} hits {1}",
+      "PlenaFormo": null,
+      "Vorto": "tot",
+      "Signifo": "hit, strike, beat",
+      "Gloso": "hit",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} starts {1}",
+      "PlenaFormo": null,
+      "Vorto": "trelit",
+      "Signifo": "begin, start",
+      "Gloso": "begin",
+      "Radikoj": [],
+      "Noto": "Use the reflexive to denote \"{0} starts\""
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} finishes {1}",
+      "PlenaFormo": null,
+      "Vorto": "trelot",
+      "Signifo": "finish, complete",
+      "Gloso": "finish",
+      "Radikoj": [],
+      "Noto": "Use the reflexive to denote \"{0} ends\""
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} stops {1}",
+      "PlenaFormo": null,
+      "Vorto": "trolot",
+      "Signifo": "stop",
+      "Gloso": "stop",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} listens to {1}",
+      "PlenaFormo": null,
+      "Vorto": "veret",
+      "Signifo": "listen to, hear",
+      "Gloso": "hear",
+      "Radikoj": [
+        "veredre"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} bends {1}",
+      "PlenaFormo": null,
+      "Vorto": "vilot",
+      "Signifo": "bend",
+      "Gloso": "bend",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null
+      ],
+      "FrazaSignifo": "{0} wakes {1} up",
+      "PlenaFormo": null,
+      "Vorto": "vomot",
+      "Signifo": "wake up, awaken",
+      "Gloso": "wake_up",
+      "Radikoj": [],
+      "Noto": "Use the reflexive to denote \"{0} wakes up\""
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} buries {1} into {2}",
+      "PlenaFormo": null,
+      "Vorto": "vosip",
+      "Signifo": "bury",
+      "Gloso": "bury",
+      "Radikoj": [
+        "vosma"
+      ],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} folds {1}",
+      "PlenaFormo": null,
+      "Vorto": "vososit",
+      "Signifo": "fold",
+      "Gloso": "fold",
+      "Radikoj": [],
+      "Noto": null
+    },
+    {
+      "ArgumentajNotoj": [
+        null,
+        null
+      ],
+      "FrazaSignifo": "{0} stretches {1}",
+      "PlenaFormo": null,
+      "Vorto": "vulot",
+      "Signifo": "stretch",
+      "Gloso": "stretch",
+      "Radikoj": [],
+      "Noto": null
+    }
+  ],
+  "Modifantoj": [
+    {
+      "ModifeblajTipoj": [
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [],
+      "AldonaĵajNotoj": [],
+      "Vorto": "bomol",
+      "Signifo": "sometimes, occassionally",
+      "Gloso": "sometimes",
+      "Radikoj": [],
+      "Noto": "Used to modify verb infinitives to indicate a repeating action that happens sometimes"
+    },
+    {
+      "ModifeblajTipoj": [
+        "K*",
+        "k*"
+      ],
+      "AldonaĵajTipoj": [],
+      "AldonaĵajNotoj": [],
+      "Vorto": "borol",
+      "Signifo": "few, little",
+      "Gloso": "few",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "K*",
+        "k*",
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [
+        "D*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "dal",
+      "Signifo": "at the time of, when",
+      "Gloso": "at_time",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "K*"
+      ],
+      "AldonaĵajTipoj": [
+        "D*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "del",
+      "Signifo": "of, beloning to",
+      "Gloso": "of",
+      "Radikoj": [],
+      "Noto": "Refers to ownership; stronger than \"vol\", which is semantically vague about the relationship"
+    },
+    {
+      "ModifeblajTipoj": [
+        "C*"
+      ],
+      "AldonaĵajTipoj": [],
+      "AldonaĵajNotoj": [],
+      "Vorto": "evotol",
+      "Signifo": "natural logarithm",
+      "Gloso": "ln",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "t*",
+        "T*",
+        "D*"
+      ],
+      "AldonaĵajTipoj": [],
+      "AldonaĵajNotoj": [],
+      "Vorto": "kanel",
+      "Signifo": "able to, can, capably, skillfully",
+      "Gloso": "capably",
+      "Radikoj": [],
+      "Noto": "When modifying a hypothetical verb, it corresponds to \"can\" or \"be able to\""
+    },
+    {
+      "ModifeblajTipoj": [
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [
+        "P*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "kerel",
+      "Signifo": "and (connecting clauses)",
+      "Gloso": "and",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "K*"
+      ],
+      "AldonaĵajTipoj": [],
+      "AldonaĵajNotoj": [],
+      "Vorto": "konal",
+      "Signifo": "another, other",
+      "Gloso": "another",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "K*",
+        "k*",
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [
+        "D*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "kumol",
+      "Signifo": "today",
+      "Gloso": "today",
+      "Radikoj": [
+        "kumome"
+      ],
+      "Noto": "Stands for \"dal kumome\""
+    },
+    {
+      "ModifeblajTipoj": [
+        "C*"
+      ],
+      "AldonaĵajTipoj": [
+        "#*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "mebel",
+      "Signifo": "square root of",
+      "Gloso": "sqrt",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "K*",
+        "k*",
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [
+        "D*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "mel",
+      "Signifo": "in, within (abstract)",
+      "Gloso": "in",
+      "Radikoj": [],
+      "Noto": "Used to describe being within a timeframe or environment, such as \"in the night\", \"in a week\""
+    },
+    {
+      "ModifeblajTipoj": [
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [],
+      "AldonaĵajNotoj": [],
+      "Vorto": "meral",
+      "Signifo": "but, however",
+      "Gloso": "but",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "K*",
+        "k*",
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [
+        "D*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "mogal",
+      "Signifo": "tomorrow",
+      "Gloso": "tomorrow",
+      "Radikoj": [
+        "morgome"
+      ],
+      "Noto": "Stands for \"dal morgome\""
+    },
+    {
+      "ModifeblajTipoj": [
+        "K*",
+        "k*"
+      ],
+      "AldonaĵajTipoj": [
+        "@*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "nal",
+      "Signifo": "with the name of",
+      "Gloso": "named",
+      "Radikoj": [],
+      "Noto": "The following word is the name of the modified object"
+    },
+    {
+      "ModifeblajTipoj": [
+        "K*",
+        "k*",
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [
+        "D*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "nel",
+      "Signifo": "in, inside",
+      "Gloso": "in",
+      "Radikoj": [],
+      "Noto": "Used to denote the interior of a physical space"
+    },
+    {
+      "ModifeblajTipoj": [
+        "K*",
+        "k*",
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [],
+      "AldonaĵajNotoj": [],
+      "Vorto": "nil",
+      "Signifo": "(modifier sealer)",
+      "Gloso": "-",
+      "Radikoj": [],
+      "Noto": "Prevents this word from accepting additional modifiers"
+    },
+    {
+      "ModifeblajTipoj": [
+        "K*",
+        "k*",
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [],
+      "AldonaĵajNotoj": [],
+      "Vorto": "nival",
+      "Signifo": "other than, not",
+      "Gloso": "not",
+      "Radikoj": [],
+      "Noto": "Used to mean \"something other than\", which is sometimes indicated with negation in natural languages"
+    },
+    {
+      "ModifeblajTipoj": [
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [],
+      "AldonaĵajNotoj": [],
+      "Vorto": "nivoral",
+      "Signifo": "never again",
+      "Gloso": "never_again",
+      "Radikoj": [
+        "voral"
+      ],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [],
+      "AldonaĵajNotoj": [],
+      "Vorto": "nomal",
+      "Signifo": "always, regularly",
+      "Gloso": "always",
+      "Radikoj": [],
+      "Noto": "When modifying an infinitive, indicates that the action occurs regularly; when modifying an ongoing action (either progressive or also having \"tenil\" attached to it), indicates that the action will not stop"
+    },
+    {
+      "ModifeblajTipoj": [
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [
+        "P*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "nomil",
+      "Signifo": "in order to",
+      "Gloso": "in order to",
+      "Radikoj": [],
+      "Noto": "Modifies a verb to indicate that it's done in order to perform another action"
+    },
+    {
+      "ModifeblajTipoj": [
+        "C*"
+      ],
+      "AldonaĵajTipoj": [
+        "#*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "petal",
+      "Signifo": "multiply, multiplied by, times",
+      "Gloso": "times",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "K*",
+        "k*",
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [
+        "D*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "ponel",
+      "Signifo": "next to, by, with",
+      "Gloso": "with",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [],
+      "AldonaĵajNotoj": [],
+      "Vorto": "regel",
+      "Signifo": "soon",
+      "Gloso": "soon",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [],
+      "AldonaĵajNotoj": [],
+      "Vorto": "renel",
+      "Signifo": "early",
+      "Gloso": "early",
+      "Radikoj": [],
+      "Noto": "Modifies a stopped verb to indicate that it finished before the expected time"
+    },
+    {
+      "ModifeblajTipoj": [
+        "K*"
+      ],
+      "AldonaĵajTipoj": [
+        "#*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "sel",
+      "Signifo": "quantity/count specifier",
+      "Gloso": "count",
+      "Radikoj": [],
+      "Noto": "Followed by the number of instances of a countable noun"
+    },
+    {
+      "ModifeblajTipoj": [
+        "C*"
+      ],
+      "AldonaĵajTipoj": [
+        "#*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "senal",
+      "Signifo": "minus",
+      "Gloso": "minus",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [],
+      "AldonaĵajNotoj": [],
+      "Vorto": "sivil",
+      "Signifo": "obligatorily, have to, must",
+      "Gloso": "have_to",
+      "Radikoj": [],
+      "Noto": "Modifies a hypothetical verb to indicate the obligation of doing it"
+    },
+    {
+      "ModifeblajTipoj": [
+        "K*",
+        "k*",
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [],
+      "AldonaĵajNotoj": [],
+      "Vorto": "sonal",
+      "Signifo": "only",
+      "Gloso": "only",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "K*",
+        "k*"
+      ],
+      "AldonaĵajTipoj": [
+        "D*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "sonol",
+      "Signifo": "without, lacking",
+      "Gloso": "without",
+      "Radikoj": [],
+      "Noto": "Used to modify an object that lacks an association, either through ownership or characteristic, with the following object"
+    },
+    {
+      "ModifeblajTipoj": [
+        "C*"
+      ],
+      "AldonaĵajTipoj": [
+        "#*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "tikal",
+      "Signifo": "plus",
+      "Gloso": "plus",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "C*"
+      ],
+      "AldonaĵajTipoj": [
+        "S*",
+        "#*",
+        "#*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "tikanel",
+      "Signifo": "summation",
+      "Gloso": "summation",
+      "Radikoj": [
+        "tikal"
+      ],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [],
+      "AldonaĵajNotoj": [],
+      "Vorto": "tokol",
+      "Signifo": "late, near the end of a period of time",
+      "Gloso": "late",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [],
+      "AldonaĵajTipoj": [],
+      "AldonaĵajNotoj": [],
+      "Vorto": "tomol",
+      "Signifo": "late",
+      "Gloso": "late",
+      "Radikoj": [],
+      "Noto": "Refers to an action occuring after the expected time"
+    },
+    {
+      "ModifeblajTipoj": [
+        "C*"
+      ],
+      "AldonaĵajTipoj": [
+        "#*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "vetel",
+      "Signifo": "exponentiation, to the power of",
+      "Gloso": "exponent",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "C*"
+      ],
+      "AldonaĵajTipoj": [
+        "#*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "visal",
+      "Signifo": "divided by",
+      "Gloso": "divided_by",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "K*",
+        "k*",
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [
+        "D*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "vol",
+      "Signifo": "of, pertaining to",
+      "Gloso": "of",
+      "Radikoj": [],
+      "Noto": "Links two objects without explicitly stating the nature of the relationship, which is left to the context to decide"
+    },
+    {
+      "ModifeblajTipoj": [
+        "M*",
+        "t*",
+        "T*",
+        "D*",
+        "n*",
+        "O*",
+        "Y*",
+        "N*"
+      ],
+      "AldonaĵajTipoj": [],
+      "AldonaĵajNotoj": [],
+      "Vorto": "voral",
+      "Signifo": "again",
+      "Gloso": "again",
+      "Radikoj": [
+        "vora"
+      ],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "C*"
+      ],
+      "AldonaĵajTipoj": [
+        "#*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "votel",
+      "Signifo": "squared (multiplied by itself)",
+      "Gloso": "squared",
+      "Radikoj": [
+        "vora",
+        "mebel"
+      ],
+      "Noto": ""
+    },
+    {
+      "ModifeblajTipoj": [
+        "C*"
+      ],
+      "AldonaĵajTipoj": [
+        "#*"
+      ],
+      "AldonaĵajNotoj": [],
+      "Vorto": "votol",
+      "Signifo": "logarithm in the given base",
+      "Gloso": "log",
+      "Radikoj": [],
+      "Noto": ""
+    }
+  ],
+  "SpecialajVortoj": [
+    {
+      "Vorto": "di",
+      "Signifo": "decimal point",
+      "Gloso": ".",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "gi",
+      "Signifo": "9, nine (non-terminal)",
+      "Gloso": "9",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "gina",
+      "Signifo": "9, nine (terminal)",
+      "Gloso": "9",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "ke",
+      "Signifo": "8, eight (non-terminal)",
+      "Gloso": "8",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "kera",
+      "Signifo": "8, eight (terminal)",
+      "Gloso": "8",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "kle",
+      "Signifo": "million (non-terminal)",
+      "Gloso": "million",
+      "Radikoj": [],
+      "Noto": "Represents 1 000 000 at the start of the sequence digits; 000 000 elsewhere"
+    },
+    {
+      "Vorto": "klera",
+      "Signifo": "million (non-terminal)",
+      "Gloso": "million",
+      "Radikoj": [],
+      "Noto": "Represents 1 000 000 by itself; 000 000 elsewhere"
+    },
+    {
+      "Vorto": "li",
+      "Signifo": "6, six (non-terminal)",
+      "Gloso": "6",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "lira",
+      "Signifo": "6, six (terminal)",
+      "Gloso": "6",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "mi",
+      "Signifo": "0, significant zero (non-terminal)",
+      "Gloso": "0",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "mira",
+      "Signifo": "0, significant zero (terminal)",
+      "Gloso": "0",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "no",
+      "Signifo": "3, three (non-terminal)",
+      "Gloso": "3",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "nona",
+      "Signifo": "3, three (terminal)",
+      "Gloso": "3",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "plo",
+      "Signifo": "100, hundred (non-terminal)",
+      "Gloso": "hundred",
+      "Radikoj": [],
+      "Noto": "Represents 100 at the start of the sequence digits; 00 elsewhere"
+    },
+    {
+      "Vorto": "plora",
+      "Signifo": "100, hundred (non-terminal)",
+      "Gloso": "hundred",
+      "Radikoj": [],
+      "Noto": "Represents 100 by itself; 00 elsewhere"
+    },
+    {
+      "Vorto": "po",
+      "Signifo": "1, one (non-terminal)",
+      "Gloso": "1",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "pona",
+      "Signifo": "1, one (terminal)",
+      "Gloso": "1",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "si",
+      "Signifo": "5, five (non-terminal)",
+      "Gloso": "5",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "sina",
+      "Signifo": "5, five (terminal)",
+      "Gloso": "5",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "so",
+      "Signifo": "7, seven (non-terminal)",
+      "Gloso": "7",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "sona",
+      "Signifo": "7, seven (terminal)",
+      "Gloso": "7",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "te",
+      "Signifo": "4, four (non-terminal)",
+      "Gloso": "4",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "tera",
+      "Signifo": "4, four (terminal)",
+      "Gloso": "4",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "tri",
+      "Signifo": "1000, thousand (non-terminal)",
+      "Gloso": "thousand",
+      "Radikoj": [],
+      "Noto": "Represents 1000 at the start of the sequence digits; 000 elsewhere"
+    },
+    {
+      "Vorto": "trira",
+      "Signifo": "1000, thousand (terminal)",
+      "Gloso": "thousand",
+      "Radikoj": [],
+      "Noto": "Represents 1000 by itself; 000 elsewhere"
+    },
+    {
+      "Vorto": "vo",
+      "Signifo": "2, two (non-terminal)",
+      "Gloso": "2",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "vora",
+      "Signifo": "2, two (terminal)",
+      "Gloso": "2",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "Vorto": "hal",
+      "Signifo": "everything, all",
+      "Gloso": "everything",
+      "Radikoj": [
+        "avilma"
+      ],
+      "Noto": "Functionally identical to \"avilma\""
+    },
+    {
+      "Vorto": "hel",
+      "Signifo": "something, someone",
+      "Gloso": "something",
+      "Radikoj": [
+        "avelme"
+      ],
+      "Noto": "Functionally identical to \"avelme\""
+    },
+    {
+      "Vorto": "hem",
+      "Signifo": "I",
+      "Gloso": "I",
+      "Radikoj": [
+        "emika"
+      ],
+      "Noto": "Functionally identical to \"emikasi\""
+    },
+    {
+      "Vorto": "hes",
+      "Signifo": "you (singular)",
+      "Gloso": "you",
+      "Radikoj": [
+        "esika"
+      ],
+      "Noto": "Functionally identical to \"esikasi\""
+    },
+    {
+      "Vorto": "het",
+      "Signifo": "he, she, it; third-person singular pronoun",
+      "Gloso": "3PS",
+      "Radikoj": [
+        "etika"
+      ],
+      "Noto": "Functionally identical to \"etikasi\""
+    },
+    {
+      "Vorto": "hime",
+      "Signifo": "We",
+      "Gloso": "We",
+      "Radikoj": [
+        "emika"
+      ],
+      "Noto": "Functionally identical to \"emikave\""
+    },
+    {
+      "Vorto": "hise",
+      "Signifo": "you (plural)",
+      "Gloso": "you",
+      "Radikoj": [
+        "esika"
+      ],
+      "Noto": "Functionally identical to \"esikave\""
+    },
+    {
+      "Vorto": "hite",
+      "Signifo": "they",
+      "Gloso": "3PP",
+      "Radikoj": [
+        "etika"
+      ],
+      "Noto": "Functionally identical to \"each other\""
+    }
+  ],
+  "Kategorioj": [
+    {
+      "Nomo": "abstract",
+      "Vortoj": [
+        "merope",
+        "runata",
+        "gremegre",
+        "revita",
+        "merome"
+      ]
+    },
+    {
+      "Nomo": "actions",
+      "Vortoj": [
+        "vososit",
+        "bup",
+        "tenet",
+        "larit",
+        "sibepe",
+        "bulit",
+        "rilep",
+        "buvlit",
+        "trelit",
+        "binip",
+        "prelis",
+        "meves",
+        "liret",
+        "veret",
+        "bevat",
+        "trelot",
+        "kitrot",
+        "tregre",
+        "mesip",
+        "tenip",
+        "trolot",
+        "sibit",
+        "beselet"
+      ]
+    },
+    {
+      "Nomo": "activities",
+      "Vortoj": [
+        "porip",
+        "narit",
+        "nitrot",
+        "kivat",
+        "demis"
+      ]
+    },
+    {
+      "Nomo": "arts and craftsmanship",
+      "Vortoj": [
+        "meranip",
+        "dutup",
+        "resip"
+      ]
+    },
+    {
+      "Nomo": "body",
+      "Vortoj": [
+        "bevidre",
+        "liredre",
+        "buvidre",
+        "edre",
+        "veredre"
+      ]
+    },
+    {
+      "Nomo": "colours",
+      "Vortoj": [
+        "linupi"
+      ]
+    },
+    {
+      "Nomo": "common attributes",
+      "Vortoj": [
+        "bomol",
+        "oliti",
+        "sirita",
+        "gromoka",
+        "elita",
+        "olape",
+        "nolote",
+        "supe",
+        "oluki",
+        "elate",
+        "soroke",
+        "vita",
+        "popiki"
+      ]
+    },
+    {
+      "Nomo": "common objects",
+      "Vortoj": [
+        "nonte",
+        "kliti",
+        "kreste",
+        "kluti",
+        "dumbete",
+        "lipoti"
+      ]
+    },
+    {
+      "Nomo": "containers",
+      "Vortoj": [
+        "nelpe"
+      ]
+    },
+    {
+      "Nomo": "date",
+      "Vortoj": [
+        "nelelte",
+        "rimogre",
+        "memome",
+        "nelite",
+        "semali",
+        "nelegre",
+        "neleli",
+        "sempa",
+        "kumome",
+        "semagre",
+        "rimpe"
+      ]
+    },
+    {
+      "Nomo": "dates",
+      "Vortoj": [
+        "mogal",
+        "morgome"
+      ]
+    },
+    {
+      "Nomo": "emotions",
+      "Vortoj": [
+        "polot",
+        "delegre",
+        "meret",
+        "numope",
+        "emelet",
+        "mirabat",
+        "emodre",
+        "levegre",
+        "mirabut",
+        "leveka",
+        "grelet",
+        "seret",
+        "demepa",
+        "lirekuta",
+        "emonet",
+        "merat",
+        "serepi",
+        "bimiti",
+        "bimigre"
+      ]
+    },
+    {
+      "Nomo": "expressions",
+      "Vortoj": [
+        "lemit",
+        "gorit",
+        "kirit",
+        "lomot",
+        "neris",
+        "lemipa",
+        "balas",
+        "nolop",
+        "set"
+      ]
+    },
+    {
+      "Nomo": "forceful actions",
+      "Vortoj": [
+        "senip",
+        "enat",
+        "vilot",
+        "kebot",
+        "vulot",
+        "tilit",
+        "sirit",
+        "sebot",
+        "rebot",
+        "morot",
+        "borop",
+        "delit",
+        "posip",
+        "lisip",
+        "vosip",
+        "sokut",
+        "poskut",
+        "tesip",
+        "tot"
+      ]
+    },
+    {
+      "Nomo": "helper modifiers",
+      "Vortoj": [
+        "konal",
+        "sonal",
+        "nival",
+        "nal",
+        "mel",
+        "vol",
+        "sonol"
+      ]
+    },
+    {
+      "Nomo": "home",
+      "Vortoj": [
+        "nonte",
+        "melmote",
+        "kresite",
+        "liveti",
+        "beleta",
+        "kreska",
+        "domote",
+        "gresigre",
+        "mebeta",
+        "pulte",
+        "kreste",
+        "krenti",
+        "emolka",
+        "bolta",
+        "gelit",
+        "imilta",
+        "lipoti",
+        "vosmi"
+      ]
+    },
+    {
+      "Nomo": "humans",
+      "Vortoj": [
+        "grike",
+        "tate",
+        "tatrete",
+        "grite",
+        "brete",
+        "tote",
+        "breka",
+        "brepe"
+      ]
+    },
+    {
+      "Nomo": "kinship",
+      "Vortoj": [
+        "nemite",
+        "miradre",
+        "gritodre",
+        "bodre",
+        "bretodre",
+        "venedre",
+        "gedre",
+        "besedre",
+        "moromi",
+        "todre",
+        "marodre"
+      ]
+    },
+    {
+      "Nomo": "life",
+      "Vortoj": [
+        "runata",
+        "bores",
+        "dunagre",
+        "liveras",
+        "borope"
+      ]
+    },
+    {
+      "Nomo": "lifestyle",
+      "Vortoj": [
+        "melis",
+        "gelidre",
+        "melidre"
+      ]
+    },
+    {
+      "Nomo": "locatives",
+      "Vortoj": [
+        "trigre",
+        "nel",
+        "negre",
+        "vogre",
+        "ridre"
+      ]
+    },
+    {
+      "Nomo": "movement",
+      "Vortoj": [
+        "emalip",
+        "erat"
+      ]
+    },
+    {
+      "Nomo": "nature",
+      "Vortoj": [
+        "vosma",
+        "lunata",
+        "poski",
+        "gelume",
+        "krelni",
+        "kreski",
+        "kulete",
+        "gremi",
+        "risme",
+        "seskuna",
+        "pomupa",
+        "ritma",
+        "meki",
+        "rimata",
+        "duna",
+        "lukrene",
+        "grema",
+        "luna",
+        "temita",
+        "vilme",
+        "lurika",
+        "rima",
+        "belime",
+        "krena",
+        "vosrima",
+        "kunapa",
+        "meta",
+        "kuvosta",
+        "kanedre",
+        "memi",
+        "vosnata"
+      ]
+    },
+    {
+      "Nomo": "object attributes",
+      "Vortoj": [
+        "bileka"
+      ]
+    },
+    {
+      "Nomo": "personal traits",
+      "Vortoj": [
+        "ilet",
+        "lumite",
+        "kirika"
+      ]
+    },
+    {
+      "Nomo": "physics",
+      "Vortoj": [
+        "leredre",
+        "leres",
+        "lidre",
+        "seskake",
+        "bet",
+        "meta"
+      ]
+    },
+    {
+      "Nomo": "placeholders",
+      "Vortoj": [
+        "hise",
+        "hem",
+        "hite",
+        "hes",
+        "hime",
+        "het"
+      ]
+    },
+    {
+      "Nomo": "predicate helpers",
+      "Vortoj": [
+        "meral",
+        "mogal"
+      ]
+    },
+    {
+      "Nomo": "pronouns",
+      "Vortoj": [
+        "emika",
+        "esika"
+      ]
+    },
+    {
+      "Nomo": "raw materials",
+      "Vortoj": [
+        "vome",
+        "dulete"
+      ]
+    },
+    {
+      "Nomo": "seasons",
+      "Vortoj": [
+        "lunome",
+        "nelite",
+        "veneme",
+        "mesote",
+        "rinome"
+      ]
+    },
+    {
+      "Nomo": "time",
+      "Vortoj": [
+        "remika",
+        "duname",
+        "merke",
+        "volune",
+        "relite",
+        "minaka",
+        "mika",
+        "tomol",
+        "lukrene",
+        "renel",
+        "dedre",
+        "meveme",
+        "krena",
+        "merli",
+        "dunagre",
+        "mikali",
+        "voline",
+        "tomop",
+        "regel",
+        "dumbete",
+        "renoka",
+        "tokol",
+        "lite",
+        "nomal"
+      ]
+    },
+    {
+      "Nomo": "tools",
+      "Vortoj": [
+        "soki",
+        "vilipi",
+        "besegre",
+        "enote",
+        "bilepe",
+        "tosete",
+        "tilte",
+        "moropa",
+        "repete"
+      ]
+    },
+    {
+      "Nomo": "undesirable things",
+      "Vortoj": [
+        "eradre",
+        "kiriki",
+        "soponi"
+      ]
+    },
+    {
+      "Nomo": "verb helpers",
+      "Vortoj": [
+        "dal",
+        "kanel"
+      ]
+    },
+    {
+      "Nomo": "weather",
+      "Vortoj": [
+        "kresnopi",
+        "luvem",
+        "gremute",
+        "kreskene",
+        "gremune",
+        "seskom",
+        "luvema",
+        "seskoma",
+        "kresne"
+      ]
+    }
+  ]
+}

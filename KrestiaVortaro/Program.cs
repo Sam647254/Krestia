@@ -114,6 +114,7 @@ timeran <KV> <eniro> <eliro>
                   var eniro = File.ReadLines(args[2]);
                   var indekso = new NovaVortaraIndekso(enhavo);
                   Agoj.ĜisdatigiVerbojn(indekso, eniro);
+                  await File.WriteAllTextAsync(args[1], indekso.IgiEnJson());
                   break;
                }
             }

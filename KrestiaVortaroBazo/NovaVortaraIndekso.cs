@@ -24,7 +24,7 @@ namespace KrestiaVortaroBazo {
       }
 
       public string IgiEnJson() {
-         return JsonConvert.SerializeObject(_vortaro);
+         return JsonConvert.SerializeObject(_vortaro, Formatting.Indented);
       }
    }
 }
