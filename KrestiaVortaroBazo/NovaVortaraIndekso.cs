@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 namespace KrestiaVortaroBazo {
    public class NovaVortaraIndekso {
       public Dictionary<string, VortaraVorto> Indekso { get; }
+      public List<NovaKategorio> Kategorioj => _vortaro.Kategorioj;
 
       private readonly NovaJsonVortaro _vortaro;
 

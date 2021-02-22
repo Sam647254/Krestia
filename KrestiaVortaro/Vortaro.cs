@@ -6,9 +6,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using KrestiaVortaroBazo;
 using KrestiaVortilo;
 using Microsoft.FSharp.Collections;
 using Microsoft.FSharp.Core;
+using Newtonsoft.Json;
 
 namespace KrestiaVortaro {
    public class Vortaro {
@@ -17,32 +19,28 @@ namespace KrestiaVortaro {
       private readonly IImmutableDictionary<char, int> _alfabeto = "pbmvtdnsʃlrjkgwhieauoɒ".Select((l, i) => (l, i))
          .ToImmutableDictionary(p => p.l, p => p.i);
 
-      private ImmutableDictionary<string, Vorto> Indekso { get; }
-      private ImmutableDictionary<string, Kategorio>? Kategorioj { get; }
-      internal ImmutableDictionary<string, Vorto> BazoIndekso { get; }
+      private ImmutableDictionary<string, VortaraVorto> Indekso { get; }
+      private ImmutableDictionary<string, NovaKategorio>? Kategorioj { get; }
+      private ImmutableDictionary<string, VortaraVorto> BazoIndekso { get; }
 
       public IOrderedEnumerable<VortoKunSignifo> Vortlisto =>
-         Indekso.Values.Select(vorto => new VortoKunSignifo(vorto.PlenaVorto, vorto.Signifo))
+         Indekso.Values.Select(vorto => new VortoKunSignifo(vorto.Vorto, vorto.Signifo))
             .OrderBy(v => v.Vorto);
 
       public IImmutableDictionary<string, IOrderedEnumerable<VortoKunSignifo>> TipaVortlisto =>
-         Indekso.Values.Select(v => new VortoKunSignifo(v.PlenaVorto, v.Signifo)).GroupBy(v =>
+         Indekso.Values.Select(v => new VortoKunSignifo(v.Vorto, v.Signifo)).GroupBy(v =>
                Malinflektado.vortaraTipoDe(v.Vorto))
             .ToImmutableSortedDictionary(g => g.Key, g => g.OrderBy(v => v.Vorto));
 
       public IImmutableDictionary<string, KategorioRespondo> KategoriaVortlisto =>
-         Kategorioj.Select(p => (p.Key, p.Value.Respondigi())).ToImmutableSortedDictionary(p => p.Key, p => p.Item2);
+         Kategorioj.Select(p => (p.Key,
+               new KategorioRespondo(p.Value.Vortoj.Select(v => new VortoKunSignifo(v, Indekso[v].Vorto)))))
+            .ToImmutableSortedDictionary(p => p.Key, p => p.Item2);
 
-      internal Vortaro(IImmutableSet<Vorto> vortoj, IImmutableSet<VortaraKategorio> kategorioj) {
-         Indekso = vortoj.ToImmutableDictionary(v => v.PlenaVorto, v => v);
-         BazoIndekso = vortoj.ToImmutableDictionary(v => v.BazaVorto, v => v);
-         Kategorioj = kategorioj.ToImmutableDictionary(k => k.Nomo,
-            k => new Kategorio {
-               Vortoj = k.Vortoj.Select(v => Indekso[v]).ToImmutableList(),
-               Subkategorioj = k.Subkategorioj!.ToImmutableHashSet(),
-               Superkategorioj = kategorioj.Where(sk => sk.Subkategorioj!.Contains(k.Nomo))
-                  .Select(sk => sk.Nomo).ToImmutableHashSet(),
-            });
+      private Vortaro(IImmutableSet<VortaraVorto> vortoj, IImmutableSet<NovaKategorio> kategorioj) {
+         Indekso = vortoj.ToImmutableDictionary(v => v.Vorto, v => v);
+         BazoIndekso = vortoj.ToImmutableDictionary(v => Malinflektado.bazoDe(v.Vorto), v => v);
+         Kategorioj = kategorioj.ToImmutableDictionary(k => k.Nomo, k => k);
       }
 
       public VortoRespondo? Vorto(string vorto) {
@@ -59,19 +57,23 @@ namespace KrestiaVortaro {
          }
 
          var inflekcioj = Malinflektado.ĉiujInflekciojDe(vorto);
-         return new VortoRespondo(respondo.PlenaVorto) {
-            Noto = respondo.Noto,
+         return new VortoRespondo(respondo.Vorto) {
+            Noto = respondo.Noto != null
+               ? string.Format(respondo.Noto, "a<sub>1</sub>", "a<sub>2</sub>", "a<sub>3</sub>")
+               : null,
             Radikoj = respondo.Radikoj.ToList(),
             Signifo = respondo.Signifo,
             Vorttipo = vorttipo,
             Silaboj = silaboj.ResultValue,
-            Blissimbolo = respondo.Blissimbolo,
-            Gloso = respondo.GlosaSignifo,
+            Gloso = respondo.Gloso,
             InflektitajFormoj = FSharpOption<FSharpMap<Vorttipo.Inflekcio, string>>.get_IsSome(inflekcioj)
                ? inflekcioj.Value.Select(p => (p.Key.ToString(), p.Value))
                   .ToDictionary(p => p.Item1, p => p.Value)
                : null,
-            Ujoj = new[] {respondo.Ujo1, respondo.Ujo2, respondo.Ujo3},
+            Ujoj = respondo is Verbo verbo ? verbo.ArgumentajNotoj : null,
+            FrazaSignifo = respondo is Verbo verbo2
+               ? string.Format(verbo2.FrazaSignifo, "a<sub>1</sub>", "a<sub>2</sub>", "a<sub>3</sub>")
+               : null,
          };
       }
 
@@ -82,11 +84,11 @@ namespace KrestiaVortaro {
          if (kvanto.Length > 1) {
             var nombro = Imperativa.proveLegiNombron(peto);
             if (nombro.IsOk) {
-                  var rezulto =
-                     Imperativa.kalkuli(Sintaksanalizilo2.Argumento.NewArgumentaNombro(nombro.ResultValue));
-                  if (rezulto.IsOk) {
-                     nombraRezulto = rezulto.ResultValue;
-                  }
+               var rezulto =
+                  Imperativa.kalkuli(Sintaksanalizilo2.Argumento.NewArgumentaNombro(nombro.ResultValue));
+               if (rezulto.IsOk) {
+                  nombraRezulto = rezulto.ResultValue;
+               }
             }
 
             var malinflektita = kvanto.Select(Malinflektado.tuteMalinflekti).ToList();
@@ -108,17 +110,17 @@ namespace KrestiaVortaro {
             malinflektitaTipo = lastaŜtupo?.Item1;
             bazo = Malinflektado.bazoDe(malinflektitaVorto);
             var malinflektitaRezulto = Indekso.GetValueOrDefault(malinflektitaVorto, null);
-            malinflektitaVorto = malinflektitaRezulto?.PlenaVorto ?? malinflektitaVorto;
+            malinflektitaVorto = malinflektitaRezulto?.Vorto ?? malinflektitaVorto;
          }
 
          if (bazo != null) {
             var bazaRezulto = BazoIndekso.GetValueOrDefault(bazo, null);
 
             if (bazaRezulto != null) {
-               var ĉuMalplenigita = Malinflektado.ĉuMalplenigita(malinflektitaTipo, bazaRezulto.PlenaVorto);
+               var ĉuMalplenigita = Malinflektado.ĉuMalplenigita(malinflektitaTipo, bazaRezulto.Vorto);
                if (ĉuMalplenigita) {
-                  bazo = bazaRezulto.PlenaVorto;
-                  bazoGloso = bazaRezulto.GlosaSignifo;
+                  bazo = bazaRezulto.Vorto;
+                  bazoGloso = bazaRezulto.Gloso;
                }
                else {
                   bazo = null;
@@ -158,11 +160,11 @@ namespace KrestiaVortaro {
             (Malinflektado.malinflekti(Malinflektado.testaVorto(vorto)).ResultValue as
                Sintaksanalizilo.MalinflektaŜtupo.Bazo)!.Item1;
          if (bazaVorto != null && Malinflektado.ĉuVerbo(vorto).ResultValue &&
-             !Malinflektado.ĉuMalplenigita(vorttipo, bazaVorto.PlenaVorto)) {
+             !Malinflektado.ĉuMalplenigita(vorttipo, bazaVorto.Vorto)) {
             return null;
          }
 
-         return bazaVorto?.GlosaSignifo;
+         return bazaVorto?.Gloso;
       }
 
       private VortoRezulto GlosaRezulto(
@@ -172,12 +174,12 @@ namespace KrestiaVortaro {
          var rezultoj = bazoj.Select(b => BazoIndekso.GetValueOrDefault(b, null)).ToList();
 
          return new VortoRezulto {
-            GlosajVortoj = rezultoj.Select(r => r?.GlosaSignifo ?? "(not found)"),
+            GlosajVortoj = rezultoj.Select(r => r?.Gloso ?? "(not found)"),
             GlosajŜtupoj = vortoj.Select(v => v.IsOk
                ? v.ResultValue.InflekcioŜtupoj.Where(ŝ => ŝ.IsNebazo)
                   .Select(ŝ => ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝ).Item2.ToString())
                : new List<string>()),
-            BazajVortoj = rezultoj.Select(r => r?.PlenaVorto ?? "")
+            BazajVortoj = rezultoj.Select(r => r?.Vorto ?? "")
          };
       }
 
@@ -205,16 +207,11 @@ namespace KrestiaVortaro {
          return int.MaxValue;
       }
 
-      public static Vortaro KreiVortaronDe(JsonVortaro jsonVortaro) {
-         return new Vortaro(jsonVortaro.Vortoj!.ToImmutableHashSet(), jsonVortaro.Kategorioj.ToImmutableHashSet());
-      }
-
-      public static async Task<Vortaro> KreiVortaronDe(string vortojUrl, string kategoriojUrl) {
+      public static async Task<Vortaro> KreiVortaronDe(string vortaroUrl) {
          var httpClient = new HttpClient();
-         var vortoj = Agoj.KontroliVortojn((await httpClient.GetStringAsync(vortojUrl)).Split('\n'));
-         var kategorioj =
-            Agoj.KontroliKategoriojn(vortoj, (await httpClient.GetStringAsync(kategoriojUrl)).Split('\n'));
-         return new Vortaro(vortoj, kategorioj);
+         var respondo = await httpClient.GetStringAsync(vortaroUrl);
+         var indekso = new NovaVortaraIndekso(respondo!);
+         return new Vortaro(indekso.Indekso.Values.ToImmutableHashSet(), indekso.Kategorioj.ToImmutableHashSet());
       }
 
       public readonly struct VortoKunSignifo {
@@ -227,27 +224,11 @@ namespace KrestiaVortaro {
          }
       }
 
-      public class Kategorio {
-         public IImmutableList<Vorto> Vortoj { get; set; }
-         public IImmutableSet<string> Subkategorioj { get; set; }
-         public IImmutableSet<string> Superkategorioj { get; set; }
-
-         public KategorioRespondo Respondigi() {
-            return new KategorioRespondo(Vortoj.Select(v => new VortoKunSignifo(v.PlenaVorto, v.Signifo)),
-               Subkategorioj, Superkategorioj);
-         }
-      }
-
       public class KategorioRespondo {
          public IImmutableList<VortoKunSignifo> Vortoj { get; }
-         public ImmutableSortedSet<string> Subkategorioj { get; }
-         public ImmutableSortedSet<string> Superkategorioj { get; }
 
-         public KategorioRespondo(IEnumerable<VortoKunSignifo> vortoj, IEnumerable<string> subkategorioj,
-            IEnumerable<string> superkategorioj) {
+         public KategorioRespondo(IEnumerable<VortoKunSignifo> vortoj) {
             Vortoj = vortoj.ToImmutableList();
-            Subkategorioj = subkategorioj.ToImmutableSortedSet();
-            Superkategorioj = superkategorioj.ToImmutableSortedSet();
          }
       }
    }

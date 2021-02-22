@@ -35,10 +35,10 @@ namespace KrestiaVortaro {
       public IEnumerable<string>? Silaboj { get; set; }
 
       public IDictionary<string, string>? InflektitajFormoj { get; set; }
-      
-      public IEnumerable<long>? Blissimbolo { get; set; }
-      
+
       public IEnumerable<string?>? Ujoj { get; set; }
+      
+      public string? FrazaSignifo { get; set; }
 
       internal VortoRespondo(string vorto) {
          Vorto = vorto;

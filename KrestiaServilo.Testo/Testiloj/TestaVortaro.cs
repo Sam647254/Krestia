@@ -8,12 +8,7 @@ namespace KrestiaServilo.Testo.Testiloj {
       public Vortaro Instanco { get; }
 
       internal TestaVortaro() {
-         Instanco = Vortaro.KreiVortaronDe(new JsonVortaro {
-            Vortoj = new List<Vorto> {
-               new Vorto( "kuna", "kuna", new string[] { }, "water", "water"),
-               new Vorto("kreski", "kreski", new string[] { }, "flame", "flame"),
-            },
-         });
+         throw new NotImplementedException();
       }
    }
 }
