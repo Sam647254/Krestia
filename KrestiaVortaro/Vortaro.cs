@@ -122,9 +122,6 @@ namespace KrestiaVortaro {
                   bazo = bazaRezulto.Vorto;
                   bazoGloso = bazaRezulto.Gloso;
                }
-               else {
-                  bazo = null;
-               }
             }
             else {
                bazo = null;
