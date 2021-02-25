@@ -2,6 +2,7 @@
 
 open System
 open System.Collections.Generic
+open System.Linq
 open FSharpx.Collections
 
 open Vorttipo
@@ -33,7 +34,8 @@ module Sintaksanalizilo2 =
         Valuo: decimal
         Operacioj: SQueue<Modifanto> }
 
-   and Argumento =
+   and [<type: CustomEquality; NoComparison>]
+      Argumento =
       | ArgumentaVorto of ModifeblaVorto
       | ArgumentaNombro of ModifeblaNombro
 
@@ -41,6 +43,26 @@ module Sintaksanalizilo2 =
          match this with
          | ArgumentaVorto av -> av.ToString()
          | ArgumentaNombro n -> n.ToString()
+      
+      override this.Equals(alia) =
+         match alia with
+         | :? Argumento as argumento ->
+            match argumento with
+            | ArgumentaVorto av ->
+               match this with
+               | ArgumentaVorto tav -> tav.Kapo = av.Kapo && tav.Modifantoj.SetEquals(av.Modifantoj)
+               | _ -> false
+            | ArgumentaNombro an ->
+               match this with
+               | ArgumentaNombro tan ->
+                  tan.Valuo = an.Valuo && Enumerable.SequenceEqual(an.Operacioj, tan.Operacioj) && an.Valuo = tan.Valuo
+               | _ -> false
+         | _ -> false
+      
+      override this.GetHashCode() =
+         match this with
+         | ArgumentaNombro an -> hash an.Valuo
+         | ArgumentaVorto av -> hash av.Kapo
 
    and Verbo =
       { Vorto: ModifeblaVorto }
