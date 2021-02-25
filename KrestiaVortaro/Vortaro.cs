@@ -120,8 +120,8 @@ namespace KrestiaVortaro {
                var ĉuMalplenigita = Malinflektado.ĉuMalplenigita(malinflektitaTipo, bazaRezulto.Vorto);
                if (ĉuMalplenigita) {
                   bazo = bazaRezulto.Vorto;
-                  bazoGloso = bazaRezulto.Gloso;
                }
+               bazoGloso = bazaRezulto.Gloso;
             }
             else {
                bazo = null;

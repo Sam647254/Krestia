@@ -84,7 +84,6 @@
           <e p="TestaBlissFonto.cs" t="Include" />
           <e p="TestaVortaro.cs" t="Include" />
         </e>
-        <e p="VortoControllerTestoj.cs" t="Include" />
       </e>
       <e p="KrestiaVortaro" t="IncludeRecursive">
         <e p="Agoj.cs" t="Include" />
