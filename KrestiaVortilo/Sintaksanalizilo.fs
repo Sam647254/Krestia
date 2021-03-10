@@ -11,7 +11,7 @@ module Sintaksanalizilo =
       // ekzemple la infinitivo, aŭ la vorttipo ne povas inflektiĝi.
       | Bazo of Vorttipo * Inflekcio * BazaVorto: string
       // La vorto malinflektiĝis.
-      | Nebazo of Vorttipo * Inflekcio * RestantaVorto: string
+      | Nebazo of Vorttipo * Inflekcio * RestantaVorto: string * Finaĵo: string
 
    let verboFinaĵoj =
       [ MalplenaVerbo, "m"

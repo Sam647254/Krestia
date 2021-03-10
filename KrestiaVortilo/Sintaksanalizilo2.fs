@@ -149,7 +149,7 @@ module Sintaksanalizilo2 =
       vorto.InflekcioŜtupoj
       |> List.fold (fun ak sek ->
             match sek with
-            | Nebazo (_, inflekcio, _) ->
+            | Nebazo (_, inflekcio, _, finaĵo) ->
                match inflekcio with
                | PartaUjo1
                | PartaUjo2
@@ -157,6 +157,8 @@ module Sintaksanalizilo2 =
                | Imperativo
                | Hortativo -> ak - 1
                | PredikativoEsti -> ak + 1
+               | Havado ->
+                  if finaĵo.EndsWith("m") then ak else ak + 1
                | _ -> ak
             | Bazo (vorttipo, inflekcio, _) ->
                match vorttipo with

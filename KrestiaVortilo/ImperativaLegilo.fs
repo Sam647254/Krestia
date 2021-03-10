@@ -123,7 +123,7 @@ module Imperativa =
       vorto.Kapo.InflekcioŜtupoj
       |> List.exists (fun ŝtupo ->
             match ŝtupo with
-            | Nebazo (_, i, _) ->
+            | Nebazo (_, i, _, _) ->
                egalajVorttipoj.TryFind i
                |> Option.map modifanto.ModifeblajVorttipoj.Contains
                |> Option.defaultValue false
@@ -133,7 +133,7 @@ module Imperativa =
       match vorto with
       | ArgumentaVorto argumento ->
          match List.last argumento.Kapo.InflekcioŜtupoj with
-         | Nebazo (_, i, _)
+         | Nebazo (_, i, _, _)
          | Bazo (_, i, _) ->
             i = inflekcio
             || (inflekcio = Difinito && i = Inflekcio.FremdaVorto)
@@ -425,7 +425,7 @@ module Imperativa =
                |> Result.bind (fun listo ->
                      let modifanto =
                         match sek with
-                        | Nebazo (_, _, _) -> Ok None
+                        | Nebazo _ -> Ok None
                         | Bazo (vorttipo, _, bazaVorto) ->
                            match vorttipo with
                            | AntaŭNombrigeblaEco
