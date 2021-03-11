@@ -60,15 +60,15 @@ type VerboTestoj() =
    member _.PlurajInflekcioj() =
       Assert.Inconclusive()
       
-      "meratonialasela"
-      |> kontroliĈiujnInfleckiojn
-            [ Nebazo(NetransitivaVerbo, Intenco, "meratonialas")
-              Nebazo(NombrigeblaKlaso, Translativo, "meratoniaa")
-              Nebazo(TransitivaVerbo, Argumento2, "merat")
-              Bazo(TransitivaVerbo, Progresivo, "merat") ]
-
-      "liverasetie"
-      |> kontroliĈiujnInfleckiojn
-            [ Nebazo(NombrigeblaKlaso, Difinito, "liverasetio")
-              Nebazo(NetransitivaVerbo, Argumento1, "liveras")
-              Bazo(NetransitivaVerbo, Progresivo, "liveras") ]
+//      "meratonialasela"
+//      |> kontroliĈiujnInfleckiojn
+//            [ Nebazo(NetransitivaVerbo, Intenco, "meratonialas")
+//              Nebazo(NombrigeblaKlaso, Translativo, "meratoniaa")
+//              Nebazo(TransitivaVerbo, Argumento2, "merat")
+//              Bazo(TransitivaVerbo, Progresivo, "merat") ]
+//
+//      "liverasetie"
+//      |> kontroliĈiujnInfleckiojn
+//            [ Nebazo(NombrigeblaKlaso, Difinito, "liverasetio")
+//              Nebazo(NetransitivaVerbo, Argumento1, "liveras")
+//              Bazo(NetransitivaVerbo, Progresivo, "liveras") ]

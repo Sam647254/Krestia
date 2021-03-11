@@ -272,7 +272,7 @@ type KlasoTestoj() =
    member _.PlurajInflekcioj() =
       Assert.Inconclusive()
       
-      "kunalasmea"
-      |> kontroliĈiujnInfleckiojn [ Nebazo(NetransitivaVerbo, Ĝerundo, "kunalas")
-                                    Nebazo(NenombrigeblaKlaso, Translativo, "kuna")
-                                    Bazo(NenombrigeblaKlaso, Difinito, "kuna") ]
+//      "kunalasmea"
+//      |> kontroliĈiujnInfleckiojn [ Nebazo(NetransitivaVerbo, Ĝerundo, "kunalas")
+//                                    Nebazo(NenombrigeblaKlaso, Translativo, "kuna")
+//                                    Bazo(NenombrigeblaKlaso, Difinito, "kuna") ]

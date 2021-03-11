@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Compile Include="Vorttipo.fs" />
+    <Compile Include="Iloj.fs" />
     <Compile Include="Sintaksanalizilo.fs" />
     <Compile Include="Malinflektado.fs" />
     <Compile Include="Valenco.fs" />

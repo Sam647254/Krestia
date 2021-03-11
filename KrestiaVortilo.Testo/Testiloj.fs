@@ -25,7 +25,7 @@ module Testiloj =
             | Sintaksanalizilo.Bazo (vorttipo, inflekcio, _) ->
                Assert.AreEqual(pravaTipo, vorttipo)
                Assert.AreEqual(pravaInflekcio, inflekcio)
-            | Sintaksanalizilo.Nebazo (vorttipo, inflekcio, _) ->
+            | Sintaksanalizilo.Nebazo (vorttipo, inflekcio, _, _) ->
                Assert.AreEqual(pravaTipo, vorttipo)
                Assert.AreEqual(pravaInflekcio, inflekcio))
       |> Result.mapError malsukcesi

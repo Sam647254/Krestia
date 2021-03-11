@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\Sam\.nuget\packages\microsoft.net.test.sdk\16.4.0\build\netcoreapp2.1" t="Include">
+    <e p="C:\Users\Sam\AppData\local\JetBrains\Rider2020.3\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Sam\AppData\local\JetBrains\Rider2020.3\resharper-host\local\Transient\Rider\v203\SolutionCaches\_Krestia.-1369706614.00" t="ExcludeRecursive" />
+    <e p="D:\packages\.nuget\microsoft.net.test.sdk\16.4.0\build\netcoreapp2.1" t="Include">
       <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
     </e>
-    <e p="C:\Users\Sam\.nuget\packages\microsoft.testplatform.testhost\16.4.0\build\netcoreapp2.1\x64\testhost.dll" t="Include" />
-    <e p="C:\Users\Sam\.nuget\packages\microsoft.testplatform.testhost\16.4.0\build\netcoreapp2.1\x64\testhost.exe" t="Include" />
-    <e p="C:\Users\Sam\.nuget\packages\microsoft.testplatform.testhost\16.5.0\build\netcoreapp2.1\x64\testhost.dll" t="Include" />
-    <e p="C:\Users\Sam\.nuget\packages\microsoft.testplatform.testhost\16.5.0\build\netcoreapp2.1\x64\testhost.exe" t="Include" />
-    <e p="C:\Users\Sam\.nuget\packages\mstest.testadapter\2.1.0\build\_common\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll" t="Include" />
-    <e p="C:\Users\Sam\.nuget\packages\mstest.testadapter\2.1.0\build\_common\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll" t="Include" />
-    <e p="C:\Users\Sam\.nuget\packages\mstest.testadapter\2.1.0\build\netcoreapp1.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll" t="Include" />
-    <e p="C:\Users\Sam\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\nunit.engine.api.dll" t="Include" />
-    <e p="C:\Users\Sam\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\nunit.engine.dll" t="Include" />
-    <e p="C:\Users\Sam\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\NUnit3.TestAdapter.dll" t="Include" />
-    <e p="C:\Users\Sam\.nuget\packages\nunit3testadapter\3.15.1\build\netcoreapp2.0\NUnit3.TestAdapter.pdb" t="Include" />
-    <e p="C:\Users\Sam\AppData\local\JetBrains\Rider2020.3\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\Sam\AppData\local\JetBrains\Rider2020.3\resharper-host\local\Transient\Rider\v203\SolutionCaches\_Krestia.-1018906677.00" t="ExcludeRecursive" />
-    <e p="E:\Projects\Krestia" t="IncludeFlat">
+    <e p="D:\packages\.nuget\microsoft.testplatform.testhost\16.4.0\build\netcoreapp2.1\x64\testhost.dll" t="Include" />
+    <e p="D:\packages\.nuget\microsoft.testplatform.testhost\16.4.0\build\netcoreapp2.1\x64\testhost.exe" t="Include" />
+    <e p="D:\packages\.nuget\microsoft.testplatform.testhost\16.5.0\build\netcoreapp2.1\x64\testhost.dll" t="Include" />
+    <e p="D:\packages\.nuget\microsoft.testplatform.testhost\16.5.0\build\netcoreapp2.1\x64\testhost.exe" t="Include" />
+    <e p="D:\packages\.nuget\mstest.testadapter\2.1.0\build\_common\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll" t="Include" />
+    <e p="D:\packages\.nuget\mstest.testadapter\2.1.0\build\_common\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll" t="Include" />
+    <e p="D:\packages\.nuget\mstest.testadapter\2.1.0\build\netcoreapp1.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll" t="Include" />
+    <e p="D:\packages\.nuget\nunit3testadapter\3.15.1\build\netcoreapp2.0\nunit.engine.api.dll" t="Include" />
+    <e p="D:\packages\.nuget\nunit3testadapter\3.15.1\build\netcoreapp2.0\nunit.engine.dll" t="Include" />
+    <e p="D:\packages\.nuget\nunit3testadapter\3.15.1\build\netcoreapp2.0\NUnit3.TestAdapter.dll" t="Include" />
+    <e p="D:\packages\.nuget\nunit3testadapter\3.15.1\build\netcoreapp2.0\NUnit3.TestAdapter.pdb" t="Include" />
+    <e p="D:\Projects\Krestia" t="IncludeFlat">
       <e p=".github\workflows\dotnetcore.yml" t="Include" />
       <e p=".gitignore" t="Include" />
       <e p="Krestia.sln" t="IncludeFlat" />
@@ -130,6 +130,7 @@
       </e>
       <e p="KrestiaVortilo" t="IncludeRecursive">
         <e p="bin" t="ExcludeRecursive" />
+        <e p="Iloj.fs" t="Include" />
         <e p="ImperativaLegilo.fs" t="Include" />
         <e p="KrestiaVortilo.fsproj" t="IncludeRecursive" />
         <e p="Malinflektado.fs" t="Include" />

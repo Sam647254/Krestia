@@ -1,6 +1,7 @@
 ﻿namespace KrestiaVortilo
 
 open System
+open Iloj
 open Vorttipo
 open Sintaksanalizilo
 
@@ -8,7 +9,7 @@ module Malinflektado =
    type EniraVorto = { Vico: int; Pozo: int; Vorto: string }
 
    let testaVorto vorto = { Vico = 0; Pozo = 0; Vorto = vorto }
-   
+
    let malplenaEniraVorto = { Vico = 0; Pozo = 0; Vorto = "" }
 
    type Eraro = EniraVorto * string
@@ -26,9 +27,9 @@ module Malinflektado =
       { BazaVorto: string
         InflekcioŜtupoj: MalinflektaŜtupo list
         OriginalaVorto: EniraVorto }
-      
+
       override this.ToString() = this.OriginalaVorto.Vorto
-   
+
    let egalajVorttipoj =
       [ Argumento1, NombrigeblaKlaso
         Argumento2, NombrigeblaKlaso
@@ -177,10 +178,18 @@ module Malinflektado =
    let private inflekciojPerVorttipoj =
       [ NombrigeblaKlaso, klasajInflekcioj
         NenombrigeblaKlaso, klasajInflekcioj
-        AntaŭNombrigeblaEco, DifinitoFinaĵo("la", Apartigita) :: klasajInflekcioj
-        AntaŭNenombrigeblaEco, DifinitoFinaĵo("la", Apartigita) :: klasajInflekcioj
-        MalantaŭNombrigeblaEco, DifinitoFinaĵo("la", Apartigita) :: klasajInflekcioj
-        MalantaŭNenombrigeblaEco, DifinitoFinaĵo("la", Apartigita) :: klasajInflekcioj
+        AntaŭNombrigeblaEco,
+        DifinitoFinaĵo("la", Apartigita)
+        :: klasajInflekcioj
+        AntaŭNenombrigeblaEco,
+        DifinitoFinaĵo("la", Apartigita)
+        :: klasajInflekcioj
+        MalantaŭNombrigeblaEco,
+        DifinitoFinaĵo("la", Apartigita)
+        :: klasajInflekcioj
+        MalantaŭNenombrigeblaEco,
+        DifinitoFinaĵo("la", Apartigita)
+        :: klasajInflekcioj
         MalplenaVerbo, malplenaVerboInflekcioj
         NetransitivaVerbo, netransitivaVerboInflekcioj
         TransitivaVerbo, transitivaVerboInflekcioj
@@ -290,13 +299,12 @@ module Malinflektado =
       let bazoŜtupo =
          ĉuDifinito vorto akceptiNenombrigeblan
          |> Option.bind (fun vorttipo ->
-            if vorttipo = pravaVorttipo then
-               if ĉuBazo then
-                  Bazo (vorttipo, inflekcio, vorto) |> Some
+               if vorttipo = pravaVorttipo then
+                  if ĉuBazo
+                  then Bazo(vorttipo, inflekcio, vorto) |> Some
+                  else Nebazo(vorttipo, inflekcio, vorto, "???") |> Some
                else
-                  Nebazo (vorttipo, inflekcio, vorto, "???") |> Some
-            else
-               None)
+                  None)
 
       if Option.isNone bazoŜtupo then
          nebazajDifinitoFinaĵoj
@@ -312,13 +320,16 @@ module Malinflektado =
    let malinflektiSePredikativoInfinito vorto inflekcio =
       ĉuPredikativoEsti vorto
       |> Option.bind (fun vorttipo ->
-         infinitivoAlDifinito vorto
-         |> Option.map (fun difinito -> Nebazo(vorttipo, inflekcio, difinito, "???")))
+            infinitivoAlDifinito vorto
+            |> Option.map (fun difinito -> Nebazo(vorttipo, inflekcio, difinito, "???")))
 
    let rec malinflekti (vorto: EniraVorto): Result<MalinflektaŜtupo, Eraro> =
       let ĉeno = vorto.Vorto
+
       match ĉeno with
-      | _ when ĉuFremdaVorto ĉeno -> Bazo(FremdaVorto, Inflekcio.FremdaVorto, ĉeno) |> Ok
+      | _ when ĉuFremdaVorto ĉeno ->
+         Bazo(FremdaVorto, Inflekcio.FremdaVorto, ĉeno)
+         |> Ok
       | _ when ĉuLokokupilo ĉeno -> Bazo(Lokokupilo, Difinito, ĉeno) |> Ok
       | _ when ĉuCifero ĉeno -> Bazo(Cifero, Inflekcio.Cifero, ĉeno) |> Ok
       | _ ->
@@ -360,30 +371,34 @@ module Malinflektado =
                ĉuBazo ĉeno
                |> Option.map (fun vorttipo -> Bazo(vorttipo, bazaInflekcioDe vorttipo, ĉeno)))
          |> Option.orElseWith (fun () ->
-            infinitivoAlDifinito ĉeno
-            |> Option.bind (fun ebleDifinito ->
-               ĉuDifinito ebleDifinito AkceptiNenombrigeblan
-               |> Option.map (fun vorttipo -> Nebazo(vorttipo, PredikativoEsti, ebleDifinito, "???"))))
+               infinitivoAlDifinito ĉeno
+               |> Option.bind (fun ebleDifinito ->
+                     ĉuDifinito ebleDifinito AkceptiNenombrigeblan
+                     |> Option.map (fun vorttipo -> Nebazo(vorttipo, PredikativoEsti, ebleDifinito, "???"))))
          |> Option.map Ok
          |> Option.defaultValue
                ((vorto, (sprintf "%s cannot be decomposed" ĉeno))
                 |> Error)
 
-   and tuteMalinflekti (vorto: EniraVorto) =
-      malinflekti vorto
-      |> Result.bind (fun malinflektita ->
-            match malinflektita with
-            | Bazo (_, _, bazaVorto) ->
+   and tuteMalinflekti (vorto: EniraVorto): Result<MalinflektitaVorto, Eraro> =
+      rezulto {
+         let! malinflektita = malinflekti vorto
+
+         match malinflektita with
+         | Bazo (_, _, bazaVorto) ->
+            return
                { BazaVorto = bazaVorto
                  InflekcioŜtupoj = List.singleton malinflektita
                  OriginalaVorto = vorto }
-               |> Ok
-            | Nebazo (_, _, restanta, _) ->
-               tuteMalinflekti { vorto with Vorto = restanta }
-               |> Result.map (fun sekva ->
-                     { sekva with
-                          InflekcioŜtupoj = malinflektita :: sekva.InflekcioŜtupoj
-                          OriginalaVorto = vorto }))
+         | Nebazo (_, _, restanta, _) ->
+            let! sekva = tuteMalinflekti { vorto with Vorto = restanta }
+
+            return
+               { sekva with
+                    InflekcioŜtupoj = malinflektita :: sekva.InflekcioŜtupoj
+                    OriginalaVorto = vorto }
+      }
+
 
    and tuteMalinflektiĈiujn (ĉenoj: EniraVorto list) =
       ĉenoj
@@ -414,8 +429,7 @@ module Malinflektado =
                match solaŜtupo with
                | Bazo (vorttipo, inflekcio, _) ->
                   (inflekcio = Progresivo)
-                  && verboTipoj
-                  |> Set.contains vorttipo
+                  && verboTipoj |> Set.contains vorttipo
                | _ -> false
             | _ -> false)
 
@@ -434,7 +448,7 @@ module Malinflektado =
              - (if vorto.EndsWith("sh") then 2 else 1))
       else
          vorto
-         
+
    and vortaraBazoDe (vorto: string) = (bazoDe vorto, ĉuVerboInfinitivoB vorto)
 
    and bazoPorDividi (infinitivo: string) =
@@ -452,9 +466,11 @@ module Malinflektado =
         "t"
         "p" ]
       |> List.tryPick (fun finaĵo ->
-            if infinitivo.EndsWith(finaĵo) && (not (infinitivo.StartsWith("h")))
-            then Some(infinitivo.Substring(0, infinitivo.Length - finaĵo.Length))
-            else None)
+            if infinitivo.EndsWith(finaĵo)
+               && (not (infinitivo.StartsWith("h"))) then
+               Some(infinitivo.Substring(0, infinitivo.Length - finaĵo.Length))
+            else
+               None)
       |> Option.defaultValue infinitivo
       |> bazoDe
 
@@ -486,6 +502,7 @@ module Malinflektado =
       |> Option.bind (fun verboTipo -> Map.tryFind verboTipo malplenigeblaVerboTipoj)
       |> Option.map (fun tipoj ->
             let bazo = bazoDe ĉeno
+
             tipoj
             |> Set.map (fun tipo -> Map.find tipo verboFinaĵoj)
             |> Set.map (fun finaĵo -> bazo + finaĵo))
@@ -631,8 +648,7 @@ module Malinflektado =
          || vorttipo = Cifero
       | Nebazo (_, inflekcio, _, _) -> Set.contains inflekcio argumentajInflekcioj
 
-   let ĉuDifinita (vorto: MalinflektitaVorto) =
-      ĉuArgumentaVorto vorto
+   let ĉuDifinita (vorto: MalinflektitaVorto) = ĉuArgumentaVorto vorto
 
    let ĉuMalantaŭModifantaVorto (vorto: MalinflektitaVorto) =
       match vorto.InflekcioŜtupoj.Head with
@@ -643,12 +659,12 @@ module Malinflektado =
       match vorto.InflekcioŜtupoj.Head with
       | Nebazo (_, inflekcio, _, _) -> Set.contains inflekcio antaŭModifantajInflekcioj
       | _ -> false
-   
+
    let ĉuMalantaŭModifanto (vorto: MalinflektitaVorto) =
       match vorto.InflekcioŜtupoj.Head with
       | Bazo (vorttipo, _, _) -> vorttipo = MalantaŭModifanto
       | _ -> false
-      
+
    let ĉuAntaŭModifanto vorto =
       match vorto.InflekcioŜtupoj.Head with
       | Bazo (vorttipo, _, _) -> vorttipo = AntaŭModifanto
@@ -656,12 +672,12 @@ module Malinflektado =
 
    let ĉuSolaArgumento (vorto: MalinflektitaVorto) =
       match vorto.InflekcioŜtupoj.Head with
-      | Nebazo (_, inflekcio, _, _) ->
-         inflekcio = Sola
+      | Nebazo (_, inflekcio, _, _) -> inflekcio = Sola
       | _ -> false
 
    let ĉuAntaŭEco (vorto: MalinflektitaVorto) =
       let unuaInflekcio = List.last vorto.InflekcioŜtupoj
+
       match unuaInflekcio with
       | Bazo (vorttipo, inflekcio, _) ->
          (vorttipo = AntaŭNombrigeblaEco
@@ -672,6 +688,7 @@ module Malinflektado =
 
    let ĉuMalantaŭEco (vorto: MalinflektitaVorto) =
       let unuaInflekcio = List.last vorto.InflekcioŜtupoj
+
       match unuaInflekcio with
       | Bazo (vorttipo, inflekcio, _) ->
          (vorttipo = MalantaŭNombrigeblaEco
@@ -689,7 +706,8 @@ module Malinflektado =
                 || vorttipo = AntaŭNenombrigeblaEco
                 || vorttipo = MalantaŭNombrigeblaEco
                 || vorttipo = MalantaŭNenombrigeblaEco)
-               && (inflekcio = Havaĵo) || (inflekcio = Apartigita)
+               && (inflekcio = Havaĵo)
+               || (inflekcio = Apartigita)
             | Bazo (_, _, _) -> false)
 
    let ĉiujInflekciojDe vorto =
