@@ -296,32 +296,30 @@ module Malinflektado =
       |> List.tryPick (fun (finaĵo, vorttipo) -> if vorto.EndsWith(finaĵo) then Some vorttipo else None)
 
    let malinflektiSeDifinito (vorto: string) inflekcio akceptiNenombrigeblan ĉuBazo pravaVorttipo finaĵo =
-      let bazoŜtupo =
-         ĉuDifinito vorto akceptiNenombrigeblan
-         |> Option.bind (fun vorttipo ->
-               if vorttipo = pravaVorttipo then
-                  if ĉuBazo
-                  then Bazo(vorttipo, inflekcio, vorto) |> Some
-                  else Nebazo(vorttipo, inflekcio, vorto, finaĵo) |> Some
-               else
-                  None)
-
-      if Option.isNone bazoŜtupo then
-         nebazajDifinitoFinaĵoj
-         |> List.tryPick (fun (finaĵo, _, vorttipo, _) ->
-               if vorto.EndsWith(finaĵo)
-                  && vorto.Length > finaĵo.Length then
-                  Some(Nebazo(vorttipo, inflekcio, vorto, finaĵo))
-               else
-                  None)
-      else
-         bazoŜtupo
+      opcio {
+         let! bazaŜtupo = opcio {
+            let! vorttipo = ĉuDifinito vorto akceptiNenombrigeblan
+            if vorttipo = pravaVorttipo then
+               if ĉuBazo
+               then return Bazo(vorttipo, inflekcio, vorto)
+               else return Nebazo(vorttipo, inflekcio, vorto, finaĵo)
+         }
+         return bazaŜtupo
+         return!
+            nebazajDifinitoFinaĵoj
+            |> List.tryPick (fun (finaĵo, _, vorttipo, _) ->
+                  if vorto.EndsWith(finaĵo) && vorto.Length > finaĵo.Length then
+                     Some <| Nebazo(vorttipo, inflekcio, vorto, finaĵo)
+                  else
+                     None)
+      }
 
    let malinflektiSePredikativoInfinito vorto inflekcio =
-      ĉuPredikativoEsti vorto
-      |> Option.bind (fun vorttipo ->
-            infinitivoAlDifinito vorto
-            |> Option.map (fun difinito -> Nebazo(vorttipo, inflekcio, difinito, "unknown1")))
+      opcio {
+         let! vorttipo = ĉuPredikativoEsti vorto
+         let! difinito = infinitivoAlDifinito vorto
+         return Nebazo(vorttipo, inflekcio, difinito, "unknown1")
+      }
 
    let rec malinflekti (vorto: EniraVorto): Result<MalinflektaŜtupo, Eraro> =
       let ĉeno = vorto.Vorto
