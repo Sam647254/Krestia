@@ -29,3 +29,12 @@ module Iloj =
       member _.Zero () = None
    
    let opcio = OpcioBuilder()
+   
+   let rec foldR (funkcio: ('a -> 'b -> Result<'a, 'c>)) (komenco: 'a) (listo: seq<'b>): Result<'a, 'c> =
+      rezulto {
+         if Seq.length listo = 0 then
+            return komenco
+         else
+            let! unua = funkcio komenco <| Seq.head listo
+            return! foldR funkcio unua <| Seq.tail listo
+      }
