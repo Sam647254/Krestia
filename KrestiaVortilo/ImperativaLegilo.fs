@@ -138,7 +138,7 @@ module Imperativa =
          | Bazo (_, i, _) ->
             i = inflekcio
             || (inflekcio = Difinito && i = Inflekcio.FremdaVorto)
-      | ArgumentaNombro n -> inflekcio = Inflekcio.Cifero
+      | ArgumentaNombro _ -> inflekcio = Inflekcio.Cifero
 
    type ImperativaLegilo(enira: Queue<MalinflektitaVorto>) =
 
@@ -155,8 +155,10 @@ module Imperativa =
               LegitajNombroj = LinkedList<Argumento>() }
 
          let rec legiAk (): Result<Rezulto, Eraro> =
-            this.LegiSekvan konteksto
-            |> Result.bind (fun _ -> if enira.Count > 0 then legiAk () else this.LegiFrazojn konteksto)
+            rezulto {
+               do! this.LegiSekvan konteksto
+               return! if enira.Count > 0 then legiAk () else this.LegiFrazojn konteksto
+            }
 
          legiAk ()
 
@@ -260,45 +262,50 @@ module Imperativa =
          }
 
       member private this.LegiArgumenton konteksto uziModifantojn: Result<Argumento, Eraro> =
-         if enira.Count = 0 then
-            Error(Eraro(malplenaEniraVorto, "Unexpected end of input"))
-         else
-            let sekva = enira.Peek()
-
-            if ĉuCifero sekva.OriginalaVorto.Vorto then
-               this.LegiNombron true
-               |> Result.map (fun (vortoj, ciferoj) ->
-                     let nombro =
-                        ArgumentaNombro
-                           { Nombro = List.rev vortoj
-                             Valuo = Decimal.Parse(ciferoj)
-                             Operacioj = Queue<Modifanto>() }
-
-                     konteksto.LegitajNombroj.AddLast(nombro) |> ignore
-
-                     konteksto.LastaModifeblaVorto.AddLast(ModifeblaNombro nombro)
-                     |> ignore
-
-                     nombro)
-            elif ĉuDifinita sekva then
-               this.LegiPlenanArgumenton (enira.Dequeue()) konteksto uziModifantojn
-            elif ĉuAntaŭModifantaVorto sekva then
-               this.LegiPridiranton konteksto
-               |> Result.bind (fun pridiranto ->
-                     konteksto.AtendantajPridirantoj.AddLast(pridiranto)
-                     |> ignore
-
-                     this.LegiArgumenton konteksto uziModifantojn)
-            elif ĉuMalantaŭModifantaVorto sekva then
-               this.LegiPridiranton konteksto
-               |> Result.bind (fun pridiranto ->
-                     this.AldoniPridiranton pridiranto (konteksto.LastaModifeblaVorto.Last.Value)
-                     this.LegiArgumenton konteksto uziModifantojn)
-            elif ĉuMalantaŭModifanto sekva then
-               this.LegiMalantaŭanModifanton konteksto
-               |> Result.bind (fun () -> this.LegiArgumenton konteksto uziModifantojn)
+         rezulto {
+            if enira.Count = 0 then
+               return!
+                  Error
+                  <| Eraro(malplenaEniraVorto, "Unexpected end of input")
             else
-               Error(Eraro(sekva.OriginalaVorto, "Unexpected input"))
+               let sekva = enira.Peek()
+
+               if ĉuCifero sekva.OriginalaVorto.Vorto then
+                  let! (vortoj, ciferoj) = this.LegiNombron true
+
+                  let nombro =
+                     ArgumentaNombro
+                        { Nombro = List.rev vortoj
+                          Valuo = Decimal.Parse(ciferoj)
+                          Operacioj = Queue<Modifanto>() }
+
+                  konteksto.LegitajNombroj.AddLast(nombro) |> ignore
+
+                  konteksto.LastaModifeblaVorto.AddLast(ModifeblaNombro nombro)
+                  |> ignore
+
+                  return nombro
+               elif ĉuDifinita sekva then
+                  return! this.LegiPlenanArgumenton (enira.Dequeue()) konteksto uziModifantojn
+               elif ĉuAntaŭModifantaVorto sekva then
+                  let! pridiranto = this.LegiPridiranton konteksto
+
+                  konteksto.AtendantajPridirantoj.AddLast(pridiranto)
+                  |> ignore
+
+                  return! this.LegiArgumenton konteksto uziModifantojn
+               elif ĉuMalantaŭModifantaVorto sekva then
+                  let! pridiranto = this.LegiPridiranton konteksto
+                  this.AldoniPridiranton pridiranto (konteksto.LastaModifeblaVorto.Last.Value)
+                  return! this.LegiArgumenton konteksto uziModifantojn
+               elif ĉuMalantaŭModifanto sekva then
+                  do! this.LegiMalantaŭanModifanton konteksto
+                  return! this.LegiArgumenton konteksto uziModifantojn
+               else
+                  return!
+                     Error
+                     <| Eraro(sekva.OriginalaVorto, "Unexpected input")
+         }
 
       member private this.LegiPlenanArgumenton sekva konteksto uziModifantojn =
          let novaArgumento =
@@ -317,7 +324,7 @@ module Imperativa =
                   |> List.ofSeq
 
                modifantoj
-               |> List.map (fun m -> konteksto.AtendantajModifantoj.Remove(m))
+               |> List.map konteksto.AtendantajModifantoj.Remove
                |> ignore
 
                modifantoj
@@ -379,6 +386,7 @@ module Imperativa =
          match vorto with
          | ModifeblaVerbo (verbo) -> verbo.Vorto.Modifantoj.Add(pridiranto) |> ignore
          | ModifeblaArgumento (argumento) -> this.AldoniModifantonAlArgumento pridiranto argumento
+         | _ -> ()
 
       member private this.AldoniModifantonAlArgumento pridiranto vorto =
          match vorto with
@@ -389,125 +397,128 @@ module Imperativa =
       member private this.LegiPredikaton konteksto =
          let sekva = enira.Dequeue()
 
-         this.LegiModifantojnPor sekva konteksto
-         |> Result.map (fun modifantoj ->
-               let novaVerbo =
-                  verbo
-                     sekva
-                     (Seq.append modifantoj konteksto.AtendantajPridirantoj
-                      |> List.ofSeq)
+         rezulto {
+            let! modifantoj = this.LegiModifantojnPor sekva konteksto
 
-               konteksto.AtendantajPridirantoj.Clear()
+            let novaVerbo =
+               verbo
+                  sekva
+                  (Seq.append modifantoj konteksto.AtendantajPridirantoj
+                   |> List.ofSeq)
 
-               konteksto.LastaModifeblaVorto.AddLast(ModifeblaVerbo novaVerbo)
-               |> ignore
+            konteksto.AtendantajPridirantoj.Clear()
 
-               konteksto.LastaModifeblaVerbo.AddLast(novaVerbo)
-               |> ignore
+            konteksto.LastaModifeblaVorto.AddLast(ModifeblaVerbo novaVerbo)
+            |> ignore
 
-               konteksto.LegitajModifeblajVortoj.AddLast(novaVerbo.Vorto)
-               |> ignore
+            konteksto.LastaModifeblaVerbo.AddLast(novaVerbo)
+            |> ignore
 
-               novaVerbo)
+            konteksto.LegitajModifeblajVortoj.AddLast(novaVerbo.Vorto)
+            |> ignore
+
+            return novaVerbo
+         }
+
 
       member private this.LegiPridiranton konteksto: Result<Modifanto, Eraro> =
          let sekva = enira.Dequeue()
 
-         this.LegiModifantojnPor sekva konteksto
-         |> Result.map (fun modifantoj ->
-               let (argumento, vorto) = plenaModifitaArgumento sekva modifantoj
+         rezulto {
+            let! modifantoj = this.LegiModifantojnPor sekva konteksto
 
-               konteksto.LegitajModifeblajVortoj.AddLast vorto
-               |> ignore
+            let (argumento, vorto) = plenaModifitaArgumento sekva modifantoj
 
-               Pridiranto argumento)
+            konteksto.LegitajModifeblajVortoj.AddLast vorto
+            |> ignore
+
+            return Pridiranto argumento
+         }
 
       member private this.LegiModifantojnPor (vorto: MalinflektitaVorto) konteksto: Result<Modifanto list, Eraro> =
          vorto.InflekcioŜtupoj
-         |> List.fold (fun ak sek ->
-               ak
-               |> Result.bind (fun listo ->
-                     let modifanto =
-                        match sek with
-                        | Nebazo _ -> Ok None
-                        | Bazo (vorttipo, _, bazaVorto) ->
-                           match vorttipo with
-                           | AntaŭNombrigeblaEco
-                           | AntaŭNenombrigeblaEco ->
-                              if ĉuEcoHavaĵo vorto then
-                                 Ok None
-                              else
-                                 let rezulto =
-                                    this.LegiArgumenton konteksto true
-                                    |> Result.map (EcoDe >> Some)
+         |> foldR (fun listo sek ->
+               let modifanto =
+                  match sek with
+                  | Nebazo _ -> Ok None
+                  | Bazo (vorttipo, _, bazaVorto) ->
+                     match vorttipo with
+                     | AntaŭNombrigeblaEco
+                     | AntaŭNenombrigeblaEco ->
+                        if ĉuEcoHavaĵo vorto then
+                           Ok None
+                        else
+                           let rezulto =
+                              this.LegiArgumenton konteksto true
+                              |> Result.map (EcoDe >> Some)
 
-                                 rezulto
-                           | MalantaŭNombrigeblaEco
-                           | MalantaŭNenombrigeblaEco ->
-                              if konteksto.Argumentoj.Count = 0 then
-                                 Error(Eraro(vorto.OriginalaVorto, "No precedent argument to associate with"))
-                              else
-                                 let argumento = konteksto.Argumentoj.Last.Value
-                                 konteksto.Argumentoj.RemoveLast()
+                           rezulto
+                     | MalantaŭNombrigeblaEco
+                     | MalantaŭNenombrigeblaEco ->
+                        if konteksto.Argumentoj.Count = 0 then
+                           Error <| Eraro(vorto.OriginalaVorto, "No precedent argument to associate with")
+                        else
+                           let argumento = konteksto.Argumentoj.Last.Value
+                           konteksto.Argumentoj.RemoveLast()
 
-                                 match konteksto.LastaModifeblaVorto.Last.Value with
-                                 | ModifeblaArgumento (_) -> konteksto.LastaModifeblaVorto.RemoveLast()
-                                 | _ -> ()
+                           match konteksto.LastaModifeblaVorto.Last.Value with
+                           | ModifeblaArgumento _ -> konteksto.LastaModifeblaVorto.RemoveLast()
+                           | _ -> ()
 
-                                 Ok(Some(EcoDe argumento))
-                           | NenombrigeblaKlaso ->
-                              if bazaVorto = "mine" then
-                                 this.LegiLokalanFrazon konteksto
-                                 |> Result.map (Mine >> Some)
-                              elif bazaVorto = "ene" then
-                                 this.LegiLokalanFrazon konteksto
-                                 |> Result.map (Ene >> Some)
-                              elif bazaVorto = "keni" then
-                                 let keni = senmodifantaVorto vorto
-                                 let keniArgumento = ArgumentaVorto keni
+                           Ok <| Some(EcoDe argumento)
+                     | NenombrigeblaKlaso ->
+                        if bazaVorto = "mine" then
+                           this.LegiLokalanFrazon konteksto
+                           |> Result.map (Mine >> Some)
+                        elif bazaVorto = "ene" then
+                           this.LegiLokalanFrazon konteksto
+                           |> Result.map (Ene >> Some)
+                        elif bazaVorto = "keni" then
+                           let keni = senmodifantaVorto vorto
+                           let keniArgumento = ArgumentaVorto keni
 
-                                 konteksto.LastaModifeblaArgumento.AddLast(keniArgumento)
-                                 |> ignore
+                           konteksto.LastaModifeblaArgumento.AddLast(keniArgumento)
+                           |> ignore
 
-                                 konteksto.LastaModifeblaVorto.AddLast(ModifeblaArgumento keniArgumento)
-                                 |> ignore
+                           konteksto.LastaModifeblaVorto.AddLast(ModifeblaArgumento keniArgumento)
+                           |> ignore
 
-                                 konteksto.LegitajModifeblajVortoj.AddLast(keni)
-                                 |> ignore
+                           konteksto.LegitajModifeblajVortoj.AddLast(keni)
+                           |> ignore
+                           
+                           rezulto {
+                              let! argumento1 = this.LegiArgumenton konteksto true
+                              let! argumento2 = this.LegiArgumenton konteksto true
+                              return Some <| Keni(argumento1, argumento2)
+                           }
+                        elif bazaVorto = "pini" then
+                           let pini = senmodifantaVorto vorto
+                           let piniArgumento = ArgumentaVorto pini
 
-                                 this.LegiArgumenton konteksto true
-                                 |> Result.bind (fun argumento1 ->
-                                       this.LegiArgumenton konteksto true
-                                       |> Result.map (fun argumento2 -> Keni(argumento1, argumento2) |> Some))
-                              elif bazaVorto = "pini" then
-                                 let pini = senmodifantaVorto vorto
-                                 let piniArgumento = ArgumentaVorto pini
+                           konteksto.LastaModifeblaArgumento.AddLast(piniArgumento)
+                           |> ignore
 
-                                 konteksto.LastaModifeblaArgumento.AddLast(piniArgumento)
-                                 |> ignore
+                           konteksto.LastaModifeblaVorto.AddLast(ModifeblaArgumento piniArgumento)
+                           |> ignore
 
-                                 konteksto.LastaModifeblaVorto.AddLast(ModifeblaArgumento piniArgumento)
-                                 |> ignore
+                           konteksto.LegitajModifeblajVortoj.AddLast(pini)
+                           |> ignore
+                           
+                           rezulto {
+                              let! argumento1 = this.LegiArgumenton konteksto true
+                              let! argumento2 = this.LegiArgumenton konteksto true
+                              let! argumento3 = this.LegiArgumenton konteksto true
+                              return Some <| Pini(argumento1, argumento2, argumento3)
+                           }
+                        else
+                           Ok None
+                     | _ -> Ok None
 
-                                 konteksto.LegitajModifeblajVortoj.AddLast(pini)
-                                 |> ignore
-
-                                 this.LegiArgumenton konteksto true
-                                 |> Result.bind (fun argumento1 ->
-                                       this.LegiArgumenton konteksto true
-                                       |> Result.bind (fun argumento2 ->
-                                             this.LegiArgumenton konteksto true
-                                             |> Result.map (fun argumento3 ->
-                                                   Pini(argumento1, argumento2, argumento3) |> Some)))
-                              else
-                                 Ok None
-                           | _ -> Ok None
-
+               modifanto
+               |> Result.map (fun modifanto ->
                      modifanto
-                     |> Result.map (fun modifanto ->
-                           modifanto
-                           |> Option.map (fun modifanto -> modifanto :: listo)
-                           |> Option.defaultValue listo))) (Ok [])
+                     |> Option.map (fun modifanto -> modifanto :: listo)
+                     |> Option.defaultValue listo)) []
 
       member private this.LegiMalantaŭanModifanton konteksto: Result<unit, Eraro> =
          let legitajVortoj =
@@ -608,7 +619,7 @@ module Imperativa =
       member private this.OriginalaVortoDe argumento =
          match argumento with
          | ArgumentaVorto a -> a.Kapo.OriginalaVorto
-         | ArgumentaNombro n -> failwith "TODO"
+         | ArgumentaNombro _ -> failwith "TODO"
 
    let legiImperative (eniro: string) =
       prepariEniron eniro false
