@@ -295,14 +295,14 @@ module Malinflektado =
       predikativoEstiFinaĵoj
       |> List.tryPick (fun (finaĵo, vorttipo) -> if vorto.EndsWith(finaĵo) then Some vorttipo else None)
 
-   let malinflektiSeDifinito (vorto: string) inflekcio akceptiNenombrigeblan ĉuBazo pravaVorttipo =
+   let malinflektiSeDifinito (vorto: string) inflekcio akceptiNenombrigeblan ĉuBazo pravaVorttipo finaĵo =
       let bazoŜtupo =
          ĉuDifinito vorto akceptiNenombrigeblan
          |> Option.bind (fun vorttipo ->
                if vorttipo = pravaVorttipo then
                   if ĉuBazo
                   then Bazo(vorttipo, inflekcio, vorto) |> Some
-                  else Nebazo(vorttipo, inflekcio, vorto, "???") |> Some
+                  else Nebazo(vorttipo, inflekcio, vorto, finaĵo) |> Some
                else
                   None)
 
@@ -321,7 +321,7 @@ module Malinflektado =
       ĉuPredikativoEsti vorto
       |> Option.bind (fun vorttipo ->
             infinitivoAlDifinito vorto
-            |> Option.map (fun difinito -> Nebazo(vorttipo, inflekcio, difinito, "???")))
+            |> Option.map (fun difinito -> Nebazo(vorttipo, inflekcio, difinito, "unknown1")))
 
    let rec malinflekti (vorto: EniraVorto): Result<MalinflektaŜtupo, Eraro> =
       let ĉeno = vorto.Vorto
@@ -364,7 +364,7 @@ module Malinflektado =
                      let difinito =
                         ĉeno.Substring(0, ĉeno.Length - finaĵo.Length)
 
-                     malinflektiSeDifinito difinito inflekcio AkceptiNenombrigeblan (finaĵo.Length = 0) vorttipo
+                     malinflektiSeDifinito difinito inflekcio AkceptiNenombrigeblan (finaĵo.Length = 0) vorttipo finaĵo
                   else
                      None)
          |> Option.orElseWith (fun () ->
@@ -374,7 +374,7 @@ module Malinflektado =
                infinitivoAlDifinito ĉeno
                |> Option.bind (fun ebleDifinito ->
                      ĉuDifinito ebleDifinito AkceptiNenombrigeblan
-                     |> Option.map (fun vorttipo -> Nebazo(vorttipo, PredikativoEsti, ebleDifinito, "???"))))
+                     |> Option.map (fun vorttipo -> Nebazo(vorttipo, PredikativoEsti, ebleDifinito, "unknown3"))))
          |> Option.map Ok
          |> Option.defaultValue
                ((vorto, (sprintf "%s cannot be decomposed" ĉeno))

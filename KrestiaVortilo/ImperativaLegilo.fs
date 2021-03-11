@@ -8,6 +8,7 @@ open KrestiaVortilo.Vorttipo
 open KrestiaVortilo.Malinflektado
 open KrestiaVortilo.Sintaksanalizilo
 open KrestiaVortilo.Sintaksanalizilo2
+open Iloj
 
 module Imperativa =
    type Rezulto =
@@ -195,11 +196,11 @@ module Imperativa =
                  AtendantajPredikatoj = LinkedList<AtendantaPredikato>() }
 
          let rec legiAk () =
-            this.LegiSekvan konteksto
-            |> Result.bind (fun _ ->
-                  if konteksto.AtendantajPredikatoj.Count = 0
+            rezulto {
+               let! _ = this.LegiSekvan konteksto
+               if konteksto.AtendantajPredikatoj.Count = 0
                      || konteksto.Argumentoj.Count < konteksto.AtendantajPredikatoj.First.Value.Valenco then
-                     legiAk ()
+                     return! legiAk ()
                   else
                      let predikato =
                         { Kapo = konteksto.AtendantajPredikatoj.First.Value.Verbo
@@ -209,7 +210,8 @@ module Imperativa =
                      |> Seq.map bazaKonteksto.Argumentoj.AddLast
                      |> ignore
 
-                     Ok predikato)
+                     return predikato
+            }
 
          legiAk ()
 
@@ -218,44 +220,38 @@ module Imperativa =
             let sekva = enira.Peek()
 
             if ĉuArgumentaVorto sekva then
-               this.LegiArgumenton konteksto true
-               |> Result.bind (fun argumento ->
-                     konteksto.Argumentoj.AddLast(argumento)
-                     |> ignore
-                     |> Ok)
+               rezulto {
+                  let! argumento = this.LegiArgumenton konteksto true
+                  konteksto.Argumentoj.AddLast(argumento) |> ignore
+               }
             elif ĉuAntaŭModifantaVorto sekva then
-               this.LegiPridiranton konteksto
-               |> Result.bind (fun pridiranto ->
-                     konteksto.AtendantajPridirantoj.AddLast(pridiranto)
-                     |> ignore
-                     |> Ok)
+               rezulto {
+                  let! pridiranto = this.LegiPridiranton konteksto
+                  konteksto.AtendantajPridirantoj.AddLast(pridiranto) |> ignore
+               }
             elif ĉuMalantaŭModifantaVorto sekva then
-               let lastaVorto = konteksto.LastaModifeblaVorto.Last.Value
-
-               this.LegiPridiranton konteksto
-               |> Result.bind (fun pridiranto ->
-                     let modifotaVorto =
+               rezulto {
+                  let lastaVorto = konteksto.LastaModifeblaVorto.Last.Value
+                  let! pridiranto = this.LegiPridiranton konteksto
+                  let modifotaVorto =
                         if ĉuAntaŭEco sekva then lastaVorto else konteksto.LastaModifeblaVorto.Last.Value
 
-                     this.AldoniPridiranton pridiranto modifotaVorto
-                     Ok())
+                  this.AldoniPridiranton pridiranto modifotaVorto
+               }
             elif ĉuPredikataVorto sekva then
-               this.LegiPredikaton konteksto
-               |> Result.bind (fun verbo ->
-                     let valenco = valencoDe sekva
-
-                     konteksto.AtendantajPredikatoj.AddLast({ Verbo = verbo; Valenco = valenco })
-                     |> ignore
-                     |> Ok)
+               rezulto {
+                  let! verbo = this.LegiPredikaton konteksto
+                  let valenco = valencoDe sekva
+                  konteksto.AtendantajPredikatoj.AddLast({ Verbo = verbo; Valenco = valenco }) |> ignore
+               }
             elif ĉuMalantaŭModifanto sekva then
                this.LegiMalantaŭanModifanton konteksto
             elif ĉuAntaŭModifanto sekva then
                this.LegiAntaŭanModifanton konteksto
             else
-               Eraro(sekva.OriginalaVorto, sprintf "Unexpected input: %s" sekva.OriginalaVorto.Vorto)
-               |> Error
+               Error <| Eraro(sekva.OriginalaVorto, sprintf "Unexpected input: %s" sekva.OriginalaVorto.Vorto)
          else
-            Error(Eraro(malplenaEniraVorto, "Unexpected end of input"))
+            Error <| Eraro(malplenaEniraVorto, "Unexpected end of input")
 
       member private this.LegiArgumenton konteksto uziModifantojn: Result<Argumento, Eraro> =
          if enira.Count = 0 then
@@ -556,8 +552,10 @@ module Imperativa =
          |> Option.map (fun legitaModifanto ->
                match legitaModifanto.ModifantoInflekcioj with
                | [ Predikato ] ->
-                  this.LegiLokalanFrazon konteksto
-                  |> Result.map (fun frazo -> ModifantoKunFrazo(sekva, frazo))
+                  rezulto {
+                     let! frazo = this.LegiLokalanFrazon konteksto
+                     return ModifantoKunFrazo(sekva, frazo)
+                  }
                | _ when legitaModifanto.PlenaVorto = "nil" ->
                   let lastaVorto = konteksto.LastaModifeblaVorto.Last.Value
 
