@@ -38,3 +38,5 @@ module Iloj =
             let! unua = funkcio komenco <| Seq.head listo
             return! foldR funkcio unua <| Seq.tail listo
       }
+   
+   let todo () = failwith "TODO"
