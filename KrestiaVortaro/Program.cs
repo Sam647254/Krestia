@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using KrestiaVortaroBazo;
 using Newtonsoft.Json;
@@ -115,6 +116,13 @@ timeran <KV> <eniro> <eliro>
                   var indekso = new NovaVortaraIndekso(enhavo);
                   Agoj.ĜisdatigiVerbojn(indekso, eniro);
                   await File.WriteAllTextAsync(args[1], indekso.IgiEnJson());
+                  break;
+               }
+               case "nekategorigitaj": {
+                  var enhavo = await File.ReadAllTextAsync(args[1]);
+                  var indekso = new NovaVortaraIndekso(enhavo);
+                  var vortoj = Agoj.ListiNekategorigitajVertojn(indekso).Select(v => $"{v}:");
+                  await File.WriteAllLinesAsync(args[2], vortoj);
                   break;
                }
             }

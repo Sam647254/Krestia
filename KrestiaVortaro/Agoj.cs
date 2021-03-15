@@ -377,6 +377,12 @@ namespace KrestiaVortaro {
          }
       }
 
+      public static IEnumerable<string> ListiNekategorigitajVertojn(NovaVortaraIndekso vortaro) {
+         var ĉiujVortoj = vortaro.Indekso.Keys.ToImmutableHashSet();
+         var kategorigitajVortoj = vortaro.Kategorioj.SelectMany(k => k.Vortoj).ToImmutableHashSet();
+         return ĉiujVortoj.Except(kategorigitajVortoj);
+      }
+
       private static IEnumerable<VortaraKategorio> AnstataŭigiEnKategorio(IEnumerable<VortaraKategorio> kategorioj,
          IDictionary<string, string> anstataŭaĵoj) {
          return kategorioj.Select(

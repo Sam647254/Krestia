@@ -9,11 +9,9 @@ namespace KrestiaServilo.Controllers {
    [Route("api")]
    public class VortoController : ControllerBase {
       private readonly IVortaroService _vortaroService;
-      private readonly IBlissFonto _blissFonto;
 
-      public VortoController(IVortaroService vortaroService, IBlissFonto blissFonto) {
+      public VortoController(IVortaroService vortaroService) {
          _vortaroService = vortaroService;
-         _blissFonto = blissFonto;
       }
 
       [HttpGet("vorto/{vorto}")]
