@@ -1,0 +1,28 @@
+@import "../koloroj";
+
+.peto {
+   margin-bottom: 30px;
+}
+
+.rezulto {
+   margin-bottom: 15px;
+}
+
+.rezulto-vorto {
+   font-family: 'Nunito', sans-serif;
+   font-size: 2em;
+   margin-right: 8px;
+}
+
+.gloso-tabelo {
+   border: $neĝo solid 2px;
+   margin: 30px auto;
+
+   thead th {
+      border-bottom: $neĝo solid 1px;
+   }
+
+   th, td {
+      padding: 4px;
+   }
+}

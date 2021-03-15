@@ -1,0 +1,101 @@
+@import "../koloroj";
+
+@mixin ŝveba-vorto($koloro) {
+  box-shadow: 0 0 4px 2px $koloro;
+  background-color: $koloro;
+}
+
+.legilo {
+  margin-top: 20px;
+}
+
+.legilo-eniro {
+  width: 700px;
+  border: $neĝo solid 2px;
+  background-color: $revo;
+  color: $neĝo;
+  padding: 7px;
+  font-family: "Lato", sans-serif;
+  margin-bottom: 10px;
+}
+
+.legi-butono {
+  display: block;
+  margin: 0 auto;
+}
+
+.verbo {
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.predikata-vorto {
+  font-weight: bold;
+}
+
+.argumenta-vorto {
+  display: inline-block;
+  margin-right: 4px;
+}
+
+.predikato {
+  margin-bottom: 10px;
+  display: block;
+}
+
+.hover-parent {
+  @include ŝveba-vorto($neĝo70);
+}
+
+.hover-self {
+  @include ŝveba-vorto($neĝo40);
+}
+
+.hover-child {
+  @include ŝveba-vorto($neĝo15);
+}
+
+.vorto-afiŝo {
+  position: relative;
+  display: inline-block;
+}
+
+.vorto-gloso {
+  visibility: hidden;
+  position: absolute;
+  max-width: 400px;
+  background-color: $revo;
+  border: 2px solid $neĝo;
+  padding: 4px;
+  z-index: 1;
+  bottom: 100%;
+  margin-bottom: 4px;
+  left: 0%;
+
+  p {
+    margin: 0;
+    font-weight: initial;
+  }
+}
+
+.vorto-afiŝo:hover .vorto-gloso {
+  visibility: visible;
+}
+
+.eraro-afiŝo {
+  //animation: EraroAfiŝoAnimado 1.5s infinite;
+  //animation-timing-function: ease-in;
+}
+
+@keyframes EraroAfiŝoAnimado {
+  0% {
+    opacity: 100%;
+  }
+  100% {
+    opacity: 40%;
+  }
+}
+
+.glosa-info {
+  border-top: $neĝo solid 1px;
+}

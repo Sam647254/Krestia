@@ -44,6 +44,59 @@
         <e p="appsettings.json" t="Include" />
         <e p="ArgumentoJsonConverter.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="ClientApp" t="Include">
+          <e p=".gitignore" t="Include" />
+          <e p=".pnp.js" t="Include" />
+          <e p=".yarn\unplugged\node-sass-npm-4.14.1-edc7772b3a\node_modules\node-sass" t="IncludeRecursive" />
+          <e p=".yarnrc.yml" t="Include" />
+          <e p="package.json" t="Include" />
+          <e p="public" t="Include">
+            <e p="favicon.ico" t="Include" />
+            <e p="index.html" t="Include" />
+            <e p="logo192.png" t="Include" />
+            <e p="logo512.png" t="Include" />
+            <e p="manifest.json" t="Include" />
+            <e p="robots.txt" t="Include" />
+          </e>
+          <e p="README.md" t="Include" />
+          <e p="src" t="Include">
+            <e p="_koloroj.scss" t="Include" />
+            <e p="API.ts" t="Include" />
+            <e p="App.scss" t="Include" />
+            <e p="App.test.tsx" t="Include" />
+            <e p="App.tsx" t="Include" />
+            <e p="index.css" t="Include" />
+            <e p="index.tsx" t="Include" />
+            <e p="logo.svg" t="Include" />
+            <e p="Partoj" t="Include">
+              <e p="APIKomponanto.tsx" t="Include" />
+              <e p="KategoriaVortlisto.tsx" t="Include" />
+              <e p="Legilo.scss" t="Include" />
+              <e p="Legilo.tsx" t="Include" />
+              <e p="Serĉilo.tsx" t="Include" />
+              <e p="Timeran.scss" t="Include" />
+              <e p="Timeran.tsx" t="Include" />
+              <e p="TipaVortlisto.tsx" t="Include" />
+              <e p="Trovi.scss" t="Include" />
+              <e p="Trovi.tsx" t="Include" />
+              <e p="Vortlisto.scss" t="Include" />
+              <e p="Vortlisto.tsx" t="Include" />
+              <e p="Vorto.scss" t="Include" />
+              <e p="Vorto.tsx" t="Include" />
+              <e p="Vorttabelo.scss" t="Include" />
+              <e p="Vorttabelo.tsx" t="Include" />
+              <e p="Ĉefpaĝo.tsx" t="Include" />
+            </e>
+            <e p="react-app-env.d.ts" t="Include" />
+            <e p="serviceWorker.ts" t="Include" />
+            <e p="setupTests.ts" t="Include" />
+          </e>
+          <e p="tsconfig.json" t="Include" />
+          <e p="UNLICENSE" t="Include" />
+          <e p="vercel.json" t="Include" />
+          <e p="vercel.production.json" t="Include" />
+          <e p="yarn.lock" t="Include" />
+        </e>
         <e p="Controllers" t="Include">
           <e p="LegiloController.cs" t="Include" />
           <e p="VortoController.cs" t="Include" />
@@ -53,7 +106,7 @@
         <e p="ModifantoJsonConverter.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
-            <e p="netcoreapp3.1" t="Include">
+            <e p="net5.0" t="Include">
               <e p="KrestiaServilo.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
@@ -75,7 +128,7 @@
         <e p="KrestiaServilo.Testo.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
-            <e p="netcoreapp3.1" t="Include">
+            <e p="net5.0" t="Include">
               <e p="KrestiaServilo.Testo.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
@@ -109,7 +162,7 @@
         <e p="KrestiaVortaro.Testo.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
-            <e p="netcoreapp3.1" t="Include">
+            <e p="net5.0" t="Include">
               <e p="KrestiaVortaro.Testo.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
