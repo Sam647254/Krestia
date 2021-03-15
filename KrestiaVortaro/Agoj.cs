@@ -281,7 +281,7 @@ namespace KrestiaVortaro {
       public static NovaJsonVortaro IgiEnNovaVortaro(IEnumerable<Vorto> vortoj, IEnumerable<VortaraKategorio> kategorioj) {
          var groupoj = vortoj.GroupBy(vorto => Malinflektado.vortaraTipoDe(vorto.PlenaVorto))
             .ToDictionary(grupo => grupo.Key);
-         var substantivoj = groupoj["Class"]!.Select(s => new Substantivo {
+         var substantivoj = groupoj["Class"]!.Concat(groupoj["Associative class"]).Select(s => new Substantivo {
             Vorto = s.PlenaVorto,
             Signifo = s.Signifo,
             Gloso = s.GlosaSignifo,

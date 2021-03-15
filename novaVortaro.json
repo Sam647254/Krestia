@@ -1981,6 +1981,726 @@
         "lurika"
       ],
       "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "amegre",
+      "Signifo": "temperature of",
+      "Gloso": "temperature_of",
+      "Radikoj": [
+        "ameme"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "bedre",
+      "Signifo": "hand of",
+      "Gloso": "hand_of",
+      "Radikoj": [
+        "besegre"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "besedre",
+      "Signifo": "relative of",
+      "Gloso": "relative",
+      "Radikoj": [],
+      "Noto": "Refers to anyone in the family who does not have another more specific kinship term"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "besegre",
+      "Signifo": "tool for...",
+      "Gloso": "tool",
+      "Radikoj": [],
+      "Noto": "Refers to a tool for performing an action"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "bevidre",
+      "Signifo": "voice of",
+      "Gloso": "voice",
+      "Radikoj": [
+        "buvidre"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "bimigre",
+      "Signifo": "anger, wrath, rage of",
+      "Gloso": "anger",
+      "Radikoj": [
+        "bimiti"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "bodogre",
+      "Signifo": "beard of, mustache of",
+      "Gloso": "beard_of",
+      "Radikoj": [
+        "bomodre",
+        "dolidre"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "bodre",
+      "Signifo": "father of",
+      "Gloso": "father",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "bomodre",
+      "Signifo": "chin of",
+      "Gloso": "chin_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "bretodre",
+      "Signifo": "son of",
+      "Gloso": "son",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "buridre",
+      "Signifo": "tongue of",
+      "Gloso": "tongue_of",
+      "Radikoj": [
+        "buvidre"
+      ],
+      "Noto": "Refers to the organ, not languages"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "buvidre",
+      "Signifo": "mouth of",
+      "Gloso": "mouth",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "dedre",
+      "Signifo": "moment of",
+      "Gloso": "moment",
+      "Radikoj": [],
+      "Noto": "Used to denote \"when ...\" or \"at the moment when ...\""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "delegre",
+      "Signifo": "mood, emontional state of",
+      "Gloso": "mood",
+      "Radikoj": [
+        "demepa",
+        "leveka"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "delodre",
+      "Signifo": "back of",
+      "Gloso": "back_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "dolidre",
+      "Signifo": "hair of",
+      "Gloso": "hair_of",
+      "Radikoj": [],
+      "Noto": "Refers to any body hair"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "dunagre",
+      "Signifo": "age",
+      "Gloso": "age",
+      "Radikoj": [
+        "duna"
+      ],
+      "Noto": "Refers to the duration for which something has existed"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "edre",
+      "Signifo": "face of",
+      "Gloso": "face",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "emodre",
+      "Signifo": "worry, concern of",
+      "Gloso": "worry",
+      "Radikoj": [
+        "emonet"
+      ],
+      "Noto": "The associated word is the one having the worry"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "eradre",
+      "Signifo": "mistake, error made by",
+      "Gloso": "mistake",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "gedre",
+      "Signifo": "mother of",
+      "Gloso": "mother",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "gelidre",
+      "Signifo": "(daily) life of",
+      "Gloso": "life_of",
+      "Radikoj": [
+        "gelume",
+        "melidre"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "ginedre",
+      "Signifo": "jaw of",
+      "Gloso": "jaw_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "gladre",
+      "Signifo": "arm of",
+      "Gloso": "arm_of",
+      "Radikoj": [],
+      "Noto": "Refers to the limb"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "glodre",
+      "Signifo": "shoulder of",
+      "Gloso": "shoulder_of",
+      "Radikoj": [
+        "gladre"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "gredre",
+      "Signifo": "leg of",
+      "Gloso": "leg_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "gremegre",
+      "Signifo": "soul, spirit of",
+      "Gloso": "soul",
+      "Radikoj": [
+        "grema"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "gresigre",
+      "Signifo": "roof of",
+      "Gloso": "roof_of",
+      "Radikoj": [],
+      "Noto": "gremu"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "gritodre",
+      "Signifo": "daughter of",
+      "Gloso": "daughter",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "idogre",
+      "Signifo": "poison to...",
+      "Gloso": "poison",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kanedre",
+      "Signifo": "wave of",
+      "Gloso": "wave",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kebedre",
+      "Signifo": "head of (body)",
+      "Gloso": "head_of",
+      "Radikoj": [],
+      "Noto": "Cannot be used figuratively"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kemedre",
+      "Signifo": "neck of",
+      "Gloso": "neck_of",
+      "Radikoj": [
+        "kebedre"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kirigre",
+      "Signifo": "bravery, courage of",
+      "Gloso": "bravery",
+      "Radikoj": [
+        "kirika"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kregre",
+      "Signifo": "color of, colour of",
+      "Gloso": "colour_of",
+      "Radikoj": [
+        "krete"
+      ],
+      "Noto": "Followed by an object with a characteristic colour to denote that colour"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "kunidre",
+      "Signifo": "breast of, chest of",
+      "Gloso": "chest_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "leredre",
+      "Signifo": "current of, flow of",
+      "Gloso": "flow",
+      "Radikoj": [
+        "leres"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "levegre",
+      "Signifo": "grief, sorrow, sadness of",
+      "Gloso": "sadness",
+      "Radikoj": [
+        "levegre"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lidre",
+      "Signifo": "edge of",
+      "Gloso": "edge",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "ligre",
+      "Signifo": "name of",
+      "Gloso": "name_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "liredre",
+      "Signifo": "eye of",
+      "Gloso": "eye",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "lukregre",
+      "Signifo": "body of",
+      "Gloso": "body_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "marodre",
+      "Signifo": "aunt of, uncle of",
+      "Gloso": "aunt/uncle",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "meledre",
+      "Signifo": "stomach of",
+      "Gloso": "stomach_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "melidre",
+      "Signifo": "life (state) of",
+      "Gloso": "life_of",
+      "Radikoj": [
+        "melis"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "menedre",
+      "Signifo": "belly of",
+      "Gloso": "belly_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "mepogre",
+      "Signifo": "finger of, toe of",
+      "Gloso": "finger_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "metodre",
+      "Signifo": "nose of",
+      "Gloso": "nose_of",
+      "Radikoj": [
+        "metot"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "metogre",
+      "Signifo": "scent of, smell of",
+      "Gloso": "scent_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "miradre",
+      "Signifo": "significant other, soulmate",
+      "Gloso": "soulmate",
+      "Radikoj": [
+        "merat"
+      ],
+      "Noto": "Marriage does not change this usage of terms"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "moridre",
+      "Signifo": "brain of",
+      "Gloso": "brain_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "morodre",
+      "Signifo": "ancestor of",
+      "Gloso": "ancestor",
+      "Radikoj": [
+        "moromi"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "negre",
+      "Signifo": "interior of",
+      "Gloso": "interior",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "nelegre",
+      "Signifo": "year of",
+      "Gloso": "year",
+      "Radikoj": [
+        "nelelte"
+      ],
+      "Noto": "Refers to a named, specific year"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "nelvidre",
+      "Signifo": "cheek of",
+      "Gloso": "cheek_of",
+      "Radikoj": [],
+      "Noto": "Refers to facial cheek"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "nepidre",
+      "Signifo": "throat of",
+      "Gloso": "throat_of",
+      "Radikoj": [],
+      "Noto": "Refers to the body part only"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "nesegre",
+      "Signifo": "elbow of, knee of, joint of",
+      "Gloso": "joint_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "peledre",
+      "Signifo": "descendant of",
+      "Gloso": "descendant",
+      "Radikoj": [
+        "morodre"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "petrogre",
+      "Signifo": "taste of",
+      "Gloso": "taste_of",
+      "Radikoj": [
+        "petrot"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "pogre",
+      "Signifo": "flesh of, meat of",
+      "Gloso": "flesh_of",
+      "Radikoj": [],
+      "Noto": "Used only to describe animals and fruits"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "porodre",
+      "Signifo": "wound, painpoint of",
+      "Gloso": "wound_of",
+      "Radikoj": [],
+      "Noto": "May be used figuratively, depending on its associated class"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "pregre",
+      "Signifo": "weight of",
+      "Gloso": "weight_of",
+      "Radikoj": [
+        "prenta"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "remigre",
+      "Signifo": "human head hair of",
+      "Gloso": "hair_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "retigre",
+      "Signifo": "skin of",
+      "Gloso": "skin_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "ridre",
+      "Signifo": "vicinity of",
+      "Gloso": "vicinity_of",
+      "Radikoj": [],
+      "Noto": "Denotes \"around <object>\""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "rimogre",
+      "Signifo": "month of",
+      "Gloso": "month",
+      "Radikoj": [
+        "rimpe"
+      ],
+      "Noto": "Followed by a number to denote a specific month"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "segre",
+      "Signifo": "desire for",
+      "Gloso": "desire_for",
+      "Radikoj": [
+        "set"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "semagre",
+      "Signifo": "week of",
+      "Gloso": "week",
+      "Radikoj": [
+        "sempa"
+      ],
+      "Noto": "Refers to a named, specific week"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "sinedre",
+      "Signifo": "heart of",
+      "Gloso": "heart_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "todre",
+      "Signifo": "child (offspring) of",
+      "Gloso": "child",
+      "Radikoj": [
+        "tote"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "togedre",
+      "Signifo": "tail of",
+      "Gloso": "tail_of",
+      "Radikoj": [
+        "tokigre"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "tokigre",
+      "Signifo": "butt of, buttocks of",
+      "Gloso": "butt_of",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "tregre",
+      "Signifo": "end of",
+      "Gloso": "end",
+      "Radikoj": [
+        "trelot"
+      ],
+      "Noto": "Indicates the end of an action or a period (e.g. season or day)"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "trigre",
+      "Signifo": "start, beginning of",
+      "Gloso": "beginning",
+      "Radikoj": [
+        "trelit"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "venedre",
+      "Signifo": "sibling of",
+      "Gloso": "sibling",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "veredre",
+      "Signifo": "ear of",
+      "Gloso": "ear",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "vidre",
+      "Signifo": "lip of",
+      "Gloso": "lip_of",
+      "Radikoj": [
+        "buvidre"
+      ],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "vogodre",
+      "Signifo": "tooth of",
+      "Gloso": "tooth_of",
+      "Radikoj": [],
+      "Noto": "Usually refers to a person's complete set of teeth, unless specified using the singular inflection"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "vogre",
+      "Signifo": "midpoint of",
+      "Gloso": "midpoint",
+      "Radikoj": [],
+      "Noto": ""
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "vosedre",
+      "Signifo": "foot of, paw of",
+      "Gloso": "foot_of",
+      "Radikoj": [],
+      "Noto": "Refers to any body part that normally touches the ground"
+    },
+    {
+      "PlenaFormo": null,
+      "Vorto": "votogre",
+      "Signifo": "twin of",
+      "Gloso": "twin_of",
+      "Radikoj": [
+        "vora",
+        "tote"
+      ],
+      "Noto": ""
     }
   ],
   "Rekordoj": [],
