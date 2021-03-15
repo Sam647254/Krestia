@@ -101,7 +101,6 @@
           <e p="node_modules\jest-serializer" t="IncludeRecursive" />
           <e p="node_modules\jest-util" t="IncludeRecursive" />
           <e p="node_modules\jest-worker" t="IncludeRecursive" />
-          <e p="node_modules\node-sass" t="IncludeRecursive" />
           <e p="node_modules\pirates" t="IncludeRecursive" />
           <e p="node_modules\pretty-format" t="IncludeRecursive" />
           <e p="node_modules\react" t="IncludeRecursive" />

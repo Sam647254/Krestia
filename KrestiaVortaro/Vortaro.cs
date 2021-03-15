@@ -34,7 +34,7 @@ namespace KrestiaVortaro {
 
       public IImmutableDictionary<string, KategorioRespondo> KategoriaVortlisto =>
          Kategorioj!.Select(p => (p.Key,
-               new KategorioRespondo(p.Value.Vortoj.Select(v => new VortoKunSignifo(v, Indekso[v].Vorto)))))
+               new KategorioRespondo(p.Value.Vortoj.Select(v => new VortoKunSignifo(v, Indekso[v].Signifo)))))
             .ToImmutableSortedDictionary(p => p.Key, p => p.Item2);
 
       private Vortaro(IImmutableSet<VortaraVorto> vortoj, IImmutableSet<NovaKategorio> kategorioj) {

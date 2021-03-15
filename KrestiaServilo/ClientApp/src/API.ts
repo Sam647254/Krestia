@@ -100,8 +100,6 @@ export interface TipaVortlisto {
 export interface KategoriaVortlisto {
    [key: string]: {
       vortoj: VortoRespondo[];
-      subkategorioj: string[];
-      superkategorioj: string[];
    };
 }
 

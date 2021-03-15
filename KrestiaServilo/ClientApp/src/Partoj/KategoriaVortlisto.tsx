@@ -24,24 +24,6 @@ export const KategoriaVortlisto = () =>
                <ScrollableAnchor id={nomo}>
                   <div>
                      <h2>{nomo}</h2>
-                     {grupo.subkategorioj.length > 0 ? (
-                        <p>
-                           Subcategories:{" "}
-                           {grupo.subkategorioj
-                              .map(k => <a href={`#${k}`}>{k}</a>)
-                              .reduce(
-                                 (lasta, sekva) => [lasta, ", ", sekva] as any
-                              )}
-                        </p>
-                     ) : null}
-                     {grupo.superkategorioj.length > 0 ? (
-                        <p>
-                           A subcategory of:{" "}
-                           {grupo.superkategorioj
-                              .map(k => <a href={`#${k}`}>{k}</a>)
-                              .reduce((l, s) => [l, ", ", s] as any)}
-                        </p>
-                     ) : null}
                      <Vorttabelo vortoj={grupo.vortoj} />
                   </div>
                </ScrollableAnchor>
