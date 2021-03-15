@@ -34,21 +34,14 @@ namespace KrestiaServilo {
          }
 
          app.UseHttpsRedirection();
-
-         app.UseRouting();
-
-         app.UseAuthorization();
-
-         app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-
-         app.UseDefaultFiles();
-
          app.UseStaticFiles();
-
+         app.UseSpaStaticFiles();
+         app.UseRouting();
+         app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
          app.UseSpa(builder => {
             builder.Options.SourcePath = "ClientApp";
             if (env.IsDevelopment()) {
-               builder.UseProxyToSpaDevelopmentServer("http://localhost:3000");
+               builder.UseReactDevelopmentServer("start");
             }
          });
       }
