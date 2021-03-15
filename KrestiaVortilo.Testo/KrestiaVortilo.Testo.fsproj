@@ -7,6 +7,10 @@
     <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <NoWarn>FS0025</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Include="Testiloj.fs" />
     <Compile Include="EcoTestoj.fs" />

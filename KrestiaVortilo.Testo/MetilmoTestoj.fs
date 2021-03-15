@@ -179,7 +179,8 @@ hal rinomega sonol seskoma"
                                                [ Pridiranto
                                                   (argumento
                                                      rinomega
-                                                      [ ModifantoKunArgumentoj(sonol, [ argumento seskoma [] ]) ]) ]) ] ]) ]
+                                                      [ ModifantoKunArgumentoj(sonol, [ argumento seskoma [] ]) ]) ])
+                                          modifanto vol [ argumento het [] ]] ]) ]
                          Argumentoj = [] }) ]
              Argumentoj =
                 [ argumento hime []
