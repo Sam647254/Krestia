@@ -44,6 +44,13 @@ namespace KrestiaServilo {
          app.UseDefaultFiles();
 
          app.UseStaticFiles();
+
+         app.UseSpa(builder => {
+            builder.Options.SourcePath = "ClientApp";
+            if (env.IsDevelopment()) {
+               builder.UseProxyToSpaDevelopmentServer("http://localhost:3000");
+            }
+         });
       }
    }
 }

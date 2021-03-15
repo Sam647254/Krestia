@@ -45,6 +45,7 @@
         <e p="ArgumentoJsonConverter.cs" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="ClientApp" t="Include">
+          <e p=".env" t="Include" />
           <e p=".gitignore" t="Include" />
           <e p=".pnp.js" t="Include" />
           <e p=".yarn\unplugged\node-sass-npm-4.14.1-edc7772b3a\node_modules\node-sass" t="IncludeRecursive" />
@@ -146,7 +147,7 @@
         <e p="KrestiaVortaro.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
-            <e p="netcoreapp3.1" t="Include">
+            <e p="net5.0" t="Include">
               <e p="KrestiaVortaro.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
