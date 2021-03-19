@@ -91,6 +91,8 @@ export interface PlenaVortoRespondo extends VortoRespondo {
    blissimbolo?: number[];
    ujoj: [string, string, string];
    frazaSignifo?: string;
+   sintakso?: string;
+   modifeblajVorttipoj?: string[];
 }
 
 export interface TipaVortlisto {

@@ -4,8 +4,8 @@ using System.Collections.Generic;
 namespace KrestiaVortaro {
    public class VortoRespondo {
       private List<string>? _kategorioj;
-      private string? _noto;
-      private List<string>? _radikoj;
+      private readonly string? _noto;
+      private readonly List<string>? _radikoj;
 
       public string Vorto { get; set; }
       
@@ -13,16 +13,16 @@ namespace KrestiaVortaro {
 
       public List<string>? Radikoj {
          get => _radikoj ?? new List<string>();
-         set => _radikoj = value;
+         init => _radikoj = value;
       }
 
-      public string? Signifo { get; set; }
+      public string? Signifo { get; init; }
 
-      public string? Gloso { get; set; }
+      public string? Gloso { get; init; }
 
       public string? Noto {
          get => _noto ?? "";
-         set => _noto = value;
+         init => _noto = value;
       }
 
       public List<string>? Kategorioj {
@@ -30,15 +30,19 @@ namespace KrestiaVortaro {
          set => _kategorioj = value;
       }
 
-      public string? Vorttipo { get; set; }
+      public string? Vorttipo { get; init; }
 
-      public IEnumerable<string>? Silaboj { get; set; }
+      public IEnumerable<string>? Silaboj { get; init; }
 
-      public IDictionary<string, string>? InflektitajFormoj { get; set; }
+      public IDictionary<string, string>? InflektitajFormoj { get; init; }
 
-      public IEnumerable<string?>? Ujoj { get; set; }
+      public IEnumerable<string?>? Ujoj { get; init; }
       
-      public string? FrazaSignifo { get; set; }
+      public string? FrazaSignifo { get; init; }
+      
+      public string? Sintakso { get; init; }
+      
+      public IEnumerable<string>? ModifeblajVorttipoj { get; init; }
 
       internal VortoRespondo(string vorto) {
          Vorto = vorto;

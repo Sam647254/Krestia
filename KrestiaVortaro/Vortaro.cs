@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using KrestiaVortaroBazo;
@@ -52,6 +53,15 @@ namespace KrestiaVortaro {
          var vorttipo = Sintaksanalizilo.infinitivoNomoDe(vorto).Value;
          var silaboj = Malinflektado.dividiKunFinaĵo(vorto);
 
+         string? sintakso = null;
+
+         if (respondo is Modifanto modifanto) {
+            var sb = new StringBuilder(respondo.Vorto.Length);
+            sb.AppendFormat("&lt;v&gt; {0}", modifanto.Vorto);
+            sb.AppendJoin("", modifanto.AldonaĵajTipoj.Select((_, i) => $" &lt;x<sub>{i}</sub>&gt;"));
+            sintakso = sb.ToString();
+         }
+
          if (silaboj.IsError) {
             throw new Exception(silaboj.ErrorValue);
          }
@@ -74,6 +84,8 @@ namespace KrestiaVortaro {
             FrazaSignifo = respondo is Verbo verbo2
                ? string.Format(verbo2.FrazaSignifo, "a<sub>1</sub>", "a<sub>2</sub>", "a<sub>3</sub>")
                : null,
+            Sintakso = sintakso,
+            ModifeblajVorttipoj = respondo is Modifanto m ? m.ModifeblajTipoj.Select(PriskribiVorttipanMallongaĵon) : null,
          };
       }
 
@@ -121,6 +133,7 @@ namespace KrestiaVortaro {
                if (ĉuMalplenigita) {
                   bazo = bazaRezulto.Vorto;
                }
+
                bazoGloso = bazaRezulto.Gloso;
             }
             else {
@@ -209,6 +222,42 @@ namespace KrestiaVortaro {
          var respondo = await httpClient.GetStringAsync(vortaroUrl);
          var indekso = new NovaVortaraIndekso(respondo!);
          return new Vortaro(indekso.Indekso.Values.ToImmutableHashSet(), indekso.Kategorioj.ToImmutableHashSet());
+      }
+
+      private static Dictionary<char, string> InflekciajMallongaĵoj = new() { };
+
+      private static Dictionary<char, string> VorttipajMallongaĵoj = new() {
+         {'K', "Countable class"},
+         {'k', "Uncountable class"},
+         {'L', "Structural noun (prefix)"},
+         {'l', "Structural noun (postfix)"},
+         {'E', "Countable associative noun (prefix)"},
+         {'e', "Countable associative noun (postfix)"},
+         {'P', "Uncountable associative noun (prefix)"},
+         {'p', "Uncountable associative noun (postfix)"},
+         {'T', "1-2-Verb"},
+         {'D', "1-2-3-Verb"},
+         {'t', "1-Verb"},
+         {'N', "1-3-Verb"},
+         {'M', "0-Verb"},
+         {'n', "2-Verb"},
+         {'O', "2-3-Verb"},
+         {'Y', "3-Verb"},
+         {'Q', "Placeholder"},
+         {'<', "Modifier (postfix)"},
+         {'>', "Modifier (prefix)"},
+         {'F', "Name"},
+         {'C', "Digit"}
+      };
+
+      private static string PriskribiVorttipanMallongaĵon(string vorttipo) {
+         if (vorttipo[1] == '*') {
+            return VorttipajMallongaĵoj[vorttipo[0]];
+         }
+
+         return vorttipo[0] == '*'
+            ? $"Any word under the {InflekciajMallongaĵoj[vorttipo[1]]} inflection"
+            : $"{VorttipajMallongaĵoj[vorttipo[0]]} ({InflekciajMallongaĵoj[vorttipo[1]]})";
       }
 
       public readonly struct VortoKunSignifo {

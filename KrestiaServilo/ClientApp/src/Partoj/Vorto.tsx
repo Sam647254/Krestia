@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { alporti, PlenaVortoRespondo } from "../API";
+import React, {useEffect, useState} from "react";
+import {Link, useParams} from "react-router-dom";
+import {alporti, PlenaVortoRespondo} from "../API";
 
 import "./Vorto.scss";
-import { Timeran } from "./Timeran";
+import {Timeran} from "./Timeran";
 
 const inflekcioj = new Map(
    Object.entries({
@@ -57,7 +57,7 @@ interface Params {
 type Ŝtato = "alportado" | "alportita" | "netrovita" | "eraro";
 
 export function Vorto() {
-   const { vorto } = useParams<Params>();
+   const {vorto} = useParams<Params>();
    const [rezulto, setResult] = useState<PlenaVortoRespondo | undefined>();
    const [ŝtato, setFetchState] = useState<Ŝtato>("alportado");
 
@@ -87,7 +87,7 @@ export function Vorto() {
    return (
       <div>
          <h2 className="vorto">{rezulto.vorto}</h2>
-         <Timeran alteco={25} silaboj={rezulto.silaboj} />
+         <Timeran alteco={25} silaboj={rezulto.silaboj}/>
          {rezulto.blissimbolo != null ? (
             <Timeran
                alteco={25}
@@ -95,33 +95,46 @@ export function Vorto() {
                bliss={rezulto.blissimbolo}
             />
          ) : null}
-         <div className="streko" />
+         <div className="streko"/>
          <p className="vorttipo">{rezulto.vorttipo}</p>
          <p>{rezulto.signifo}</p>
          {rezulto.frazaSignifo != null ? (
             <p>
                In context:{" "}
                <span
-                  dangerouslySetInnerHTML={{ __html: rezulto.frazaSignifo }}
+                  dangerouslySetInnerHTML={{__html: rezulto.frazaSignifo}}
                />
             </p>
+         ) : null}
+         {rezulto.sintakso != null ? (
+            <p>
+               Syntax: <span dangerouslySetInnerHTML={{__html: rezulto.sintakso}}/>
+            </p>
+         ) : null}
+         {rezulto.modifeblajVorttipoj != null ? (
+            <div>
+               <p>Valid types for {"<v>"}: </p>
+               <ul>
+                  {rezulto.modifeblajVorttipoj.map(t => <li>{t}</li>)}
+               </ul>
+            </div>
          ) : null}
          <p>
             {rezulto.ujoj?.map((ujo, i) =>
                ujo == null
                   ? null
                   : [
-                       <span>
+                     <span>
                           Slot {i + 1}: {ujo}
                        </span>,
-                       <br />,
-                    ]
+                     <br/>,
+                  ]
             )}
          </p>
          {rezulto.noto.length > 0 ? (
             <p>
                Notes:{" "}
-               <span dangerouslySetInnerHTML={{ __html: rezulto.noto }} />
+               <span dangerouslySetInnerHTML={{__html: rezulto.noto}}/>
             </p>
          ) : null}
          {rezulto.radikoj.length > 0 ? (
@@ -139,28 +152,28 @@ export function Vorto() {
          {rezulto?.inflektitajFormoj == null
             ? null
             : [
-                 <h3 key="h3">Inflected forms</h3>,
-                 <table className="inflekcio-tabelo" key="tabelo">
-                    <thead>
-                       <tr>
-                          <th>Inflection</th>
-                          <th>Inflected form</th>
-                       </tr>
-                    </thead>
-                    <tbody>
-                       {Object.entries(rezulto.inflektitajFormoj).map(
-                          ([inflekcio, inflektitaFormo]) => (
-                             <tr key={inflekcio}>
-                                <td>
-                                   {inflekcioj.get(inflekcio) || inflekcio}
-                                </td>
-                                <td>{inflektitaFormo}</td>
-                             </tr>
-                          )
-                       )}
-                    </tbody>
-                 </table>,
-              ]}
+               <h3 key="h3">Inflected forms</h3>,
+               <table className="inflekcio-tabelo" key="tabelo">
+                  <thead>
+                  <tr>
+                     <th>Inflection</th>
+                     <th>Inflected form</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {Object.entries(rezulto.inflektitajFormoj).map(
+                     ([inflekcio, inflektitaFormo]) => (
+                        <tr key={inflekcio}>
+                           <td>
+                              {inflekcioj.get(inflekcio) || inflekcio}
+                           </td>
+                           <td>{inflektitaFormo}</td>
+                        </tr>
+                     )
+                  )}
+                  </tbody>
+               </table>,
+            ]}
       </div>
    );
 }
