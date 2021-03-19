@@ -125,6 +125,21 @@ timeran <KV> <eniro> <eliro>
                   await File.WriteAllLinesAsync(args[2], vortoj);
                   break;
                }
+               case "modifanto": {
+                  var enhavo = await File.ReadAllTextAsync(args[1]);
+                  var vortaro = JsonConvert.DeserializeObject<NovaJsonVortaro>(enhavo);
+                  var modifantoj = Agoj.KorektiLaAldonaĵajnTipojn(vortaro);
+                  await File.WriteAllLinesAsync(args[2], modifantoj);
+                  break;
+               }
+               case "modifanto2": {
+                  var vortaraEnhavo = await File.ReadAllTextAsync(args[1]);
+                  var enhavo = File.ReadLines(args[2]);
+                  var vortaro = new NovaVortaraIndekso(vortaraEnhavo);
+                  Agoj.KorektiAldonaĵajnTipojn2(vortaro, enhavo);
+                  await File.WriteAllTextAsync(args[1], vortaro.IgiEnJson());
+                  break;
+               }
             }
          }
          catch (InvalidOperationException e) {

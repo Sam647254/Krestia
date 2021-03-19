@@ -4291,7 +4291,7 @@
         "N*"
       ],
       "AldonaĵajTipoj": [
-        "D*"
+        "*D"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "dal",
@@ -4305,7 +4305,7 @@
         "K*"
       ],
       "AldonaĵajTipoj": [
-        "D*"
+        "*D"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "del",
@@ -4318,7 +4318,9 @@
       "ModifeblajTipoj": [
         "C*"
       ],
-      "AldonaĵajTipoj": [],
+      "AldonaĵajTipoj": [
+        "C*"
+      ],
       "AldonaĵajNotoj": [],
       "Vorto": "evotol",
       "Signifo": "natural logarithm",
@@ -4352,7 +4354,7 @@
         "N*"
       ],
       "AldonaĵajTipoj": [
-        "P*"
+        "*&"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "kerel",
@@ -4386,9 +4388,7 @@
         "Y*",
         "N*"
       ],
-      "AldonaĵajTipoj": [
-        "D*"
-      ],
+      "AldonaĵajTipoj": [],
       "AldonaĵajNotoj": [],
       "Vorto": "kumol",
       "Signifo": "today",
@@ -4403,7 +4403,7 @@
         "C*"
       ],
       "AldonaĵajTipoj": [
-        "#*"
+        "C*"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "mebel",
@@ -4426,7 +4426,7 @@
         "N*"
       ],
       "AldonaĵajTipoj": [
-        "D*"
+        "*D"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "mel",
@@ -4446,7 +4446,9 @@
         "Y*",
         "N*"
       ],
-      "AldonaĵajTipoj": [],
+      "AldonaĵajTipoj": [
+        "*&"
+      ],
       "AldonaĵajNotoj": [],
       "Vorto": "meral",
       "Signifo": "but, however",
@@ -4467,9 +4469,7 @@
         "Y*",
         "N*"
       ],
-      "AldonaĵajTipoj": [
-        "D*"
-      ],
+      "AldonaĵajTipoj": [],
       "AldonaĵajNotoj": [],
       "Vorto": "mogal",
       "Signifo": "tomorrow",
@@ -4485,7 +4485,7 @@
         "k*"
       ],
       "AldonaĵajTipoj": [
-        "@*"
+        "F*"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "nal",
@@ -4508,7 +4508,7 @@
         "N*"
       ],
       "AldonaĵajTipoj": [
-        "D*"
+        "*D"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "nel",
@@ -4611,7 +4611,7 @@
         "N*"
       ],
       "AldonaĵajTipoj": [
-        "P*"
+        "*&"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "nomil",
@@ -4625,7 +4625,7 @@
         "C*"
       ],
       "AldonaĵajTipoj": [
-        "#*"
+        "C*"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "petal",
@@ -4648,7 +4648,7 @@
         "N*"
       ],
       "AldonaĵajTipoj": [
-        "D*"
+        "*D"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "ponel",
@@ -4700,7 +4700,7 @@
         "K*"
       ],
       "AldonaĵajTipoj": [
-        "#*"
+        "C*"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "sel",
@@ -4714,7 +4714,7 @@
         "C*"
       ],
       "AldonaĵajTipoj": [
-        "#*"
+        "C*"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "senal",
@@ -4769,7 +4769,7 @@
         "k*"
       ],
       "AldonaĵajTipoj": [
-        "D*"
+        "*D"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "sonol",
@@ -4783,7 +4783,7 @@
         "C*"
       ],
       "AldonaĵajTipoj": [
-        "#*"
+        "C*"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "tikal",
@@ -4797,9 +4797,9 @@
         "C*"
       ],
       "AldonaĵajTipoj": [
-        "S*",
-        "#*",
-        "#*"
+        "F*",
+        "C*",
+        "C*"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "tikanel",
@@ -4844,7 +4844,7 @@
         "C*"
       ],
       "AldonaĵajTipoj": [
-        "#*"
+        "C*"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "vetel",
@@ -4858,7 +4858,7 @@
         "C*"
       ],
       "AldonaĵajTipoj": [
-        "#*"
+        "C*"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "visal",
@@ -4881,7 +4881,7 @@
         "N*"
       ],
       "AldonaĵajTipoj": [
-        "D*"
+        "*D"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "vol",
@@ -4915,9 +4915,7 @@
       "ModifeblajTipoj": [
         "C*"
       ],
-      "AldonaĵajTipoj": [
-        "#*"
-      ],
+      "AldonaĵajTipoj": [],
       "AldonaĵajNotoj": [],
       "Vorto": "votel",
       "Signifo": "squared (multiplied by itself)",
@@ -4933,7 +4931,7 @@
         "C*"
       ],
       "AldonaĵajTipoj": [
-        "#*"
+        "C*"
       ],
       "AldonaĵajNotoj": [],
       "Vorto": "votol",

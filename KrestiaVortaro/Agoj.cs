@@ -383,6 +383,19 @@ namespace KrestiaVortaro {
          return ĉiujVortoj.Except(kategorigitajVortoj);
       }
 
+      public static IEnumerable<string> KorektiLaAldonaĵajnTipojn(NovaJsonVortaro vortaro) {
+         return vortaro.Modifantoj.Select(m => $"{m.Vorto} ({m.Signifo}):");
+      }
+
+      public static void KorektiAldonaĵajnTipojn2(NovaVortaraIndekso vortaro, IEnumerable<string> eniro) {
+         foreach (var vico in eniro) {
+            var partoj = vico.Split(':');
+            var tipoj = partoj[1].Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            var vorto = partoj[0].Split(' ')[0];
+            (vortaro.Indekso[vorto] as Modifanto)!.AldonaĵajTipoj = new List<string>(tipoj);
+         }
+      }
+
       private static IEnumerable<VortaraKategorio> AnstataŭigiEnKategorio(IEnumerable<VortaraKategorio> kategorioj,
          IDictionary<string, string> anstataŭaĵoj) {
          return kategorioj.Select(
