@@ -119,6 +119,14 @@ export function Vorto() {
                </ul>
             </div>
          ) : null}
+         {rezulto.aldonaĵajInflekcioj != null ? (
+            <div>
+               <p>Valid types for complements: </p>
+               <ul>
+                  {rezulto.aldonaĵajInflekcioj.map((t, i) => <li>{"<x"}<sub>{i}</sub>{`>: ${t}`}</li>)}
+               </ul>
+            </div>
+         ) : null}
          <p>
             {rezulto.ujoj?.map((ujo, i) =>
                ujo == null

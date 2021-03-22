@@ -93,6 +93,7 @@ export interface PlenaVortoRespondo extends VortoRespondo {
    frazaSignifo?: string;
    sintakso?: string;
    modifeblajVorttipoj?: string[];
+   aldonaĵajInflekcioj?: string[];
 }
 
 export interface TipaVortlisto {

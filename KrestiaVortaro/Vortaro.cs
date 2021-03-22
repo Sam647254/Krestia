@@ -86,6 +86,7 @@ namespace KrestiaVortaro {
                : null,
             Sintakso = sintakso,
             ModifeblajVorttipoj = respondo is Modifanto m ? m.ModifeblajTipoj.Select(PriskribiVorttipanMallongaĵon) : null,
+            AldonaĵajInflekcioj = respondo is Modifanto m2 ? m2.AldonaĵajTipoj.Select(PriskribiVorttipanMallongaĵon) : null,
          };
       }
 
@@ -224,9 +225,45 @@ namespace KrestiaVortaro {
          return new Vortaro(indekso.Indekso.Values.ToImmutableHashSet(), indekso.Kategorioj.ToImmutableHashSet());
       }
 
-      private static Dictionary<char, string> InflekciajMallongaĵoj = new() { };
+      private static readonly Dictionary<char, string> InflekciajMallongaĵoj = new() {
+         {'D', "Definite"},
+         {'H', "Possession"},
+         {'F', "Focus"},
+         {'P', "Progressive"},
+         {'p', "Completed"},
+         {'I', "Intention"},
+         {'d', "Desiderative"},
+         {'E', "Predicative identity"},
+         {'A', "Attributive identity (Prefix)"},
+         {'a', "Attributive identity (postfix)"},
+         {'h', "Possessive"},
+         {'i', "Imperative"},
+         {'1', "Slot 1 argument"},
+         {'2', "Slot 2 argument"},
+         {'3', "Slot 3 argument"},
+         {'e', "Existence"},
+         {'t', "Hortative"},
+         {'T', "Translative"},
+         {'Ĝ', "Gerund"},
+         {'ĝ', "Specific gerund"},
+         {'U', "Slot 1 filled"},
+         {'J', "Slot 2 filled"},
+         {'O', "Slot 3 filled"},
+         {'S', "Only form"},
+         {'s', "Predicative"},
+         {'R', "Reflexive"},
+         {'4', "Slot 2 first"},
+         {'5', "Slot 3 first"},
+         {'o', "Optative"},
+         {'K', "Quality"},
+         {'n', "Hypothetical"},
+         {'X', "Detached"},
+         {'@', "Name"},
+         {'#', "Digit"},
+         {'&', "Predicate"}
+      };
 
-      private static Dictionary<char, string> VorttipajMallongaĵoj = new() {
+      private static readonly Dictionary<char, string> VorttipajMallongaĵoj = new() {
          {'K', "Countable class"},
          {'k', "Uncountable class"},
          {'L', "Structural noun (prefix)"},
@@ -251,13 +288,13 @@ namespace KrestiaVortaro {
       };
 
       private static string PriskribiVorttipanMallongaĵon(string vorttipo) {
-         if (vorttipo[1] == '*') {
-            return VorttipajMallongaĵoj[vorttipo[0]];
-         }
-
-         return vorttipo[0] == '*'
-            ? $"Any word under the {InflekciajMallongaĵoj[vorttipo[1]]} inflection"
-            : $"{VorttipajMallongaĵoj[vorttipo[0]]} ({InflekciajMallongaĵoj[vorttipo[1]]})";
+         return vorttipo[1] switch {
+            '*' => VorttipajMallongaĵoj[vorttipo[0]],
+            '&' => "Predicate",
+            _ => vorttipo[0] == '*'
+               ? $"Any word under the {InflekciajMallongaĵoj[vorttipo[1]]} inflection"
+               : $"{VorttipajMallongaĵoj[vorttipo[0]]} ({InflekciajMallongaĵoj[vorttipo[1]]})"
+         };
       }
 
       public readonly struct VortoKunSignifo {

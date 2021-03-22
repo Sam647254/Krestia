@@ -43,6 +43,8 @@ namespace KrestiaVortaro {
       public string? Sintakso { get; init; }
       
       public IEnumerable<string>? ModifeblajVorttipoj { get; init; }
+      
+      public IEnumerable<string>? AldonaĵajInflekcioj { get; init; }
 
       internal VortoRespondo(string vorto) {
          Vorto = vorto;
