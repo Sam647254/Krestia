@@ -383,16 +383,73 @@ namespace KrestiaVortaro {
          return ĉiujVortoj.Except(kategorigitajVortoj);
       }
 
-      public static IEnumerable<string> KorektiLaAldonaĵajnTipojn(NovaJsonVortaro vortaro) {
-         return vortaro.Modifantoj.Select(m => $"{m.Vorto} ({m.Signifo}):");
-      }
-
-      public static void KorektiAldonaĵajnTipojn2(NovaVortaraIndekso vortaro, IEnumerable<string> eniro) {
+      public static void AldoniVortojn(IEnumerable<string> eniro, NovaJsonVortaro vortaro) {
+         var indekso = new NovaVortaraIndekso(vortaro);
          foreach (var vico in eniro) {
-            var partoj = vico.Split(':');
-            var tipoj = partoj[1].Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            var vorto = partoj[0].Split(' ')[0];
-            (vortaro.Indekso[vorto] as Modifanto)!.AldonaĵajTipoj = new List<string>(tipoj);
+            var partoj = vico.Split('|');
+            var vorto = partoj[0];
+            var signifo = partoj[1];
+            var gloso = partoj[2];
+            var radikoj = partoj[3].Split(',');
+            var noto = partoj[4];
+            
+            // Kontrolu, ke ĉiuj radikoj ekzistas.
+            foreach (var radiko in radikoj) {
+               if (!indekso.Indekso.ContainsKey(radiko)) {
+                  throw new ArgumentException($"Nevalida radiko por {vorto}: {radiko}");
+               }
+            }
+
+            var vortaraTipo = Malinflektado.vortaraTipoDe(vorto);
+            switch (vortaraTipo) {
+               case "Class":
+               case "Associative class": {
+                  var plenaFormo = partoj[5];
+                  vortaro.Substantivoj.Add(new Substantivo {
+                     Vorto = vorto,
+                     Gloso = gloso,
+                     Noto = string.IsNullOrEmpty(noto) ? null : noto,
+                     PlenaFormo = string.IsNullOrEmpty(plenaFormo) ? null : plenaFormo,
+                     Radikoj = radikoj.ToList(),
+                     Signifo = signifo
+                  });
+                  break;
+               }
+               case "Verb": {
+                  var plenaFormo = partoj[5];
+                  var frazaSignifo = partoj[6];
+                  var argumentoj = partoj[7].Split('^');
+                  vortaro.Verboj.Add(new Verbo {
+                     Vorto = vorto,
+                     Gloso = gloso,
+                     Noto = string.IsNullOrEmpty(noto) ? null : noto,
+                     PlenaFormo = string.IsNullOrEmpty(plenaFormo) ? null : plenaFormo,
+                     Radikoj = radikoj.ToList(),
+                     Signifo = signifo,
+                     FrazaSignifo = frazaSignifo,
+                     ArgumentajNotoj = argumentoj.Select(a => a.Length == 0 ? null : a).ToList()
+                  });
+                  break;
+               }
+               case "Modifier": {
+                  var modifeblajTipoj = partoj[5].Split(',');
+                  var aldonaĵajTipoj = partoj[6].Split(',');
+                  var aldonaĵajNotoj = partoj[7].Split('^');
+                  vortaro.Modifantoj.Add(new Modifanto {
+                     Vorto = vorto,
+                     Gloso = gloso,
+                     Noto = string.IsNullOrEmpty(noto) ? null : noto,
+                     Radikoj = radikoj.ToList(),
+                     ModifeblajTipoj = modifeblajTipoj.ToList(),
+                     AldonaĵajTipoj = aldonaĵajTipoj.ToList(),
+                     AldonaĵajNotoj = aldonaĵajNotoj.Select(a => a.Length == 0 ? null : a).ToList(),
+                     Signifo = signifo
+                  });
+                  break;
+               }
+               default:
+                  throw new ArgumentException($"Nevalida vortara tipo por {vorto}: {vortaraTipo}");
+            }
          }
       }
 

@@ -765,5 +765,5 @@ module Malinflektado =
             | FremdaVorto -> "Foreign word"
             | Makro -> "Macro"
             | Cifero -> "Digit"
-         | Nebazo (_) -> failwith "Nevalida lasta malinflekta ŝtupo"
+         | Nebazo _ -> failwith "Nevalida lasta malinflekta ŝtupo"
       | Error ((_, eraro)) -> failwith eraro
