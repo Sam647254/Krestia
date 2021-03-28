@@ -129,7 +129,7 @@ namespace KrestiaVortaro {
          if (bazo != null) {
             var bazaRezulto = BazoIndekso.GetValueOrDefault(bazo, null);
 
-            if (bazaRezulto != null) {
+            if (bazaRezulto != null && (bazaRezulto is Substantivo || bazaRezulto is Verbo)) {
                var ĉuMalplenigita = Malinflektado.ĉuMalplenigita(malinflektitaTipo, bazaRezulto.Vorto);
                if (ĉuMalplenigita) {
                   bazo = bazaRezulto.Vorto;
