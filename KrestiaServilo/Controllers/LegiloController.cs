@@ -17,6 +17,6 @@ namespace KrestiaServilo.Controllers {
    }
 
    public class Peto {
-      public string? Eniro { get; set; }
+      public string Eniro { get; init; } = null!;
    }
 }

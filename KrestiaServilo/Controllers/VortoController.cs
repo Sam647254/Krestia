@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 using KrestiaServilo.Services;
+using KrestiaVortilo;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KrestiaServilo.Controllers {
@@ -49,6 +50,12 @@ namespace KrestiaServilo.Controllers {
          var rezulto = _vortaroService.Instanco.TroviGlosanSignifon(vorto);
          if (rezulto == null) return NotFound();
          return Ok(new {gloso = rezulto});
+      }
+
+      [HttpPost("malinflekti")]
+      public ActionResult Malinflekti([FromBody] Peto peto) {
+         var rezulto = Sintaksanalizilo2.prepariEniron(peto.Eniro, false);
+         return rezulto.IsOk ? Ok(rezulto.ResultValue) : UnprocessableEntity(rezulto.ErrorValue);
       }
    }
 }
