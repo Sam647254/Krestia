@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageVersion>0.4.0</PackageVersion>
+    <Title>Krestia</Title>
+    <Authors>Sam Wang</Authors>
+    <Description>    </Description>
   </PropertyGroup>
 
   <ItemGroup>

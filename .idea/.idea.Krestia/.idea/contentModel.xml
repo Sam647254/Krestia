@@ -29,7 +29,7 @@
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
+          <e p="Release" t="Include">
             <e p="net5.0" t="Include">
               <e p="TimeranDesegnilo.AssemblyInfo.vb" t="Include" />
             </e>
@@ -224,7 +224,7 @@
         <e p="MalinflektaŜtupoJsonConverter.cs" t="Include" />
         <e p="ModifantoJsonConverter.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
+          <e p="Release" t="Include">
             <e p="net5.0" t="Include">
               <e p="KrestiaServilo.AssemblyInfo.cs" t="Include" />
             </e>
@@ -246,7 +246,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="KrestiaServilo.Testo.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
+          <e p="Release" t="Include">
             <e p="net5.0" t="Include">
               <e p="KrestiaServilo.Testo.AssemblyInfo.cs" t="Include" />
             </e>
@@ -264,7 +264,7 @@
         <e p="Kategorio.cs" t="Include" />
         <e p="KrestiaVortaro.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
+          <e p="Release" t="Include">
             <e p="net5.0" t="Include">
               <e p="KrestiaVortaro.AssemblyInfo.cs" t="Include" />
             </e>
@@ -280,7 +280,7 @@
         <e p="bin" t="ExcludeRecursive" />
         <e p="KrestiaVortaro.Testo.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
+          <e p="Release" t="Include">
             <e p="net5.0" t="Include">
               <e p="KrestiaVortaro.Testo.AssemblyInfo.cs" t="Include" />
             </e>
@@ -293,7 +293,7 @@
         <e p="NovaJsonVortaro.cs" t="Include" />
         <e p="NovaVortaraIndekso.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
+          <e p="Release" t="Include">
             <e p="netstandard2.0" t="Include">
               <e p="KrestiaVortaroBazo.AssemblyInfo.cs" t="Include" />
             </e>
