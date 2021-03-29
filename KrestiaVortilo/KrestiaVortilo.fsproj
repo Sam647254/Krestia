@@ -7,6 +7,8 @@
     <Title>Krestia</Title>
     <Authors>Sam Wang</Authors>
     <Description>    </Description>
+    <RepositoryUrl>https://github.com/Sam647254/Krestia</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>

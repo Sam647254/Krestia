@@ -20,5 +20,5 @@ jobs:
         with:
           PROJECT_FILE_PATH: KrestiaVortilo/KrestiaVortilo.fsproj
           NUGET_KEY: ${{ secrets.GITHUB_TOKEN }}
-          NUGET_SOURCE: https://nuget.pkg.github.com
+          NUGET_SOURCE: https://nuget.pkg.github.com/Sam647254
           VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
