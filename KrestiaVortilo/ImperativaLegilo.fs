@@ -50,6 +50,12 @@ module Imperativa =
         ModifeblajVorttipoj: Set<Vorttipo>
         ModifantoInflekcioj: Inflekcio list }
 
+   type ŜtupaLegilo =
+      { SekvaVorto: Unit -> Result<MalinflektitaVorto, Eraro>
+        LegiFrazon: Unit -> Result<Predikato, Eraro>
+        LegiArgumenton: Unit -> Result<Argumento, Eraro>
+        ForigiSekvaVorton: Unit -> Result<Unit, Eraro> }
+
    let private vortarajVorttipoj =
       [ 'N', NombrigeblaKlaso
         'n', NenombrigeblaKlaso
@@ -161,6 +167,35 @@ module Imperativa =
             }
 
          legiAk ()
+
+      member this.LegiŜtupe(): ŜtupaLegilo =
+         let konteksto =
+            { Argumentoj = LinkedList<Argumento>()
+              AtendantajPridirantoj = LinkedList<Modifanto>()
+              AtendantajModifantoj = LinkedList<Modifanto * MalinflektitaVorto>()
+              AtendantajPredikatoj = LinkedList<AtendantaPredikato>()
+              LastaModifeblaVorto = LinkedList<LastaLegitaModifeblaVorto>()
+              LastaModifeblaVerbo = LinkedList<Verbo>()
+              LastaModifeblaArgumento = LinkedList<Argumento>()
+              LegitajModifeblajVortoj = LinkedList<ModifeblaVorto>()
+              LegitajNombroj = LinkedList<Argumento>() }
+
+         { SekvaVorto =
+              fun () ->
+                 if enira.Count = 0 then
+                    Error
+                    <| Eraro(malplenaEniraVorto, "Unexpected end of input")
+                 else
+                    Ok <| enira.Dequeue()
+           LegiFrazon = fun () -> this.LegiLokalanFrazon konteksto
+           LegiArgumenton = fun () -> this.LegiArgumenton konteksto true
+           ForigiSekvaVorton =
+              fun () ->
+                 if enira.Count = 0 then
+                    Error
+                    <| Eraro(malplenaEniraVorto, "Unexpected end of input")
+                 else
+                    Ok() }
 
       member private this.LegiFrazojn konteksto: Result<Rezulto, Eraro> =
          rezulto {
@@ -647,8 +682,13 @@ module Imperativa =
                         List.head nombroj
                         |> kalkuli
                         |> Result.map (operaciilo ak)
-                     | _ -> Error <| Eraro(o.OriginalaVorto, "Unsupported operation")
-                  | _ -> Error <| Eraro(malplenaEniraVorto, sprintf "Not an operator: %O" sek))
-                  (Decimal.ToDouble(nombro.Valuo))
+                     | _ ->
+                        Error
+                        <| Eraro(o.OriginalaVorto, "Unsupported operation")
+                  | _ ->
+                     Error
+                     <| Eraro(malplenaEniraVorto, sprintf "Not an operator: %O" sek)) (Decimal.ToDouble(nombro.Valuo))
 
-      | _ -> Error <| Eraro(malplenaEniraVorto, sprintf "Not a math expression: %O" eniraArgumento)
+      | _ ->
+         Error
+         <| Eraro(malplenaEniraVorto, sprintf "Not a math expression: %O" eniraArgumento)
