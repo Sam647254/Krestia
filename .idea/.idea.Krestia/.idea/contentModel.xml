@@ -341,6 +341,20 @@
       </e>
       <e p="packages" t="ExcludeRecursive" />
       <e p="Solution Items" t="Include" />
+      <e p="TimeranDesegnilo2" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Desegnilo.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Release" t="Include">
+            <e p="net5.0" t="Include">
+              <e p="TimeranDesegnilo2.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="RektangulaDesegnilo.cs" t="Include" />
+        <e p="RondaDesegnilo.cs" t="Include" />
+        <e p="TimeranDesegnilo2.csproj" t="IncludeRecursive" />
+      </e>
     </e>
   </component>
 </project>

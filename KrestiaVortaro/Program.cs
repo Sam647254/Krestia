@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using KrestiaVortaroBazo;
 using Newtonsoft.Json;
-using JsonSerializer = Newtonsoft.Json.JsonSerializer;
+using TimeranDesegnilo2;
 
 namespace KrestiaVortaro {
    internal static class Program {
@@ -48,20 +48,21 @@ timeran <KV> <eniro> <eliro>
                   await File.WriteAllLinesAsync(args[2], vicoj);
                   break;
                }
-               case "rondo": {
-                  TimeranDesegnilo.Program.Bliss(args[1], args[2], int.Parse(args[3]));
-                  break;
-               }
                case "timeran": {
                   var vicoj = Agoj.KonvertiEnTimeranTxt(File.ReadLines(args[1]));
-                  TimeranDesegnilo.Program.Dosiero(args[2], vicoj, int.Parse(args[3]), int.Parse(args[4]),
-                     int.Parse(args[5]), int.Parse(args[6]));
-                  break;
-               }
-               case "timeran2": {
-                  var eniro = File.ReadLines(args[1]);
-                  TimeranDesegnilo.Program.Dosiero(args[2], eniro, int.Parse(args[3]), int.Parse(args[4]),
-                     int.Parse(args[5]), int.Parse(args[6]));
+                  var eniro = vicoj as string[] ?? vicoj.ToArray();
+                  var svg = new RektangulaSvgDesegnilo(args[2], 70, 36, 4, 6);
+                  foreach (var vico in eniro) {
+                     var silaboj = vico.Split(' ');
+                     foreach (var silabo in silaboj) {
+                        try {
+                           svg.DesegniFinaĵon(silabo);
+                        }
+                        catch (Exception) {
+                           svg.DesegniSilabon(silabo);
+                        }
+                     }
+                  }
                   break;
                }
                case "kontroli": {
