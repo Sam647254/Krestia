@@ -155,9 +155,11 @@ module Sintaksanalizilo2 =
                | PartaUjo2
                | PartaUjo3
                | Imperativo
+               | Reflekcio
                | Hortativo -> ak - 1
                | PredikativoEsti -> ak + 1
-               | Havado ->
+               | Havado
+               | Translativo ->
                   if finaĵo.EndsWith("m") then ak else ak + 1
                | _ -> ak
             | Bazo (vorttipo, inflekcio, _) ->
