@@ -63,6 +63,7 @@ timeran <KV> <eniro> <eliro>
                         }
                      }
                   }
+                  svg.Fini();
                   break;
                }
                case "kontroli": {

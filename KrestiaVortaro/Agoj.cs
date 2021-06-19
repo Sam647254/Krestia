@@ -19,11 +19,11 @@ namespace KrestiaVortaro {
                var literoNomo = ŝtupo.IsBazo
                   ? ((Sintaksanalizilo.MalinflektaŜtupo.Bazo) ŝtupo).Item1.ToString()
                   : ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝtupo).Item2.ToString();
-               if (literoNomo == "NombrigeblaKlaso" || literoNomo == "NenombrigeblaKlaso") {
+               if (literoNomo is "NombrigeblaKlaso" or "NenombrigeblaKlaso") {
                   return "klaso";
                }
 
-               return char.ToLowerInvariant(literoNomo[0]) + literoNomo.Substring(1);
+               return char.ToLowerInvariant(literoNomo[0]) + literoNomo[1..];
             }).Reverse().ToImmutableList();
             if (gramatikajLiteroj.First() == "klaso"
                 && gramatikajLiteroj.Count > 1) {

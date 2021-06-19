@@ -26,7 +26,7 @@ module Vorttipo =
    | PartaUjo2 // J
    | PartaUjo3 // O
    | SolaFormo // S
-   | Sola // s
+   | Sola // sK
    | Reflekcio // R
    | UnueUjo2 // 4
    | UnueUjo3 // 5
