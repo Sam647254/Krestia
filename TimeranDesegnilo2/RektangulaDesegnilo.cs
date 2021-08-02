@@ -375,10 +375,10 @@ h {0} l {3} {1} l -{3} {1} h -{0} l {3} -{1} z", Dx, DufojaAlteco / 2, Dx + Spac
       }
 
       private string Argumento2De() {
-         X += (Dx + Spaceto) * 2 + DuonaLarĝeco + Dx + Spaceto;
+         X += (Dx + Spaceto) * 2 + DuonaLarĝeco + Spaceto;
          return string.Format(
-            @"h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z m {2} h {0} l {3} {1} l -{3} {1} h -{0} l {3} -{1} z",
-            Dx, Alteco, Dx + Spaceto, DuonaLarĝeco);
+            @"h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z m {2} 0 h {0} l {3} {1} l -{3} {1} h -{0} l {3} -{1} z",
+            Dx, DufojaAlteco / 2, Dx + Spaceto, DuonaLarĝeco - Dx);
       }
 
       private string Vico() {
@@ -483,13 +483,13 @@ l -{6} {2} h {3} l {6} -{2} z", aktualaLarĝeco, rSpaco, aktualaAlteco - Dy, Dx,
          return string.Format(
             "h {0} v {4} h -{3} v -{2} h -{1} v {2} h -{3} v -{2} h -{5} v {2} h -{6} z m {3} {7} v {8} h {1} v -{8} z",
             aktualaLarĝeco, aktualaLarĝeco / 5, aktualaAlteco - Dy, Dx, aktualaAlteco,
-            aktualaLarĝeco - 2 * (aktualaLarĝeco / 5 + Dx * 2), (aktualaLarĝeco / 5 + Dx * 2), Dy,
+            aktualaLarĝeco - 2 * (aktualaLarĝeco / 5 + Dx * 2), aktualaLarĝeco / 5 + Dx * 2, Dy,
             aktualaAlteco - 2 * Dy);
       }
 
       private string E(int aktualaLarĝeco, int aktualaAlteco) {
-         return string.Format("h {0} v {1} h {2} v {3} h -{2} v {1} h -{0} z", Dx, aktualaAlteco / 2 - Dy / 2,
-            aktualaLarĝeco - Dx, Dy);
+         return string.Format("m {4} {1} h -{2} v -{1} h -{0} v {3} h {0} v -{1} h {2} z", Dx, aktualaAlteco / 2 - Dy / 2,
+            aktualaLarĝeco - Dx, aktualaAlteco, aktualaLarĝeco);
       }
 
       private string I(int aktualaLarĝeco, int aktualaAlteco) {
@@ -557,8 +557,8 @@ h {4} v {3} h -{4} z m 0 {3} l {2} -{3} h {4} l -{2} {3} z", aktualaLarĝeco, Dy
 
       private string S(int aktualaLarĝeco, int aktualaAlteco) {
          return string.Format(
-            "h {0} v {1} h -{0} z m 0 {2} l {3} -{2} h {4} l -{3} {2} z m {3} -{2} h {4} l {3} {2} h -{4}",
-            aktualaLarĝeco, Dy, aktualaAlteco, aktualaLarĝeco / 2 - Dx / 2, Dx);
+            "h {0} v {1} h -{0} z m 0 {2} l {3} -{5} h {4} l -{3} {5} z m {3} -{5} h {4} l {3} {5} h -{4}",
+            aktualaLarĝeco, Dy, aktualaAlteco, aktualaLarĝeco / 2 - Dx / 2, Dx, aktualaAlteco - Dy);
       }
 
       private string R(int aktualaLarĝeco, int aktualaAlteco) {
@@ -589,7 +589,7 @@ h {4} v {3} h -{4} z m 0 {3} l {2} -{3} h {4} l -{2} {3} z", aktualaLarĝeco, Dy
          FinaĵoDesegniloj = new Dictionary<string, FinaĵoDesegnilo> {
             {"[", NomoKomenco}, {"]", NomoFino}, {"lokokupilo", Lokokupilo}, {"klaso", Difinito},
             {"antaŭNenombrigeblaEco", EcoDekstra}, {"malantaŭNenombrigeblaEco", EcoMaldekstra},
-            {"rekordo<", RekordoMaldekstra}, {"rekordo>", RekordoDekstra}, {"pridiranto", Pridiranto},
+            {"rekordo<", RekordoMaldekstra}, {"rekordo>", RekordoDekstra}, {"senfara", Pridiranto},
             {"atributivoEstiMalantaŭ", AtributivoEstiMaldekstra}, {"atributivoEstiAntaŭ", AtributivoEstiDekstra},
             {"predikativoEsti", Klaso}, {"vico", Vico}, {"netransitivaVerbo", Netransitiva},
             {"nedirektaTransitivaVerbo", NedirecktaTransitiva}, {"transitivaVerbo", Transitiva},

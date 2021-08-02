@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using KrestiaVortaroBazo;
 using KrestiaVortilo;
+using TimeranDesegnilo2;
 
 namespace KrestiaVortaro {
    public static class Agoj {
@@ -55,6 +56,22 @@ namespace KrestiaVortaro {
 
             return partoj;
          }).SelectMany(v => v)).Select(vortoj => string.Join(' ', vortoj));
+      }
+
+      public static void DesegniTimeranTxt(IEnumerable<string> vicoj, string elirejo) {
+         var svg = new RektangulaSvgDesegnilo(elirejo, 70, 36, 4, 6);
+         foreach (var vico in vicoj) {
+            var silaboj = vico.Split(' ');
+            foreach (var silabo in silaboj) {
+               try {
+                  svg.DesegniFinaĵon(silabo);
+               }
+               catch (Exception) {
+                  svg.DesegniSilabon(silabo);
+               }
+            }
+            svg.Fini();
+         }
       }
 
       private static int KontroliVortonKajValencon(ICollection<string> ekzistantajVortoj, string novaVorto,

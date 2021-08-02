@@ -48,22 +48,15 @@ timeran <KV> <eniro> <eliro>
                   await File.WriteAllLinesAsync(args[2], vicoj);
                   break;
                }
+               case "desegni": {
+                  var eniro = File.ReadLines(args[1]);
+                  Agoj.DesegniTimeranTxt(eniro, args[2]);
+                  break;
+               }
                case "timeran": {
                   var vicoj = Agoj.KonvertiEnTimeranTxt(File.ReadLines(args[1]));
                   var eniro = vicoj as string[] ?? vicoj.ToArray();
-                  var svg = new RektangulaSvgDesegnilo(args[2], 70, 36, 4, 6);
-                  foreach (var vico in eniro) {
-                     var silaboj = vico.Split(' ');
-                     foreach (var silabo in silaboj) {
-                        try {
-                           svg.DesegniFinaĵon(silabo);
-                        }
-                        catch (Exception) {
-                           svg.DesegniSilabon(silabo);
-                        }
-                     }
-                  }
-                  svg.Fini();
+                  Agoj.DesegniTimeranTxt(eniro, args[2]);
                   break;
                }
                case "kontroli": {
@@ -133,6 +126,10 @@ timeran <KV> <eniro> <eliro>
                   Agoj.AldoniVortojn(eniro, vortaro);
                   var novaVortaro = JsonConvert.SerializeObject(vortaro, Formatting.Indented);
                   await File.WriteAllTextAsync(args[1], novaVortaro);
+                  break;
+               }
+               default: {
+                  Console.WriteLine($"Nekonita opcio: {args[0]}");
                   break;
                }
             }
