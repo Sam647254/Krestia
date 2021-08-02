@@ -326,8 +326,7 @@ m -{2} {5} v {6} h {8} v {7} h -{4} v -{7} h {2} v -{6} z", 0, Dx, DuonaLarĝeco
 
       private string ModifantoDekstra() {
          X += DuonaLarĝeco + Spaceto;
-         return string.Format("h {0} v {1} h -{2} v {3} h -{4} z", DuonaLarĝeco, Dy, DuonaLarĝeco - Dx,
-            DufojaAlteco - Dy, Dx);
+         return $"h {DuonaLarĝeco} v {Dy} h -{DuonaLarĝeco - Dx} v {DufojaAlteco - Dy} h -{Dx} z";
       }
 
       private string NombrigeblaEcoDekstra() {
@@ -367,6 +366,19 @@ h {0} l {3} {1} l -{3} {1} h -{0} l {3} -{1} z", Dx, DufojaAlteco / 2, Dx + Spac
             @"m 0 {4} h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z m {2} -{4}
 h {0} l {3} {1} l -{3} {1} h -{0} l {3} -{1} z", Dx, DufojaAlteco / 2, Dx + Spaceto, DuonaLarĝeco - Dx,
             Alteco + Spaceto / 2);
+      }
+
+      private string Vokativo() {
+         X += Dx + Spaceto + DuonaLarĝeco + Spaceto;
+         return string.Format(@"h {0} v {5} h -{0} z m {1} 0 h {0} v {2} h {3} v {4} h -{3} v {2} h -{0} z",
+            Dx, Dx + Spaceto, DufojaAlteco / 2 - Dy / 2, DuonaLarĝeco - Dx, Dy, DufojaAlteco);
+      }
+
+      private string Argumento2De() {
+         X += (Dx + Spaceto) * 2 + DuonaLarĝeco + Dx + Spaceto;
+         return string.Format(
+            @"h {0} v {1} h -{0} z m {2} 0 h {0} v {1} h -{0} z m {2} h {0} l {3} {1} l -{3} {1} h -{0} l {3} -{1} z",
+            Dx, Alteco, Dx + Spaceto, DuonaLarĝeco);
       }
 
       private string Vico() {
@@ -481,8 +493,7 @@ l -{6} {2} h {3} l {6} -{2} z", aktualaLarĝeco, rSpaco, aktualaAlteco - Dy, Dx,
       }
 
       private string I(int aktualaLarĝeco, int aktualaAlteco) {
-         return string.Format("h {0} v {1} h -{2} v {3} h -{4} z", aktualaLarĝeco, Dy, aktualaLarĝeco - Dx,
-            aktualaAlteco - Dy, Dx);
+         return $"h {aktualaLarĝeco} v {Dy} h -{aktualaLarĝeco - Dx} v {aktualaAlteco - Dy} h -{Dx} z";
       }
 
       private string O(int aktualaLarĝeco, int aktualaAlteco) {
@@ -594,7 +605,7 @@ h {4} v {3} h -{4} z m 0 {3} l {2} -{3} h {4} l -{2} {3} z", aktualaLarĝeco, Dy
             {"argumento2", Argumento2}, {"argumento3", Argumento3}, {"translativo", Translativo},
             {"ujo1Unue", Ujo1Unue}, {"unueUjo2", Ujo2Unue}, {"unueUjo3", Ujo3Unue}, {"igo", Igo}, {"etigo", Etigo},
             {"reflekcio", Reflekcio}, {"hipoteza", Okazo}, {"apartigita", AktualaOkazo}, {"finitaOkazo", FinitaOkazo},
-            {"cifero", Cifero}
+            {"cifero", Cifero}, {"vokativo", Vokativo}, {"argumento2De", Argumento2De}
          };
          LiteroDesegniloj = new Dictionary<string, LiteroDesegnilo> {
             {"m", M}, {"p", P}, {"pl", Pl}, {"pr", Pr}, {"b", B}, {"bl", Bl}, {"br", Br}, {"v", V}, {"n", N}, {"t", T},
