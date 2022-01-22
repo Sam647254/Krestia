@@ -244,6 +244,13 @@ m {10} 0 h {8} v {1} h -{8} z m {10} 0 h {8} v {1} h -{8} z", DuonaLarĝeco, Alt
             DufojaAlteco / 2 - Dy / 2, DuonaLarĝeco - Dx, Dy, Dx);
       }
 
+      private string PredikatoDe() {
+         X += DuonaLarĝeco + Spaceto;
+         return string.Format(
+            "h {0} l {1} {2} h -{0} z m 0 {2} h {3} v {4} h -{3} z m 0 {5} l {1} -{2} h {0} l -{1} {2} z",
+            Dx, DuonaLarĝeco - Dx, DufojaAlteco / 2 - Dy / 2, DuonaLarĝeco, Dy, DufojaAlteco / 2 + Dy / 2);
+      }
+
       private string UnuNombro() {
          X += DuonaLarĝeco + Spaceto * 2 + Dx;
          return string.Format(
@@ -502,8 +509,8 @@ l -{6} {2} h {3} l {6} -{2} z", aktualaLarĝeco, rSpaco, aktualaAlteco - Dy, Dx,
       }
 
       private string AA(int aktualaLarĝeco, int aktualaAlteco) {
-         return string.Format("m 0 {3} h {2} v -{3} h {4} v {5} h -{0} z", aktualaLarĝeco, Dy, aktualaLarĝeco - Dx,
-            aktualaAlteco - Dy, Dx, aktualaAlteco);
+         return
+            $"m 0 {aktualaAlteco - Dy} h {aktualaLarĝeco - Dx} v -{aktualaAlteco - Dy} h {Dx} v {aktualaAlteco} h -{aktualaLarĝeco} z";
       }
 
       private string N(int aktualaLarĝeco, int aktualaAlteco) {
@@ -605,7 +612,7 @@ h {4} v {3} h -{4} z m 0 {3} l {2} -{3} h {4} l -{2} {3} z", aktualaLarĝeco, Dy
             {"argumento2", Argumento2}, {"argumento3", Argumento3}, {"translativo", Translativo},
             {"ujo1Unue", Ujo1Unue}, {"unueUjo2", Ujo2Unue}, {"unueUjo3", Ujo3Unue}, {"igo", Igo}, {"etigo", Etigo},
             {"reflekcio", Reflekcio}, {"hipoteza", Okazo}, {"apartigita", AktualaOkazo}, {"finitaOkazo", FinitaOkazo},
-            {"cifero", Cifero}, {"vokativo", Vokativo}, {"argumento2De", Argumento2De}
+            {"cifero", Cifero}, {"vokativo", Vokativo}, {"argumento2De", Argumento2De}, {"predikatoDe", PredikatoDe}
          };
          LiteroDesegniloj = new Dictionary<string, LiteroDesegnilo> {
             {"m", M}, {"p", P}, {"pl", Pl}, {"pr", Pr}, {"b", B}, {"bl", Bl}, {"br", Br}, {"v", V}, {"n", N}, {"t", T},
