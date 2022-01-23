@@ -4,6 +4,8 @@ open System
 open KrestiaParser.Utils
 open KrestiaParser.WordType
 
+type Decomposition<'a> = State<string, 'a>
+
 type DecomposeError =
    | InvalidInflectionError of string
    | InvalidBaseWordError of string
@@ -16,7 +18,7 @@ type DecomposedWord =
 
 type DecomposeStep =
    | BaseStep of WordType
-   | SecondaryStep of Inflection * WordType list
+   | InflectionStep of Inflection
 
 type DecomposeResult = DecomposeStep list * string
 
@@ -55,6 +57,15 @@ let private isNonterminalDigit word =
    | "kle" -> true
    | _ -> false
 
+let private decomposeWith (WI (suffix, inflection, _)): Decomposition<Inflection> =
+   withState {
+      let! previousRemaining = getState
+      let isSuffix = previousRemaining.EndsWith(suffix)
+      let remaining = previousRemaining.Substring(0, previousRemaining.Length - suffix.Length)
+      let isRemainingValid = isValidWord remaining
+      return failwith "???"
+   }
+
 let private readSpecialWord word =
    result {
       match word with
@@ -74,6 +85,9 @@ let private decomposeSpecialWord word =
       let! baseStep, baseWord = readSpecialWord word
       return ([ baseStep ], baseWord)
    }
+   
+let private decomposeWith (WI (suffix, inflection, wordTypes)) validTypes word =
+   failwith "???"
 
 let rec private decomposeWord validWordTypes word = failwith "???"
 
