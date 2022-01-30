@@ -1,6 +1,7 @@
 ﻿module KrestiaParser.Decompose
 
 open System
+open KrestiaParser.Phonotactics
 open KrestiaParser.Utils
 open KrestiaParser.WordType
 
