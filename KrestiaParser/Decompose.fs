@@ -5,7 +5,7 @@ open KrestiaParser.Phonotactics
 open KrestiaParser.Utils
 open KrestiaParser.WordType
 
-type Decomposition<'a> = State<string, 'a>
+type Decomposition<'a> = OptionState<string, 'a>
 
 type DecomposeError =
    | InvalidInflectionError of string
@@ -58,67 +58,89 @@ let private isNonterminalDigit word =
    | "kle" -> true
    | _ -> false
 
+let isValidNextInflection wordType inflection = failwith "???"
+
 let private decomposeWith (WI (suffix, inflection, _)): Decomposition<Inflection> =
    withState {
       let! previousRemaining = getState
       let isSuffix = previousRemaining.EndsWith(suffix)
       let remaining = previousRemaining.Substring(0, previousRemaining.Length - suffix.Length)
       let isRemainingValid = isValidWord remaining
+      if isSuffix && isRemainingValid then
+         do! putState remaining
+         return inflection
+   }
+
+let validateDerivation (inflections, baseWord) =
+   option {
       return failwith "???"
    }
-
-let private readSpecialWord word =
-   result {
-      match word with
-      | _ when isTerminalDigit word -> return! Ok(BaseStep TerminalDigit, word)
-      | _ when isNonterminalDigit word -> return (BaseStep NonterminalDigit, word)
-      | _ ->
-         let firstLetter = word.Chars 0
-
-         if Char.IsUpper(firstLetter) then
-            return (BaseStep Name, word)
-         else
-            return! Error(InvalidBaseWordError word)
-   }
-
-let private decomposeSpecialWord word =
-   result {
-      let! baseStep, baseWord = readSpecialWord word
-      return ([ baseStep ], baseWord)
-   }
    
-let private decomposeWith (WI (suffix, inflection, wordTypes)) validTypes word =
-   failwith "???"
-
-let rec private decomposeWord validWordTypes word = failwith "???"
-
-and private decomposeWordAcc validSuffixes validWordTypes stepsAcc word = failwith "???"
-
-let private decomposeAll wordTypes word =
-   decomposeSpecialWord word
-   <|> decomposeWord suffixesList wordTypes List.empty word
-
-let decompose (word: string) : Result<DecomposedWord, DecomposeError> =
-   result {
-      let! steps, baseWord = decomposeAll [ All ] word
-      let steps' = List.rev steps
-
-      let inflections =
-         steps'
-         |> List.tail
-         |> List.map
-               (fun step ->
-                  match step with
-                  | SecondaryStep (i, _) -> i
-                  | _ -> failwith "Unreachable state")
-
-      let baseStep =
-         match List.head steps' with
-         | BaseStep wordType -> wordType
-         | _ -> failwith "Unreachable state"
-
-      return
-         { steps = inflections
-           baseType = baseStep
-           baseWord = baseWord }
+let private readBaseType (wordType: WordType) typeGuard =
+   withState {
+      let! word = getState
+      if typeGuard word then
+         do! putState ""
+         return wordType
    }
+
+let private readBaseWord =
+   withState {
+      let! word = getState
+      if isValidWord word then
+         let! baseType = lift (baseTypeOf word)
+         do! putState ""
+         return baseType
+   }
+
+let private readName: Decomposition<WordType> =
+   readBaseType Name (fun word -> Char.IsUpper(word.Chars 1))
+
+let private readTerminalDigit: Decomposition<WordType> =
+   readBaseType TerminalDigit isTerminalDigit
+
+let private readNonterminalDigit: Decomposition<WordType> =
+   readBaseType NonterminalDigit isNonterminalDigit
+
+let private readFixedWord: Decomposition<WordType> =
+   withState {
+      return! readName
+      return! readTerminalDigit
+      return! readNonterminalDigit
+   }
+
+let private runFixedWord = runState readFixedWord
+
+let private runBaseWord = runState readBaseWord
+
+let private addPreviousSteps inflections (inflection, word) = (inflection :: inflections, word)
+
+let private runStep word: List<Inflection * string> = failwith "???"
+
+let rec private runStep' (inflectionsAcc, remainingWord) =
+   let nextStep = runStep remainingWord
+   let newList = List.map (addPreviousSteps inflectionsAcc) nextStep
+   let nextStep' = List.collect runStep' newList
+   nonEmpty nextStep' newList
+
+let decompose (word: string): Option<DecomposedWord> =
+   let fixedWord =
+      runFixedWord word
+      |> Option.map fst
+      |> Option.map (fun t -> { steps= []; baseType = t; baseWord = word })
+   let commonWord () =
+      let inflectedWord =
+         runStep' ([], word)
+         |> List.map validateDerivation
+         |> catOptions
+         |> List.tryHead
+      let baseWord () =
+         runBaseWord word
+         |> Option.map fst
+         |> Option.map (fun t -> { steps=[]; baseType=t; baseWord=word })
+      
+      inflectedWord
+      |> Option.orElseWith baseWord
+      
+   fixedWord
+   |> Option.orElseWith commonWord

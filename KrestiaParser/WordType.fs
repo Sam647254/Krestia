@@ -208,3 +208,24 @@ let suffixesList =
      wi "rup" Shift3 [ Verb123 ]
      wi "rosh" Shift3 [ Verb13 ]
      wi "riv" Shift3 [ Verb23 ] ]
+
+let baseTypeOf word =
+   failwith "???"
+
+let isPostfixed (word: string) =
+    word.EndsWith("r")
+    || ([ "dri"; "gri"; "dru"; "gru" ]
+        |> List.tryFind word.EndsWith
+        |> Option.isSome)
+
+let predicativeToDefinite (word: string) =
+    if word.EndsWith("aa") then
+        Some <| word.Substring(0, word.Length - 2) + "a"
+    else if word.EndsWith("o") then
+        Some <| word.Substring(0, word.Length - 1) + "e"
+    else if word.EndsWith("u") then
+        Some <| word.Substring(0, word.Length - 1) + "i"
+    else
+        None
+
+let isPI = predicativeToDefinite >> Option.isSome
