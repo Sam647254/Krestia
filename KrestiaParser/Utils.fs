@@ -17,6 +17,8 @@ type OptionBuilder() =
    member _.Return v = Some v
 
    member _.ReturnFrom o = o
+   
+   member _.Zero () = None
 
 let option = OptionBuilder()
 
@@ -74,6 +76,12 @@ let guard condition : OptionState<'a, unit> =
       OptionState(fun s -> Some((), s))
    else
       OptionState(fun _ -> None)
+
+let takeIf condition =
+   if condition then
+      Some ()
+   else
+      None
 
 let rec catOptions list =
    let rec catOptionsAcc list' remaining =

@@ -58,7 +58,15 @@ let private isNonterminalDigit word =
    | "kle" -> true
    | _ -> false
 
-let isValidNextInflection wordType inflection = failwith "???"
+let private isValidNextInflection wordType inflection =
+   let hasValidSuffix =
+      suffixesList
+      |> List.tryFind (fun (WI (_,nextInflection, validBaseTypes)) ->
+         inflection = nextInflection && List.contains wordType validBaseTypes)
+      |> Option.isSome
+   let validPI = lazy (inflection = PredicativeIdentity && canUsePI wordType)
+   let validPostfix = lazy (inflection = Postfixed && canBePostfixed wordType)
+   hasValidSuffix || validPI.Value || validPostfix.Value
 
 let private decomposeWith (WI (suffix, inflection, _)): Decomposition<Inflection> =
    withState {
@@ -71,12 +79,30 @@ let private decomposeWith (WI (suffix, inflection, _)): Decomposition<Inflection
          return inflection
    }
 
-let validateDerivation (inflections, baseWord) =
+let private validInflections = List.map decomposeWith suffixesList
+   
+let rec private validate baseType nextInflection restInflections =
+   match restInflections with
+   | [] -> isValidNextInflection baseType nextInflection
+   | first :: rest ->
+      option {
+         let! wordType, isTerminal = behaviourOf baseType nextInflection
+         do! takeIf (isValidNextInflection wordType nextInflection && (not isTerminal || List.isEmpty rest))
+         return validate wordType first rest
+      }
+      |> Option.defaultValue false
+
+let rec private validateDerivation (inflections, baseWord) =
    option {
-      return failwith "???"
+      let! baseType, _ = runBaseWord baseWord
+      match inflections with
+      | [] -> return failwith "Invalid state"
+      | first :: rest ->
+         do! takeIf (isValidNextInflection baseType first && validate baseType first rest)
+         return { steps = inflections; baseType = baseType; baseWord = baseWord }
    }
    
-let private readBaseType (wordType: WordType) typeGuard =
+and private readBaseType (wordType: WordType) typeGuard =
    withState {
       let! word = getState
       if typeGuard word then
@@ -84,7 +110,7 @@ let private readBaseType (wordType: WordType) typeGuard =
          return wordType
    }
 
-let private readBaseWord =
+and private readBaseWord =
    withState {
       let! word = getState
       if isValidWord word then
@@ -93,29 +119,51 @@ let private readBaseWord =
          return baseType
    }
 
-let private readName: Decomposition<WordType> =
+and private readName: Decomposition<WordType> =
    readBaseType Name (fun word -> Char.IsUpper(word.Chars 1))
 
-let private readTerminalDigit: Decomposition<WordType> =
+and private readTerminalDigit: Decomposition<WordType> =
    readBaseType TerminalDigit isTerminalDigit
 
-let private readNonterminalDigit: Decomposition<WordType> =
+and private readNonterminalDigit: Decomposition<WordType> =
    readBaseType NonterminalDigit isNonterminalDigit
 
-let private readFixedWord: Decomposition<WordType> =
+and private readFixedWord: Decomposition<WordType> =
    withState {
       return! readName
       return! readTerminalDigit
       return! readNonterminalDigit
    }
 
-let private runFixedWord = runState readFixedWord
+and private readPostfixed =
+   withState {
+      let! word = getState
+      do! guard (isPostfixed word)
+      do! putState (prefixToPostfix word)
+      return Postfixed
+   }
 
-let private runBaseWord = runState readBaseWord
+and private readPI =
+   withState {
+      let! word = getState
+      do! guard (isPI word)
+      do! putState (Option.get <| predicativeToDefinite word)
+      return PredicativeIdentity
+   }
+
+and private runFixedWord = runState readFixedWord
+
+and private runBaseWord = runState readBaseWord
 
 let private addPreviousSteps inflections (inflection, word) = (inflection :: inflections, word)
 
-let private runStep word: List<Inflection * string> = failwith "???"
+let private step =
+   List.append validInflections [ readPostfixed; readPI ]
+
+let private runStep word: List<Inflection * string> =
+   step
+   |> List.map (fun s -> runState s word)
+   |> List.choose id
 
 let rec private runStep' (inflectionsAcc, remainingWord) =
    let nextStep = runStep remainingWord

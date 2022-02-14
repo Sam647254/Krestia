@@ -1,5 +1,8 @@
 ﻿module KrestiaParser.WordType
 
+open KrestiaParser
+open Utils
+
 type WordType =
    | CountableNoun
    | UncountableNoun
@@ -209,23 +212,68 @@ let suffixesList =
      wi "rosh" Shift3 [ Verb13 ]
      wi "riv" Shift3 [ Verb23 ] ]
 
-let baseTypeOf word =
-   failwith "???"
+let baseTypeOf word = failwith "???"
+
+let isVerb word = failwith "???"
 
 let isPostfixed (word: string) =
-    word.EndsWith("r")
-    || ([ "dri"; "gri"; "dru"; "gru" ]
-        |> List.tryFind word.EndsWith
-        |> Option.isSome)
+   word.EndsWith("r")
+   || ([ "dri"; "gri"; "dru"; "gru" ]
+       |> List.tryFind word.EndsWith
+       |> Option.isSome)
 
 let predicativeToDefinite (word: string) =
-    if word.EndsWith("aa") then
-        Some <| word.Substring(0, word.Length - 2) + "a"
-    else if word.EndsWith("o") then
-        Some <| word.Substring(0, word.Length - 1) + "e"
-    else if word.EndsWith("u") then
-        Some <| word.Substring(0, word.Length - 1) + "i"
-    else
-        None
+   if word.EndsWith("aa") then
+      Some <| word.Substring(0, word.Length - 2) + "a"
+   else if word.EndsWith("o") then
+      Some <| word.Substring(0, word.Length - 1) + "e"
+   else if word.EndsWith("u") then
+      Some <| word.Substring(0, word.Length - 1) + "i"
+   else
+      None
+
+let prefixToPostfix (word: string) =
+   let suffix =
+      if word.EndsWith("u") then
+         "o"
+      else if word.EndsWith("i") then
+         "e"
+      else if word.EndsWith("r") then
+         "l"
+      else
+         failwithf $"Invalid postfix word %s{word}"
+
+   word.Substring(0, word.Length - 1) + suffix
 
 let isPI = predicativeToDefinite >> Option.isSome
+
+let canUsePI wordType =
+   wordType = CountableNoun
+   || wordType = UncountableNoun
+   || wordType = CountableAssociativeNoun
+   || wordType = UncountableAssociativeNoun
+
+let canBePostfixed wordType =
+   wordType = Modifier
+   || wordType = CountableAssociativeNoun
+   || wordType = UncountableAssociativeNoun
+
+let behaviourOf wordType inflection =
+   if canUsePI wordType then
+      match inflection with
+      | PredicativeIdentity -> Some(Verb1, true)
+      | Possession -> Some(wordType, true)
+      | AttributiveIdentityPostfix -> Some(Modifier, true)
+      | AttributiveIdentityPrefix -> Some(Modifier, true)
+      | SpecificGerund -> Some(UncountableNoun, true)
+      | Quality -> Some(UncountableNoun, false)
+      | Lone -> Some(Verb0, false)
+      | Possessive -> Some(Verb1, false)
+      | Possessive0 -> Some(Verb0, false)
+      | Translative -> Some(Verb1, false)
+      | Translative0 -> Some(Verb0, false)
+      | _ -> None
+   else if isVerb wordType then
+      failwith "???"
+   else
+      None
