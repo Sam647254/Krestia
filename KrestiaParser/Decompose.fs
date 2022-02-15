@@ -58,37 +58,37 @@ let private isNonterminalDigit word =
    | "kle" -> true
    | _ -> false
 
-let private isValidNextInflection wordType inflection =
+let private isValidNextInflection wordType suffix inflection =
    let hasValidSuffix =
       suffixesList
-      |> List.tryFind (fun (WI (_,nextInflection, validBaseTypes)) ->
-         inflection = nextInflection && List.contains wordType validBaseTypes)
+      |> List.tryFind (fun (WI (expectedSuffix, nextInflection, validBaseTypes)) ->
+         inflection = nextInflection && List.contains wordType validBaseTypes && suffix = expectedSuffix)
       |> Option.isSome
    let validPI = lazy (inflection = PredicativeIdentity && canUsePI wordType)
    let validPostfix = lazy (inflection = Postfixed && canBePostfixed wordType)
    hasValidSuffix || validPI.Value || validPostfix.Value
 
-let private decomposeWith (WI (suffix, inflection, _)): Decomposition<Inflection> =
+let private decomposeWith (WI (suffix, inflection, _)): Decomposition<Inflection * string> =
    withState {
       let! previousRemaining = getState
       let isSuffix = previousRemaining.EndsWith(suffix)
-      let remaining = previousRemaining.Substring(0, previousRemaining.Length - suffix.Length)
+      let remaining = previousRemaining.Substring(0, max 0 (previousRemaining.Length - suffix.Length))
       let isRemainingValid = isValidWord remaining
       if isSuffix && isRemainingValid then
          do! putState remaining
-         return inflection
+         return (inflection, suffix)
    }
 
 let private validInflections = List.map decomposeWith suffixesList
    
-let rec private validate baseType nextInflection restInflections =
+let rec private validate baseType suffix nextInflection restInflections =
    match restInflections with
-   | [] -> isValidNextInflection baseType nextInflection
-   | first :: rest ->
+   | [] -> isValidNextInflection baseType suffix nextInflection
+   | (inflection, nextSuffix) :: rest ->
       option {
          let! wordType, isTerminal = behaviourOf baseType nextInflection
-         do! takeIf (isValidNextInflection wordType nextInflection && (not isTerminal || List.isEmpty rest))
-         return validate wordType first rest
+         do! takeIf (isValidNextInflection wordType suffix nextInflection && (not isTerminal || List.isEmpty rest))
+         return validate wordType nextSuffix inflection rest
       }
       |> Option.defaultValue false
 
@@ -97,9 +97,9 @@ let rec private validateDerivation (inflections, baseWord) =
       let! baseType, _ = runBaseWord baseWord
       match inflections with
       | [] -> return failwith "Invalid state"
-      | first :: rest ->
-         do! takeIf (isValidNextInflection baseType first && validate baseType first rest)
-         return { steps = inflections; baseType = baseType; baseWord = baseWord }
+      | (inflection, suffix) :: rest ->
+         do! takeIf (isValidNextInflection baseType suffix inflection && validate baseType suffix inflection rest)
+         return { steps = List.map fst inflections; baseType = baseType; baseWord = baseWord }
    }
    
 and private readBaseType (wordType: WordType) typeGuard =
@@ -140,7 +140,7 @@ and private readPostfixed =
       let! word = getState
       do! guard (isPostfixed word)
       do! putState (prefixToPostfix word)
-      return Postfixed
+      return (Postfixed, "")
    }
 
 and private readPI =
@@ -148,7 +148,7 @@ and private readPI =
       let! word = getState
       do! guard (isPI word)
       do! putState (Option.get <| predicativeToDefinite word)
-      return PredicativeIdentity
+      return (PredicativeIdentity, "")
    }
 
 and private runFixedWord = runState readFixedWord
@@ -160,7 +160,7 @@ let private addPreviousSteps inflections (inflection, word) = (inflection :: inf
 let private step =
    List.append validInflections [ readPostfixed; readPI ]
 
-let private runStep word: List<Inflection * string> =
+let private runStep word =
    step
    |> List.map (fun s -> runState s word)
    |> List.choose id

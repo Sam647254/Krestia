@@ -212,7 +212,32 @@ let suffixesList =
      wi "rosh" Shift3 [ Verb13 ]
      wi "riv" Shift3 [ Verb23 ] ]
 
-let baseTypeOf word = failwith "???"
+let countableNounSuffixes =
+   [ "pa"
+     "pe"
+     "pi"
+     "ta"
+     "te"
+     "ti"
+     "ka"
+     "ke"
+     "ki" ]
+
+let uncountableNounSuffixes = [ "ma"; "me"; "mi"; "na"; "ne"; "ni" ]
+
+let baseTypeOf (word: string) =
+   if word.StartsWith("h") then
+      Some Pronoun
+   else if word.EndsWith("m") then
+      Some Verb0
+   else if List.tryFind (fun (suffix: string) -> word.EndsWith(suffix)) countableNounSuffixes
+           |> Option.isSome then
+      Some CountableNoun
+   else if List.tryFind (fun (suffix: string) -> word.EndsWith(suffix)) uncountableNounSuffixes
+           |> Option.isSome then
+      Some UncountableNoun
+   else
+      None
 
 let isVerb word = failwith "???"
 
