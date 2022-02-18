@@ -22,11 +22,6 @@ type OptionBuilder() =
 
 let option = OptionBuilder()
 
-let (<|>) r1 r2 =
-   match r1 with
-   | Ok _ -> r1
-   | _ -> r2
-
 let nonEmpty list1 list2 =
    match list1 with
    | [] -> list2
@@ -65,23 +60,11 @@ type StateBuilder() =
 
    member _.Delay result2 = result2 ()
 
-let withState = StateBuilder()
+let state = StateBuilder()
 
 let getState = OptionState(fun s -> Some(s, s))
 
 let putState value = OptionState(fun _ -> Some((), value))
-
-let guard condition : OptionState<'a, unit> =
-   if condition then
-      OptionState(fun s -> Some((), s))
-   else
-      OptionState(fun _ -> None)
-
-let takeIf condition =
-   if condition then
-      Some ()
-   else
-      None
 
 let rec catOptions list =
    let rec catOptionsAcc list' remaining =
