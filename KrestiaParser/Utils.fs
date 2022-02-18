@@ -65,14 +65,3 @@ let state = StateBuilder()
 let getState = OptionState(fun s -> Some(s, s))
 
 let putState value = OptionState(fun _ -> Some((), value))
-
-let rec catOptions list =
-   let rec catOptionsAcc list' remaining =
-      match remaining with
-      | [] -> list'
-      | first :: rest ->
-         match first with
-         | Some v -> catOptionsAcc (v :: list') rest
-         | None -> catOptionsAcc list' rest
-
-   catOptionsAcc [] list

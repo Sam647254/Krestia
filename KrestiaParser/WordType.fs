@@ -239,7 +239,15 @@ let baseTypeOf (word: string) =
    else
       None
 
-let isVerb word = failwith "???"
+let isVerb word =
+   word = Verb0 ||
+      word = Verb1 ||
+      word = Verb2 ||
+      word = Verb3 ||
+      word = Verb12 ||
+      word = Verb13 ||
+      word = Verb23 ||
+      word = Verb123
 
 let isPostfixed (word: string) =
    word.EndsWith("r")
@@ -299,6 +307,6 @@ let behaviourOf wordType inflection =
       | Translative0 -> Some(Verb0, false)
       | _ -> None
    else if isVerb wordType then
-      failwith "???"
+      None
    else
       None

@@ -18,8 +18,8 @@ type DecomposedWord =
      baseWord: string }
 
 type DecomposeStep =
-   | BaseStep of WordType
-   | InflectionStep of Inflection
+   | BaseStep of (WordType * string)
+   | InflectionStep of (Inflection * string)
 
 type DecomposeResult = DecomposeStep list * string
 
@@ -80,7 +80,7 @@ let private isValidNextInflection wordType suffix inflection =
    || validPI.Value
    || validPostfix.Value
 
-let private decomposeWith (WI (suffix, inflection, _)) : Decomposition<Inflection * string> =
+let private decomposeWith (WI (suffix, inflection, _)) : Decomposition<DecomposeStep> =
    state {
       let! previousRemaining = getState
       let isSuffix = previousRemaining.EndsWith(suffix)
@@ -92,37 +92,43 @@ let private decomposeWith (WI (suffix, inflection, _)) : Decomposition<Inflectio
 
       if isSuffix && isRemainingValid then
          do! putState remaining
-         return (inflection, suffix)
+         return InflectionStep(inflection, suffix)
    }
 
 let private validInflections = List.map decomposeWith suffixesList
 
-let rec private validate baseType suffix nextInflection restInflections =
-   match restInflections with
-   | [] -> isValidNextInflection baseType suffix nextInflection
-   | (inflection, nextSuffix) :: rest ->
+let rec private hasValidSteps baseType inflections =
+   match inflections with
+   | [] -> true
+   | InflectionStep(inflection, nextSuffix) :: rest ->
       option {
-         let! wordType, isTerminal = behaviourOf baseType nextInflection
+         let! wordType, isTerminal = behaviourOf baseType inflection
 
-         if isValidNextInflection wordType suffix nextInflection
+         if isValidNextInflection baseType nextSuffix inflection
             && (not isTerminal || List.isEmpty rest) then
-            return validate wordType nextSuffix inflection rest
+            return hasValidSteps wordType rest
       }
       |> Option.defaultValue false
+   | _ -> false
 
-let rec private validateDerivation (inflections, baseWord) =
+let private getInflections inflectionSteps =
+   inflectionSteps
+   |> List.map (fun step ->
+      match step with
+      | InflectionStep (i, _) -> i
+      | s -> failwithf $"Invalid state %O{s}")
+
+let rec private validateDerivation (inflectionSteps, _) =
    option {
-      let! baseType, _ = runBaseWord baseWord
-
-      match inflections with
+      match inflectionSteps with
       | [] -> return failwith "Invalid state"
-      | (inflection, suffix) :: rest ->
-         if isValidNextInflection baseType suffix inflection
-            && validate baseType suffix inflection rest then
+      | BaseStep (baseType, baseWord) :: rest ->
+         if hasValidSteps baseType rest then
             return
-               { steps = List.map fst inflections
+               { steps = getInflections rest
                  baseType = baseType
                  baseWord = baseWord }
+      | _ -> return! None
    }
 
 and private readBaseType (wordType: WordType) typeGuard =
@@ -141,7 +147,7 @@ and private readBaseWord =
       if isValidWord word then
          let! baseType = lift (baseTypeOf word)
          do! putState ""
-         return baseType
+         return BaseStep (baseType, word)
    }
 
 and private readName: Decomposition<WordType> =
@@ -166,7 +172,7 @@ and private readPostfixed =
 
       if isPostfixed word then
          do! putState (prefixToPostfix word)
-         return (Postfixed, "")
+         return InflectionStep (Postfixed, "")
    }
 
 and private readPI =
@@ -175,17 +181,15 @@ and private readPI =
 
       if isPI word then
          do! putState (Option.get <| predicativeToDefinite word)
-         return (PredicativeIdentity, "")
+         return InflectionStep (PredicativeIdentity, "")
    }
 
 and private runFixedWord = runState readFixedWord
 
-and private runBaseWord = runState readBaseWord
-
 let private addPreviousSteps inflections (inflection, word) = (inflection :: inflections, word)
 
 let private step =
-   List.append validInflections [ readPostfixed; readPI ]
+   List.append validInflections [ readPostfixed; readPI; readBaseWord ]
 
 let private runStep word =
    step
@@ -199,7 +203,7 @@ let rec private runStep' (inflectionsAcc, remainingWord) =
       List.map (addPreviousSteps inflectionsAcc) nextStep
 
    let nextStep' = List.collect runStep' newList
-   nonEmpty nextStep' newList
+   List.append nextStep' newList
 
 let decompose (word: string) : Option<DecomposedWord> =
    let fixedWord =
@@ -212,21 +216,11 @@ let decompose (word: string) : Option<DecomposedWord> =
                  baseWord = word })
 
    let commonWord () =
-      let inflectedWord =
+      let results = 
          runStep' ([], word)
-         |> List.map validateDerivation
-         |> catOptions
-         |> List.tryHead
-
-      let baseWord () =
-         runBaseWord word
-         |> Option.map fst
-         |> Option.map
-               (fun t ->
-                  { steps = []
-                    baseType = t
-                    baseWord = word })
-
-      inflectedWord |> Option.orElseWith baseWord
+      
+      results
+      |> List.choose validateDerivation
+      |> List.tryExactlyOne
 
    fixedWord |> Option.orElseWith commonWord
