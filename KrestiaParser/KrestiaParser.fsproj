@@ -10,6 +10,7 @@
         <Compile Include="Phonotactics.fs" />
         <Compile Include="WordType.fs" />
         <Compile Include="Decompose.fs" />
+        <Compile Include="DictionaryHelper.fs" />
     </ItemGroup>
 
 </Project>

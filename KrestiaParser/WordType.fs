@@ -22,7 +22,6 @@ type WordType =
    | Name
    | TerminalDigit
    | NonterminalDigit
-   | All
 
 type Inflection =
    | Definite

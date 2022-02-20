@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <LangVersion>default</LangVersion>
     </PropertyGroup>
@@ -13,8 +13,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\KrestiaParser\KrestiaParser.fsproj" />
       <ProjectReference Include="..\KrestiaVortaroBazo\KrestiaVortaroBazo.csproj" />
-      <ProjectReference Include="..\KrestiaVortilo\KrestiaVortilo.fsproj" />
       <ProjectReference Include="..\TimeranDesegnilo2\TimeranDesegnilo2.csproj" />
     </ItemGroup>
 

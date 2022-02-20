@@ -295,53 +295,53 @@ namespace KrestiaVortaro {
             .ToImmutableSortedSet();
       }
 
-      public static NovaJsonVortaro IgiEnNovaVortaro(IEnumerable<Vorto> vortoj, IEnumerable<VortaraKategorio> kategorioj) {
+      public static JsonDictionary IgiEnNovaVortaro(IEnumerable<Vorto> vortoj, IEnumerable<VortaraKategorio> kategorioj) {
          var groupoj = vortoj.GroupBy(vorto => Malinflektado.vortaraTipoDe(vorto.PlenaVorto))
             .ToDictionary(grupo => grupo.Key);
-         var substantivoj = groupoj["Class"]!.Concat(groupoj["Associative class"]).Select(s => new Substantivo {
-            Vorto = s.PlenaVorto,
-            Signifo = s.Signifo,
-            Gloso = s.GlosaSignifo,
-            Radikoj = s.Radikoj.ToList(),
-            Noto = s.Noto
+         var substantivoj = groupoj["Class"]!.Concat(groupoj["Associative class"]).Select(s => new Noun {
+            Spelling = s.PlenaVorto,
+            Meaning = s.Signifo,
+            Gloss = s.GlosaSignifo,
+            Roots = s.Radikoj.ToList(),
+            Remarks = s.Noto
          });
-         var verboj = groupoj["Verb"]!.Select(v => new Verbo {
-            Vorto = v.PlenaVorto,
-            Signifo = v.Signifo,
-            Gloso = v.GlosaSignifo,
-            Radikoj = v.Radikoj.ToList(),
-            Noto = v.Noto,
-            ArgumentajNotoj = new List<string?>(new string?[Malinflektado.valencoDeInfinitivo(v.PlenaVorto)])
+         var verboj = groupoj["Verb"]!.Select(v => new Verb {
+            Spelling = v.PlenaVorto,
+            Meaning = v.Signifo,
+            Gloss = v.GlosaSignifo,
+            Roots = v.Radikoj.ToList(),
+            Remarks = v.Noto,
+            ArgumentRemarks = new List<string?>(new string?[Malinflektado.valencoDeInfinitivo(v.PlenaVorto)])
          });
-         var modifantoj = groupoj["Modifier"]!.Select(s => new Modifanto {
-            Vorto = s.PlenaVorto,
-            Signifo = s.Signifo,
-            Gloso = s.GlosaSignifo,
-            Radikoj = s.Radikoj.ToList(),
-            Noto = s.Noto,
-            AldonaĵajTipoj = s.ModifantoInflekcioj!,
-            ModifeblajTipoj = s.ModifeblajVorttipoj!,
-            AldonaĵajNotoj = new List<string?>()
+         var modifantoj = groupoj["Modifier"]!.Select(s => new Modifier {
+            Spelling = s.PlenaVorto,
+            Meaning = s.Signifo,
+            Gloss = s.GlosaSignifo,
+            Roots = s.Radikoj.ToList(),
+            Remarks = s.Noto,
+            AttachmentTypes = s.ModifantoInflekcioj!,
+            CanModifyTypes = s.ModifeblajVorttipoj!,
+            AttachmentRemarks = new List<string?>()
          });
-         var novajKategorioj = kategorioj.Select(k => new NovaKategorio {
-            Nomo = k.Nomo,
-            Vortoj = k.Vortoj.ToList()
+         var novajKategorioj = kategorioj.Select(k => new Category {
+            Name = k.Nomo,
+            Words = k.Vortoj.ToList()
          });
-         var specialajVortoj = groupoj["Digit"].Concat(groupoj["Placeholder"]).Select(v => new VortaraVorto {
-            Vorto = v.PlenaVorto,
-            Signifo = v.Signifo,
-            Gloso = v.GlosaSignifo,
-            Radikoj = v.Radikoj.ToList(),
-            Noto = v.Noto
+         var specialajVortoj = groupoj["Digit"].Concat(groupoj["Placeholder"]).Select(v => new DictionaryEntry {
+            Spelling = v.PlenaVorto,
+            Meaning = v.Signifo,
+            Gloss = v.GlosaSignifo,
+            Roots = v.Radikoj.ToList(),
+            Remarks = v.Noto
          });
 
-         return new NovaJsonVortaro {
-            Substantivoj = substantivoj.ToList(),
-            Rekordoj = new List<Rekordo>(),
-            Verboj = verboj.ToList(),
-            Modifantoj = modifantoj.ToList(),
-            SpecialajVortoj = specialajVortoj.ToList(),
-            Kategorioj = novajKategorioj.ToList()
+         return new JsonDictionary {
+            Nouns = substantivoj.ToList(),
+            Records = new List<Record>(),
+            Verbs = verboj.ToList(),
+            Modifiers = modifantoj.ToList(),
+            SpecialWords = specialajVortoj.ToList(),
+            Categories = novajKategorioj.ToList()
          };
       }
 
@@ -361,14 +361,14 @@ namespace KrestiaVortaro {
             novajKategorioj.ToImmutableSortedSet());
       }
 
-      public static IEnumerable<string> TroviVerbojn(NovaJsonVortaro vortaro) {
-         return vortaro.Verboj.Select(verbo => $"{verbo.Vorto}|{verbo.Signifo}|");
+      public static IEnumerable<string> TroviVerbojn(JsonDictionary dictionary) {
+         return dictionary.Verbs.Select(verbo => $"{verbo.Spelling}|{verbo.Meaning}|");
       }
 
       public static void ĜisdatigiVerbojn(NovaVortaraIndekso vortaro, IEnumerable<string> vicoj) {
          foreach (var vico in vicoj) {
             var partoj = vico.Split('|');
-            var verbo = (vortaro.Indekso[partoj[0]] as Verbo)!;
+            var verbo = (vortaro.Indekso[partoj[0]] as Verb)!;
             var signifo = partoj[1];
             var frazaSignifo = partoj[2];
             List<string?>? argumentajNotoj = null;
@@ -384,24 +384,24 @@ namespace KrestiaVortaro {
                noto = partoj[4];
             }
 
-            verbo.Signifo = signifo;
-            verbo.FrazaSignifo = frazaSignifo;
+            verbo.Meaning = signifo;
+            verbo.TemplateMeaning = frazaSignifo;
             if (argumentajNotoj != null) {
-               verbo.ArgumentajNotoj = argumentajNotoj;
+               verbo.ArgumentRemarks = argumentajNotoj;
             }
 
-            verbo.Noto = noto;
+            verbo.Remarks = noto;
          }
       }
 
       public static IEnumerable<string> ListiNekategorigitajVertojn(NovaVortaraIndekso vortaro) {
          var ĉiujVortoj = vortaro.Indekso.Keys.ToImmutableHashSet();
-         var kategorigitajVortoj = vortaro.Kategorioj.SelectMany(k => k.Vortoj).ToImmutableHashSet();
+         var kategorigitajVortoj = vortaro.Kategorioj.SelectMany(k => k.Words).ToImmutableHashSet();
          return ĉiujVortoj.Except(kategorigitajVortoj);
       }
 
-      public static void AldoniVortojn(IEnumerable<string> eniro, NovaJsonVortaro vortaro) {
-         var indekso = new NovaVortaraIndekso(vortaro);
+      public static void AldoniVortojn(IEnumerable<string> eniro, JsonDictionary dictionary) {
+         var indekso = new NovaVortaraIndekso(dictionary);
          foreach (var vico in eniro) {
             var partoj = vico.Split('|');
             var vorto = partoj[0];
@@ -422,13 +422,13 @@ namespace KrestiaVortaro {
                case "Class":
                case "Associative class": {
                   var plenaFormo = partoj[5];
-                  vortaro.Substantivoj.Add(new Substantivo {
-                     Vorto = vorto,
-                     Gloso = gloso,
-                     Noto = string.IsNullOrEmpty(noto) ? null : noto,
-                     PlenaFormo = string.IsNullOrEmpty(plenaFormo) ? null : plenaFormo,
-                     Radikoj = radikoj.ToList(),
-                     Signifo = signifo
+                  dictionary.Nouns.Add(new Noun {
+                     Spelling = vorto,
+                     Gloss = gloso,
+                     Remarks = string.IsNullOrEmpty(noto) ? null : noto,
+                     FullForm = string.IsNullOrEmpty(plenaFormo) ? null : plenaFormo,
+                     Roots = radikoj.ToList(),
+                     Meaning = signifo
                   });
                   break;
                }
@@ -436,15 +436,15 @@ namespace KrestiaVortaro {
                   var plenaFormo = partoj[5];
                   var frazaSignifo = partoj[6];
                   var argumentoj = partoj[7].Split('^');
-                  vortaro.Verboj.Add(new Verbo {
-                     Vorto = vorto,
-                     Gloso = gloso,
-                     Noto = string.IsNullOrEmpty(noto) ? null : noto,
-                     PlenaFormo = string.IsNullOrEmpty(plenaFormo) ? null : plenaFormo,
-                     Radikoj = radikoj.ToList(),
-                     Signifo = signifo,
-                     FrazaSignifo = frazaSignifo,
-                     ArgumentajNotoj = argumentoj.Select(a => a.Length == 0 ? null : a).ToList()
+                  dictionary.Verbs.Add(new Verb {
+                     Spelling = vorto,
+                     Gloss = gloso,
+                     Remarks = string.IsNullOrEmpty(noto) ? null : noto,
+                     FullMeaning = string.IsNullOrEmpty(plenaFormo) ? null : plenaFormo,
+                     Roots = radikoj.ToList(),
+                     Meaning = signifo,
+                     TemplateMeaning = frazaSignifo,
+                     ArgumentRemarks = argumentoj.Select(a => a.Length == 0 ? null : a).ToList()
                   });
                   break;
                }
@@ -452,15 +452,15 @@ namespace KrestiaVortaro {
                   var modifeblajTipoj = partoj[5].Split(',');
                   var aldonaĵajTipoj = partoj[6].Split(',');
                   var aldonaĵajNotoj = partoj[7].Split('^');
-                  vortaro.Modifantoj.Add(new Modifanto {
-                     Vorto = vorto,
-                     Gloso = gloso,
-                     Noto = string.IsNullOrEmpty(noto) ? null : noto,
-                     Radikoj = radikoj.ToList(),
-                     ModifeblajTipoj = modifeblajTipoj.ToList(),
-                     AldonaĵajTipoj = aldonaĵajTipoj.ToList(),
-                     AldonaĵajNotoj = aldonaĵajNotoj.Select(a => a.Length == 0 ? null : a).ToList(),
-                     Signifo = signifo
+                  dictionary.Modifiers.Add(new Modifier {
+                     Spelling = vorto,
+                     Gloss = gloso,
+                     Remarks = string.IsNullOrEmpty(noto) ? null : noto,
+                     Roots = radikoj.ToList(),
+                     CanModifyTypes = modifeblajTipoj.ToList(),
+                     AttachmentTypes = aldonaĵajTipoj.ToList(),
+                     AttachmentRemarks = aldonaĵajNotoj.Select(a => a.Length == 0 ? null : a).ToList(),
+                     Meaning = signifo
                   });
                   break;
                }

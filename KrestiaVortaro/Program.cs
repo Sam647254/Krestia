@@ -100,7 +100,7 @@ timeran <KV> <eniro> <eliro>
                }
                case "verbo1": {
                   var enhavo = await File.ReadAllTextAsync(args[1]);
-                  var vortaro = JsonConvert.DeserializeObject<NovaJsonVortaro>(enhavo);
+                  var vortaro = JsonConvert.DeserializeObject<JsonDictionary>(enhavo);
                   var verboj = Agoj.TroviVerbojn(vortaro);
                   await File.WriteAllLinesAsync(args[2], verboj);
                   break;
@@ -121,7 +121,7 @@ timeran <KV> <eniro> <eliro>
                   break;
                }
                case "aldoni": {
-                  var vortaro = JsonConvert.DeserializeObject<NovaJsonVortaro>(await File.ReadAllTextAsync(args[1]))!;
+                  var vortaro = JsonConvert.DeserializeObject<JsonDictionary>(await File.ReadAllTextAsync(args[1]))!;
                   var eniro = File.ReadLines(args[2]);
                   Agoj.AldoniVortojn(eniro, vortaro);
                   var novaVortaro = JsonConvert.SerializeObject(vortaro, Formatting.Indented);

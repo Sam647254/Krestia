@@ -5,32 +5,32 @@ using Newtonsoft.Json;
 
 namespace KrestiaVortaroBazo {
    public class NovaVortaraIndekso {
-      public IImmutableDictionary<string, VortaraVorto> Indekso { get; private set; } = null!;
-      public IEnumerable<NovaKategorio> Kategorioj => _vortaro.Kategorioj;
+      public IImmutableDictionary<string, DictionaryEntry> Indekso { get; private set; } = null!;
+      public IEnumerable<Category> Kategorioj => _dictionary.Categories;
 
-      private readonly NovaJsonVortaro _vortaro;
+      private readonly JsonDictionary _dictionary;
 
       public NovaVortaraIndekso(string eniro) {
-         _vortaro = JsonConvert.DeserializeObject<NovaJsonVortaro>(eniro)!;
+         _dictionary = JsonConvert.DeserializeObject<JsonDictionary>(eniro)!;
          KreiIndekson();
       }
 
-      public NovaVortaraIndekso(NovaJsonVortaro vortaro) {
-         _vortaro = vortaro;
+      public NovaVortaraIndekso(JsonDictionary dictionary) {
+         _dictionary = dictionary;
          KreiIndekson();
       }
 
       public string IgiEnJson() {
-         return JsonConvert.SerializeObject(_vortaro, Formatting.Indented);
+         return JsonConvert.SerializeObject(_dictionary, Formatting.Indented);
       }
 
       private void KreiIndekson() {
-         Indekso = _vortaro.Substantivoj
-            .Concat<VortaraVorto>(_vortaro.Verboj)
-            .Concat(_vortaro.Rekordoj)
-            .Concat(_vortaro.Modifantoj)
-            .Concat(_vortaro.SpecialajVortoj)
-            .ToImmutableDictionary(v => v.Vorto, v => v);
+         Indekso = _dictionary.Nouns
+            .Concat<DictionaryEntry>(_dictionary.Verbs)
+            .Concat(_dictionary.Records)
+            .Concat(_dictionary.Modifiers)
+            .Concat(_dictionary.SpecialWords)
+            .ToImmutableDictionary(v => v.Spelling, v => v);
       }
    }
 }
