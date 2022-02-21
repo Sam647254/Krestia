@@ -5,7 +5,7 @@ open KrestiaParser.WordType
 
 let typeNameOf word =
    let decomposedWord =
-      decompose word
+      decomposeWord word
       |> Option.defaultWith (fun () -> failwithf $"Cannot decompose %s{word}")
 
    match decomposedWord.baseType with
@@ -28,9 +28,22 @@ let typeNameOf word =
    | TerminalDigit -> "Terminal digit"
    | NonterminalDigit -> "Non-terminal digit"
 
+let inflectionNameOf inflection =
+   match inflection with
+   | PredicativeIdentity -> "Predicative identity"
+   | AttributiveIdentityPostfix -> "Attributive identity (postfix)"
+   | AttributiveIdentityPrefix -> "Attributive identity (prefix)"
+   | SpecificGerund -> "Specific gerund"
+   | Possessive0 -> "Possessive"
+   | Translative0 -> "Translative"
+   | Argument1 -> "First argument"
+   | Argument2 -> "Second argument"
+   | Argument3 -> "Third argument"
+   | _ -> inflection.ToString()
+
 let stemOfWord word =
    let decomposedWord =
-      decompose word
+      decomposeWord word
       |> Option.defaultWith (fun () -> failwithf $"Cannot decompose %s{word}")
 
    if isVerb decomposedWord.baseType then
@@ -43,13 +56,40 @@ let stemOfWord word =
 
 let inflectedFormsOf word =
    let decomposedWord =
-      decompose word
+      decomposeWord word
       |> Option.defaultWith (fun () -> failwithf $"Cannot decompose %s{word}")
 
-   suffixesList
-   |> List.choose
-         (fun (WI (suffix, inflection, validTypes)) ->
-            if List.contains decomposedWord.baseType validTypes then
-               Some(word + suffix, inflection)
-            else
-               None)
+   let suffixInflections =
+      suffixesList
+      |> List.choose
+            (fun (WI (suffix, inflection, validTypes)) ->
+               if List.contains decomposedWord.baseType validTypes then
+                  Some(word + suffix, inflection)
+               else
+                  None)
+
+   let additionalInflections =
+      if isNoun decomposedWord.baseType then
+         [ definiteToPredicative word, PredicativeIdentity ]
+      else
+         []
+
+   List.append additionalInflections suffixInflections
+   |> List.map (fun (w, i) -> (w, inflectionNameOf i))
+
+let isReduced original current =
+   let decomposedOriginal = decomposeWord original
+   let decomposedCurrent = decomposeWord current
+
+   Option.map2
+      (fun original current ->
+         if isVerb original.baseType
+            && isVerb current.baseType then
+            Map.tryFind original.baseType reducedForms
+            |> Option.map (Set.contains current.baseType)
+            |> Option.defaultValue false
+         else
+            false)
+      decomposedOriginal
+      decomposedCurrent
+   |> Option.defaultValue false

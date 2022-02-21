@@ -1,5 +1,6 @@
 ﻿module KrestiaParser.WordType
 
+open System
 open KrestiaParser
 open Utils
 
@@ -239,14 +240,20 @@ let baseTypeOf (word: string) =
       None
 
 let isVerb word =
-   word = Verb0 ||
-      word = Verb1 ||
-      word = Verb2 ||
-      word = Verb3 ||
-      word = Verb12 ||
-      word = Verb13 ||
-      word = Verb23 ||
-      word = Verb123
+   word = Verb0
+   || word = Verb1
+   || word = Verb2
+   || word = Verb3
+   || word = Verb12
+   || word = Verb13
+   || word = Verb23
+   || word = Verb123
+
+let isNoun word =
+   word = CountableNoun
+   || word = UncountableNoun
+   || word = CountableAssociativeNoun
+   || word = UncountableAssociativeNoun
 
 let isPostfixed (word: string) =
    word.EndsWith("r")
@@ -263,6 +270,14 @@ let predicativeToDefinite (word: string) =
       Some <| word.Substring(0, word.Length - 1) + "i"
    else
       None
+
+let definiteToPredicative (word: string) =
+   let suffix =
+      if word.EndsWith("a") then "aa"
+      else if word.EndsWith("e") then "o"
+      else "u"
+
+   word.Substring(0, word.Length - 1) + suffix
 
 let prefixToPostfix (word: string) =
    let suffix =
@@ -309,3 +324,46 @@ let behaviourOf wordType inflection =
       None
    else
       None
+
+type PositionedWord =
+   { line: int
+     position: int
+     word: string }
+
+let toPositionedWords (input: string) =
+   input.Split([| Environment.NewLine |], StringSplitOptions.None)
+   |> Array.map (fun line -> line.Split())
+   |> Array.mapi
+         (fun lineNumber line ->
+            line
+            |> Array.fold
+                  (fun (position, words) next ->
+                     let word =
+                        { line = lineNumber
+                          position = position
+                          word = next }
+
+                     (position + next.Length + 1, word :: words))
+                  (0, [])
+            |> snd
+            |> List.rev)
+   |> List.concat
+   |> List.filter (fun word -> word.word.Length > 0)
+
+let reducedForms =
+   [ Verb0, Set.empty
+     Verb1, Set.singleton Verb0
+     Verb2, Set.singleton Verb0
+     Verb3, Set.singleton Verb0
+     Verb12, Set.ofList [ Verb0; Verb1; Verb2 ]
+     Verb13, Set.ofList [ Verb0; Verb1; Verb3 ]
+     Verb23, Set.ofList [ Verb0; Verb2; Verb3 ]
+     Verb123,
+     Set.ofList [ Verb0
+                  Verb1
+                  Verb2
+                  Verb3
+                  Verb12
+                  Verb23
+                  Verb13 ] ]
+   |> Map.ofList

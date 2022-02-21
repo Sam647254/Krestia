@@ -8,8 +8,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using KrestiaParser;
 using KrestiaVortaroBazo;
-using Microsoft.FSharp.Collections;
 using Microsoft.FSharp.Core;
+using static KrestiaParser.Decompose;
 using static KrestiaParser.DictionaryHelper;
 
 namespace KrestiaVortaro; 
@@ -42,7 +42,7 @@ public class Vortaro {
       Categories = kategorioj.ToImmutableDictionary(k => k.Name, k => k);
    }
 
-   public VortoRespondo? Vorto(string vorto) {
+   public WordResponse? Vorto(string vorto) {
       var entry = Index.ContainsKey(vorto) ? Index[vorto] : null;
       if (entry == null) {
          return null;
@@ -65,70 +65,55 @@ public class Vortaro {
       }
 
       var inflekcioj = inflectedFormsOf(vorto);
-      return new VortoRespondo(entry.Spelling) {
-         Noto = entry.Remarks != null
+      return new WordResponse(entry.Spelling) {
+         Remark = entry.Remarks != null
             ? string.Format(entry.Remarks, "a<sub>1</sub>", "a<sub>2</sub>", "a<sub>3</sub>")
             : null,
-         Radikoj = entry.Roots.ToList(),
-         Signifo = entry.Meaning,
-         Vorttipo = wordType,
-         Silaboj = syllables.ResultValue,
-         Gloso = entry.Gloss,
-         InflektitajFormoj = FSharpOption<FSharpMap<Vorttipo.Inflekcio, string>>.get_IsSome(inflekcioj)
-            ? inflekcioj.Value.Select(p => (p.Key.ToString(), p.Value))
-               .ToDictionary(p => p.Item1, p => p.Value)
-            : null,
-         Ujoj = entry is Verb verbo ? verbo.ArgumentRemarks : null,
-         FrazaSignifo = entry is Verb verbo2
+         Roots = entry.Roots.ToList(),
+         Meaning = entry.Meaning,
+         WordType = wordType,
+         Syllables = syllables.ResultValue,
+         Gloss = entry.Gloss,
+         InflectedForms = inflectedFormsOf(entry.Spelling).Select(p => p.ToValueTuple()),
+         Slots = entry is Verb verbo ? verbo.ArgumentRemarks : null,
+         FullMeaning = entry is Verb verbo2
             ? string.Format(verbo2.TemplateMeaning, "a<sub>1</sub>", "a<sub>2</sub>", "a<sub>3</sub>")
             : null,
-         Sintakso = syntax,
-         ModifeblajVorttipoj = entry is Modifier m ? m.CanModifyTypes.Select(PriskribiVorttipanMallongaĵon) : null,
-         AldonaĵajInflekcioj = entry is Modifier m2 ? m2.AttachmentTypes.Select(PriskribiVorttipanMallongaĵon) : null,
+         Syntax = syntax,
+         CanModifyWordTypes = entry is Modifier m ? m.CanModifyTypes.Select(PriskribiVorttipanMallongaĵon) : null,
+         AttachmentInflections = entry is Modifier m2 ? m2.AttachmentTypes.Select(PriskribiVorttipanMallongaĵon) : null,
       };
    }
 
    public VortoRezulto TroviVortojn(string peto) {
-      var kvanto = Sintaksanalizilo2.iĝiEnEnirajVortoj(false, peto);
+      var words = WordType.toPositionedWords(peto);
       VortoRezulto? glosaRezulto = null;
       double? nombraRezulto = null;
-      if (kvanto.Length > 1) {
-         var nombro = Imperativa.proveLegiNombron(peto);
-         if (nombro.IsOk) {
-            var rezulto =
-               Imperativa.kalkuli(Sintaksanalizilo2.Argumento.NewArgumentaNombro(nombro.ResultValue));
-            if (rezulto.IsOk) {
-               nombraRezulto = rezulto.ResultValue;
-            }
-         }
-
-         var malinflektita = kvanto.Select(Malinflektado.tuteMalinflekti).ToList();
+      if (words.Length > 1) {
+         // TODO: Parse the number
+         var malinflektita = words.Select(w => decomposeWord(w.word)).ToList();
          try {
-            glosaRezulto = GlosaRezulto(malinflektita.ToList());
+            glosaRezulto = GlossResult(malinflektita.ToList());
          }
          catch (InvalidOperationException) { }
       }
 
-      var malinflekajŜtupoj = Malinflektado.tuteMalinflekti(Malinflektado.testaVorto(peto));
+      var malinflekajŜtupoj = decomposeWord(peto);
       string? malinflektitaVorto = null;
-      Vorttipo.Vorttipo? malinflektitaTipo = null;
       string? bazo = null;
       string? bazoGloso = null;
-      if (malinflekajŜtupoj.IsOk) {
-         var lastaŜtupo = malinflekajŜtupoj.ResultValue.InflekcioŜtupoj.Last()
-            as Sintaksanalizilo.MalinflektaŜtupo.Bazo;
-         malinflektitaVorto = lastaŜtupo?.BazaVorto;
-         malinflektitaTipo = lastaŜtupo?.Item1;
-         bazo = Malinflektado.bazoDe(malinflektitaVorto);
-         var malinflektitaRezulto = Index.GetValueOrDefault(malinflektitaVorto, null);
+      if (FSharpOption<DecomposedWord>.get_IsSome(malinflekajŜtupoj)) {
+         malinflektitaVorto = malinflekajŜtupoj.Value.baseWord;
+         bazo = stemOfWord(malinflektitaVorto);
+         var malinflektitaRezulto = Index.ContainsKey(malinflektitaVorto) ? Index[malinflektitaVorto] : null;
          malinflektitaVorto = malinflektitaRezulto?.Spelling ?? malinflektitaVorto;
       }
 
       if (bazo != null) {
          var bazaRezulto = StemIndex.GetValueOrDefault(bazo, null);
 
-         if (bazaRezulto != null && (bazaRezulto is Noun || bazaRezulto is Verb)) {
-            var ĉuMalplenigita = Malinflektado.ĉuMalplenigita(malinflektitaTipo, bazaRezulto.Spelling);
+         if (bazaRezulto is Noun or Verb) {
+            var ĉuMalplenigita = isReduced(bazaRezulto.Spelling, malinflektitaVorto);
             if (ĉuMalplenigita) {
                bazo = bazaRezulto.Spelling;
             }
@@ -144,51 +129,45 @@ public class Vortaro {
          p.Key.Contains(peto.ToLowerInvariant()) || p.Value.Meaning.Contains(peto.ToLowerInvariant())).ToList();
 
       return new VortoRezulto {
-         MalinflektitaVorto = malinflektitaVorto == peto || bazo == null ? null : malinflektitaVorto,
-         PlenigitaVorto = bazo == malinflektitaVorto ? null : bazo,
-         Gloso = bazo != null && malinflekajŜtupoj.IsOk && malinflekajŜtupoj.ResultValue.InflekcioŜtupoj.Length > 0
+         DecomposedWord = malinflektitaVorto == peto || bazo == null ? null : malinflektitaVorto,
+         Lemma = bazo == malinflektitaVorto ? null : bazo,
+         Gloss = bazo != null && FSharpOption<DecomposedWord>.get_IsSome(malinflekajŜtupoj) && malinflekajŜtupoj.Value.steps.Length > 0
             ? bazoGloso
             : null,
-         GlosajVortoj = glosaRezulto?.GlosajVortoj,
-         GlosajŜtupoj = glosaRezulto?.GlosajŜtupoj,
-         BazajVortoj = glosaRezulto?.BazajVortoj,
-         MalinflektajŜtupoj = bazo != null && malinflekajŜtupoj.IsOk
-            ? malinflekajŜtupoj.ResultValue.InflekcioŜtupoj.Where(ŝ => ŝ.IsNebazo)
-               .Select(ŝ => ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝ).Item2.ToString())
+         GlossWords = glosaRezulto?.GlossWords,
+         GlossSteps = glosaRezulto?.GlossSteps,
+         BaseWords = glosaRezulto?.BaseWords,
+         DecomposeSteps = bazo != null && FSharpOption<DecomposedWord>.get_IsSome(malinflekajŜtupoj)
+            ? malinflekajŜtupoj.Value.steps.Select(i => i.ToString())
             : null,
-         NombroRezulto = nombraRezulto,
-         Rezultoj = rezultoj.Select(r => new WordWithMeaning(r.Key, r.Value.Meaning))
+         NumberResult = nombraRezulto,
+         Results = rezultoj.Select(r => new WordWithMeaning(r.Key, r.Value.Meaning))
             .OrderBy(vorto => Rilateco(vorto, peto))
       };
    }
 
    public string? TroviGlosanSignifon(string vorto) {
-      var bazo = Malinflektado.bazoDe(vorto);
+      var bazo = stemOfWord(vorto);
       var bazaVorto = StemIndex.GetValueOrDefault(bazo, null);
-      var vorttipo =
-         (Malinflektado.malinflekti(Malinflektado.testaVorto(vorto)).ResultValue as
-            Sintaksanalizilo.MalinflektaŜtupo.Bazo)!.Item1;
-      if (bazaVorto != null && Malinflektado.ĉuVerbo(vorto).ResultValue &&
-          !Malinflektado.ĉuMalplenigita(vorttipo, bazaVorto.Spelling)) {
+      var vorttipo = decomposeWord(vorto).Value.baseType;
+      if (bazaVorto != null && WordType.isVerb(vorttipo) && !isReduced(bazaVorto.Spelling, vorto)) {
          return null;
       }
 
       return bazaVorto?.Gloss;
    }
 
-   private VortoRezulto GlosaRezulto(
-      IReadOnlyCollection<FSharpResult<Malinflektado.MalinflektitaVorto, Tuple<Malinflektado.EniraVorto, string>>>
-         vortoj) {
-      var bazoj = vortoj.Select(v => v.IsOk ? Malinflektado.bazoDe(v.ResultValue.BazaVorto) : "???");
-      var rezultoj = bazoj.Select(b => StemIndex.GetValueOrDefault(b, null)).ToList();
+   private VortoRezulto GlossResult(IReadOnlyCollection<FSharpOption<DecomposedWord>> vortoj) {
+      var bazoj = vortoj.Select(v =>
+         FSharpOption<DecomposedWord>.get_IsSome(v) ? stemOfWord(v.Value.baseWord) : "???");
+      var rezultoj = bazoj.Select(b => StemIndex.ContainsKey(b) ? StemIndex[b] : null).ToList();
 
       return new VortoRezulto {
-         GlosajVortoj = rezultoj.Select(r => r?.Gloss ?? "(not found)"),
-         GlosajŜtupoj = vortoj.Select(v => v.IsOk
-            ? v.ResultValue.InflekcioŜtupoj.Where(ŝ => ŝ.IsNebazo)
-               .Select(ŝ => ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝ).Item2.ToString())
+         GlossWords = rezultoj.Select(r => r?.Gloss ?? "(not found)"),
+         GlossSteps = vortoj.Select(v => FSharpOption<DecomposedWord>.get_IsSome(v)
+            ? v.Value.steps.Select(inflection => inflection.ToString())
             : new List<string>()),
-         BazajVortoj = rezultoj.Select(r => r?.Spelling ?? "")
+         BaseWords = rezultoj.Select(r => r?.Spelling ?? ""),
       };
    }
 

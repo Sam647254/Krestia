@@ -85,7 +85,7 @@ type NounTests() =
     member private _.CheckBaseWord expectedType words =
         for word in words do
             optionTest $"Could not decompose %s{word}" {
-                let! result = decompose word
+                let! result = decomposeWord word
                 Assert.IsEmpty(result.steps, $"%s{word} should not have any inflection steps")
                 Assert.AreEqual(expectedType, result.baseType, $"%s{word} should be of type %O{expectedType}")
                 Assert.AreEqual(word, result.baseWord, $"%s{word} should not have additional suffixes")
@@ -94,7 +94,7 @@ type NounTests() =
     member private _.CheckSingleInflection expectedType (expectedInflection: Inflection) words =
         for word in words do
             optionTest $"Could not decompose %s{word}" {
-                let! result = decompose word
+                let! result = decomposeWord word
                 Assert.AreEqual(expectedType, result.baseType, $"%s{word} should be of type %O{expectedType}")
                 Assert.AreEqual([ expectedInflection ], result.steps)
             }
@@ -104,7 +104,7 @@ type NounTests() =
             let suffixed = word + suffix
 
             optionTest $"Could not decompose %s{suffixed}" {
-                let! result = decompose suffixed
+                let! result = decomposeWord suffixed
                 Assert.AreEqual(expectedType, result.baseType, $"%s{word} should be of type %O{expectedType}")
 
                 Assert.AreEqual(

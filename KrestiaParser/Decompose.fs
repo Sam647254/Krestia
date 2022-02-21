@@ -205,7 +205,7 @@ let rec private runStep' (inflectionsAcc, remainingWord) =
    let nextStep' = List.collect runStep' newList
    List.append nextStep' newList
 
-let decompose (word: string) : Option<DecomposedWord> =
+let decomposeWord (word: string) : Option<DecomposedWord> =
    let fixedWord =
       runFixedWord word
       |> Option.map fst

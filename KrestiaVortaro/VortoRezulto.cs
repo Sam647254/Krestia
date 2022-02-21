@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
+using static KrestiaVortaro.Vortaro;
 
-namespace KrestiaVortaro {
-   public class VortoRezulto {
-      public string? MalinflektitaVorto { get; set; }
-      public string? PlenigitaVorto { get; set; }
-      public IEnumerable<Vortaro.WordWithMeaning> Rezultoj { get; set; }
-      public string? Gloso { get; set; }
-      public IEnumerable<string>? MalinflektajŜtupoj { get; set; }
-      public IEnumerable<string>? GlosajVortoj { get; set; }
-      public IEnumerable<IEnumerable<string>>? GlosajŜtupoj { get; set; }
-      public IEnumerable<string>? BazajVortoj { get; set; }
-      public double? NombroRezulto { get; set; }
+namespace KrestiaVortaro; 
 
-      public VortoRezulto() {
-         Rezultoj = new List<Vortaro.WordWithMeaning>();
-      }
+public class VortoRezulto {
+   public string? DecomposedWord { get; set; }
+   public string? Lemma { get; set; }
+   public IEnumerable<WordWithMeaning> Results { get; set; }
+   public string? Gloss { get; set; }
+   public IEnumerable<string>? DecomposeSteps { get; set; }
+   public IEnumerable<string>? GlossWords { get; set; }
+   public IEnumerable<IEnumerable<string>>? GlossSteps { get; set; }
+   public IEnumerable<string>? BaseWords { get; set; }
+   public double? NumberResult { get; set; }
+
+   public VortoRezulto() {
+      Results = new List<WordWithMeaning>();
    }
 }
