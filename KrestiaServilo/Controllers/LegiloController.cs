@@ -1,4 +1,4 @@
-﻿using KrestiaVortilo;
+﻿using System;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KrestiaServilo.Controllers {
@@ -7,12 +7,13 @@ namespace KrestiaServilo.Controllers {
    public class LegiloController : ControllerBase {
       [HttpPost("legi")]
       public IActionResult Legi([FromBody] Peto peto) {
-         var rezulto = Imperativa.legiImperative(peto.Eniro);
-         if (rezulto.IsOk) {
-            return Ok(rezulto.ResultValue);
-         }
-
-         return UnprocessableEntity(rezulto.ErrorValue);
+         throw new NotImplementedException("TODO");
+         // var rezulto = Imperativa.legiImperative(peto.Eniro);
+         // if (rezulto.IsOk) {
+         //    return Ok(rezulto.ResultValue);
+         // }
+         //
+         // return UnprocessableEntity(rezulto.ErrorValue);
       }
    }
 

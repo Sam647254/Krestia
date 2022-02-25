@@ -224,3 +224,17 @@ let decomposeWord (word: string) : Option<DecomposedWord> =
       |> List.tryExactlyOne
 
    fixedWord |> Option.orElseWith commonWord
+
+let valencyOf word =
+   decomposeWord word
+   |> Option.map (fun word ->
+      match word.baseType with
+      | Verb1
+      | Verb2
+      | Verb3 -> 1
+      | Verb12
+      | Verb13
+      | Verb23 -> 2
+      | Verb123 -> 3
+      | _ -> 0)
+   |> Option.defaultValue 0

@@ -367,3 +367,14 @@ let reducedForms =
                   Verb23
                   Verb13 ] ]
    |> Map.ofList
+
+let verbEndings =
+   [ Verb0, "m"
+     Verb1, "s"
+     Verb2, "g"
+     Verb3, "n"
+     Verb12, "t"
+     Verb13, "sh"
+     Verb23, "v"
+     Verb123, "p" ]
+   |> Map.ofList

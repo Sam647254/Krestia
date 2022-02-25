@@ -3,37 +3,31 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
+using KrestiaParser;
 using KrestiaVortaroBazo;
-using KrestiaVortilo;
+using Microsoft.FSharp.Core;
 using TimeranDesegnilo2;
 
 namespace KrestiaVortaro {
    public static class Agoj {
       public static IEnumerable<string> KonvertiEnTimeranTxt(IEnumerable<string> eniro) {
          return eniro.Select(vico => vico.Split(' ').Select(vorto => {
-            var malinflektita = Malinflektado.tuteMalinflekti(Malinflektado.testaVorto(vorto));
-            if (malinflektita.IsError) {
-               throw new InvalidOperationException(malinflektita.ErrorValue.Item2);
+            var malinflektita = Decompose.decomposeWord(vorto);
+            if (FSharpOption<Decompose.DecomposedWord>.get_IsNone(malinflektita)) {
+               throw new InvalidOperationException($"Could not decompose {vorto}");
             }
 
-            var gramatikajLiteroj = malinflektita.ResultValue.InflekcioŜtupoj.Select(ŝtupo => {
-               var literoNomo = ŝtupo.IsBazo
-                  ? ((Sintaksanalizilo.MalinflektaŜtupo.Bazo) ŝtupo).Item1.ToString()
-                  : ((Sintaksanalizilo.MalinflektaŜtupo.Nebazo) ŝtupo).Item2.ToString();
-               if (literoNomo is "NombrigeblaKlaso" or "NenombrigeblaKlaso") {
-                  return "klaso";
-               }
-
+            var gramatikajLiteroj = malinflektita.Value.steps.Select(ŝtupo => {
+               var literoNomo = ŝtupo.ToString();
                return char.ToLowerInvariant(literoNomo[0]) + literoNomo[1..];
-            }).Reverse().ToImmutableList();
+            }).ToImmutableList().Add(malinflektita.Value.baseType.ToString()).Reverse();
             if (gramatikajLiteroj.First() == "klaso"
                 && gramatikajLiteroj.Count > 1) {
                gramatikajLiteroj = gramatikajLiteroj.RemoveAt(0);
             }
 
-            var silaboj = Malinflektado.dividi(
-               Malinflektado.bazoDe(malinflektita.ResultValue.BazaVorto.ToLowerInvariant()),
-               false);
+            var silaboj = Phonotactics.divide(
+               DictionaryHelper.stemOfWord(malinflektita.Value.baseWord.ToLowerInvariant()));
 
             if (silaboj.IsError) {
                throw new Exception(silaboj.ErrorValue);
@@ -70,22 +64,24 @@ namespace KrestiaVortaro {
                   svg.DesegniSilabon(silabo);
                }
             }
+
             svg.Fini();
          }
       }
 
       private static int KontroliVortonKajValencon(ICollection<string> ekzistantajVortoj, string novaVorto,
          IList<string> radikoj) {
-         var malinflektitaVorto = Malinflektado.malinflekti(Malinflektado.testaVorto(novaVorto));
+         var malinflektitaVorto = Decompose.decomposeWord(novaVorto);
          var ĉuHavasValidajnRadikojn = radikoj.All(ekzistantajVortoj.Contains);
-         var ĉuValidaVorto = Malinflektado.dividi(novaVorto, true);
-         var malplenigitajVerboj = Malinflektado.malplenigitajFormojDe(novaVorto);
-         var ĉuValidajMalplenigitajVerboj = malplenigitajVerboj.IsError || malplenigitajVerboj.ResultValue.All(m => {
-            var ŝtupoj = Malinflektado.malinflekti(Malinflektado.testaVorto(m));
-            return ŝtupoj.IsOk && ŝtupoj.ResultValue.IsBazo;
+         var ĉuValidaVorto = Phonotactics.divide(novaVorto);
+         var malplenigitajVerboj = DictionaryHelper.reduredFormsOf(novaVorto);
+         var ĉuValidajMalplenigitajVerboj = malplenigitajVerboj.IsNone() || malplenigitajVerboj.Value.All(m => {
+            var decomposeWord = Decompose.decomposeWord(m);
+            return FSharpOption<Decompose.DecomposedWord>.get_IsSome(decomposeWord) &&
+                   decomposeWord.Value.steps.IsEmpty;
          });
 
-         if (!(malinflektitaVorto.IsOk && malinflektitaVorto.ResultValue.IsBazo)) {
+         if (!(malinflektitaVorto.IsSome() && malinflektitaVorto.Value.steps.IsEmpty)) {
             throw new InvalidOperationException($"{novaVorto} ne estas baza vorto");
          }
 
@@ -102,12 +98,12 @@ namespace KrestiaVortaro {
             throw new InvalidOperationException($"{novaVorto} ne havas validajn malplenigitajn formojn");
          }
 
-         return Malinflektado.valencoDeInfinitivo(novaVorto);
+         return Decompose.valencyOf(novaVorto);
       }
 
       public static void Repari(JsonVortaro vortaro) {
          foreach (var vorto in vortaro.Vortoj!) {
-            if (vorto.Ujo1?.Contains("^") == false) continue;
+            if (vorto.Ujo1?.Contains('^') == false) continue;
             var signifoPartoj = vorto.Ujo1?.Split('^');
             if (signifoPartoj == null) continue;
             vorto.Signifo = signifoPartoj[0];
@@ -127,7 +123,7 @@ namespace KrestiaVortaro {
             vico.Append(vorto.PlenaVorto);
             vico.Append('|');
             vico.Append(vorto.Signifo);
-            foreach (var ujo in new[] {vorto.Ujo1, vorto.Ujo2, vorto.Ujo3}) {
+            foreach (var ujo in new[] { vorto.Ujo1, vorto.Ujo2, vorto.Ujo3 }) {
                if (ujo == null) continue;
                vico.Append('^');
                vico.Append(ujo);
@@ -152,10 +148,10 @@ namespace KrestiaVortaro {
             var vico = new StringBuilder();
             vico.Append(kategorio.Nomo);
             vico.Append(':');
-            vico.Append(string.Join(',', kategorio.Vortoj!));
-            if (kategorio.Subkategorioj?.Count > 0) {
+            vico.Append(string.Join(',', kategorio.Vortoj));
+            if (kategorio.Subkategorioj.Count > 0) {
                vico.Append(',');
-               vico.Append(string.Join(',', kategorio.Subkategorioj!.Select(k => $"#{k}")));
+               vico.Append(string.Join(',', kategorio.Subkategorioj.Select(k => $"#{k}")));
             }
 
             yield return vico.ToString();
@@ -164,7 +160,8 @@ namespace KrestiaVortaro {
 
       public static ImmutableSortedSet<Vorto> KontroliVortojn(IEnumerable<string> kv) {
          var ĉiujPartoj = (from v in kv where v.Length > 0 select v.Split('|')).ToImmutableList();
-         var novajVortojGrupoj = ĉiujPartoj.Select(vico => vico[0]).GroupBy(Malinflektado.bazoDe).ToImmutableHashSet();
+         var novajVortojGrupoj = ĉiujPartoj.Select(vico => vico[0]).GroupBy(DictionaryHelper.stemOfWord)
+            .ToImmutableHashSet();
          var ĉiujVortoj = ĉiujPartoj.Select(vico => vico[0]).ToImmutableHashSet();
          var plurfojeAldonitajVortoj =
             novajVortojGrupoj.Where(grupo => grupo.Count() > 1).Select(g => g.Key).ToImmutableHashSet();
@@ -196,7 +193,7 @@ namespace KrestiaVortaro {
             var ujo2 = valenco >= 2 ? signifajPartoj[2] : null;
             var ujo3 = valenco == 3 ? signifajPartoj[3] : null;
 
-            var novaVorto = new Vorto(vorto, Malinflektado.bazoDe(vorto),
+            var novaVorto = new Vorto(vorto, DictionaryHelper.stemOfWord(vorto),
                radikoj.Select(r => {
                   if (ĉiujVortoj.Contains(r)) {
                      return r;
@@ -258,31 +255,32 @@ namespace KrestiaVortaro {
       }
 
       private static readonly Dictionary<string, string> NovajFinaĵoj = new Dictionary<string, string>() {
-         {"maa", "ma"},
-         {"mo", "me"},
-         {"mu", "mi"},
-         {"naa", "na"},
-         {"no", "ne"},
-         {"nu", "ni"},
-         {"paa", "pa"},
-         {"po", "pe"},
-         {"pu", "pi"},
-         {"taa", "ta"},
-         {"to", "te"},
-         {"tu", "ti"},
-         {"kaa", "ka"},
-         {"ko", "ke"},
-         {"ku", "ki"},
-         {"gro", "gre"},
-         {"gru", "gri"},
-         {"dro", "dre"},
-         {"dru", "dri"},
+         { "maa", "ma" },
+         { "mo", "me" },
+         { "mu", "mi" },
+         { "naa", "na" },
+         { "no", "ne" },
+         { "nu", "ni" },
+         { "paa", "pa" },
+         { "po", "pe" },
+         { "pu", "pi" },
+         { "taa", "ta" },
+         { "to", "te" },
+         { "tu", "ti" },
+         { "kaa", "ka" },
+         { "ko", "ke" },
+         { "ku", "ki" },
+         { "gro", "gre" },
+         { "gru", "gri" },
+         { "dro", "dre" },
+         { "dru", "dri" },
       };
 
       public static ImmutableSortedSet<Vorto> ĜisdatigiVortojn(IImmutableSet<Vorto> vortoj) {
          return vortoj.Select(v => {
             var novaVorto = IgiEnNovaBazo(v.PlenaVorto);
-            return new Vorto(novaVorto, Malinflektado.bazoDe(novaVorto), v.Radikoj.Select(IgiEnNovaBazo), v.Signifo,
+            return new Vorto(novaVorto, DictionaryHelper.stemOfWord(novaVorto), v.Radikoj.Select(IgiEnNovaBazo),
+               v.Signifo,
                v.GlosaSignifo, v.Ujo1,
                v.Ujo2, v.Ujo3, v.Noto);
          }).ToImmutableSortedSet();
@@ -295,25 +293,26 @@ namespace KrestiaVortaro {
             .ToImmutableSortedSet();
       }
 
-      public static JsonDictionary IgiEnNovaVortaro(IEnumerable<Vorto> vortoj, IEnumerable<VortaraKategorio> kategorioj) {
-         var groupoj = vortoj.GroupBy(vorto => Malinflektado.vortaraTipoDe(vorto.PlenaVorto))
+      public static JsonDictionary
+         IgiEnNovaVortaro(IEnumerable<Vorto> vortoj, IEnumerable<VortaraKategorio> kategorioj) {
+         var groupoj = vortoj.GroupBy(vorto => DictionaryHelper.typeNameOf(vorto.PlenaVorto))
             .ToDictionary(grupo => grupo.Key);
-         var substantivoj = groupoj["Class"]!.Concat(groupoj["Associative class"]).Select(s => new Noun {
+         var substantivoj = groupoj["Class"].Concat(groupoj["Associative class"]).Select(s => new Noun {
             Spelling = s.PlenaVorto,
             Meaning = s.Signifo,
             Gloss = s.GlosaSignifo,
             Roots = s.Radikoj.ToList(),
-            Remarks = s.Noto
+            Remarks = s.Noto,
          });
-         var verboj = groupoj["Verb"]!.Select(v => new Verb {
+         var verboj = groupoj["Verb"].Select(v => new Verb {
             Spelling = v.PlenaVorto,
             Meaning = v.Signifo,
             Gloss = v.GlosaSignifo,
             Roots = v.Radikoj.ToList(),
             Remarks = v.Noto,
-            ArgumentRemarks = new List<string?>(new string?[Malinflektado.valencoDeInfinitivo(v.PlenaVorto)])
+            ArgumentRemarks = new List<string?>(new string?[Decompose.valencyOf(v.PlenaVorto)]),
          });
-         var modifantoj = groupoj["Modifier"]!.Select(s => new Modifier {
+         var modifantoj = groupoj["Modifier"].Select(s => new Modifier {
             Spelling = s.PlenaVorto,
             Meaning = s.Signifo,
             Gloss = s.GlosaSignifo,
@@ -325,14 +324,14 @@ namespace KrestiaVortaro {
          });
          var novajKategorioj = kategorioj.Select(k => new Category {
             Name = k.Nomo,
-            Words = k.Vortoj.ToList()
+            Words = k.Vortoj.ToList(),
          });
          var specialajVortoj = groupoj["Digit"].Concat(groupoj["Placeholder"]).Select(v => new DictionaryEntry {
             Spelling = v.PlenaVorto,
             Meaning = v.Signifo,
             Gloss = v.GlosaSignifo,
             Roots = v.Radikoj.ToList(),
-            Remarks = v.Noto
+            Remarks = v.Noto,
          });
 
          return new JsonDictionary {
@@ -409,7 +408,7 @@ namespace KrestiaVortaro {
             var gloso = partoj[2];
             var radikoj = partoj[3].Split(',');
             var noto = partoj[4];
-            
+
             // Kontrolu, ke ĉiuj radikoj ekzistas.
             foreach (var radiko in radikoj) {
                if (!indekso.Indekso.ContainsKey(radiko)) {
@@ -417,10 +416,10 @@ namespace KrestiaVortaro {
                }
             }
 
-            var vortaraTipo = Malinflektado.vortaraTipoDe(vorto);
+            var vortaraTipo = DictionaryHelper.typeCategoryOf(vorto);
             switch (vortaraTipo) {
-               case "Class":
-               case "Associative class": {
+               case "Noun":
+               case "Associative noun": {
                   var plenaFormo = partoj[5];
                   dictionary.Nouns.Add(new Noun {
                      Spelling = vorto,
@@ -428,7 +427,7 @@ namespace KrestiaVortaro {
                      Remarks = string.IsNullOrEmpty(noto) ? null : noto,
                      FullForm = string.IsNullOrEmpty(plenaFormo) ? null : plenaFormo,
                      Roots = radikoj.ToList(),
-                     Meaning = signifo
+                     Meaning = signifo,
                   });
                   break;
                }
@@ -482,7 +481,7 @@ namespace KrestiaVortaro {
          IDictionary<string, string> anstataŭaĵoj) {
          return vortoj.Select(v => {
             var novaPlenaVorto = anstataŭaĵoj.ContainsKey(v.PlenaVorto) ? anstataŭaĵoj[v.PlenaVorto] : v.PlenaVorto;
-            return new Vorto(novaPlenaVorto, Malinflektado.bazoDe(novaPlenaVorto),
+            return new Vorto(novaPlenaVorto, DictionaryHelper.stemOfWord(novaPlenaVorto),
                v.Radikoj.Select(r => anstataŭaĵoj.ContainsKey(r) ? anstataŭaĵoj[r] : r), v.Signifo, v.GlosaSignifo,
                v.Ujo1, v.Ujo2, v.Ujo3, v.Noto, v.Blissimbolo);
          });
@@ -503,15 +502,15 @@ namespace KrestiaVortaro {
          { '5', 'O' },
          { '6', 'Y' },
          { '7', 'N' },
-         { 'C', 'C' }
+         { 'C', 'C' },
       };
 
       private static readonly IDictionary<char, char> Inflekcioj = new Dictionary<char, char> {
-         {'D', 'D'},
-         {'N', 'S'},
-         {'F', '@'},
-         {'P', 'P'},
-         {'C', '#'},
+         { 'D', 'D' },
+         { 'N', 'S' },
+         { 'F', '@' },
+         { 'P', 'P' },
+         { 'C', '#' },
       };
 
       private static IDictionary<string, string> TroviAnstataŭaĵojn(IEnumerable<Vorto> vortoj) {
@@ -519,18 +518,18 @@ namespace KrestiaVortaro {
          var random = new Random(0);
          foreach (var vorto in vortoj) {
             if (vorto.PlenaVorto.EndsWith('d')) {
-               var bazo = vorto.PlenaVorto.Substring(0, vorto.PlenaVorto.Length - 1);
-               var novaFinaĵo = KlasajFinaĵoj[random.Next(0, KlasajFinaĵoj.Count)]!;
+               var bazo = vorto.PlenaVorto[..^1];
+               var novaFinaĵo = KlasajFinaĵoj[random.Next(0, KlasajFinaĵoj.Count)];
                anstataŭaĵoj.Add(vorto.PlenaVorto, bazo + novaFinaĵo);
             }
             else if (vorto.PlenaVorto.EndsWith('g') || vorto.PlenaVorto.EndsWith('n')) {
-               anstataŭaĵoj.Add(vorto.PlenaVorto, vorto.PlenaVorto.Substring(0, vorto.PlenaVorto.Length - 1) + 's');
+               anstataŭaĵoj.Add(vorto.PlenaVorto, string.Concat(vorto.PlenaVorto.AsSpan(0, vorto.PlenaVorto.Length - 1), "s"));
             }
             else if (vorto.PlenaVorto.EndsWith('v')) {
-               anstataŭaĵoj.Add(vorto.PlenaVorto, vorto.PlenaVorto.Substring(0, vorto.PlenaVorto.Length - 1) + 't');
+               anstataŭaĵoj.Add(vorto.PlenaVorto, string.Concat(vorto.PlenaVorto.AsSpan(0, vorto.PlenaVorto.Length - 1), "t"));
             }
             else if (vorto.PlenaVorto.EndsWith("sh")) {
-               anstataŭaĵoj.Add(vorto.PlenaVorto, vorto.PlenaVorto.Substring(0, vorto.PlenaVorto.Length - 2) + 't');
+               anstataŭaĵoj.Add(vorto.PlenaVorto, string.Concat(vorto.PlenaVorto.AsSpan(0, vorto.PlenaVorto.Length - 2), "t"));
             }
          }
 

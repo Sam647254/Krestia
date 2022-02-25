@@ -2,6 +2,7 @@
 
 open KrestiaParser.Decompose
 open KrestiaParser.WordType
+open KrestiaParser.Utils
 
 let typeNameOf word =
    let decomposedWord =
@@ -22,6 +23,31 @@ let typeNameOf word =
    | Verb23 -> "2-3-Verb"
    | Verb123 -> "1-2-3-Verb"
    | Verb0 -> "0-Verb"
+   | Pronoun -> "Pronoun"
+   | Modifier -> "Modifier"
+   | Name -> "Identifier"
+   | TerminalDigit -> "Terminal digit"
+   | NonterminalDigit -> "Non-terminal digit"
+
+let typeCategoryOf word =
+   let decomposedWord =
+      decomposeWord word
+      |> Option.defaultWith (fun () -> failwithf $"Cannot decompose %s{word}")
+
+   match decomposedWord.baseType with
+   | CountableNoun
+   | UncountableNoun -> "Noun"
+   | CountableAssociativeNoun
+   | UncountableAssociativeNoun -> "Associative noun"
+   | Record -> "Record"
+   | Verb1
+   | Verb2
+   | Verb3
+   | Verb12
+   | Verb13
+   | Verb23
+   | Verb123
+   | Verb0 -> "Verb"
    | Pronoun -> "Pronoun"
    | Modifier -> "Modifier"
    | Name -> "Identifier"
@@ -93,3 +119,16 @@ let isReduced original current =
       decomposedOriginal
       decomposedCurrent
    |> Option.defaultValue false
+
+let reduredFormsOf verb =
+   option {
+      let! decomposedVerb = decomposeWord verb
+      if isVerb decomposedVerb.baseType then
+         let! reducedTypes = Map.tryFind decomposedVerb.baseType reducedForms
+         let stem = stemOfWord verb
+         return
+            reducedTypes
+            |> Set.map (fun t ->
+               let ending = Map.find t verbEndings
+               stem + ending)
+   }
