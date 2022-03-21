@@ -73,10 +73,25 @@ let stemOfWord word =
       |> Option.defaultWith (fun () -> failwithf $"Cannot decompose %s{word}")
 
    if isVerb decomposedWord.baseType then
+      if decomposedWord.baseType = Verb13 then
+         word.Substring(0, word.Length - 2)
+      else
+         word.Substring(0, word.Length - 1)
+   else
+      word
+
+let timeranStem word =
+   let decomposedWord =
+      decomposeWord word
+      |> Option.defaultWith (fun () -> failwithf $"Cannot decompose %s{word}")
+   
+   if isVerb decomposedWord.baseType then
       if decomposedWord.baseType <> Verb13 then
          word.Substring(0, word.Length - 2)
       else
          word.Substring(0, word.Length - 1)
+   else if decomposedWord.baseType = Modifier then
+      word.Substring(0, word.Length - 1)
    else
       word
 

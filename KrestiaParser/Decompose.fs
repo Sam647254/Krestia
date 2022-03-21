@@ -151,7 +151,7 @@ and private readBaseWord =
    }
 
 and private readName: Decomposition<WordType> =
-   readBaseType Name (fun word -> Char.IsUpper(word.Chars 1))
+   readBaseType Name (fun word -> Char.IsUpper(word.Chars 0))
 
 and private readTerminalDigit: Decomposition<WordType> =
    readBaseType TerminalDigit isTerminalDigit

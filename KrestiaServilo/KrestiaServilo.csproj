@@ -19,6 +19,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\KrestiaVortaro\KrestiaVortaro.csproj" />
+        <ProjectReference Include="..\KrestiaVortilo\KrestiaVortilo.fsproj" />
     </ItemGroup>
     
     <ItemGroup>

@@ -230,6 +230,26 @@ let baseTypeOf (word: string) =
       Some Pronoun
    else if word.EndsWith("m") then
       Some Verb0
+   else if word.EndsWith("s") then
+      Some Verb1
+   else if word.EndsWith("t") then
+      Some Verb12
+   else if word.EndsWith("sh") then
+      Some Verb13
+   else if word.EndsWith("p") then
+      Some Verb123
+   else if word.EndsWith("g") then
+      Some Verb2
+   else if word.EndsWith("v") then
+      Some Verb23
+   else if word.EndsWith("n") then
+      Some Verb3
+   else if word.EndsWith("l") then
+      Some Modifier
+   else if word.EndsWith("gre") || word.EndsWith("gri") then
+      Some UncountableAssociativeNoun
+   else if word.EndsWith("dre") || word.EndsWith("gri") then
+      Some CountableAssociativeNoun
    else if List.tryFind (fun (suffix: string) -> word.EndsWith(suffix)) countableNounSuffixes
            |> Option.isSome then
       Some CountableNoun

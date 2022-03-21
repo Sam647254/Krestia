@@ -16,4 +16,8 @@
       <ProjectReference Include="..\KrestiaServilo\KrestiaServilo.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Testiloj" />
+    </ItemGroup>
+
 </Project>

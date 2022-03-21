@@ -198,7 +198,7 @@ public class Vortaro {
    public static async Task<Vortaro> KreiVortaronDe(string vortaroUrl) {
       var httpClient = new HttpClient();
       var respondo = await httpClient.GetStringAsync(vortaroUrl);
-      var indekso = new NovaVortaraIndekso(respondo!);
+      var indekso = new NovaVortaraIndekso(respondo);
       return new Vortaro(indekso.Indekso.Values.ToImmutableHashSet(), indekso.Kategorioj.ToImmutableHashSet());
    }
 

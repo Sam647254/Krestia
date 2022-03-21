@@ -38,12 +38,6 @@ namespace KrestiaServilo {
          app.UseSpaStaticFiles();
          app.UseRouting();
          app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-         app.UseSpa(builder => {
-            builder.Options.SourcePath = "ClientApp";
-            if (env.IsDevelopment()) {
-               builder.UseReactDevelopmentServer("start");
-            }
-         });
       }
    }
 }

@@ -594,7 +594,7 @@ h {4} v {3} h -{4} z m 0 {3} l {2} -{3} h {4} l -{2} {3} z", aktualaLarĝeco, Dy
       public RektangulaSvgDesegnilo(string elirejo, int alteco, int larĝeco, int dx, int dy, int spaco = 8) : base(
          elirejo, alteco, larĝeco, dx, dy, spaco) {
          FinaĵoDesegniloj = new Dictionary<string, FinaĵoDesegnilo> {
-            {"[", NomoKomenco}, {"]", NomoFino}, {"lokokupilo", Lokokupilo}, {"klaso", Difinito},
+            {"[", NomoKomenco}, {"]", NomoFino}, {"lokokupilo", Lokokupilo}, {"CountableNoun", Difinito},
             {"antaŭNenombrigeblaEco", EcoDekstra}, {"malantaŭNenombrigeblaEco", EcoMaldekstra},
             {"rekordo<", RekordoMaldekstra}, {"rekordo>", RekordoDekstra}, {"senfara", Pridiranto},
             {"atributivoEstiMalantaŭ", AtributivoEstiMaldekstra}, {"atributivoEstiAntaŭ", AtributivoEstiDekstra},
@@ -605,7 +605,7 @@ h {4} v {3} h -{4} z m 0 {3} l {2} -{3} h {4} l -{2} {3} z", aktualaLarĝeco, Dy
             {"malplenaVerbo", MalplenaVerbo}, {"oblikaNetransitivaVerbo", OblikaNetransitiva},
             {"oblikaTransitivaVerbo", OblikaTransitiva}, {"nedirektaNetransitivaVerbo", NedirektaNetransitiva},
             {"progresivo", Progresivo}, {"perfekto", Perfekto}, {"volo1", Volo1}, {"volo2", Volo2}, {"volo3", Volo3},
-            {"sola", Sola}, {"intenco", Estonteco}, {"malantaŭModifanto", ModifantoMaldekstra},
+            {"sola", Sola}, {"intenco", Estonteco}, {"Modifier", ModifantoMaldekstra},
             {"antaŭModifanto", ModifantoDekstra}, {"antaŭNombrigeblaEco", NombrigeblaEcoDekstra},
             {"malantaŭNombrigeblaEco", NombrigeblaEcoMaldekstra}, {"mankaNominativo", MankaNominativo},
             {"ĝerundo", Ĝerundo}, {"ekzistado", Ekzistado}, {"havado", Havado}, {"argumento1", Argumento1},
