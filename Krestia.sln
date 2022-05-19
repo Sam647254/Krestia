@@ -31,6 +31,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "KrestiaParser", "KrestiaPar
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "KrestiaParser.Tests", "KrestiaParser.Tests\KrestiaParser.Tests.fsproj", "{A7E75A41-3681-4DB9-88EE-BEFFC34CF3D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KrestiaClient", "KrestiaClient\KrestiaClient.csproj", "{18562CF0-479E-476A-BB6A-17E92CC31800}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -265,6 +267,26 @@ Global
 		{A7E75A41-3681-4DB9-88EE-BEFFC34CF3D2}.Release|x64.Build.0 = Release|Any CPU
 		{A7E75A41-3681-4DB9-88EE-BEFFC34CF3D2}.Release|x86.ActiveCfg = Release|Any CPU
 		{A7E75A41-3681-4DB9-88EE-BEFFC34CF3D2}.Release|x86.Build.0 = Release|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Debug|ARM.Build.0 = Debug|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Debug|x64.Build.0 = Debug|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Debug|x86.Build.0 = Debug|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Release|ARM.ActiveCfg = Release|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Release|ARM.Build.0 = Release|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Release|ARM64.Build.0 = Release|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Release|x64.ActiveCfg = Release|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Release|x64.Build.0 = Release|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Release|x86.ActiveCfg = Release|Any CPU
+		{18562CF0-479E-476A-BB6A-17E92CC31800}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

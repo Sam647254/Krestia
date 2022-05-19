@@ -14,10 +14,12 @@
     <ItemGroup>
         <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.5.0-beta" />
         <PackageReference Include="AWSSDK.S3" Version="3.5.0-beta" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.5" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.4" />
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\KrestiaClient\KrestiaClient.csproj" />
         <ProjectReference Include="..\KrestiaVortaro\KrestiaVortaro.csproj" />
         <ProjectReference Include="..\KrestiaVortilo\KrestiaVortilo.fsproj" />
     </ItemGroup>
