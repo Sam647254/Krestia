@@ -1,0 +1,43 @@
+.legilo {
+   margin-top: 20px;
+}
+
+.legilo-eniro {
+   width: 700px;
+   border: #343A40 solid 2px;
+   padding: 7px;
+   font-family: "Lato", sans-serif;
+   margin-bottom: 10px;
+}
+
+.legi-butono {
+   display: block;
+   margin: 0 auto;
+}
+
+.predikata-vorto {
+   display: inline-block;
+   margin-right: 4px;
+   font-weight: bold;
+
+   &:after {
+      content: "Predicate";
+      display: block;
+      font-size: 60%;
+   }
+}
+
+.argumenta-vorto {
+   display: inline-block;
+   margin-right: 4px;
+
+   &:after {
+      content: "Argument";
+      display: block;
+      font-size: 60%;
+   }
+}
+
+.predikato {
+   margin-bottom: 10px;
+}

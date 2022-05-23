@@ -1,0 +1,22 @@
+﻿@using System.Text
+@inject NavigationManager NavigationManager
+
+<form class="serĉilo">
+    <input type="text" class="serĉiTeksto" @bind="InputText"/>
+    <input type="submit" class="serĉiButono" value="Search" @onclick="OnSubmitClicked"/>
+    <input type="submit" class="serĉiButono" value="Parse" @onclick="OnParseClicked"/>
+</form>
+
+@code {
+    private string InputText { get; set; } = "";
+
+    private void OnSubmitClicked() {
+        NavigationManager.NavigateTo($"/search/{InputText}");
+    }
+
+    private void OnParseClicked() {
+        var bytes = Encoding.UTF8.GetBytes(InputText);
+        NavigationManager.NavigateTo($"/parse/{Convert.ToBase64String(bytes)}");
+    }
+
+}

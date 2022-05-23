@@ -1,1 +1,16 @@
-{}
+{
+  "name": "Krestia",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "sass KrestiaClient/wwwroot/css/App.scss KrestiaClient/wwwroot/css/app.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.52.1"
+  }
+}

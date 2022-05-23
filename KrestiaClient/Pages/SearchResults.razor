@@ -1,0 +1,13 @@
+﻿@page "/search/{*input}"
+@inject HttpClient HttpClient
+
+@code {
+
+    [Parameter]
+    public string Input { get; set; } = "";
+    private string? Error { get; set; }
+
+    protected override async Task OnParametersSetAsync() {
+    }
+
+}

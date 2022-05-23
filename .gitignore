@@ -8,3 +8,7 @@ Krestia.sln.DotSettings.user
 *.png
 *.dxf
 *.afdesign
+.pnpm-debug.log
+KrestiaClient/wwwroot/css/app.css
+KrestiaClient/wwwroot/css/app.css.map
+node_modules
