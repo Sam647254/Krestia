@@ -3,15 +3,15 @@
 
 <form class="serĉilo">
     <input type="text" class="serĉiTeksto" @bind="InputText"/>
-    <input type="submit" class="serĉiButono" value="Search" @onclick="OnSubmitClicked"/>
-    <input type="submit" class="serĉiButono" value="Parse" @onclick="OnParseClicked"/>
+    <input type="submit" class="serĉiButono" value="Search" @onclick="OnSubmitClicked" @onclick:preventDefault="true"/>
+    <input type="submit" class="serĉiButono" value="Parse" @onclick="OnParseClicked" @onclick:preventDefault="true"/>
 </form>
 
 @code {
     private string InputText { get; set; } = "";
 
     private void OnSubmitClicked() {
-        NavigationManager.NavigateTo($"/search/{InputText}");
+        NavigationManager.NavigateTo($"/search/{InputText}", false);
     }
 
     private void OnParseClicked() {

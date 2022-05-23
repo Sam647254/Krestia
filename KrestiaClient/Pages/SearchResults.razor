@@ -1,13 +1,71 @@
 ﻿@page "/search/{*input}"
 @inject HttpClient HttpClient
 
+@if (Error is not null) {
+    <p>An error occurred while fetching data: @Error</p>
+}
+
+@if (Results is null) {
+    <p>Searching for @(Input)...</p>
+} else if (Results.IsEmpty) {
+    <p>No results for @(Input).</p>
+} else {
+    if (Results.GlossWords is not null && Results.BaseWords is not null) {
+        var glossWords = Results.GlossWords.ToArray();
+        var glossSteps = Results.GlossSteps!.Select(s => s.ToArray()).ToArray();
+        var baseWords = Results.BaseWords.ToArray();
+        <div>
+            <p>Gloss result for "@Input":</p>
+            <table class="gloso-tabelo">
+                <thead>
+                <tr>
+                    <th>Word</th><th>Base</th><th>Gloss</th>
+                </tr>
+                </thead>
+                <tbody>
+                @{ var i = 0; }
+                @foreach (var word in Input.Split(' ')) {
+                    var index = i;
+                    <tr>
+                        <td>@word</td>
+                        <td>
+                            @if (baseWords[index].Length > 0) {
+                                <a href=@($"/word/{baseWords[index]}")>@baseWords[index]</a>
+                            }
+                        </td>
+                        <td>
+                            @{ var steps = glossSteps[index].Reverse().Select(step => $"-{step}"); }
+                            @(glossWords[index])@(string.Join("", steps))
+                        </td>
+                    </tr>
+                    i++;
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+    
+    <div class="peto">Search results for "@Input":</div>
+    @foreach (var result in Results.Results) {
+        <div class="rezulto">
+            <span class="rezulto-vorto">
+                <a href=@($"/word/{result.Spelling}")>@result.Spelling</a>
+            </span>
+            <span class="rezulto-signifo">@result.Meaning</span>
+        </div>
+    }
+}
+
 @code {
 
     [Parameter]
     public string Input { get; set; } = "";
+
     private string? Error { get; set; }
+    private VortoRezulto? Results { get; set; }
 
     protected override async Task OnParametersSetAsync() {
+        Results = await HttpClient.GetFromJsonAsync<VortoRezulto>($"/api/trovi/{Input}");
     }
 
 }

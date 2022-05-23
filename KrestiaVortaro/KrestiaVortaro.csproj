@@ -13,6 +13,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\KrestiaClient.Shared\KrestiaClient.Shared.csproj" />
       <ProjectReference Include="..\KrestiaParser\KrestiaParser.fsproj" />
       <ProjectReference Include="..\KrestiaVortaroBazo\KrestiaVortaroBazo.csproj" />
       <ProjectReference Include="..\TimeranDesegnilo2\TimeranDesegnilo2.csproj" />

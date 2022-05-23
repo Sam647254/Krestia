@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using static KrestiaVortaro.Vortaro;
-
-namespace KrestiaVortaro; 
+﻿namespace KrestiaClient.Shared; 
 
 public class VortoRezulto {
    public string? DecomposedWord { get; set; }
@@ -17,4 +14,8 @@ public class VortoRezulto {
    public VortoRezulto() {
       Results = new List<WordWithMeaning>();
    }
+
+   public bool IsEmpty =>
+      !Results.Any() && DecomposedWord is null && Lemma is null && Gloss is null && DecomposeSteps is null &&
+      GlossWords is null && GlossSteps is null && BaseWords is null && NumberResult is null;
 }

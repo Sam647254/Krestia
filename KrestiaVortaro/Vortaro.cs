@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using KrestiaClient.Shared;
 using KrestiaParser;
 using KrestiaVortaroBazo;
 using Microsoft.FSharp.Core;
@@ -14,7 +15,7 @@ using static KrestiaParser.DictionaryHelper;
 
 namespace KrestiaVortaro; 
 
-public class Vortaro {
+public partial class Vortaro {
    private readonly IImmutableDictionary<char, int> _alfabeto = "pbmvtdnsʃlrjkgwhieauoɒ".Select((l, i) => (l, i))
       .ToImmutableDictionary(p => p.l, p => p.i);
 
@@ -272,16 +273,6 @@ public class Vortaro {
             ? $"Any word under the {InflekciajMallongaĵoj[vorttipo[1]]} inflection"
             : $"{VorttipajMallongaĵoj[vorttipo[0]]} ({InflekciajMallongaĵoj[vorttipo[1]]})"
       };
-   }
-
-   public readonly struct WordWithMeaning {
-      public string Spelling { get; }
-      public string Meaning { get; }
-
-      public WordWithMeaning(string spelling, string meaning) {
-         Spelling = spelling;
-         Meaning = meaning;
-      }
    }
 
    public class KategorioRespondo {
