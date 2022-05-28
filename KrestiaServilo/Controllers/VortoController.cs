@@ -5,9 +5,9 @@ namespace KrestiaServilo.Controllers {
    [ApiController]
    [Route("api")]
    public class VortoController : ControllerBase {
-      private readonly IVortaroService _dictionaryService;
+      private readonly IDictionaryService _dictionaryService;
 
-      public VortoController(IVortaroService dictionaryService) {
+      public VortoController(IDictionaryService dictionaryService) {
          _dictionaryService = dictionaryService;
       }
 

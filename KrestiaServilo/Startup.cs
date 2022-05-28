@@ -22,7 +22,7 @@ public class Startup {
          options.JsonSerializerOptions.Converters.Add(new ArgumentoJsonConverter());
          options.JsonSerializerOptions.Converters.Add(new MalinflektaŜtupoJsonConverter());
       });
-      services.AddSingleton<IVortaroService>(_ => new VortaroService());
+      services.AddSingleton<IDictionaryService>(_ => new DictionaryService());
       services.AddSpaStaticFiles(configuration => {
          configuration.RootPath = "ClientApp/build";
       });

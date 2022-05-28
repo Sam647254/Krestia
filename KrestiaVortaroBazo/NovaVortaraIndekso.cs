@@ -11,7 +11,7 @@ namespace KrestiaVortaroBazo {
       private readonly JsonDictionary _dictionary;
 
       public NovaVortaraIndekso(string eniro) {
-         _dictionary = JsonConvert.DeserializeObject<JsonDictionary>(eniro)!;
+         _dictionary = JsonConvert.DeserializeObject<JsonDictionary>(eniro);
          KreiIndekson();
       }
 

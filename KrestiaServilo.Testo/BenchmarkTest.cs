@@ -6,7 +6,7 @@ namespace KrestiaServilo.Testo;
 public class BenchmarkTest {
    [Test]
    public void BenchmarkDictionaryLoad() {
-      var _ = new VortaroService();
+      var _ = new DictionaryService();
       Assert.Pass();
    }
 }

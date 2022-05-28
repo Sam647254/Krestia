@@ -68,6 +68,7 @@ let inflectionNameOf inflection =
    | _ -> inflection.ToString()
 
 let stemOfWord word =
+   printfn $"Finding stem of {word}"
    let decomposedWord =
       decomposeWord word
       |> Option.defaultWith (fun () -> failwithf $"Cannot decompose %s{word}")

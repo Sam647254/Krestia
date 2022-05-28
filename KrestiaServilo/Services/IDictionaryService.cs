@@ -2,6 +2,6 @@
 
 namespace KrestiaServilo.Services; 
 
-public interface IVortaroService {
+public interface IDictionaryService {
    public Vortaro Instance { get; }
 }

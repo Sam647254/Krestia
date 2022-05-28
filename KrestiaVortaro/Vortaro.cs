@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -15,7 +17,7 @@ using static KrestiaParser.DictionaryHelper;
 
 namespace KrestiaVortaro; 
 
-public partial class Vortaro {
+public class Vortaro {
    private readonly IImmutableDictionary<char, int> _alfabeto = "pbmvtdnsʃlrjkgwhieauoɒ".Select((l, i) => (l, i))
       .ToImmutableDictionary(p => p.l, p => p.i);
 
@@ -201,6 +203,15 @@ public partial class Vortaro {
       var respondo = await httpClient.GetStringAsync(vortaroUrl);
       var indekso = new NovaVortaraIndekso(respondo);
       return new Vortaro(indekso.Indekso.Values.ToImmutableHashSet(), indekso.Kategorioj.ToImmutableHashSet());
+   }
+
+   public static Vortaro CreateFromResource() {
+      var assembly = Assembly.GetExecutingAssembly();
+      var resource = assembly.GetManifestResourceStream("KrestiaVortaro.Data.dictionary.json")!;
+      var reader = new StreamReader(resource);
+      var content = reader.ReadToEnd();
+      var index = new NovaVortaraIndekso(content);
+      return new Vortaro(index.Indekso.Values.ToImmutableHashSet(), index.Kategorioj.ToImmutableHashSet());
    }
 
    private static readonly Dictionary<char, string> InflekciajMallongaĵoj = new() {

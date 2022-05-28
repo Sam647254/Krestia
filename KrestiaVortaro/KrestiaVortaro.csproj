@@ -18,5 +18,9 @@
       <ProjectReference Include="..\KrestiaVortaroBazo\KrestiaVortaroBazo.csproj" />
       <ProjectReference Include="..\TimeranDesegnilo2\TimeranDesegnilo2.csproj" />
     </ItemGroup>
+    
+    <ItemGroup>
+        <EmbeddedResource Include="Data\dictionary.json"/>
+    </ItemGroup>
 
 </Project>
